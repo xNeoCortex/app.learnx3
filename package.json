@@ -1,5 +1,5 @@
 {
-  "name": "chatgpt-003",
+  "name": "app.learnx3",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,14 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/material": "^5.10.17",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.34",
     "@types/react-dom": "18.0.11",
-    "eslint": "8.38.0",
-    "eslint-config-next": "13.3.0",
+    "chart.js": "^4.2.0",
+    "dayjs": "^1.11.7",
+    "firebase": "^9.15.0",
+    "firebase-admin": "^11.4.1",
     "next": "13.3.0",
+    "openai": "^3.2.1",
     "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "react-router-dom": "^6.10.0",
+    "typescript": "5.0.4",
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.1.5"
   }
 }
