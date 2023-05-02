@@ -2,9 +2,10 @@ import React from "react"
 import { Box, Button, Chip, Grid, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 
-function OneLesson({ lesson }) {
+function OneLesson({ lesson, index }) {
   return (
     <Box
+      key={index}
       style={{
         boxShadow:
           "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
@@ -94,7 +95,7 @@ function OneLesson({ lesson }) {
                 }}
               />
             </Box>
-            <Link to={`/class-curriculum/${lesson.docId}`}>
+            <Link to={`/class-curriculum/${lesson.id}`}>
               <Button
                 variant="contained"
                 sx={{
@@ -108,7 +109,7 @@ function OneLesson({ lesson }) {
             </Link>
           </Box>
         </Grid>
-      <img
+        <img
           style={{
             color: "aqua",
             height: 60,
@@ -117,7 +118,7 @@ function OneLesson({ lesson }) {
             right: "15px",
             zIndex: 999,
           }}
-          src="book.svg"
+          src="../book.svg"
           alt="book"
         />
       </Box>

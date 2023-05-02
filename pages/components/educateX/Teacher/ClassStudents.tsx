@@ -1,7 +1,6 @@
 import { Box, Button, Grid } from "@mui/material"
 import React, { useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { studentData } from "../../../data/Data"
+import { useLocation, useParams } from "react-router-dom"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useStoreTemporary } from "../../../zustand"
@@ -10,19 +9,25 @@ import StudentList from "./StudentList"
 import TableRowsIcon from "@mui/icons-material/TableRows"
 import ViewModuleIcon from "@mui/icons-material/ViewModule"
 import ApiServices from "../../../api/ApiServices"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
 
 function ClassStudents() {
+  const { id } = useParams()
   const { sidebarWidth } = useStoreTemporary()
   const [alignment, setAlignment] = React.useState("grid")
   const location = useLocation()
-  const [studentsList, setStudentsList] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
+  const { fetchAllStudents, fetchOneClass } = ApiServices()
+  const { data, isLoading, isError } = fetchAllStudents()
+  const {
+    classInfo,
+    isLoading: classIsLoading,
+    isError: classIsError,
+  } = fetchOneClass(id)
 
-  const { fetchAllStudents } = ApiServices()
-
-  React.useEffect(() => {
-    fetchAllStudents(setLoading, setStudentsList)
-  }, [])
+  const studentList = data?.filter((item) =>
+    classInfo?.students?.includes(item.uid)
+  )
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -37,6 +42,8 @@ function ClassStudents() {
       : setAlignment("grid")
   }, [])
 
+  if (isLoading || classIsLoading) return <LoadingPage />
+  if (isError || classIsError) return <ErrorPage />
   return (
     <div
       style={{
@@ -68,7 +75,7 @@ function ClassStudents() {
               fontWeight: 600,
             }}
           >
-            {studentData.length} Students
+            {studentList?.length ?? 0} Students
           </Button>
         </h3>
         <ToggleButtonGroup
@@ -96,9 +103,9 @@ function ClassStudents() {
             marginLeft: "10px",
           }}
         >
-          {studentsList?.map((item, index) => (
+          {studentList?.map((item, index) => (
             <div key={index}>
-              <StudentCard details={item} />
+              <StudentCard studentDetails={item} />
             </div>
           ))}
         </div>
@@ -106,7 +113,7 @@ function ClassStudents() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Grid container>
             <Grid item xs={12}>
-              <StudentList />
+              <StudentList data={studentList} />
             </Grid>
           </Grid>
         </div>

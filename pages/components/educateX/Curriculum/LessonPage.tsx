@@ -6,20 +6,26 @@ import { WritingData } from "../../../data/WritingData"
 import { TestData } from "../../../data/TestData"
 import { WritingContainer } from "../Components/WritingContainer"
 import { TestContainer } from "../Components/TestContainer"
-import { useStore } from "../../../zustand"
 import MenuBookIcon from "@mui/icons-material/MenuBook"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
+import ApiServices from "@/pages/api/ApiServices"
 
 function LessonPage(props) {
   const { id } = useParams()
-  const { lessonState } = useStore((state) => state)
+  const { fetchLessons } = ApiServices()
+  const { data: lessonState, isLoading, isError } = fetchLessons()
 
-  const currentLesson = lessonState.find((item) => item.docId === id)
-  const currentTest = TestData.find(
-    (item) => item.topic_id === currentLesson.topic_id
+  const currentLesson = lessonState?.find((item) => item.id === id)
+  const currentTest = TestData?.find(
+    (item) => item.topic_id === currentLesson?.topic_id
   )
-  const currentWriting = WritingData.find(
+  const currentWriting = WritingData?.find(
     (item) => item.id === currentLesson?.topic_id
   )
+
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box display="flex" sx={{ position: "relative", width: "100%" }}>
@@ -99,8 +105,9 @@ function LessonPage(props) {
                 alignItems: "center",
               }}
             >
-              {["Class A", `${currentLesson?.level}`].map((item) => (
+              {["Class A", `${currentLesson?.level}`].map((item, index) => (
                 <p
+                  key={index}
                   style={{
                     fontWeight: 500,
                     padding: "3px 10px",
@@ -143,7 +150,7 @@ function LessonPage(props) {
             padding: "10px",
           }}
         >
-          <a href={currentLesson.teach_material} target="_blank">
+          <a href={currentLesson?.teach_material} target="_blank">
             <Button
               variant="contained"
               sx={{

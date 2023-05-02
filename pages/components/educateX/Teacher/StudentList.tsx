@@ -10,20 +10,8 @@ import { Avatar, Button } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import { Link } from "react-router-dom"
-import LoadingPage from "../LoadingPage"
-import ApiServices from "../../../api/ApiServices"
 
-export default function StudentList() {
-  const [studentsList, setStudentsList] = React.useState([])
-  const [loading, setLoading] = React.useState(false)
-  const { fetchAllStudents } = ApiServices()
-
-  React.useEffect(() => {
-    fetchAllStudents(setLoading, setStudentsList)
-  }, [])
-
-  if (loading) return <LoadingPage />
-
+export default function StudentList({ data }) {
   return (
     <Box sx={{ marginTop: "0px" }}>
       <TableContainer
@@ -59,16 +47,13 @@ export default function StudentList() {
               <TableCell
                 style={{ color: "white", fontWeight: 600, fontSize: 15 }}
               >
-                Class
+                Profile
               </TableCell>
-              <TableCell
-                style={{ color: "white", fontWeight: 600, fontSize: 15 }}
-              ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentsList?.length > 0 &&
-              studentsList
+            {data?.length > 0 &&
+              data
                 ?.sort((a, b) => {
                   if (a.name > b.name) return 1
                   if (a.name < b.name) return -1
@@ -76,7 +61,7 @@ export default function StudentList() {
                 })
                 ?.map((row, index) => (
                   <TableRow
-                    key={row.docId}
+                    key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell
@@ -127,9 +112,8 @@ export default function StudentList() {
                         {row?.performance}
                       </p>
                     </TableCell>
-                    <TableCell>Class A</TableCell>
                     <TableCell>
-                      <Link to={`/student/${row.id}`} state={{ student: row }}>
+                      <Link to={`/student/${row.uid}`} state={{ student: row }}>
                         <Button
                           style={{
                             background: "#5f6ac4",

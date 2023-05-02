@@ -8,24 +8,21 @@ import ExplainAI from "../ExplainAI"
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt"
 import { useLocation } from "react-router"
 import ApiServices from "../../../api/ApiServices"
-import { useEffect, useState } from "react"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
 
 function Statistics({ displayGraphs }) {
   const location = useLocation()
-  const { fetchAllStudents } = ApiServices()
-  const [studentsList, setStudentsList] = useState([])
-  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    fetchAllStudents(setLoading, setStudentsList)
-  }, [])
+  const { fetchAllStudents } = ApiServices()
+  const { data, isLoading, isError } = fetchAllStudents()
 
   // Data to display
-  const data = [
+  const dataSet = [
     {
       name: "# of Students",
       color: "#e2e6fb4d",
-      number: studentsList?.length,
+      number: data?.length,
       icon: (
         <SchoolRoundedIcon
           style={{ width: 50, height: 50, color: "rgb(95, 97, 196)" }}
@@ -55,7 +52,12 @@ function Statistics({ displayGraphs }) {
       ),
     },
   ]
-  const studentPerformance = data.map((item) => item.name + "=" + item.number)
+  const studentPerformance = dataSet.map(
+    (item) => item.name + "=" + item.number
+  )
+
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box sx={{ marginTop: "20px" }}>
@@ -92,8 +94,9 @@ function Statistics({ displayGraphs }) {
           width: "calc(100% - 10px)",
         }}
       >
-        {data.map((item) => (
+        {dataSet.map((item, index) => (
           <div
+            key={index}
             style={{
               padding: "20px 10px",
               //   width: 300,
@@ -149,7 +152,7 @@ function Statistics({ displayGraphs }) {
                   "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
               }}
             >
-              <DoughnutChart dataClass={data} />
+              <DoughnutChart dataClass={dataSet} />
             </Box>
           </Grid>
           <Grid

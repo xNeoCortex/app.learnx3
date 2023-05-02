@@ -1,16 +1,19 @@
-import create from 'zustand'
+import {
+    create
+} from 'zustand'
 import {
     persist
 } from 'zustand/middleware'
 
 
 const useStoreTemporary = create((set) => ({
-    snackbarOpen: false,
-    setSnackbarOpen: () => set({
-        snackbarOpen: true
+    class_id: null,
+    setClassId: (class_id) => set({
+        class_id: class_id
     }),
-    setSnackbarOpenFalse: (open) => set({
-        snackbarOpen: open
+    classInfo: null,
+    setClassInfo: (class_) => set({
+        classInfo: class_
     }),
     sidebarWidth: 300,
     setSidebarWidth: (width) => set({
@@ -21,7 +24,7 @@ const useStoreTemporary = create((set) => ({
 
 const useStore = create(
     persist(
-        (set, get) => ({
+        (set) => ({
             lessonState: [],
             setLessonState: (session) => set((state) => ({
                 lessonState: session

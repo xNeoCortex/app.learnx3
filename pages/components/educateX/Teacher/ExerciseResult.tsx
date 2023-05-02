@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -8,15 +7,15 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
-import ApiServices from "../../../api/ApiServices"
-import { useEffect, useState } from "react"
 import ExplainAI from "../ExplainAI"
 import { BarChart } from "../Components/BarChart"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
+import ApiServices from "@/pages/api/ApiServices"
 
 export default function ExerciseResult({ id }) {
   const { fetchTestResult } = ApiServices()
-  const [loading, setLoading] = useState(false)
-  const [testResult, setTestResult] = useState([])
+  const { testResult, isLoading, isError } = fetchTestResult(id)
 
   // Titles
   const title = ["Test", "Topic", "Test Score"]
@@ -30,13 +29,8 @@ export default function ExerciseResult({ id }) {
   const studentResult = testResult?.map((item) => item.result)
   const testTopics = testResult?.map((item) => item.topic)
 
-  useEffect(() => {
-    if (id) {
-      fetchTestResult(setLoading, setTestResult, id)
-    }
-  }, [])
-
-  // if (loading) return <LoadingPage />
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box sx={{ marginTop: "0px", display: "flex", padding: 0 }}>
@@ -59,8 +53,9 @@ export default function ExerciseResult({ id }) {
                 color: "white",
               }}
             >
-              {title.map((item) => (
+              {title.map((item, index) => (
                 <TableCell
+                  key={index}
                   style={{
                     color: "white",
                     fontWeight: 600,
@@ -85,7 +80,7 @@ export default function ExerciseResult({ id }) {
                 })
                 ?.map((row, index) => (
                   <TableRow
-                    key={row.id}
+                    key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell

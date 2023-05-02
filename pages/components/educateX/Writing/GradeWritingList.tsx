@@ -1,3 +1,4 @@
+import React from "react"
 import {
   Avatar,
   Box,
@@ -11,42 +12,20 @@ import {
   TableRow,
 } from "@mui/material"
 import Paper from "@mui/material/Paper"
-import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useStoreTemporary } from "../../../zustand"
-import { db, auth } from "../../../firebaseX"
-import { collection, query, where, getDocs } from "firebase/firestore"
 import LoadingPage from "../LoadingPage"
+import ApiServices from "@/pages/api/ApiServices"
+import ErrorPage from "../ErrorPage"
 
 function GradeWritingList() {
-  const { sidebarWidth } = useStoreTemporary()
-  const [submittedEssays, setSubmittedEssays] = useState([])
-  const [loading, setLoading] = React.useState(false)
+  const { sidebarWidth, classInfo } = useStoreTemporary()
 
-  const FetchEssayResults = async () => {
-    setLoading(true)
-    const essays = []
-    try {
-      const q = query(
-        collection(db, "essayResult"),
-        where("result", "==", null)
-      )
-      const querySnapshot = await getDocs(q)
-      querySnapshot.forEach((doc) => {
-        essays.push({ ...doc.data(), docId: doc.id })
-      })
-      setSubmittedEssays(essays)
-      setLoading(false)
-    } catch (error) {
-      console.log("fetchData :>> ", error)
-    }
-  }
+  const { fetchEssayResults } = ApiServices()
+  const { submittedEssays, isLoading, isError } = fetchEssayResults()
 
-  useEffect(() => {
-    FetchEssayResults()
-  }, [])
-
-  if (loading) return <LoadingPage />
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <div
@@ -79,7 +58,7 @@ function GradeWritingList() {
               fontWeight: 600,
             }}
           >
-            {submittedEssays.length} essays to mark
+            {submittedEssays?.length} essays to mark
           </Button>
         </h3>
       </Box>
@@ -145,6 +124,9 @@ function GradeWritingList() {
                   <TableBody>
                     {submittedEssays?.length > 0 &&
                       submittedEssays
+                        ?.filter((item) =>
+                          classInfo?.students?.includes(item.student_id)
+                        )
                         ?.sort((a, b) => {
                           if (a.name > b.name) return 1
                           if (a.name < b.name) return -1
@@ -152,7 +134,7 @@ function GradeWritingList() {
                         })
                         ?.map((row, index) => (
                           <TableRow
-                            key={row.docId}
+                            key={index}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
@@ -198,7 +180,7 @@ function GradeWritingList() {
                             <TableCell>Class A</TableCell>
                             <TableCell>
                               <Link
-                                to={`/grade-writing/${row?.docId}`}
+                                to={`/grade-writing/${row?.uid}`}
                                 state={{ student: row }}
                               >
                                 <Button

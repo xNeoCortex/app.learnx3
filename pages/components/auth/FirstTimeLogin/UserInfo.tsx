@@ -38,10 +38,10 @@ export default function UserInfo() {
         age: age,
         gender: gender,
         phone: phone,
-        teachesClass: "Class A",
         university: university,
         country: "UK",
         role: "teacher",
+        permit: false,
       })
 
       setUserInfo({
@@ -51,12 +51,11 @@ export default function UserInfo() {
         age: age,
         gender: gender,
         phone: phone,
-        teachesClass: "Class A",
         university: university,
         country: "UK",
         role: "teacher",
+        permit: false,
       })
-      console.log("Document written with ID: ", user)
     } catch (e) {
       console.error("Error adding document: ", e)
     }
@@ -71,7 +70,6 @@ export default function UserInfo() {
         displayName: name,
       })
         .then((user) => {
-          // Signed in
           addUser(
             auth.currentUser.uid,
             auth.currentUser.displayName,

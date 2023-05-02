@@ -7,16 +7,25 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import FormControl from "@mui/material/FormControl"
 import { useState } from "react"
 import BackButton from "../Components/BackButton"
-import { addDoc, collection } from "firebase/firestore"
-import { auth, db } from "../../../firebaseX"
+import { auth } from "../../../firebaseX"
+import ApiPostServices from "@/pages/api/ApiPostServices"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
+import { v4 as uuidv4 } from "uuid"
 
 function Test() {
   const { id } = useParams()
+  const { submitTest } = ApiPostServices()
+  const { mutate, isLoading, isError } = submitTest()
   const [score, setScore] = useState(0)
   const [show, setShow] = useState(false)
   const [answersX, setAnswers] = useState([])
 
   const currentTest = TestData.filter((test) => +test.topic_id === +id)
+  const answers = answersX.map((answer) => answer.answer)
+  const correctAnswers = currentTest.filter((item) =>
+    answers.includes(item.answer)
+  )
 
   const handleRadioChange = (e, id) => {
     const answerY = { id: id, answer: e.target?.value.trim() }
@@ -30,29 +39,23 @@ function Test() {
     }
   }
 
-  async function handleSubmit() {
-    const answers = answersX.map((answer) => answer.answer)
-    const correctAnswers = currentTest.filter((item) =>
-      answers.includes(item.answer)
-    )
+  function handleSubmit() {
     const score = (correctAnswers.length / answersX.length) * 100
     setShow(true)
     setScore(score)
 
-    try {
-      await addDoc(collection(db, "testResult"), {
-        topic: currentTest[0].topic,
-        topic_id: currentTest[0].topic_id,
-        level: "intermediate",
-        result: score,
-        student_id: auth.currentUser.uid,
-        student_name: auth.currentUser.displayName,
-      })
-      // setEssay("")
-    } catch (e) {
-      console.error("Error adding document: ", e)
-    }
+    mutate({
+      topic: currentTest[0].topic,
+      topic_id: currentTest[0].topic_id,
+      level: "intermediate",
+      result: score,
+      student_id: auth.currentUser.uid,
+      student_name: auth.currentUser.displayName,
+    })
   }
+
+  if (isLoading) <LoadingPage />
+  if (isError) <ErrorPage />
 
   return (
     <Box sx={{ marginTop: "20px", flexGrow: 1 }}>

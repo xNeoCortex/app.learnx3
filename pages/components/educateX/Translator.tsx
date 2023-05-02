@@ -17,7 +17,7 @@ function Translator() {
   const [action, setAction] = useState("Translate")
 
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
   })
 
   const openAI = new OpenAIApi(configuration)
@@ -26,7 +26,7 @@ function Translator() {
   const [loading, setLoading] = useState(false)
 
   const handleClick = async () => {
-    let promptSentence
+    let promptSentence: string
     if (action === "Translate") {
       promptSentence = `Translate the following word ${prompt} into russian`
     } else if (action === "Synonyms") {
@@ -36,13 +36,30 @@ function Translator() {
     }
     setLoading(true)
     try {
-      const response = await openAI.createCompletion({
-        model: "text-davinci-003",
-        prompt: promptSentence,
+      const response = await openAI.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: "You are english language translator",
+          },
+          {
+            role: "user",
+            content: "translate dog into russian language",
+          },
+          {
+            role: "assistant",
+            content: `собака`,
+          },
+          {
+            role: "user",
+            content: promptSentence,
+          },
+        ],
         temperature: 0.5,
         max_tokens: 30,
       })
-      setResult(response.data.choices[0].text)
+      setResult(response.data.choices[0].message.content)
       setLoading(false)
     } catch (error) {
       console.error(error)

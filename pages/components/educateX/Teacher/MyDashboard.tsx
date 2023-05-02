@@ -1,12 +1,12 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Lessons from "../Components/Lessons"
 import Statistics from "../Components/Statistics"
 import ClassStudents from "./ClassStudents"
 import Navbar from "../Navbar"
-import { useStoreUser } from "@/pages/zustand"
+import { useStoreUser, useStoreTemporary } from "@/pages/zustand"
 import Translator from "../Translator"
 import TestResult from "../Student/TestResult"
-import LoadingPage from "../LoadingPage"
+import { useParams } from "react-router-dom"
 
 function MyDashboard() {
   const { userInfo } = useStoreUser()
@@ -28,9 +28,7 @@ function MyDashboard() {
               <Statistics displayGraphs={false} />
               <ClassStudents />
             </>
-          ) : (
-            <LoadingPage />
-          )}
+          ) : null}
         </div>
       </div>
     </div>

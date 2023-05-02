@@ -6,9 +6,6 @@ import { useLocation } from "react-router-dom"
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft"
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
-import ClassIcon from "@mui/icons-material/Class"
-// import logo from "../../../public/logo.png"
-// import miniLogo from "../../../public/logo.png"
 import BarChartIcon from "@mui/icons-material/BarChart"
 import {
   IconButton,
@@ -27,13 +24,14 @@ import CastForEducationIcon from "@mui/icons-material/CastForEducation"
 import PersonIcon from "@mui/icons-material/Person"
 import { useStoreTemporary, useStoreUser } from "../../zustand"
 import VirtualTeacherPopup from "./VirtualTeacherPopup"
+import { userInfo } from "os"
 
-function Sidebar() {
+function Sidebar({ classId }) {
   const { userInfo } = useStoreUser()
   const location = useLocation()
   const [hide, setHide] = useState(true)
   const [isShown, setIsShown] = useState(false)
-  const { setSidebarWidth } = useStoreTemporary()
+  const { setSidebarWidth, class_id } = useStoreTemporary()
 
   return (
     <Box
@@ -52,7 +50,10 @@ function Sidebar() {
       onMouseEnter={() => setIsShown(true)}
       onMouseLeave={() => setIsShown(false)}
     >
-      <Link to="/" style={{ display: "flex", marginLeft: !hide && 10 }}>
+      <Link
+        to={userInfo.role === "admin" ? "/" : `/class/${classId}`}
+        style={{ display: "flex", marginLeft: !hide && 10 }}
+      >
         {hide ? (
           <img
             src="/logo.png"
@@ -94,7 +95,7 @@ function Sidebar() {
       >
         <List>
           {userInfo?.role === "teacher" ? (
-            data.map((item, index) => (
+            dataTeacher(classId)?.map((item, index) => (
               <Link key={index} to={item.link}>
                 <ListItem disablePadding>
                   <ListItemButton
@@ -118,7 +119,7 @@ function Sidebar() {
             ))
           ) : userInfo?.role === "student" ? (
             <>
-              {dataStudent.map((item, index) => (
+              {dataStudent(classId)?.map((item, index) => (
                 <Link key={index} to={item.link}>
                   <ListItem disablePadding>
                     <ListItemButton
@@ -168,7 +169,7 @@ function Sidebar() {
               </Link>
             </>
           ) : userInfo?.role === "admin" ? (
-            dataAdmin.map((item, index) => (
+            dataAdmin(class_id).map((item, index) => (
               <>
                 <Link key={index} to={item.link}>
                   <ListItem disablePadding>
@@ -198,9 +199,6 @@ function Sidebar() {
             ""
           )}
         </List>
-        {/* <List>
-          <ListItem></ListItem>
-        </List> */}
       </Box>
       <VirtualTeacherPopup />
     </Box>
@@ -209,116 +207,127 @@ function Sidebar() {
 
 export default Sidebar
 
-const data = [
-  {
-    name: "Dashboard",
-    link: "/",
-    icon: <HomeIcon />,
-  },
-  {
-    name: "Curriculum",
-    link: "/class-curriculum",
-    icon: <CastForEducationIcon />,
-  },
-  {
-    name: "All Students",
-    link: "/class-students",
-    icon: <PersonIcon />,
-  },
-  {
-    name: "Class Statistics",
-    link: "/class-statistics",
-    icon: <QueryStatsIcon />,
-  },
-  {
-    name: "Study Resources",
-    link: "/resources",
-    icon: <FolderSpecialIcon />,
-  },
-  {
-    name: "Mark Writing",
-    link: "/grade-writing",
-    icon: <SpellcheckIcon />,
-  },
-]
+const dataTeacher = (classId) => {
+  return [
+    {
+      name: "Dashboard",
+      link: `/class/${classId}`,
+      icon: <HomeIcon />,
+    },
+    {
+      name: "Curriculum",
+      link: "/class-curriculum",
+      icon: <CastForEducationIcon />,
+    },
+    {
+      name: "All Students",
+      link: `/class/${classId}/class-students`,
+      icon: <PersonIcon />,
+    },
+    {
+      name: "Class Statistics",
+      link: "/class-statistics",
+      icon: <QueryStatsIcon />,
+    },
+    {
+      name: "Study Resources",
+      link: "/resources",
+      icon: <FolderSpecialIcon />,
+    },
+    {
+      name: "Mark Writing",
+      link: "/grade-writing",
+      icon: <SpellcheckIcon />,
+    },
+  ]
+}
 
-const dataStudent = [
-  {
-    name: "Dashboard",
-    link: "/",
-    icon: <HomeIcon />,
-  },
-  {
-    name: "Curriculum",
-    link: "/class-curriculum",
-    icon: <CastForEducationIcon />,
-  },
-  {
-    name: "Study Resources",
-    link: "/resources",
-    icon: <FolderSpecialIcon />,
-  },
-  {
-    name: "Tests",
-    link: "/test",
-    icon: <QuizIcon />,
-  },
-  {
-    name: "Writing",
-    link: "/writing",
-    icon: <HistoryEduIcon />,
-  },
-  {
-    name: "Professor Johny",
-    link: "/virtual-teacher",
-    icon: <AdbIcon />,
-  },
-]
+const dataStudent = (classId) => {
+  return [
+    {
+      name: "Dashboard",
+      link: `/class/${classId}`,
+      icon: <HomeIcon />,
+    },
+    {
+      name: "Curriculum",
+      link: "/class-curriculum",
+      icon: <CastForEducationIcon />,
+    },
+    {
+      name: "Study Resources",
+      link: "/resources",
+      icon: <FolderSpecialIcon />,
+    },
+    {
+      name: "Tests",
+      link: "/test",
+      icon: <QuizIcon />,
+    },
+    {
+      name: "Writing",
+      link: "/writing",
+      icon: <HistoryEduIcon />,
+    },
+    {
+      name: "Professor Johny",
+      link: "/virtual-teacher",
+      icon: <AdbIcon />,
+    },
+  ]
+}
 
-const dataAdmin = [
-  {
-    name: "Dashboard",
-    link: "/",
-    icon: <HomeIcon />,
-  },
-  {
-    name: "Curriculum",
-    link: "/class-curriculum",
-    icon: <CastForEducationIcon />,
-  },
-  {
-    name: "All Students",
-    link: "/class-students",
-    icon: <PersonIcon />,
-  },
-  {
-    name: "Class Statistics",
-    link: "/class-statistics",
-    icon: <QueryStatsIcon />,
-  },
-  {
-    name: "Study Resources",
-    link: "/resources",
-    icon: <FolderSpecialIcon />,
-  },
-  {
-    name: "Tests",
-    link: "/test",
-    icon: <QuizIcon />,
-  },
-  {
-    name: "Writing",
-    link: "/writing",
-    icon: <HistoryEduIcon />,
-  },
-  {
-    name: "Professor Johny",
-    link: "/virtual-teacher",
-    icon: <AdbIcon />,
-  },
-  {
-    name: "Mark Writing",
-    link: "/grade-writing",
-    icon: <SpellcheckIcon />,
-  },
-]
+const dataAdmin = (class_id) => {
+  return [
+    {
+      name: "Dashboard",
+      link: "/",
+      icon: <CastForEducationIcon />,
+    },
+    {
+      name: "Class",
+      link: "/class/:id",
+      icon: <HomeIcon />,
+    },
+    {
+      name: "Curriculum",
+      link: "/class-curriculum",
+      icon: <CastForEducationIcon />,
+    },
+    {
+      name: "All Students",
+      link: `/class/${class_id}/class-students`,
+      icon: <PersonIcon />,
+    },
+    {
+      name: "Class Statistics",
+      link: "/class-statistics",
+      icon: <QueryStatsIcon />,
+    },
+    {
+      name: "Study Resources",
+      link: "/resources",
+      icon: <FolderSpecialIcon />,
+    },
+    {
+      name: "Tests",
+      link: "/test",
+      icon: <QuizIcon />,
+    },
+    {
+      name: "Writing",
+      link: "/writing",
+      icon: <HistoryEduIcon />,
+    },
+    {
+      name: "Professor Johny",
+      link: "/virtual-teacher",
+      icon: <AdbIcon />,
+    },
+    {
+      name: "Mark Writing",
+      link: "/grade-writing",
+      icon: <SpellcheckIcon />,
+    },
+  ]
+}

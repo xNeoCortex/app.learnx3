@@ -1,24 +1,20 @@
 import { Avatar, Box } from "@mui/material"
 import { useParams } from "react-router-dom"
-import { BarChart } from "../../Components/BarChart"
 import ExerciseResult from "../ExerciseResult"
 import BackButton from "../../Components/BackButton"
-import { useEffect, useState } from "react"
 import LoadingPage from "../../LoadingPage"
 import WritingResult from "../../Writing/WritingResult"
 import ApiServices from "../../../../api/ApiServices"
+import ErrorPage from "../../ErrorPage"
 
 function StudentProfile() {
   const { id } = useParams()
+
   const { fetchStudentData } = ApiServices()
-  const [loading, setLoading] = useState(false)
-  const [student, setStudent] = useState(null)
+  const { data, isLoading, isError } = fetchStudentData(id)
 
-  useEffect(() => {
-    fetchStudentData(setLoading, setStudent, id)
-  }, [])
-
-  // if (loading) return <LoadingPage />
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box display="flex" sx={{ position: "relative", width: "100%" }}>
@@ -75,7 +71,7 @@ function StudentProfile() {
                 marginBottom: 15,
               }}
             >
-              {student?.name}
+              {data?.name}
             </h4>
             <Box
               sx={{
@@ -84,8 +80,9 @@ function StudentProfile() {
                 alignItems: "center",
               }}
             >
-              {["Class A", "English Intermediate"].map((item) => (
+              {["Class A", "English Intermediate"].map((item, index) => (
                 <p
+                key={index}
                   style={{
                     fontWeight: 500,
                     padding: "3px 10px",
@@ -108,15 +105,15 @@ function StudentProfile() {
                   background: "white",
                   fontSize: 12,
                   color:
-                    student?.performance == "Struggling"
+                    data?.performance == "Struggling"
                       ? "rgb(226, 109, 128)"
-                      : student?.performance == "Doing Great"
+                      : data?.performance == "Doing Great"
                       ? "#5fc497"
                       : "#41b6ff",
                   border:
-                    student?.performance == "Struggling"
+                    data?.performance == "Struggling"
                       ? "1px solid rgb(226, 109, 128)"
-                      : student?.performance == "Doing Great"
+                      : data?.performance == "Doing Great"
                       ? "1px solid #5fc497"
                       : "1px solid #41b6ff",
                   maxWidth: "191px",
@@ -124,7 +121,7 @@ function StudentProfile() {
                   marginRight: 10,
                 }}
               >
-                {student?.performance}
+                {data?.performance}
               </p>
             </Box>
           </Box>

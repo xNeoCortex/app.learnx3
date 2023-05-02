@@ -6,64 +6,48 @@ import {
   TextareaAutosize,
   Typography,
 } from "@mui/material"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import ExplainAI from "../ExplainAI"
 import BackButton from "../Components/BackButton"
-import { doc, getDoc, updateDoc } from "firebase/firestore"
-import { db } from "../../../firebaseX"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import LoadingPage from "../LoadingPage"
 import { useStoreUser } from "../../../zustand"
+import ErrorPage from "../ErrorPage"
+import ApiServices from "@/pages/api/ApiServices"
+import ApiPostServices from "@/pages/api/ApiPostServices"
 
 function GradeWritingPage(props) {
   const { id } = useParams()
   const { userInfo } = useStoreUser()
-  const navigate = useNavigate()
-  const [student, setStudent] = useState(null)
-  const [loading, setLoading] = useState(false)
   const [feedback, setFeedback] = useState("")
   const [mark, setMark] = useState(null)
   const [successMessage, setSuccessMessage] = useState(false)
 
-  const docRef = doc(db, "essayResult", id)
+  // add essay feedback
+  const { submitFeedback } = ApiPostServices()
+  const {
+    mutate,
+    isLoading: isLoadingFeedback,
+    isError: isErrorFeedback,
+  } = submitFeedback(id)
 
-  const submitFeedback = async () => {
-    try {
-      const response = await updateDoc(docRef, {
-        result: mark,
-        feedback: feedback,
-      })
-      setFeedback("")
-      setMark(null)
-      setSuccessMessage(true)
-    } catch (error) {
-      console.log("error :>> ", error)
-    }
+  const submitFeedbackFunc = () => {
+    mutate({
+      result: mark,
+      feedback: feedback,
+    })
+    setFeedback("")
+    setMark(null)
+    setSuccessMessage(true)
   }
 
-  const fetchEssay = async () => {
-    setLoading(true)
-    try {
-      const docSnap = await getDoc(docRef)
+  // fetch essay info
+  const { fetchEssayInfo } = ApiServices()
+  const { essayInfo, isLoading, isError } = fetchEssayInfo(id)
 
-      if (docSnap.exists()) {
-        setStudent(docSnap.data())
-        setLoading(false)
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!")
-        navigate("/error")
-      }
-    } catch (error) {
-      console.log("error :>> ", error)
-    }
-  }
-
-  useEffect(() => {
-    fetchEssay()
-  }, [])
-
-  if (loading) return <LoadingPage />
+  // manage loading and error
+  if (isLoading || isLoadingFeedback) return <LoadingPage />
+  if (isError || isErrorFeedback) return <ErrorPage />
 
   return (
     <Box display="flex" sx={{ position: "relative", width: "100%" }}>
@@ -119,7 +103,7 @@ function GradeWritingPage(props) {
                 marginBottom: 15,
               }}
             >
-              {student?.student_name || "No student name"}
+              {essayInfo?.data()?.student_name || "No student name"}
             </h4>
             <Box
               sx={{
@@ -128,7 +112,7 @@ function GradeWritingPage(props) {
                 alignItems: "center",
               }}
             >
-              {["Class A", `${student?.level}`].map((item, index) => (
+              {["Class A", `${essayInfo?.data()?.level}`].map((item, index) => (
                 <p
                   key={index}
                   style={{
@@ -178,14 +162,14 @@ function GradeWritingPage(props) {
                 mb: "10px",
               }}
             >
-              Essay Topic: {student?.topic}
+              Essay Topic: {essayInfo?.data()?.topic}
             </Typography>
             <Typography
               sx={{
                 padding: "0px 10px",
               }}
             >
-              {student?.essay}
+              {essayInfo?.data()?.essay}
             </Typography>
           </Box>
           <Box
@@ -199,7 +183,7 @@ function GradeWritingPage(props) {
               color: "black",
             }}
           >
-            {student?.result?.length > 0 ? (
+            {essayInfo?.data()?.result?.length > 0 ? (
               <>
                 <Typography
                   sx={{
@@ -219,7 +203,9 @@ function GradeWritingPage(props) {
                 >
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: student?.feedback.replace(/\n/g, "<br />"),
+                      __html: essayInfo
+                        ?.data()
+                        ?.feedback.replace(/\n/g, "<br />"),
                     }}
                   />
                 </Typography>
@@ -231,7 +217,7 @@ function GradeWritingPage(props) {
                     fontWeight: 600,
                   }}
                 >
-                  Your mark is {student?.result}/100
+                  Your mark is {essayInfo?.data()?.result}/100
                 </Typography>
               </>
             ) : (
@@ -254,7 +240,9 @@ function GradeWritingPage(props) {
               <>
                 <Box sx={{ width: "100%" }}>
                   <ExplainAI
-                    prompt={`You are english teacher. Check the essay of student with Intermediate level of english and give him detailed feedback on his mistakes. This is the essay ${student?.essay}. Suggest on which topic a student should focus to improve his weakness based on his essay. Also, give student grade out of 100%.`}
+                    prompt={`You are english teacher. Check the essay of essayInfo with Intermediate level of english and give him detailed feedback on his mistakes. This is the essay ${
+                      essayInfo?.data()?.essay
+                    }. Suggest on which topic a student should focus to improve his weakness based on his essay. Also, give student grade out of 100%.`}
                     buttonTitle="Get Feedback and Grade"
                     bg="#bdbdbd33"
                   />
@@ -300,7 +288,7 @@ function GradeWritingPage(props) {
                     />
                     <Button
                       disabled={feedback?.length < 1 || mark?.length < 1}
-                      onClick={submitFeedback}
+                      onClick={submitFeedbackFunc}
                       variant="contained"
                       sx={{ width: "100%", background: "rgb(95, 97, 196)" }}
                     >

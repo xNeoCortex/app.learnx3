@@ -1,7 +1,8 @@
 import { Avatar, Box, Button } from "@mui/material"
+import { memo } from "react"
 import { Link } from "react-router-dom"
 
-function StudentCard({ details }) {
+const StudentCard = memo<{ studentDetails: any }>(({ studentDetails }) => {
   return (
     <div
       style={{
@@ -36,23 +37,23 @@ function StudentCard({ details }) {
             marginBottom: 8,
           }}
         >
-          {details.name}
+          {studentDetails.name}
         </h5>
         <p
           style={{
             color:
-              details.performance == "Struggling"
+              studentDetails.performance == "Struggling"
                 ? "rgb(226, 109, 128)"
-                : details.performance == "Doing Great"
+                : studentDetails.performance == "Doing Great"
                 ? "#5fc497"
                 : "#41b6ff",
             fontWeight: 600,
             padding: "3px 10px",
             background: "white",
             border:
-              details.performance == "Struggling"
+              studentDetails.performance == "Struggling"
                 ? "2px solid rgb(226, 109, 128)"
-                : details.performance == "Doing Great"
+                : studentDetails.performance == "Doing Great"
                 ? "2px solid #5fc497"
                 : "2px solid #41b6ff",
             borderRadius: 12,
@@ -60,11 +61,14 @@ function StudentCard({ details }) {
             fontSize: "13px",
           }}
         >
-          {details.performance}
+          {studentDetails.performance}
         </p>
       </Box>
       <Box display="flex" alignItems="center" flexDirection="column">
-        <Link to={`/student/${details.id}`} state={{ student: details }}>
+        <Link
+          to={`/student/${studentDetails.uid}`}
+          state={{ student: studentDetails }}
+        >
           <Button
             variant="contained"
             style={{
@@ -82,6 +86,5 @@ function StudentCard({ details }) {
       </Box>
     </div>
   )
-}
-
+})
 export default StudentCard

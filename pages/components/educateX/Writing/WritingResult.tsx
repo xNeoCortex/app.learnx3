@@ -8,15 +8,15 @@ import Paper from "@mui/material/Paper"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box, Button } from "@mui/material"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
 import ApiServices from "../../../api/ApiServices"
 import ExplainAI from "../ExplainAI"
 import { BarChart } from "../Components/BarChart"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
 
 export default function WritingResult({ id }) {
-  const { fetchEssay } = ApiServices()
-  const [loading, setLoading] = useState(false)
-  const [writingResult, setWritingResult] = useState([])
+  const { fetchStudentEssayResult } = ApiServices()
+  const { writingResult, isLoading, isError } = fetchStudentEssayResult(id)
 
   // Title
   const title = ["Topic", "Writing Mark", "Feedback "]
@@ -30,13 +30,8 @@ export default function WritingResult({ id }) {
   const studentResult = writingResult?.map((item) => item.result)
   const writingTopics = writingResult?.map((item) => item.topic)
 
-  useEffect(() => {
-    if (id) {
-      fetchEssay(setLoading, setWritingResult, id)
-    }
-  }, [])
-
-  // if (loading) return <LoadingPage />
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box sx={{ marginTop: "0px", display: "flex", padding: 0 }}>
@@ -59,8 +54,9 @@ export default function WritingResult({ id }) {
                 color: "white",
               }}
             >
-              {title.map((item) => (
+              {title.map((item, index) => (
                 <TableCell
+                  key={index}
                   style={{
                     color: "white",
                     fontWeight: 600,
@@ -79,7 +75,7 @@ export default function WritingResult({ id }) {
             {writingResult?.length > 0 &&
               writingResult?.map((row, index) => (
                 <TableRow
-                  key={row.id}
+                  key={index}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell
@@ -134,7 +130,7 @@ export default function WritingResult({ id }) {
                       textAlign: "center",
                     }}
                   >
-                    <Link to={`/grade-writing/${row?.docId}`}>
+                    <Link to={`/grade-writing/${row?.uid}`}>
                       <Button
                         variant="contained"
                         size="small"

@@ -8,10 +8,12 @@ import {
 import { WritingData } from "../../../data/WritingData"
 import { useParams } from "react-router-dom"
 import { useState } from "react"
-import ExplainAI from "../ExplainAI"
 import BackButton from "../Components/BackButton"
-import { addDoc, collection } from "firebase/firestore"
-import { auth, db } from "../../../firebaseX"
+import { auth } from "../../../firebaseX"
+import ApiPostServices from "@/pages/api/ApiPostServices"
+import LoadingPage from "../LoadingPage"
+import ErrorPage from "../ErrorPage"
+import { v4 as uuidv4 } from "uuid"
 
 function Writing() {
   const { id } = useParams()
@@ -21,23 +23,25 @@ function Writing() {
 
   const currentWriting = WritingData.filter((test) => test.id === +id)
 
-  async function submitEssay() {
-    try {
-      await addDoc(collection(db, "essayResult"), {
-        topic: currentWriting[0].topic,
-        level: "intermediate",
-        essay: essay,
-        feedback: "",
-        result: null,
-        student_id: auth.currentUser.uid,
-        student_name: auth.currentUser.displayName,
-      })
-      // setEssay("")
-      setShowCongrats(true)
-    } catch (e) {
-      console.error("Error adding document: ", e)
-    }
+  // Function to handle essay submission
+  const { submitEssay } = ApiPostServices()
+  const { mutate, isLoading, isError } = submitEssay()
+
+  function handleSubmit() {
+    mutate({
+      topic: currentWriting[0].topic,
+      level: "intermediate",
+      essay: essay,
+      feedback: "",
+      result: null,
+      student_id: auth.currentUser.uid,
+      student_name: auth.currentUser.displayName,
+    })
+    setShowCongrats(true)
   }
+
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box
@@ -130,7 +134,7 @@ function Writing() {
           <Button
             sx={{ m: 1 }}
             variant="contained"
-            onClick={submitEssay}
+            onClick={handleSubmit}
             disabled={essay.length < 10 ? true : false}
           >
             Submit
@@ -178,22 +182,6 @@ function Writing() {
           You scored out of 100%
         </Typography>
       )}
-      {/* {!show && (
-        <Box
-          sx={{
-            display: "flex",
-            marginLeft: "9px",
-            marginBottom: "15px",
-            flexDirection: "column",
-          }}
-        >
-          <ExplainAI
-            prompt={`Show improved version of the following ${essay}.`}
-            buttonTitle="Show Improved Example"
-            bg="white"
-          />
-        </Box>
-      )} */}
     </Box>
   )
 }

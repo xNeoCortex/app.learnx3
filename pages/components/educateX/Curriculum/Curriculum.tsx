@@ -1,3 +1,4 @@
+import ApiServices from "@/pages/api/ApiServices"
 import {
   Box,
   Button,
@@ -8,10 +9,15 @@ import {
   Typography,
 } from "@mui/material"
 import { Link } from "react-router-dom"
-import { useStore } from "../../../zustand"
+import ErrorPage from "../ErrorPage"
+import LoadingPage from "../LoadingPage"
 
 function Curriculum() {
-  const { lessonState } = useStore((state) => state)
+  const { fetchLessons } = ApiServices()
+  const { data: lessonState, isLoading, isError } = fetchLessons()
+
+  if (isLoading) return <LoadingPage />
+  if (isError) return <ErrorPage />
 
   return (
     <Box sx={{ marginTop: "20px", width: "100%" }}>
@@ -39,6 +45,7 @@ function Curriculum() {
         >
           {lessonState.map((lesson, index) => (
             <Box
+              key={index}
               sx={{
                 margin: "auto",
                 borderRadius: "10px",
@@ -107,7 +114,7 @@ function Curriculum() {
                     fontSize: 12,
                   }}
                 />
-                <Link to={`/class-curriculum/${lesson.docId}`}>
+                <Link to={`/class-curriculum/${lesson.id}`}>
                   <Button
                     style={{
                       background: "#5f61c4",

@@ -2,8 +2,11 @@ import { Box, Button, Grid } from "@mui/material"
 import AccountMenu from "../auth/User/SignOut"
 import { auth } from "../../firebaseX"
 import VideocamIcon from "@mui/icons-material/Videocam"
+import { useStoreTemporary } from "@/pages/zustand"
+import { memo } from "react"
 
-function Navbar() {
+const Navbar = memo(() => {
+  const { classInfo } = useStoreTemporary()
   return (
     <Grid
       item
@@ -20,11 +23,16 @@ function Navbar() {
         justifyContent: "space-between",
       }}
     >
-      <h2 style={{ color: "#32325d", marginLeft: 2 }}>
-        {auth?.currentUser
-          ? "Hello, " + auth?.currentUser?.displayName + " 🙂"
-          : "Hello"}
-      </h2>
+      <Box>
+        <h2 style={{ color: "#32325d", marginLeft: 2 }}>
+          {auth?.currentUser
+            ? "Hello, " + auth?.currentUser?.displayName + " 🙂"
+            : "Hello"}
+        </h2>
+        <p style={{ color: "#32325d", marginLeft: 2 }}>
+          {classInfo?.class_name}
+        </p>
+      </Box>
       <Box display="flex" alignItems="center">
         <a
           target="_blank"
@@ -55,6 +63,6 @@ function Navbar() {
       </Box>
     </Grid>
   )
-}
+})
 
 export default Navbar
