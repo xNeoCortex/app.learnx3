@@ -3,8 +3,11 @@ import { useState } from "react"
 import { Configuration, OpenAIApi } from "openai"
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh"
 import ClearIcon from "@mui/icons-material/Clear"
+import Test from "../Student/Test"
 
 function CreateTestAI({ prompt, buttonTitle, bg }) {
+  const [type, setType] = useState(true)
+
   const configuration = new Configuration({
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   })
@@ -63,22 +66,30 @@ function CreateTestAI({ prompt, buttonTitle, bg }) {
           },
           {
             role: "user",
-            content: prompt,
+            content: `${prompt}. Response should be in the exact same format as above.`,
           },
         ],
         temperature: 0.7,
-        max_tokens: 800,
+        max_tokens: 2000,
         presence_penalty: 0,
       })
-      console.log(
-        "typeof response :>> ",
-        typeof response.data.choices[0].message.content
-      )
       setResult(response.data.choices[0].message.content)
       setLoading(false)
     } catch (error) {
       console.error(error)
       setLoading(false)
+    }
+  }
+
+  function getArray(text) {
+    const start = text.indexOf("[")
+    const end = text.lastIndexOf("]") + 1
+    const arrayText = text.substring(start, end)
+    const array = eval(arrayText)
+    if (array?.length > 0 && typeof array === "object") {
+      return array
+    } else {
+      return []
     }
   }
 
@@ -127,7 +138,9 @@ function CreateTestAI({ prompt, buttonTitle, bg }) {
           <AutoFixHighIcon style={{ marginRight: 10 }} />{" "}
           {loading ? "Loading..." : buttonTitle}
         </Button>
-
+        <Button onClick={() => setType(!type)}>
+          {type ? "True" : "false"}
+        </Button>
         <div
           style={{
             width: "100%",
@@ -141,6 +154,9 @@ function CreateTestAI({ prompt, buttonTitle, bg }) {
               __html: result.replace(/\n/g, "<br />"),
             }}
           />
+        </div>
+        <div>
+          {/* <Test data={getArray(result)} /> */}
         </div>
       </Box>
     </Box>
