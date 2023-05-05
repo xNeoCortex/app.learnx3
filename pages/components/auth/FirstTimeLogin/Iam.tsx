@@ -1,7 +1,6 @@
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import React from "react"
 import { Link } from "react-router-dom"
-import image from "../../educateX/images/bg1.jpg"
 
 function Iam() {
   const [who, setWho] = React.useState("teacher")

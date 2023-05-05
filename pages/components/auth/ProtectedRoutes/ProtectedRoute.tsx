@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom"
-import LoadingPage from "../../educateX/LoadingPage"
-import WaitingPage from "../../educateX/WaitingPage"
+import WaitingPage from "../../Components/WaitingPage"
+import LoadingPage from "../../Components/LoadingPage"
 
 function ProtectedRoute({ user, userInfo }) {
   if (user === undefined) {

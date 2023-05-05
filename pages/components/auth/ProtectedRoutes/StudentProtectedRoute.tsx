@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router-dom"
-import LoadingPage from "../../educateX/LoadingPage"
 
 function StudentProtectedRoute({ user }) {
   if (user) {

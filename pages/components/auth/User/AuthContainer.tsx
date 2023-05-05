@@ -1,9 +1,9 @@
-import { Box, Container } from "@mui/system";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Outlet } from "react-router-dom";
-import WelcomeMessage from "../../educateX/Components/WelcomeMessage";
+import { Box, Container } from "@mui/system"
+import { createTheme, ThemeProvider } from "@mui/material/styles"
+import { Outlet } from "react-router-dom"
+import WelcomeMessage from "../../Components/WelcomeMessage"
 
-const theme = createTheme();
+const theme = createTheme()
 
 function AuthContainer(props: any) {
   return (
@@ -24,7 +24,7 @@ function AuthContainer(props: any) {
         </Box>
       </ThemeProvider>
     </Box>
-  );
+  )
 }
 
-export default AuthContainer;
+export default AuthContainer
