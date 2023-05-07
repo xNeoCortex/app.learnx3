@@ -34,9 +34,10 @@ import TeacherProtectedRoute from "./components/Auth/ProtectedRoutes/TeacherProt
 import LessonPage from "./components/Curriculum/LessonPage"
 import GradeWritingPage from "./components/Writing/GradeWritingPage"
 import GradeWritingList from "./components/Writing/GradeWritingList"
-import { QueryClient, QueryClientProvider } from "react-query"
 import SchoolPage from "./components/School/SchoolPage"
 import AuthContainer from "./components/Auth/User/AuthContainer"
+import EachCurriculum from "./components/Curriculum/EachCurriculum"
+import LessonPageX from "./components/Curriculum/LessonPageX"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -44,7 +45,6 @@ export default function Home() {
   const [loading, setLoading] = React.useState(false)
   const { userInfo, setUserInfo, userLogin, setUserLogin } = useStoreUser()
   const [currentUser, setCurrentUser] = React.useState(null)
-  const queryClient = new QueryClient()
 
   // Fetch current user data
   async function fetchData(uid: string) {
@@ -93,53 +93,55 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
-          <Route path="/auth" element={<AuthContainer />}>
-            <Route path="login" element={<Login />} />
-            <Route path="login-phone" element={<LoginWithPhone />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-          </Route>
+      <Routes>
+        <Route path="/auth" element={<AuthContainer />}>
+          <Route path="login" element={<Login />} />
+          <Route path="login-phone" element={<LoginWithPhone />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+        </Route>
 
-          <Route
-            element={<ProtectedRoute user={userLogin} userInfo={userInfo} />}
-          >
-            <Route path="who-iam" element={<Iam />} />
-            <Route path="user-info" element={<UserInfo />} />
-            <Route path="student-info" element={<StudentInfo />} />
-            <Route path="/" element={<AppContainer />}>
-              <Route index element={<SchoolPage />} />
-              <Route path="class/:id" element={<MyDashboard />} />
-              <Route path="class-curriculum" element={<Curriculum />} />
-              <Route path="class-curriculum/:id" element={<LessonPage />} />
-              <Route path="student/:id" element={<StudentProfile />} />
-              <Route path="settings" element={<MySettings />} />
-              <Route path="resources" element={<Resources />} />
-              <Route path="error" element={<ErrorPage />} />
-              <Route path="grade-writing/:id" element={<GradeWritingPage />} />
-              <Route path="virtual-teacher" element={<VirtualTeacher />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          element={<ProtectedRoute user={userLogin} userInfo={userInfo} />}
+        >
+          <Route path="who-iam" element={<Iam />} />
+          <Route path="user-info" element={<UserInfo />} />
+          <Route path="student-info" element={<StudentInfo />} />
+          <Route path="/" element={<AppContainer />}>
+            <Route index element={<SchoolPage />} />
+            <Route path="class/:id" element={<MyDashboard />} />
+            <Route path="class-curriculum" element={<Curriculum />} />
+            <Route path="class-curriculum/:id" element={<EachCurriculum />} />
+            <Route
+              path="class-curriculum/:id/:category/:lessonId"
+              element={<LessonPageX />}
+            />
+            <Route path="student/:id" element={<StudentProfile />} />
+            <Route path="settings" element={<MySettings />} />
+            <Route path="resources" element={<Resources />} />
+            <Route path="error" element={<ErrorPage />} />
+            <Route path="grade-writing/:id" element={<GradeWritingPage />} />
+            <Route path="virtual-teacher" element={<VirtualTeacher />} />
+            {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
 
-              <Route element={<TeacherProtectedRoute user={currentUser} />}>
-                <Route
-                  path="class/:id/class-students"
-                  element={<ClassStudents />}
-                />
-                <Route path="class-statistics" element={<ClassStatistics />} />
-                <Route path="grade-writing" element={<GradeWritingList />} />
-              </Route>
+            <Route element={<TeacherProtectedRoute user={currentUser} />}>
+              <Route
+                path="class/:id/class-students"
+                element={<ClassStudents />}
+              />
+              <Route path="class-statistics" element={<ClassStatistics />} />
+              <Route path="grade-writing" element={<GradeWritingList />} />
+            </Route>
 
-              <Route element={<StudentProtectedRoute user={currentUser} />}>
-                <Route path="test" element={<EnglishTest />} />
-                <Route path="test/:id" element={<Test />} />
-                <Route path="writing" element={<EnglishWriting />} />
-                <Route path="writing/:id" element={<Writing />} />
-              </Route>
+            <Route element={<StudentProtectedRoute user={currentUser} />}>
+              <Route path="test" element={<EnglishTest />} />
+              <Route path="test/:id" element={<Test />} />
+              <Route path="writing" element={<EnglishWriting />} />
+              <Route path="writing/:id" element={<Writing />} />
             </Route>
           </Route>
-        </Routes>
-      </QueryClientProvider>
+        </Route>
+      </Routes>
     </>
   )
 }
