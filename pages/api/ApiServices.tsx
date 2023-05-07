@@ -1,133 +1,83 @@
-import { collection, query, where, doc } from "firebase/firestore"
-import { db } from "../firebaseX"
-import {
-  useFirestoreDocument,
-  useFirestoreDocumentData,
-  useFirestoreQuery,
-  useFirestoreQueryData,
-} from "@react-query-firebase/firestore"
+import axios from "axios"
 
 function ApiServices() {
-  function fetchStudentData(id: string) {
-    const docRef = doc(db, "students", id)
-    const response = useFirestoreDocumentData(["student", id], docRef)
+  async function fetchStudentData(studentId: string) {
+    const response = await axios.get(`/api/fetchstudent`, {
+      params: {
+        studentId: studentId,
+      },
+    })
     return response
   }
 
-  function fetchAllStudents(): any {
-    const docRef = query(collection(db, "students"))
-    const response = useFirestoreQueryData(["students"], docRef)
+  async function fetchAllStudents() {
+    const response = await axios.get(`/api/fetchallstudents`)
     return response
   }
 
-  function fetchAllTeachers(): any {
-    const docRef = query(collection(db, "teachers"))
-    const response = useFirestoreQueryData(["teachers"], docRef)
+  async function fetchAllTeachers() {
+    const response = await axios.get(`/api/fetchallteachers`)
     return response
   }
 
-  function fetchEssayResults() {
-    const docRef = query(
-      collection(db, "essayResult"),
-      where("result", "==", null)
-    )
-
-    const { data, isLoading, isError } = useFirestoreQuery(
-      ["essayFeedbackResult"],
-      docRef
-    )
-    const submittedEssays = []
-    data?.docs?.map((doc) => {
-      submittedEssays.push({ ...doc.data(), uid: doc.id })
-    })
-    return { submittedEssays, isLoading, isError }
-  }
-
-  function fetchEssayInfo(id: string) {
-    const docRef = doc(db, "essayResult", id)
-
-    const {
-      data: essayInfo,
-      isLoading,
-      isError,
-    } = useFirestoreDocument(["essayInfo", { id }], docRef)
-
-    return { essayInfo, isLoading, isError }
-  }
-
-  function fetchStudentEssayResult(id: string) {
-    const docRef = query(
-      collection(db, "essayResult"),
-      where("student_id", "==", id)
-    )
-    const { data, isLoading, isError } = useFirestoreQuery(
-      ["essayResult", { id }],
-      docRef
-    )
-    const writingResult = []
-    data?.docs?.map((doc) => {
-      writingResult.push({ ...doc.data(), uid: doc.id })
-    })
-    return { writingResult, isLoading, isError }
-  }
-
-  function fetchTestResult(id: string) {
-    const docRef = query(
-      collection(db, "testResult"),
-      where("student_id", "==", id)
-    )
-    const { data, isLoading, isError } = useFirestoreQuery(
-      ["testResult", { id }],
-      docRef
-    )
-    const testResult = []
-    data?.docs?.map((doc) => {
-      testResult.push({ ...doc.data(), uid: doc.id })
-    })
-    return { testResult, isLoading, isError }
-  }
-
-  function fetchClasses() {
-    const docRef = query(collection(db, "classes"))
-    const { data, isLoading, isError } = useFirestoreQuery(["classes"], docRef)
-    const classList = []
-    data?.docs?.map((doc) => {
-      classList.push({ ...doc.data(), uid: doc.id })
-    })
-    return { classList, isLoading, isError }
-  }
-
-  function fetchOneClass(id) {
-    const docRef = query(collection(db, "classes"))
-    const { data, isLoading, isError } = useFirestoreQuery(["classes"], docRef)
-    const classList = []
-    data?.docs?.map((doc) => {
-      classList.push({ ...doc.data(), uid: doc.id })
-    })
-    const classInfo = classList.filter((item) => item.uid === id)[0]
-    return { classInfo, isLoading, isError }
-  }
-
-  function fetchLessons() {
-    const docRef = query(
-      collection(db, "lessons"),
-      where("level", "==", "Intermediate")
-    )
-    const response = useFirestoreQueryData(["lessons"], docRef)
+  async function fetchEssayResults() {
+    const response = await axios.get(`/api/fetchessaysresults`)
     return response
+  }
+
+  async function fetchEssayInfo(id: string) {
+    const response = await axios.get(`/api/fetchessayinfo`, {
+      params: {
+        id: id,
+      },
+    })
+    return response
+  }
+
+  async function fetchTestResult(id: string) {
+    const response = await axios.get(`/api/fetchtestresult`, {
+      params: {
+        id: id,
+      },
+    })
+    return response
+  }
+
+  async function fetchClasses() {
+    const response = await axios.get(`/api/fetchclasses`)
+    return response
+  }
+
+  async function fetchOneClass(id) {
+    const response = await axios.get(`/api/fetchoneclass`, {
+      params: {
+        id: id,
+      },
+    })
+    return response
+  }
+
+  async function fetchLessons() {
+    const response = await axios.get(`/api/fetchlessons`)
+    return response
+  }
+
+  async function fetchCurriculum() {
+    const res = await axios.get("/api/curriculum")
+    return res
   }
 
   return {
     fetchStudentData,
     fetchAllStudents,
     fetchAllTeachers,
-    fetchStudentEssayResult,
     fetchEssayResults,
     fetchEssayInfo,
     fetchTestResult,
     fetchClasses,
     fetchOneClass,
     fetchLessons,
+    fetchCurriculum,
   }
 }
 

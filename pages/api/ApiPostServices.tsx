@@ -1,84 +1,50 @@
-import { collection, query, where, doc } from "firebase/firestore"
-import { db } from "../firebaseX"
-import {
-  useFirestoreCollectionMutation,
-  useFirestoreDocumentMutation,
-} from "@react-query-firebase/firestore"
-import { useQueryClient } from "react-query"
+import axios from "axios"
 
 function ApiPostServices() {
-  const queryClient = useQueryClient()
-  function submitEssay() {
-    const ref = collection(db, "essayResult")
-    const mutation = useFirestoreCollectionMutation(ref, {
-      onSuccess() {
-        queryClient.invalidateQueries(["essayResult"])
+  async function submitEssay(body) {
+    return await axios.post("/api/submitessay", body)
+  }
+
+  async function submitTest(body) {
+    return await axios.post("/api/submittest", body)
+  }
+
+  async function addCurriculum(body) {
+    return await axios.post("/api/addcurriculum", body)
+  }
+  async function addClass(body) {
+    return await axios.post("/api/addclass", body)
+  }
+  async function updateClass(body, id) {
+    return await axios.put("/api/updateclass", body, {
+      params: {
+        id: id,
       },
     })
-    return mutation
   }
 
-  function submitTest() {
-    const ref = collection(db, "testResult")
-
-    const mutation = useFirestoreCollectionMutation(ref, {
-      onSuccess() {
-        queryClient.invalidateQueries(["testResult"])
+  async function updateTeacherInfo(body, id) {
+    return await axios.patch("/api/updateteacher", body, {
+      params: {
+        id: id,
       },
     })
-
-    return mutation
   }
 
-  function addClass() {
-    const ref = collection(db, "classes")
-
-    const mutation = useFirestoreCollectionMutation(ref, {
-      onSuccess() {
-        queryClient.invalidateQueries(["classes"])
+  async function submitFeedback(body, id) {
+    const response = await axios.patch("/api/submitfeedback", body, {
+      params: {
+        id: id,
       },
     })
-
-    return mutation
-  }
-
-  function updateClass(id) {
-    const collectionX = collection(db, "classes")
-    const ref = doc(collectionX, id)
-
-    const mutation = useFirestoreDocumentMutation(ref, {
-      merge: true,
-    })
-
-    return mutation
-  }
-  function updateTeacherInfo(id) {
-    const collectionX = collection(db, "teachers")
-    const ref = doc(collectionX, id)
-
-    const mutation = useFirestoreDocumentMutation(ref, {
-      merge: true,
-    })
-
-    return mutation
-  }
-
-  function submitFeedback(id: string) {
-    const collectionX = collection(db, "essayResult")
-    const ref = doc(collectionX, id)
-
-    const mutation = useFirestoreDocumentMutation(ref, {
-      merge: true,
-      // onSuccess() {
-      //   queryClient.invalidateQueries(["essayResult"])
-      // },
-    })
-    return mutation
+    console.log("API POST response :>> ", response)
+    return response
   }
 
   return {
     submitEssay,
     submitTest,
+    addCurriculum,
     addClass,
     updateClass,
     updateTeacherInfo,
