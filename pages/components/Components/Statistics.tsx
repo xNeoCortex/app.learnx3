@@ -10,19 +10,21 @@ import { useLocation } from "react-router"
 import LoadingPage from "./LoadingPage"
 import ErrorPage from "./ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
+import { useQuery } from "react-query"
 
 function Statistics({ displayGraphs }) {
   const location = useLocation()
 
+  // find another solution -> no need to fetch all database just to see the length of students array
   const { fetchAllStudents } = ApiServices()
-  const { data, isLoading, isError } = fetchAllStudents()
+  const { data, isLoading, isError } = useQuery(["students"], fetchAllStudents)
 
   // Data to display
   const dataSet = [
     {
       name: "# of Students",
       color: "#e2e6fb4d",
-      number: data?.length,
+      number: data?.data.length,
       icon: (
         <SchoolRoundedIcon
           style={{ width: 50, height: 50, color: "rgb(95, 97, 196)" }}

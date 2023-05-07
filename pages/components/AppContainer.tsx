@@ -8,6 +8,7 @@ import { useStoreTemporary, useStoreUser } from "@/pages/zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import ClassAllocation from "./Components/ClassAllocation"
 import ErrorPage from "./Components/ErrorPage"
+import { useQuery } from "react-query"
 
 const theme = createTheme()
 
@@ -15,14 +16,18 @@ function AppContainer(props: any) {
   const navigate = useNavigate()
   const { userInfo } = useStoreUser()
   const { fetchClasses } = ApiServices()
-  const { classList, isLoading, isError } = fetchClasses()
+  const {
+    data: classList,
+    isLoading,
+    isError,
+  } = useQuery(["classList"], fetchClasses)
   const { classInfo, setClassInfo } = useStoreTemporary()
 
-  const matchedTeacherClass = classList?.find((c) =>
+  const matchedTeacherClass = classList?.data.find((c) =>
     c.teachers.includes(userInfo.uid)
   )
 
-  const matchedStudentClass = classList?.find((c) =>
+  const matchedStudentClass = classList?.data.find((c) =>
     c.students.includes(userInfo.uid)
   )
 
@@ -30,12 +35,12 @@ function AppContainer(props: any) {
     if (userInfo.role === "teacher" && userInfo.permit === true) {
       matchedTeacherClass && setClassInfo(matchedTeacherClass)
       return (
-        matchedTeacherClass && navigate(`class/${matchedTeacherClass?.uid}`)
+        matchedTeacherClass && navigate(`class/${matchedTeacherClass?.docId}`)
       )
     } else if (userInfo.role === "student") {
       matchedStudentClass && setClassInfo(matchedStudentClass)
       return (
-        matchedStudentClass && navigate(`class/${matchedStudentClass?.uid}`)
+        matchedStudentClass && navigate(`class/${matchedStudentClass?.docId}`)
       )
     } else if (userInfo.role === "admin") {
       return navigate("/")
@@ -67,7 +72,7 @@ function AppContainer(props: any) {
             height: "100vh",
           }}
         >
-          <Sidebar classId={classInfo?.uid} />
+          <Sidebar classId={classInfo?.docId} />
           <Box
             style={{
               background: "#5f6ac40a",

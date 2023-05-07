@@ -11,23 +11,30 @@ import BackButton from "../Components/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
-import { v4 as uuidv4 } from "uuid"
 import { WritingData } from "@/pages/data/WritingData"
 import { auth } from "@/pages/firebaseX"
+import { useMutation, useQueryClient } from "react-query"
 
 function Writing() {
+  const queryClient = useQueryClient()
   const { id } = useParams()
   const [essay, setEssay] = useState("")
   const [show, setShow] = useState(false)
-  const [showCongrat, setShowCongrats] = useState(false)
+  const [showCongrats, setShowCongrats] = useState(false)
 
   const currentWriting = WritingData.filter((test) => test.id === +id)
 
   // Function to handle essay submission
   const { submitEssay } = ApiPostServices()
-  const { mutate, isLoading, isError } = submitEssay()
+  const { mutate, isLoading, isError } = useMutation(
+    (body) => submitEssay(body),
+    {
+      onSuccess: () => queryClient.invalidateQueries("essayResult"),
+    }
+  )
 
   function handleSubmit() {
+    //@ts-ignore
     mutate({
       topic: currentWriting[0].topic,
       level: "intermediate",
@@ -106,7 +113,7 @@ function Writing() {
         </Box>
         <BackButton />
       </Box>
-      {!showCongrat ? (
+      {!showCongrats ? (
         <Box
           sx={{
             display: "flex",

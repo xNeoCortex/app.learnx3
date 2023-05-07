@@ -19,32 +19,41 @@ import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
+import { useQuery, useQueryClient, useMutation } from "react-query"
 
 const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
+  const queryClient = useQueryClient()
   const { fetchAllStudents, fetchAllTeachers } = ApiServices()
   const { addClass, updateClass } = ApiPostServices()
-  const {
-    mutate,
-    isLoading: isLoadingMutate,
-    isSuccess,
-    isError,
-  } = _class ? updateClass(_class.uid) : addClass()
-  const { data: fetchedStudents, isLoading: isLoadingStudents } =
-    fetchAllStudents()
-  const { data: fetchedTeachers, isLoadingTeachers } = fetchAllTeachers()
-  // const {
-  //   mutate: update,
-  //   isLoading: isLoadingFeedback,
-  //   isError: isErrorFeedback,
-  // } = _class?.uid && updateClass(_class.uid)
   const [open, setOpen] = React.useState(false)
   const [message, setMessage] = React.useState(false)
-
   const [className, setClassName] = React.useState("")
   const [passcode, setPasscode] = React.useState("")
   const [level, setLevel] = React.useState("intermediate")
   const [teachers, setTeachers] = React.useState([])
   const [students, setStudents] = React.useState([])
+  const {
+    data: fetchedStudents,
+    isLoading: isLoadingStudents,
+    isError: isErrorStudents,
+  } = useQuery(["students"], fetchAllStudents)
+
+  const { data: fetchedTeachers, isLoading: isLoadingTeachers } = useQuery(
+    ["teachers"],
+    fetchAllTeachers
+  )
+
+  const { mutate, isSuccess, isError } = useMutation((body) => addClass(body), {
+    onSuccess: () => queryClient.invalidateQueries("listClasses"),
+  })
+
+  const {
+    mutate: mutatePut,
+    isSuccess: isSuccessPut,
+    isError: isErrorPut,
+  } = useMutation((body) => updateClass(body, _class.docId), {
+    onSuccess: () => queryClient.invalidateQueries("listClasses"),
+  })
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -54,22 +63,34 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
     setOpen(false)
     setMessage(false)
   }
+
   function handleSave() {
     if (className.length > 0 && passcode.length > 0) {
-      //@ts-ignore
-      mutate({
-        class_name: className,
-        students,
-        teachers,
-        curriculum_id: "qwerty",
-        curriculum_topic: "Present Tense",
-        level: level,
-        passcode: passcode.trim(),
-      })
+      _class
+        ? //@ts-ignore
+          mutatePut({
+            class_name: className,
+            students,
+            teachers,
+            curriculum_id: "qwerty",
+            curriculum_topic: "Present Tense",
+            level: level,
+            passcode: passcode.trim(),
+          })
+        : //@ts-ignore
+          mutate({
+            class_name: className,
+            students,
+            teachers,
+            curriculum_id: "qwerty",
+            curriculum_topic: "Present Tense",
+            level: level,
+            passcode: passcode.trim(),
+          })
     }
   }
 
-  // set level
+  // handle seLevel
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     level: string
@@ -104,10 +125,11 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
       setTeachers([])
       setStudents([])
       setMessage(true)
-    } else if (isSuccess && _class) {
+    } else if (isSuccessPut && _class) {
       setMessage(true)
+      handleClose()
     }
-  }, [isSuccess])
+  }, [isSuccess, isSuccessPut])
 
   React.useEffect(() => {
     if (_class) {
@@ -119,7 +141,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
   }, [_class])
 
   if (isLoadingStudents || isLoadingTeachers) return <LoadingPage />
-  if (isError) return <ErrorPage />
+  if (isError || isErrorStudents) return <ErrorPage />
 
   return (
     <div>
@@ -196,6 +218,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       name="passcode"
+                      type="number"
                       required
                       fullWidth
                       id="passcode"
@@ -249,7 +272,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
                       }}
                     >
                       <h4 style={{ padding: "10px" }}>Add Teacher</h4>
-                      {fetchedTeachers?.map((item, index) => (
+                      {fetchedTeachers?.data.map((item, index) => (
                         <Box
                           key={index}
                           sx={{
@@ -284,7 +307,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
                       }}
                     >
                       <h4 style={{ padding: "10px" }}>Add Students</h4>
-                      {fetchedStudents?.map((item, index) => (
+                      {fetchedStudents?.data.map((item, index) => (
                         <Box
                           key={index}
                           sx={{

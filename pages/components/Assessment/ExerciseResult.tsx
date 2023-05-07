@@ -12,22 +12,27 @@ import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import ExplainAI from "../ExplainAI"
 import LoadingPage from "../Components/LoadingPage"
+import { useQuery } from "react-query"
 
 export default function ExerciseResult({ id }) {
   const { fetchTestResult } = ApiServices()
-  const { testResult, isLoading, isError } = fetchTestResult(id)
+  const {
+    data: testResult,
+    isLoading,
+    isError,
+  } = useQuery(["testResult"], () => fetchTestResult(id))
 
   // Titles
   const title = ["Test", "Topic", "Test Score"]
 
   // Student performance data for AI
-  const studentPerformance = testResult?.map(
+  const studentPerformance = testResult?.data.map(
     (item) => `{Student scored + ${item.result} out of 100 in ${item.topic}}`
   )
 
   // Student performance data for AI
-  const studentResult = testResult?.map((item) => item.result)
-  const testTopics = testResult?.map((item) => item.topic)
+  const studentResult = testResult?.data.map((item) => item.result)
+  const testTopics = testResult?.data.map((item) => item.topic)
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
@@ -71,9 +76,9 @@ export default function ExerciseResult({ id }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {testResult?.length > 0 &&
-              testResult
-                ?.sort((a, b) => {
+            {testResult?.data.length > 0 &&
+              testResult?.data
+                .sort((a, b) => {
                   if (a.lessonName > b.lessonName) return 1
                   if (a.lessonName < b.lessonName) return -1
                   return 0

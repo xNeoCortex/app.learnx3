@@ -12,6 +12,7 @@ import { Box } from "@mui/material"
 import Switch from "@mui/material/Switch"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../Components/ErrorPage"
+import { useMutation } from "react-query"
 
 export default function TeacherList({ data }) {
   return (
@@ -70,10 +71,13 @@ export default function TeacherList({ data }) {
 
 function TableRows({ teacher }) {
   const { updateTeacherInfo } = ApiPostServices()
-  const { mutate, isError } = updateTeacherInfo(teacher.uid)
+  const { mutate, isError } = useMutation((body) =>
+    updateTeacherInfo(body, teacher.docId)
+  )
   const [checked, setChecked] = React.useState(true)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //@ts-ignore
     mutate({ permit: event.target.checked })
     setChecked(event.target.checked)
   }

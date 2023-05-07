@@ -10,13 +10,14 @@ import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { TestData } from "@/pages/data/TestData"
 import { WritingData } from "@/pages/data/WritingData"
+import { useQuery } from "react-query"
 
 function LessonPage(props) {
   const { id } = useParams()
   const { fetchLessons } = ApiServices()
-  const { data: lessonState, isLoading, isError } = fetchLessons()
+  const { data: lessonState, isLoading, isError } = useQuery(["lessons"], fetchLessons)
 
-  const currentLesson = lessonState?.find((item) => item.id === id)
+  const currentLesson = lessonState?.data.find((item) => item.id === id)
   const currentTest = TestData?.find(
     (item) => item.topic_id === currentLesson?.topic_id
   )

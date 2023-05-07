@@ -15,6 +15,7 @@ import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import { useStoreUser } from "@/pages/zustand"
+import { useMutation, useQuery } from "react-query"
 
 function GradeWritingPage(props) {
   const { id } = useParams()
@@ -29,9 +30,10 @@ function GradeWritingPage(props) {
     mutate,
     isLoading: isLoadingFeedback,
     isError: isErrorFeedback,
-  } = submitFeedback(id)
+  } = useMutation((body) => submitFeedback(body, id))
 
   const submitFeedbackFunc = () => {
+    //@ts-ignore
     mutate({
       result: mark,
       feedback: feedback,
@@ -43,7 +45,11 @@ function GradeWritingPage(props) {
 
   // fetch essay info
   const { fetchEssayInfo } = ApiServices()
-  const { essayInfo, isLoading, isError } = fetchEssayInfo(id)
+  const {
+    data: essayInfo,
+    isLoading,
+    isError,
+  } = useQuery("essayInfo", () => fetchEssayInfo(id))
 
   // manage loading and error
   if (isLoading || isLoadingFeedback) return <LoadingPage />
@@ -103,7 +109,7 @@ function GradeWritingPage(props) {
                 marginBottom: 15,
               }}
             >
-              {essayInfo?.data()?.student_name || "No student name"}
+              {essayInfo?.data?.student_name || "No student name"}
             </h4>
             <Box
               sx={{
@@ -112,7 +118,7 @@ function GradeWritingPage(props) {
                 alignItems: "center",
               }}
             >
-              {["Class A", `${essayInfo?.data()?.level}`].map((item, index) => (
+              {["Class A", `${essayInfo?.data?.level}`].map((item, index) => (
                 <p
                   key={index}
                   style={{
@@ -162,14 +168,14 @@ function GradeWritingPage(props) {
                 mb: "10px",
               }}
             >
-              Essay Topic: {essayInfo?.data()?.topic}
+              Essay Topic: {essayInfo?.data?.topic}
             </Typography>
             <Typography
               sx={{
                 padding: "0px 10px",
               }}
             >
-              {essayInfo?.data()?.essay}
+              {essayInfo?.data?.essay}
             </Typography>
           </Box>
           <Box
@@ -183,7 +189,7 @@ function GradeWritingPage(props) {
               color: "black",
             }}
           >
-            {essayInfo?.data()?.result?.length > 0 ? (
+            {essayInfo?.data?.result?.length > 0 ? (
               <>
                 <Typography
                   sx={{
@@ -203,9 +209,10 @@ function GradeWritingPage(props) {
                 >
                   <p
                     dangerouslySetInnerHTML={{
-                      __html: essayInfo
-                        ?.data()
-                        ?.feedback.replace(/\n/g, "<br />"),
+                      __html: essayInfo?.data?.feedback.replace(
+                        /\n/g,
+                        "<br />"
+                      ),
                     }}
                   />
                 </Typography>
@@ -217,7 +224,7 @@ function GradeWritingPage(props) {
                     fontWeight: 600,
                   }}
                 >
-                  Your mark is {essayInfo?.data()?.result}/100
+                  Your mark is {essayInfo?.data?.result}/100
                 </Typography>
               </>
             ) : (
@@ -240,9 +247,7 @@ function GradeWritingPage(props) {
               <>
                 <Box sx={{ width: "100%" }}>
                   <ExplainAI
-                    prompt={`You are english teacher. Check the essay of essayInfo with Intermediate level of english and give him detailed feedback on his mistakes. This is the essay ${
-                      essayInfo?.data()?.essay
-                    }. Suggest on which topic a student should focus to improve his weakness based on his essay. Also, give student grade out of 100%.`}
+                    prompt={`You are english teacher. Check the essay of essayInfo with Intermediate level of english and give him detailed feedback on his mistakes. This is the essay ${essayInfo?.data?.essay}. Suggest on which topic a student should focus to improve his weakness based on his essay. Also, give student grade out of 100%.`}
                     buttonTitle="Get Feedback and Grade"
                     bg="#bdbdbd33"
                   />

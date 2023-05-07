@@ -2,6 +2,7 @@ import ApiServices from "@/pages/api/ApiServices"
 import { useStoreTemporary } from "@/pages/zustand"
 import { Box } from "@mui/material"
 import React from "react"
+import { useQuery } from "react-query"
 import ErrorPage from "../Components/ErrorPage"
 import LoadingPage from "../Components/LoadingPage"
 import AddClass from "./AddClassDialog"
@@ -10,7 +11,11 @@ import ClassCard from "./ClassCard"
 function AddClassPage(props) {
   const { sidebarWidth } = useStoreTemporary()
   const { fetchClasses } = ApiServices()
-  const { classList, isLoading, isError } = fetchClasses()
+  const {
+    data: classList,
+    isLoading,
+    isError,
+  } = useQuery(["listClasses"], fetchClasses)
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
@@ -30,9 +35,9 @@ function AddClassPage(props) {
           width: `calc(100vw - ${sidebarWidth}px)`,
         }}
       >
-        {classList?.length > 0 &&
-          classList
-            ?.sort((a, b) => {
+        {classList?.data.length > 0 &&
+          classList?.data
+            .sort((a, b) => {
               if (a.class_name > b.class_name) return 1
               if (a.class_name < b.class_name) return -1
               return 0

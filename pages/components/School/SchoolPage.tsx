@@ -9,17 +9,19 @@ import LoadingPage from "../Components/LoadingPage"
 import Navbar from "../Navbar"
 import StudentList from "../Student/StudentList"
 import AddClassPage from "./AddClassComponent"
+import { useQuery } from "react-query"
 
 function SchoolPage() {
   const navigate = useNavigate()
   const { userInfo } = useStoreUser()
   const { fetchAllStudents, fetchAllTeachers } = ApiServices()
-  const { data, isLoading, isError } = fetchAllStudents()
+  const { data, isLoading, isError } = useQuery(["students"], fetchAllStudents)
+
   const {
     data: teacherList,
     isLoading: isLoadingTeacher,
     isError: isErrorTeacher,
-  } = fetchAllTeachers()
+  } = useQuery(["teachers"], fetchAllTeachers)
 
   if (isLoading || isLoadingTeacher) return <LoadingPage />
   if (isError || isErrorTeacher) return <ErrorPage />
@@ -31,10 +33,10 @@ function SchoolPage() {
         <AddClassPage />
         <Grid container spacing={4} sx={{ mt: 2 }}>
           <Grid item xs={12} sm={6}>
-            <TeacherList data={teacherList} />
+            <TeacherList data={teacherList?.data} />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <StudentList data={data} />
+            <StudentList data={data?.data} />
           </Grid>
         </Grid>
       </div>

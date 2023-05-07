@@ -16,13 +16,20 @@ import { Link } from "react-router-dom"
 import LoadingPage from "../Components/LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "../Components/ErrorPage"
-import { useStoreTemporary } from "@/pages/zustand"
+import { useStoreTemporary, useStoreUser } from "@/pages/zustand"
+import { useQuery } from "react-query"
 
 function GradeWritingList() {
+  const { userInfo } = useStoreUser()
   const { sidebarWidth, classInfo } = useStoreTemporary()
 
   const { fetchEssayResults } = ApiServices()
-  const { submittedEssays, isLoading, isError } = fetchEssayResults()
+  const { data, isLoading, isError } = useQuery(
+    "essayResult",
+    fetchEssayResults
+  )
+
+  const notGraded = data?.data.filter((item) => item.result === null)
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
@@ -58,7 +65,7 @@ function GradeWritingList() {
               fontWeight: 600,
             }}
           >
-            {submittedEssays?.length} essays to mark
+            {notGraded.length} essays to mark
           </Button>
         </h3>
       </Box>
@@ -122,11 +129,19 @@ function GradeWritingList() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {submittedEssays?.length > 0 &&
-                      submittedEssays
-                        ?.filter((item) =>
-                          classInfo?.students?.includes(item.student_id)
-                        )
+                    {notGraded.length > 0 &&
+                      notGraded
+                        .filter((item) => {
+                          if (userInfo.role === "teacher") {
+                            return classInfo?.students?.includes(
+                              item.student_id
+                            )
+                          } else if (userInfo.role === "admin") {
+                            return true
+                          } else {
+                            return null
+                          }
+                        })
                         ?.sort((a, b) => {
                           if (a.name > b.name) return 1
                           if (a.name < b.name) return -1
@@ -180,7 +195,7 @@ function GradeWritingList() {
                             <TableCell>Class A</TableCell>
                             <TableCell>
                               <Link
-                                to={`/grade-writing/${row?.uid}`}
+                                to={`/grade-writing/${row?.docId}`}
                                 state={{ student: row }}
                               >
                                 <Button

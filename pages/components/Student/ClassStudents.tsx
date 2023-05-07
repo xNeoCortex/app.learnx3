@@ -11,22 +11,25 @@ import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useStoreTemporary } from "@/pages/zustand"
+import { useQuery } from "react-query"
 
 function ClassStudents() {
   const { id } = useParams()
+  const location = useLocation()
   const { sidebarWidth } = useStoreTemporary()
   const [alignment, setAlignment] = React.useState("grid")
-  const location = useLocation()
   const { fetchAllStudents, fetchOneClass } = ApiServices()
-  const { data, isLoading, isError } = fetchAllStudents()
+  const { data, isLoading, isError } = useQuery(["students"], fetchAllStudents)
   const {
-    classInfo,
+    data: classInfo,
     isLoading: classIsLoading,
     isError: classIsError,
-  } = fetchOneClass(id)
+  } = useQuery([`class-${id}`], () => fetchOneClass(id), {
+    enabled: !!id && id?.length > 5,
+  })
 
-  const studentList = data?.filter((item) =>
-    classInfo?.students?.includes(item.uid)
+  const studentList = data?.data.filter((item) =>
+    classInfo?.data.students?.includes(item.uid)
   )
 
   const handleChange = (

@@ -6,12 +6,14 @@ import LoadingPage from "../Components/LoadingPage"
 import WritingResult from "../Writing/WritingResult"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
+import { useQuery } from "react-query"
 
 function StudentProfile() {
   const { id } = useParams()
-
   const { fetchStudentData } = ApiServices()
-  const { data, isLoading, isError } = fetchStudentData(id)
+  const { data, isLoading, isError } = useQuery("student", () =>
+    fetchStudentData(id)
+  )
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
@@ -71,7 +73,7 @@ function StudentProfile() {
                 marginBottom: 15,
               }}
             >
-              {data?.name}
+              {data?.data.name}
             </h4>
             <Box
               sx={{
@@ -105,15 +107,15 @@ function StudentProfile() {
                   background: "white",
                   fontSize: 12,
                   color:
-                    data?.performance == "Struggling"
+                    data?.data.performance == "Struggling"
                       ? "rgb(226, 109, 128)"
-                      : data?.performance == "Doing Great"
+                      : data?.data.performance == "Doing Great"
                       ? "#5fc497"
                       : "#41b6ff",
                   border:
-                    data?.performance == "Struggling"
+                    data?.data.performance == "Struggling"
                       ? "1px solid rgb(226, 109, 128)"
-                      : data?.performance == "Doing Great"
+                      : data?.data.performance == "Doing Great"
                       ? "1px solid #5fc497"
                       : "1px solid #41b6ff",
                   maxWidth: "191px",
@@ -121,7 +123,7 @@ function StudentProfile() {
                   marginRight: 10,
                 }}
               >
-                {data?.performance}
+                {data?.data.performance}
               </p>
             </Box>
           </Box>

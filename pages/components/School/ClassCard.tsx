@@ -7,7 +7,7 @@ import AddClass from "./AddClassDialog"
 
 function ClassCard({ item }) {
   const { setClassId } = useStoreTemporary()
-
+  
   return (
     <Box
       key={item.id}
@@ -55,8 +55,8 @@ function ClassCard({ item }) {
         }}
       >
         <AddClass _class={item} buttonName="Edit class" />
-        <Link to={`class/${item.uid}`}>
-          <Button variant="contained" onClick={() => setClassId(item.uid)}>
+        <Link to={`class/${item.docId}`}>
+          <Button variant="contained" onClick={() => setClassId(item.docId)}>
             View
           </Button>
         </Link>

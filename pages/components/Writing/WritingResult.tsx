@@ -13,10 +13,24 @@ import { BarChart } from "../Components/BarChart"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
+import { useQuery } from "react-query"
 
 export default function WritingResult({ id }) {
-  const { fetchStudentEssayResult } = ApiServices()
-  const { writingResult, isLoading, isError } = fetchStudentEssayResult(id)
+  const { fetchEssayResults } = ApiServices()
+  const {
+    data: writingResult,
+    isLoading,
+    isError,
+  } = useQuery("essayResult", fetchEssayResults, {
+    select: (data) => {
+      const filteredEssays = data?.data.filter((item) => item.student_id === id)
+      if (filteredEssays.length > 0) {
+        return filteredEssays
+      } else {
+        return []
+      }
+    },
+  })
 
   // Title
   const title = ["Topic", "Writing Mark", "Feedback "]
@@ -130,7 +144,7 @@ export default function WritingResult({ id }) {
                       textAlign: "center",
                     }}
                   >
-                    <Link to={`/grade-writing/${row?.uid}`}>
+                    <Link to={`/grade-writing/${row?.docId}`}>
                       <Button
                         variant="contained"
                         size="small"

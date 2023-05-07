@@ -1,3 +1,4 @@
+import { auth } from "../../firebaseX"
 import { Box, Button, CssBaseline, Typography } from "@mui/material"
 import { TestData } from "../../data/TestData"
 import { useParams } from "react-router-dom"
@@ -7,16 +8,21 @@ import FormControlLabel from "@mui/material/FormControlLabel"
 import FormControl from "@mui/material/FormControl"
 import { useState } from "react"
 import BackButton from "../Components/BackButton"
-import { auth } from "../../firebaseX"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../Components/ErrorPage"
-import { v4 as uuidv4 } from "uuid"
 import LoadingPage from "../Components/LoadingPage"
+import { useMutation, useQueryClient } from "react-query"
 
 function Test() {
   const { id } = useParams()
+  const queryClient = useQueryClient()
   const { submitTest } = ApiPostServices()
-  const { mutate, isLoading, isError } = submitTest()
+  const { mutate, isLoading, isError } = useMutation(
+    (body) => submitTest(body),
+    {
+      onSuccess: () => queryClient.invalidateQueries("testResult"),
+    }
+  )
   const [score, setScore] = useState(0)
   const [show, setShow] = useState(false)
   const [answersX, setAnswers] = useState([])
@@ -43,7 +49,7 @@ function Test() {
     const score = (correctAnswers.length / answersX.length) * 100
     setShow(true)
     setScore(score)
-
+    //@ts-ignore
     mutate({
       topic: currentTest[0].topic,
       topic_id: currentTest[0].topic_id,

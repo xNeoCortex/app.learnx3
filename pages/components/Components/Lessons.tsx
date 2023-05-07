@@ -5,6 +5,7 @@ import ErrorPage from "./ErrorPage"
 import LoadingPage from "./LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useStoreTemporary } from "@/pages/zustand"
+import { useQuery } from "react-query"
 
 function Lessons(props) {
   const [open, setOpen] = React.useState(false)
@@ -12,7 +13,11 @@ function Lessons(props) {
 
   // fetch upcoming sessions for the current user and add them to session[]
   const { fetchLessons } = ApiServices()
-  const { data: lessonState, isLoading, isError } = fetchLessons()
+  const {
+    data: lessonState,
+    isLoading,
+    isError,
+  } = useQuery(["lessons"], fetchLessons)
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
@@ -37,8 +42,8 @@ function Lessons(props) {
             width: `calc(100vw - ${sidebarWidth}px)`,
           }}
         >
-          {lessonState?.length > 0 &&
-            lessonState
+          {lessonState?.data.length > 0 &&
+            lessonState.data
               ?.sort((a, b) => {
                 if (a.name > b.name) return 1
                 if (a.name < b.name) return -1

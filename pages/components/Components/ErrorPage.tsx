@@ -1,7 +1,7 @@
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 
-function ErrorPage() {
+function ErrorPage({ message = "" }) {
   const navigate = useNavigate()
   return (
     <div
@@ -39,7 +39,8 @@ function ErrorPage() {
             }}
           />
           <Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
-            Sorry, you do not have access to this page!
+            {message.length > 0 ? message : "Sorry, something went wrong!"}
+            {/* : "Sorry, you do not have access to this page!"} */}
           </Typography>
         </Box>
       </Box>
