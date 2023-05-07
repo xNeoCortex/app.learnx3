@@ -1,6 +1,7 @@
 const WritingData = [
   {
     id: 1,
+    lesson_id: 1,
     topic: "About me",
     type: "general",
     key_words: ["happy", "sport", "sleep"],
@@ -8,6 +9,7 @@ const WritingData = [
   },
   {
     id: 2,
+    lesson_id: 2,
     topic: "Favorite food",
     type: "general",
     key_words: ["cook", "eat", "serve"],
@@ -15,6 +17,7 @@ const WritingData = [
   },
   {
     id: 4,
+    lesson_id: 3,
     topic: "Spring",
     type: "general",
     key_words: ["weather", "cold", "rain"],
@@ -22,6 +25,7 @@ const WritingData = [
   },
   {
     id: 5,
+    lesson_id: 4,
     topic: "Traveling",
     type: "general",
     key_words: ["happy", "London", "river"],
@@ -29,6 +33,7 @@ const WritingData = [
   },
   {
     id: 6,
+    lesson_id: 5,
     topic: "Sports",
     type: "general",
     key_words: ["jump", "run", "football"],
