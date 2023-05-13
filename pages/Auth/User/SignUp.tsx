@@ -12,7 +12,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth"
 import { NavLink } from "react-router-dom"
-import { auth } from "../../../firebaseX"
+import { auth } from "@/pages/firebaseX"
 
 function Copyright(props: any) {
   return (

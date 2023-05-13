@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/system"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Outlet } from "react-router-dom"
-import WelcomeMessage from "../../Components/WelcomeMessage"
+import WelcomeMessage from "@/pages/components/Components/WelcomeMessage"
 
 const theme = createTheme()
 

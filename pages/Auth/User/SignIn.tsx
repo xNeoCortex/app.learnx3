@@ -11,7 +11,7 @@ import Box from "@mui/material/Box"
 import LoginIcon from "@mui/icons-material/Login"
 import Typography from "@mui/material/Typography"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../../../firebaseX"
+import { auth } from "@/pages/firebaseX"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 import { Alert } from "@mui/material"
 

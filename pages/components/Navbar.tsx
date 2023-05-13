@@ -3,7 +3,7 @@ import VideocamIcon from "@mui/icons-material/Videocam"
 import { useStoreTemporary } from "@/pages/zustand"
 import { memo } from "react"
 import { auth } from "../firebaseX"
-// import AccountMenu from "./Auth/User/SignOut"
+import AccountMenu from "../Auth/User/SignOut"
 
 const Navbar = () => {
   const { classInfo } = useStoreTemporary()
@@ -59,7 +59,7 @@ const Navbar = () => {
             Video Call
           </Button>
         </a>
-        {/* <AccountMenu /> */}
+        <AccountMenu />
       </Box>
     </Grid>
   )

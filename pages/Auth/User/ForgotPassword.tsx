@@ -4,7 +4,7 @@ import { sendPasswordResetEmail } from "firebase/auth"
 import React from "react"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Link, Navigate } from "react-router-dom"
-import { auth } from "../../../firebaseX"
+import { auth } from "@/pages/firebaseX"
 
 function ForgotPassword(props) {
   const [email, setEmail] = React.useState("")

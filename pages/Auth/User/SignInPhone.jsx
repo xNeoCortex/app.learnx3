@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { auth } from "../../../firebaseX";
+import { auth } from "@/pages/firebaseX";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";

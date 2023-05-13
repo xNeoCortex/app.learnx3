@@ -7,18 +7,18 @@ import Box from "@mui/material/Box"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useNavigate } from "react-router-dom"
-import { auth, db } from "../../../firebaseX"
-import { useStoreUser } from "../../../zustand"
+import { auth, db } from "@/pages/firebaseX"
 import { updateProfile } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
+import { useStoreUser } from "@/pages/zustand"
 
-export default function UserInfo() {
+export default function StudentInfo() {
   const navigate = useNavigate()
   const [name, setName] = React.useState("")
   const [age, setAge] = React.useState(null)
   const [gender, setGender] = React.useState(null)
   const [phone, setPhone] = React.useState(null)
-  const [university, setUniversity] = React.useState(null)
+  const [country, setCountry] = React.useState(null)
   const { setUserInfo } = useStoreUser()
 
   const handleChange = (
@@ -31,17 +31,16 @@ export default function UserInfo() {
   // Add user data with specified ID, if you want with auto generated ID -> use addDoc()
   async function addUser(id: string, name: string, email: string) {
     try {
-      const user = await setDoc(doc(db, "teachers", id), {
+      const user = await setDoc(doc(db, "students", id), {
         uid: id,
         name: name,
         email: email,
         age: age,
         gender: gender,
         phone: phone,
-        university: university,
-        country: "UK",
-        role: "teacher",
-        permit: false,
+        country: country,
+        role: "student",
+        performance: "Doing ok",
       })
 
       setUserInfo({
@@ -51,10 +50,9 @@ export default function UserInfo() {
         age: age,
         gender: gender,
         phone: phone,
-        university: university,
-        country: "UK",
-        role: "teacher",
-        permit: false,
+        country: country,
+        role: "student",
+        performance: "Doing ok",
       })
     } catch (e) {
       console.error("Error adding document: ", e)
@@ -70,6 +68,7 @@ export default function UserInfo() {
         displayName: name,
       })
         .then((user) => {
+          // Signed in
           addUser(
             auth.currentUser.uid,
             auth.currentUser.displayName,
@@ -92,13 +91,13 @@ export default function UserInfo() {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { sm: "column", lg: "row" },
         alignItems: "center",
         justifyContent: "space-between",
         margin: "20px 40px",
         padding: "50px",
         background: "white",
-        height: "100vh",
+        height: { sm: "100%", lg: "100vh" },
         overflow: "hidden",
       }}
     >
@@ -126,7 +125,7 @@ export default function UserInfo() {
             margin: "5px 0px",
           }}
         >
-          Teacher Profile Details
+          Student Profile Details
         </p>
         <p>Enter details to set up your account </p>
         <Box
@@ -168,13 +167,13 @@ export default function UserInfo() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                name="university"
+                name="country"
                 required
                 fullWidth
-                id="university"
-                label="University / Company"
-                value={university}
-                onChange={(e) => setUniversity(e.target.value)}
+                id="country"
+                label="Country"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -237,7 +236,7 @@ export default function UserInfo() {
           </Box>
         </Box>
       </Box>
-      <img src="business-account.png" style={{ width: 450 }} alt="profile" />
+      <img src="/business-account.png" style={{ width: 450 }} alt="profile" />
     </Box>
   )
 }
