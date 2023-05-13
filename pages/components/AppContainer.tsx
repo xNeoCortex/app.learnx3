@@ -35,12 +35,12 @@ function AppContainer(props: any) {
     if (userInfo.role === "teacher" && userInfo.permit === true) {
       matchedTeacherClass && setClassInfo(matchedTeacherClass)
       return (
-        matchedTeacherClass && navigate(`class/${matchedTeacherClass?.docId}`)
+        matchedTeacherClass && navigate(`class/${matchedTeacherClass?.uid}`)
       )
     } else if (userInfo.role === "student") {
       matchedStudentClass && setClassInfo(matchedStudentClass)
       return (
-        matchedStudentClass && navigate(`class/${matchedStudentClass?.docId}`)
+        matchedStudentClass && navigate(`class/${matchedStudentClass?.uid}`)
       )
     } else if (userInfo.role === "admin") {
       return navigate("/")
@@ -72,7 +72,7 @@ function AppContainer(props: any) {
             height: "100vh",
           }}
         >
-          <Sidebar classId={classInfo?.docId} />
+          <Sidebar classId={classInfo?.uid} />
           <Box
             style={{
               background: "#5f6ac40a",

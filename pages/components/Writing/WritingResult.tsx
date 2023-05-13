@@ -144,7 +144,7 @@ export default function WritingResult({ id }) {
                       textAlign: "center",
                     }}
                   >
-                    <Link to={`/grade-writing/${row?.docId}`}>
+                    <Link to={`/grade-writing/${row?.uid}`}>
                       <Button
                         variant="contained"
                         size="small"

@@ -51,7 +51,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
     mutate: mutatePut,
     isSuccess: isSuccessPut,
     isError: isErrorPut,
-  } = useMutation((body) => updateClass(body, _class.docId), {
+  } = useMutation((body) => updateClass(body, _class.uid), {
     onSuccess: () => queryClient.invalidateQueries("listClasses"),
   })
 

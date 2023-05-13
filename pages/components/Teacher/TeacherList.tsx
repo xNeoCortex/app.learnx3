@@ -72,7 +72,7 @@ export default function TeacherList({ data }) {
 function TableRows({ teacher }) {
   const { updateTeacherInfo } = ApiPostServices()
   const { mutate, isError } = useMutation((body) =>
-    updateTeacherInfo(body, teacher.docId)
+    updateTeacherInfo(body, teacher.uid)
   )
   const [checked, setChecked] = React.useState(true)
 

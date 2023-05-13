@@ -24,7 +24,7 @@ function ClassStudents() {
     data: classInfo,
     isLoading: classIsLoading,
     isError: classIsError,
-  } = useQuery([`class-${id}`], () => fetchOneClass(id), {
+  } = useQuery([`class-students`], () => fetchOneClass(id), {
     enabled: !!id && id?.length > 5,
   })
 

@@ -195,7 +195,7 @@ function GradeWritingList() {
                             <TableCell>Class A</TableCell>
                             <TableCell>
                               <Link
-                                to={`/grade-writing/${row?.docId}`}
+                                to={`/grade-writing/${row?.uid}`}
                                 state={{ student: row }}
                               >
                                 <Button

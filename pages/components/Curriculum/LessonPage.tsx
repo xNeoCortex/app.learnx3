@@ -15,7 +15,11 @@ import { useQuery } from "react-query"
 function LessonPage(props) {
   const { id } = useParams()
   const { fetchLessons } = ApiServices()
-  const { data: lessonState, isLoading, isError } = useQuery(["lessons"], fetchLessons)
+  const {
+    data: lessonState,
+    isLoading,
+    isError,
+  } = useQuery(["lessons"], fetchLessons)
 
   const currentLesson = lessonState?.data.find((item) => item.id === id)
   const currentTest = TestData?.find(
@@ -233,7 +237,10 @@ function LessonPage(props) {
               margin: "0px 10px ",
             }}
           >
-            <TestContainer item={currentTest} />
+            <TestContainer
+              link={`/test/word-building/${test}`}
+              item={currentTest}
+            />
           </Box>
         )}
         <BackButton />

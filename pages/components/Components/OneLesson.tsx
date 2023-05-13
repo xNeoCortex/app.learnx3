@@ -95,7 +95,7 @@ function OneLesson({ lesson, index }) {
                 }}
               />
             </Box>
-            <Link to={`/class-curriculum/${lesson.id}`}>
+            <Link to={`/class-curriculum`}>
               <Button
                 variant="contained"
                 sx={{
