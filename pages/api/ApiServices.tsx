@@ -62,9 +62,40 @@ function ApiServices() {
     return response
   }
 
-  async function fetchCurriculum() {
-    const res = await axios.get("/api/curriculum")
+  async function fetchAllCurriculum() {
+    const res = await axios.get("/api/fetchallcurriculums")
     return res
+  }
+
+  async function fetchCurriculum(id: string) {
+    const response = await axios.get(`/api/fetchonecurriculum`, {
+      params: {
+        id: id,
+      },
+    })
+    return response
+  }
+  async function fetchOneLesson(id: string) {
+    const response = await axios.get(`/api/fetchonelesson`, {
+      params: {
+        id: id,
+      },
+    })
+    return response
+  }
+
+  async function fetchAssessment(type) {
+    return await axios.get("/api/assessmentapi", {
+      params: {
+        type,
+      },
+    })
+  }
+
+  async function fetchOneAssessment(params) {
+    return await axios.get("/api/getoneassessment", {
+      params: params,
+    })
   }
 
   return {
@@ -77,7 +108,11 @@ function ApiServices() {
     fetchClasses,
     fetchOneClass,
     fetchLessons,
+    fetchAllCurriculum,
     fetchCurriculum,
+    fetchOneLesson,
+    fetchAssessment,
+    fetchOneAssessment,
   }
 }
 

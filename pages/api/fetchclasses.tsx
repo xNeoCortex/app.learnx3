@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       querySnapshot.forEach((doc) => {
         classesX.push({
           ...doc.data(),
-          docId: doc.id,
+          uid: doc.id,
         })
       })
 

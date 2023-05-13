@@ -15,6 +15,18 @@ function ApiPostServices() {
   async function addClass(body) {
     return await axios.post("/api/addclass", body)
   }
+
+  async function addLesson(body) {
+    return await axios.post("/api/addlesson", body)
+  }
+  async function addAssessment(body, type) {
+    return await axios.post("/api/assessmentapi", body, {
+      params: {
+        type,
+      },
+    })
+  }
+
   async function updateClass(body, id) {
     return await axios.put("/api/updateclass", body, {
       params: {
@@ -37,7 +49,6 @@ function ApiPostServices() {
         id: id,
       },
     })
-    console.log("API POST response :>> ", response)
     return response
   }
 
@@ -46,6 +57,8 @@ function ApiPostServices() {
     submitTest,
     addCurriculum,
     addClass,
+    addLesson,
+    addAssessment,
     updateClass,
     updateTeacherInfo,
     submitFeedback,

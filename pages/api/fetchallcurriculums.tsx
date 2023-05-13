@@ -3,18 +3,18 @@ import { db } from "../firebaseX"
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    const lessons = []
+    const curriculum = []
     try {
       const q = query(collection(db, "curriculum"))
       const querySnapshot = await getDocs(q)
 
       querySnapshot.forEach((doc) => {
-        lessons.push({
+        curriculum.push({
           ...doc.data(),
-          docId: doc.id,
+          uid: doc.id,
         })
       })
-      res.status(200).json(lessons)
+      res.status(200).json(curriculum)
     } catch (error) {
       console.log("error", error)
       res.status(500).json({

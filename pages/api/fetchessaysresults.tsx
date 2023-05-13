@@ -10,10 +10,9 @@ export default async function handler(req, res) {
       querySnapshot.forEach((doc) => {
         essayResult.push({
           ...doc.data(),
-          docId: doc.id,
+          uid: doc.id,
         })
       })
-      console.log("essayResult :>> ", essayResult)
       res.status(200).json(essayResult)
     } catch (error) {
       console.log("error", error)
