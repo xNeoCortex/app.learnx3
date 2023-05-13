@@ -1,3 +1,5 @@
+import { useState } from "react"
+import { useQuery } from "react-query"
 import { Avatar, Box, Button, Container, Grid, Typography } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import { useParams } from "react-router-dom"
@@ -8,16 +10,14 @@ import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import HelperFuncitons from "@/pages/helpers/helperFuncitons"
-import { useQuery } from "react-query"
-import { useState } from "react"
 
-function ReadingPage() {
+function WritingPage() {
   const { lessonId } = useParams()
   const { fetchOneLesson, fetchAssessment } = ApiServices()
   const { capitalizeFirstLetter, setEnglishLevel } = HelperFuncitons()
 
-  const { data: article } = useQuery(["readingArticle"], () =>
-    fetchAssessment("readingArticle")
+  const { data: content } = useQuery(["writingContent"], () =>
+    fetchAssessment("writingContent")
   )
 
   const {
@@ -26,8 +26,8 @@ function ReadingPage() {
     isError,
   } = useQuery([`lesson-${lessonId}`], () => fetchOneLesson(lessonId))
 
-  const lessonArticle = article?.data?.filter((item) =>
-    lessonState?.data.content?.includes(item.uid)
+  const lessonContent = content?.data?.filter((item) =>
+    lessonState?.data.content.includes(item.uid)
   )[0]
 
   if (isLoading) return <LoadingPage />
@@ -231,16 +231,57 @@ function ReadingPage() {
             background: "#f4eee3",
             color: "#404040",
             borderRadius: 3,
-            width: "100%",
-            padding: "30px 40px",
+            width: "97%",
+            padding: "30px",
           }}
         >
-          <h3> 📝 {lessonArticle.topic}!</h3>
+          <h3
+            style={{
+              background: "white",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
+            {" "}
+            📝 {lessonContent.topic}!
+          </h3>
 
           <p
             style={{ color: "black" }}
             dangerouslySetInnerHTML={{
-              __html: lessonArticle?.text.replace(/\n/g, "<br /> <br />"),
+              __html: lessonContent?.topic_content?.replace(/\n/g, "<br /> "),
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            flexDirection: "column",
+            justifyContent: "center",
+            background: "#f4eee3",
+            color: "#404040",
+            borderRadius: 3,
+            mt: 2,
+            width: "97%",
+            padding: "30px",
+          }}
+        >
+          <h3
+            style={{
+              background: "white",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
+            {" "}
+            🧐 Example
+          </h3>
+
+          <p
+            style={{ color: "black" }}
+            dangerouslySetInnerHTML={{
+              __html: lessonContent?.topic_example?.replace(/\n/g, "<br /> "),
             }}
           />
         </Box>
@@ -276,7 +317,7 @@ function ReadingPage() {
           >
             {lessonState?.data.assessments?.map((test) => (
               <TestContainer
-                link={`/test/true-false/${test}`}
+                link={`/test/writing/${test}`}
                 topic={lessonState?.data.topic}
                 category={lessonState?.data.category}
                 level={lessonState?.data.level}
@@ -291,4 +332,4 @@ function ReadingPage() {
   )
 }
 
-export default ReadingPage
+export default WritingPage

@@ -184,8 +184,7 @@ function GradeWritingList() {
                                   border: "2px solid #41b6ff",
                                   borderRadius: 12,
                                   fontSize: "13px",
-                                  width: "100%",
-                                  maxWidth: "130px",
+                                  width: "fit-content",
                                   textAlign: "center",
                                 }}
                               >

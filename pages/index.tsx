@@ -42,6 +42,8 @@ import WordBuildingTest from "./components/Assessment/WordBuildingTest"
 import ReadingPage from "./components/Curriculum/ReadingPage"
 import TrueFalseQuiz from "./components/Assessment/TrueFalseQuiz"
 import { CssBaseline } from "@mui/material"
+import WritingPage from "./components/Curriculum/WritingPage"
+import WritingTest from "./components/Assessment/WritingTest"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -125,6 +127,10 @@ export default function Home() {
               path="class-curriculum/:id/reading/:lessonId"
               element={<ReadingPage />}
             />
+            <Route
+              path="class-curriculum/:id/writing/:lessonId"
+              element={<WritingPage />}
+            />
             <Route path="student/:id" element={<StudentProfile />} />
             <Route path="settings" element={<MySettings />} />
             <Route path="resources" element={<Resources />} />
@@ -149,6 +155,7 @@ export default function Home() {
               path="test/word-building/:id"
               element={<WordBuildingTest />}
             />
+            <Route path="test/writing/:id" element={<WritingTest />} />
             <Route path="test/:id" element={<Test />} />
             <Route path="writing" element={<EnglishWriting />} />
             <Route path="writing/:id" element={<Writing />} />

@@ -120,6 +120,10 @@ function CreateLesson({ open, setOpen }) {
                 name: "Reading assessment",
                 type: "readingAssessment",
               },
+              {
+                name: "Writing assessment",
+                type: "writingAssessment",
+              },
             ].map((item) => (
               <Button
                 sx={{ mr: 1, mt: 1 }}

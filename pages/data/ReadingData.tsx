@@ -12,13 +12,14 @@ const ReadingData = {
         Because of the success of Curitiba’s public transport system, Jaime Lerner now offers advice to city councils around the world on how they can solve their cities’ transport problems.    
         `,
   assessment: [],
+  content: [],
 }
 
 const ReadingTest1 = {
   level: "b1",
   lesson_number: 1,
   topic: `The best public transport system in the world.`,
-  type: "article",
+  assessment_type: "article",
   text: `
         Curitiba in Brazil is no ordinary city; it has the best public transport system in the world. The mayor, Jaime Lerner, along with the council, began developing the world-famous system in 1971.
         Mr Lerner had grown up in Curitiba and knew that the street was an important part of city life for the residents. He made many of the streets into pedestrian areas, with no access for cars. The council put in flowers, lights, and kiosks where people could sell food and other products. To encourage shoppers to use the new areas, the mayor gave away free paper so that local children could paint pictures in the street. Cyclists also benefit from 150km of cycle lanes, which follow old river valleys and railway tracks around the city.

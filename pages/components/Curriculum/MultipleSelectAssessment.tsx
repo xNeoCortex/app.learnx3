@@ -57,21 +57,22 @@ export default function MultipleSelectAssessment({
         }
         MenuProps={MenuProps}
       >
-        {data?.data.map((lesson, index) => (
-          <MenuItem key={index} value={lesson}>
-            <Checkbox checked={selectedLessons.indexOf(lesson) > -1} />
-            <ListItemText
-              primary={
-                <Box sx={{ display: "flex" }}>
-                  <Typography sx={{ flex: 1, mr: 2 }}>
-                    Lesson {lesson.lesson_number}{" "}
-                  </Typography>
-                  <Typography sx={{ flex: 2 }}>{lesson.topic}</Typography>
-                </Box>
-              }
-            />
-          </MenuItem>
-        ))}
+        {data?.data?.length > 0 &&
+          data?.data?.map((lesson, index) => (
+            <MenuItem key={index} value={lesson}>
+              <Checkbox checked={selectedLessons.indexOf(lesson) > -1} />
+              <ListItemText
+                primary={
+                  <Box sx={{ display: "flex" }}>
+                    <Typography sx={{ flex: 1, mr: 2 }}>
+                      Lesson {lesson.lesson_number}{" "}
+                    </Typography>
+                    <Typography sx={{ flex: 2 }}>{lesson.topic}</Typography>
+                  </Box>
+                }
+              />
+            </MenuItem>
+          ))}
       </Select>
     </FormControl>
   )

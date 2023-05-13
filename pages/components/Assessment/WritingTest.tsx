@@ -13,17 +13,27 @@ import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import { WritingData } from "@/pages/data/WritingData"
 import { auth } from "@/pages/firebaseX"
-import { useMutation, useQueryClient } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
+import ApiServices from "@/pages/api/ApiServices"
 
-function Writing() {
+function WritingTest() {
   const queryClient = useQueryClient()
   const { id } = useParams()
   const [essay, setEssay] = useState("")
   const [show, setShow] = useState(false)
   const [showCongrats, setShowCongrats] = useState(false)
+  const { fetchOneAssessment } = ApiServices()
 
-  const currentWriting = WritingData.filter((test) => test.id === +id)
+  // Get assessment data from database
+  const {
+    data: writingAssessment,
+    isLoading: isLoadingData,
+    isError: isErrorData,
+  } = useQuery(["writingAssessment"], () =>
+    fetchOneAssessment({ db_collection: "writingAssessment", id: id })
+  )
 
+  console.log("writingAssessment :>> ", writingAssessment?.data)
   // Function to handle essay submission
   const { submitEssay } = ApiPostServices()
   const { mutate, isLoading, isError } = useMutation(
@@ -36,8 +46,9 @@ function Writing() {
   function handleSubmit() {
     //@ts-ignore
     mutate({
-      topic: currentWriting[0]?.topic,
-      level: "intermediate",
+      topic: writingAssessment?.data?.topic,
+      level: "b1",
+      writing_type: writingAssessment?.data?.writing_type,
       essay: essay,
       feedback: "",
       result: null,
@@ -47,8 +58,8 @@ function Writing() {
     setShowCongrats(true)
   }
 
-  if (isLoading) return <LoadingPage />
-  if (isError) return <ErrorPage />
+  if (isLoading || isLoadingData) return <LoadingPage />
+  if (isError || isErrorData) return <ErrorPage />
 
   return (
     <Box
@@ -66,7 +77,7 @@ function Writing() {
         sx={{
           background: "#bdbdbd33",
           margin: "15px ",
-          padding: "1px 0px",
+          padding: "15px",
           borderRadius: 3,
           position: "relative",
         }}
@@ -80,15 +91,18 @@ function Writing() {
             color: "rgb(50, 50, 93)",
           }}
         >
-          Topic: {currentWriting[0]?.topic}
+          Topic: {writingAssessment?.data?.topic}
         </Typography>
-        <Typography sx={{ margin: "5px 15px", fontWeight: 600 }}>
-          Word Limit: {currentWriting[0]?.word_limit}
+        <Typography sx={{ margin: "15px 15px -15px", fontWeight: 600 }}>
+          Task Description:
         </Typography>
         <Typography sx={{ margin: "0px 15px 15px" }}>
-          {" "}
-          The topic of this essay is about you, and you are required to write
-          250 words within 20 minutes.{" "}
+          <p
+            style={{ color: "black" }}
+            dangerouslySetInnerHTML={{
+              __html: writingAssessment?.data?.task?.replace(/\n/g, "<br /> "),
+            }}
+          />
         </Typography>
         <Box sx={{ marginLeft: 1, display: "flex" }}>
           <span
@@ -107,8 +121,26 @@ function Writing() {
               alignItems: "center",
             }}
           >
+            Word Limit: {writingAssessment?.data?.word_limit}{" "}
+          </span>
+          <span
+            style={{
+              fontWeight: 600,
+              padding: "3px 10px",
+              background: "white",
+              color: "#41b6ff",
+              border: "2px solid #41b6ff",
+              borderRadius: 12,
+              fontSize: "13px",
+              textAlign: "center",
+              margin: "10px 5px",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
             Key Words:
-            {currentWriting[0].key_words.map((word) => ` ${word}, `)}
+            {writingAssessment?.data?.key_words?.map((word) => ` ${word}, `)}
           </span>
         </Box>
         <BackButton />
@@ -121,6 +153,40 @@ function Writing() {
             margin: 1,
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              flexDirection: "column",
+              justifyContent: "center",
+              background: "#bdbdbd33",
+              color: "#404040",
+              borderRadius: 3,
+              m: 1,
+              width: "97%",
+              padding: "30px",
+            }}
+          >
+            <h3
+              style={{
+                background: "white",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              {" "}
+              📝 {writingAssessment?.data?.topic}!
+            </h3>
+            <p
+              style={{ color: "black" }}
+              dangerouslySetInnerHTML={{
+                __html: writingAssessment?.data?.topic_content?.replace(
+                  /\n/g,
+                  "<br /> "
+                ),
+              }}
+            />
+          </Box>
           <Box sx={{ margin: 1 }}>
             <TextareaAutosize
               onChange={(e) => setEssay(e.target.value)}
@@ -193,4 +259,4 @@ function Writing() {
   )
 }
 
-export default Writing
+export default WritingTest

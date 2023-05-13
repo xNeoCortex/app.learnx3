@@ -19,7 +19,7 @@ import { useState } from "react"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import { WordBuilding } from "@/pages/data/CurriculumDataX"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
-import { ReadingData, ReadingTest1 } from "@/pages/data/ReadingData"
+import { WritingDataTest } from "@/pages/data/WritingData"
 
 function CreateAssessment({ open, setOpen }) {
   const { addAssessment } = ApiPostServices()
@@ -27,11 +27,11 @@ function CreateAssessment({ open, setOpen }) {
   const [category, setCategory] = useState("")
   const [lessonNumber, setLessonNumber] = useState("")
   const [selectedAssessment, setSelectedAssessment] = useState([])
-  const [assessmentType, setAssessmentType] = useState("readingAssessment")
+  const [assessmentType, setAssessmentType] = useState("writingAssessment")
 
   // Add assessment
   const { mutate, isLoading, isError } = useMutation((body) =>
-    addAssessment(ReadingTest1, assessmentType)
+    addAssessment(WritingDataTest, assessmentType)
   )
 
   if (isLoading) return <LoadingPage />
