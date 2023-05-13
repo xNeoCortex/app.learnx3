@@ -1,5 +1,5 @@
 import { Box, Button, CardMedia, CssBaseline, Grid } from "@mui/material"
-import { ResourcesData } from "../data/ResourcesData"
+import { ResourcesData } from "../../components/data/ResourcesData"
 
 function Resources(props) {
   return (

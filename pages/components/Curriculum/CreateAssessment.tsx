@@ -17,9 +17,9 @@ import LoadingPage from "../Components/LoadingPage"
 import { useMutation } from "react-query"
 import { useState } from "react"
 import ApiPostServices from "@/pages/api/ApiPostServices"
-import { WordBuilding } from "@/pages/data/CurriculumDataX"
+import { WordBuilding } from "@/components/data/CurriculumDataX"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
-import { SpeakingData } from "@/pages/data/SpeakingData"
+import { SpeakingData } from "@/components/data/SpeakingData"
 
 function CreateAssessment({ open, setOpen }) {
   const { addAssessment } = ApiPostServices()

@@ -7,7 +7,7 @@ import MenuBookIcon from "@mui/icons-material/MenuBook"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import HelperFuncitons from "@/pages/helpers/helperFuncitons"
+import HelperFuncitons from "@/components/helpers/helperFuncitons"
 import { useQuery } from "react-query"
 import { useState } from "react"
 

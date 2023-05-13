@@ -1,4 +1,4 @@
-import { WritingData } from "@/pages/data/WritingData"
+import { WritingData } from "@/components/data/WritingData"
 import { Box, Button, CardMedia, CssBaseline, Grid } from "@mui/material"
 import React from "react"
 import { Link } from "react-router-dom"

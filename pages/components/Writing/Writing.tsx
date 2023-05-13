@@ -11,7 +11,7 @@ import BackButton from "../Components/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
-import { WritingData } from "@/pages/data/WritingData"
+import { WritingData } from "@/components/data/WritingData"
 import { auth } from "@/pages/firebaseX"
 import { useMutation, useQueryClient } from "react-query"
 

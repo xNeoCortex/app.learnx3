@@ -9,7 +9,7 @@ import MenuBookIcon from "@mui/icons-material/MenuBook"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import HelperFuncitons from "@/pages/helpers/helperFuncitons"
+import HelperFuncitons from "@/components/helpers/helperFuncitons"
 
 function WritingPage() {
   const { lessonId } = useParams()
@@ -29,7 +29,6 @@ function WritingPage() {
   const lessonContent = content?.data?.filter((item) =>
     lessonState?.data.content.includes(item.uid)
   )[0]
-
 
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />

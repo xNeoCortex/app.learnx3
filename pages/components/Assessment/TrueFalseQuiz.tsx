@@ -1,5 +1,5 @@
 import { Box, Button, Chip, CssBaseline, Typography } from "@mui/material"
-import { TestData } from "../../data/TestData"
+import { TestData } from "../../../components/data/TestData"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import BackButton from "../Components/BackButton"
