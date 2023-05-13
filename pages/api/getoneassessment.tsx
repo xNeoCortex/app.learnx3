@@ -3,8 +3,6 @@ import { db } from "../firebaseX"
 
 export default async function handler(req, res) {
   const { db_collection, id } = req.query
-  console.log("db_collection: ", db_collection)
-  console.log("id :>> ", id)
   if (req.method === "GET") {
     const { id } = req.query
 

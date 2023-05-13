@@ -226,23 +226,6 @@ function LessonPage(props) {
             <WritingContainer item={currentWriting} />
           </Box>
         )}
-        {currentTest && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "start",
-              justifyContent: "center",
-              flexDirection: { xs: "column", sm: "row" },
-              width: "100%",
-              margin: "0px 10px ",
-            }}
-          >
-            <TestContainer
-              link={`/test/word-building/${test}`}
-              item={currentTest}
-            />
-          </Box>
-        )}
         <BackButton />
       </Container>
     </Box>
