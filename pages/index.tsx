@@ -37,7 +37,11 @@ import GradeWritingList from "./components/Writing/GradeWritingList"
 import SchoolPage from "./components/School/SchoolPage"
 import AuthContainer from "./components/Auth/User/AuthContainer"
 import EachCurriculum from "./components/Curriculum/EachCurriculum"
-import LessonPageX from "./components/Curriculum/LessonPageX"
+import VocabularyPage from "./components/Curriculum/VocabularyPage"
+import WordBuildingTest from "./components/Assessment/WordBuildingTest"
+import ReadingPage from "./components/Curriculum/ReadingPage"
+import TrueFalseQuiz from "./components/Assessment/TrueFalseQuiz"
+import { CssBaseline } from "@mui/material"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -93,6 +97,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <CssBaseline />
       <Routes>
         <Route path="/auth" element={<AuthContainer />}>
           <Route path="login" element={<Login />} />
@@ -113,8 +118,12 @@ export default function Home() {
             <Route path="class-curriculum" element={<Curriculum />} />
             <Route path="class-curriculum/:id" element={<EachCurriculum />} />
             <Route
-              path="class-curriculum/:id/:category/:lessonId"
-              element={<LessonPageX />}
+              path="class-curriculum/:id/vocabulary/:lessonId"
+              element={<VocabularyPage />}
+            />
+            <Route
+              path="class-curriculum/:id/reading/:lessonId"
+              element={<ReadingPage />}
             />
             <Route path="student/:id" element={<StudentProfile />} />
             <Route path="settings" element={<MySettings />} />
@@ -133,12 +142,17 @@ export default function Home() {
               <Route path="grade-writing" element={<GradeWritingList />} />
             </Route>
 
-            <Route element={<StudentProtectedRoute user={currentUser} />}>
-              <Route path="test" element={<EnglishTest />} />
-              <Route path="test/:id" element={<Test />} />
-              <Route path="writing" element={<EnglishWriting />} />
-              <Route path="writing/:id" element={<Writing />} />
-            </Route>
+            {/* <Route element={<StudentProtectedRoute user={currentUser} />}> */}
+            <Route path="test" element={<EnglishTest />} />
+            <Route path="test/true-false/:id" element={<TrueFalseQuiz />} />
+            <Route
+              path="test/word-building/:id"
+              element={<WordBuildingTest />}
+            />
+            <Route path="test/:id" element={<Test />} />
+            <Route path="writing" element={<EnglishWriting />} />
+            <Route path="writing/:id" element={<Writing />} />
+            {/* </Route> */}
           </Route>
         </Route>
       </Routes>
