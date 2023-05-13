@@ -1,7 +1,7 @@
 import { Box, Button, CardMedia } from "@mui/material"
 import { Link } from "react-router-dom"
 
-export const TestContainer = ({ item }) => {
+export const TestContainer = ({ link, test, category, topic, level }) => {
   return (
     <Box
       sx={{
@@ -46,7 +46,7 @@ export const TestContainer = ({ item }) => {
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <h3 style={{ width: "auto", marginRight: "20px" }}>
             {" "}
-            {item?.topic}{" "}
+            {test.topic || topic}{" "}
           </h3>
           <p
             style={{
@@ -61,7 +61,7 @@ export const TestContainer = ({ item }) => {
               marginRight: 12,
             }}
           >
-            {item.type}
+            {test.type || test.question_type || level}
           </p>
           <p
             style={{
@@ -75,10 +75,10 @@ export const TestContainer = ({ item }) => {
               fontSize: "12px",
             }}
           >
-            grammar
+            {category}
           </p>
         </Box>
-        <Link to={`/test/${item?.topic_id}`}>
+        <Link to={link}>
           <Button
             variant="contained"
             size="small"
