@@ -5,7 +5,7 @@ import { memo } from "react"
 import { auth } from "../firebaseX"
 import AccountMenu from "./Auth/User/SignOut"
 
-const Navbar = memo(() => {
+const Navbar = () => {
   const { classInfo } = useStoreTemporary()
   return (
     <Grid
@@ -63,6 +63,6 @@ const Navbar = memo(() => {
       </Box>
     </Grid>
   )
-})
+}
 
 export default Navbar
