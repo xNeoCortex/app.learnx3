@@ -1,6 +1,6 @@
 import { auth } from "../../firebaseX"
 import { Box, Button, CssBaseline, Typography } from "@mui/material"
-import { TestData } from "../../../components/data/TestData"
+import { TestData } from "../../data/TestData"
 import { useParams } from "react-router-dom"
 import Radio from "@mui/material/Radio"
 import RadioGroup from "@mui/material/RadioGroup"

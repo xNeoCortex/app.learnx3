@@ -8,8 +8,8 @@ import MenuBookIcon from "@mui/icons-material/MenuBook"
 import LoadingPage from "../Components/LoadingPage"
 import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { TestData } from "@/components/data/TestData"
-import { WritingData } from "@/components/data/WritingData"
+import { TestData } from "@/pages/data/TestData"
+import { WritingData } from "@/pages/data/WritingData"
 import { useQuery } from "react-query"
 
 function LessonPage(props) {

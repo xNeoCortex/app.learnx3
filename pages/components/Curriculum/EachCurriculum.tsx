@@ -12,7 +12,7 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom"
 import ErrorPage from "../Components/ErrorPage"
 import LoadingPage from "../Components/LoadingPage"
-import HelperFuncitons from "@/components/helpers/helperFuncitons"
+import HelperFuncitons from "@/pages/helpers/helperFuncitons"
 import { useQuery } from "react-query"
 import BackButton from "@/pages/components/Components/BackButton"
 import CreateLesson from "./CreateLesson"

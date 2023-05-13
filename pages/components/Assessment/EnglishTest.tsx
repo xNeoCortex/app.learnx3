@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import React from "react"
 import { Link } from "react-router-dom"
-import { TestData } from "../../../components/data/TestData"
+import { TestData } from "../../data/TestData"
 
 function EnglishTest(props) {
   const uniqueTests = TestData.filter(
