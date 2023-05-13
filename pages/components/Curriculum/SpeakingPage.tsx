@@ -1,6 +1,14 @@
 import { useState } from "react"
 import { useQuery } from "react-query"
-import { Avatar, Box, Button, Container, Grid, Typography } from "@mui/material"
+import {
+  Avatar,
+  Box,
+  Button,
+  Chip,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import { useParams } from "react-router-dom"
 import BackButton from "../Components/BackButton"
@@ -11,13 +19,13 @@ import ErrorPage from "../Components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import HelperFuncitons from "@/pages/helpers/helperFuncitons"
 
-function WritingPage() {
+function SpeakingPage() {
   const { lessonId } = useParams()
   const { fetchOneLesson, fetchAssessment } = ApiServices()
   const { capitalizeFirstLetter, setEnglishLevel } = HelperFuncitons()
 
-  const { data: content } = useQuery(["writingContent"], () =>
-    fetchAssessment("writingContent")
+  const { data: content } = useQuery(["speakingContent"], () =>
+    fetchAssessment("speakingContent")
   )
 
   const {
@@ -30,7 +38,9 @@ function WritingPage() {
     lessonState?.data.content.includes(item.uid)
   )[0]
 
-
+  console.log("lessonState :>> ", lessonState)
+  console.log("content :>> ", content)
+  console.log("lessonContent :>> ", lessonContent)
   if (isLoading) return <LoadingPage />
   if (isError) return <ErrorPage />
 
@@ -229,103 +239,97 @@ function WritingPage() {
             flexWrap: "wrap",
             flexDirection: "column",
             justifyContent: "center",
-            background: "#f4eee3",
-            color: "#404040",
-            borderRadius: 3,
-            width: "97%",
-            padding: "30px",
-          }}
-        >
-          <h3
-            style={{
-              background: "white",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            {" "}
-            📝 {lessonContent.topic}!
-          </h3>
-
-          <p
-            style={{ color: "black" }}
-            dangerouslySetInnerHTML={{
-              __html: lessonContent?.topic_content?.replace(/\n/g, "<br /> "),
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            flexDirection: "column",
-            justifyContent: "center",
-            background: "#f4eee3",
-            color: "#404040",
-            borderRadius: 3,
-            mt: 2,
-            width: "97%",
-            padding: "30px",
-          }}
-        >
-          <h3
-            style={{
-              background: "white",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            {" "}
-            🧐 Example
-          </h3>
-
-          <p
-            style={{ color: "black" }}
-            dangerouslySetInnerHTML={{
-              __html: lessonContent?.topic_example?.replace(/\n/g, "<br /> "),
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
+            color: "black",
             width: "100%",
-            padding: "10px 10px 0px",
           }}
         >
-          <h3
-            style={{
-              margin: "10px 10px 0px",
-              fontWeight: 600,
-              fontSize: 19,
-              color: "#5f616a",
-            }}
-          >
-            Assessments
-          </h3>
-        </Box>
-        {lessonState?.data.assessments.length && (
           <Box
             sx={{
-              display: "flex",
-              alignItems: "start",
-              justifyContent: "center",
-              flexDirection: { xs: "column", sm: "row" },
-              width: "100%",
-              margin: "0px 10px ",
+              m: 2,
+              padding: "15px",
+              borderRadius: 3,
+              background: "white",
+              boxShadow:
+                "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
             }}
           >
-            {lessonState?.data.assessments?.map((test) => (
-              <TestContainer
-                link={`/test/writing/${test}`}
-                topic={lessonState?.data.topic}
-                category={lessonState?.data.category}
-                level={lessonState?.data.level}
-                test={test}
-              />
-            ))}
+            <h3>🎤 Practice speaking by answering the following questions</h3>
           </Box>
+          {lessonContent?.topic_content?.map((item, index) => (
+            <Box
+              sx={{
+                m: 2,
+                padding: "15px",
+                borderRadius: 3,
+                background: "rgba(226, 230, 251, 0.3)",
+                boxShadow:
+                  "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+              }}
+            >
+              <h3>{item.question}</h3>
+              <p style={{ marginTop: 10, marginBottom: 5 }}>
+                <strong> Sample Answer: </strong>
+                {item.sample_answer}
+              </p>
+              {item.key_words.map((word) => (
+                <Chip
+                  label={word}
+                  variant="outlined"
+                  style={{
+                    color: "rgb(50, 50, 93)",
+                    background: "transparent",
+                    margin: "5px 10px 5px 0px",
+                    border: "1px solid rgb(50, 50, 93)",
+                    borderRadius: "0.75rem",
+                    fontSize: 12,
+                  }}
+                />
+              ))}
+            </Box>
+          ))}
+        </Box>
+        {lessonState?.data.assessments.length && (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                padding: "10px 10px 0px",
+              }}
+            >
+              <h3
+                style={{
+                  margin: "10px 10px 0px",
+                  fontWeight: 600,
+                  fontSize: 19,
+                  color: "#5f616a",
+                }}
+              >
+                Assessments
+              </h3>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "start",
+                justifyContent: "center",
+                flexDirection: { xs: "column", sm: "row" },
+                width: "100%",
+                margin: "0px 10px ",
+              }}
+            >
+              {lessonState?.data.assessments?.map((test) => (
+                <TestContainer
+                  link={`/test/writing/${test}`}
+                  topic={lessonState?.data.topic}
+                  category={lessonState?.data.category}
+                  level={lessonState?.data.level}
+                  test={test}
+                />
+              ))}
+            </Box>
+          </>
         )}
         <BackButton />
       </Container>
@@ -333,4 +337,4 @@ function WritingPage() {
   )
 }
 
-export default WritingPage
+export default SpeakingPage

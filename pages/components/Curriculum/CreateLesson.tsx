@@ -187,6 +187,7 @@ function CreateLesson({ open, setOpen }) {
                 lesson_number: lessonNumber,
                 type: "file",
                 teach_material: "",
+                content: [],
                 category: category.trim(),
                 createdBy: {
                   name: userInfo.name,

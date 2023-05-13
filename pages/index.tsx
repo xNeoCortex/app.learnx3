@@ -44,6 +44,7 @@ import TrueFalseQuiz from "./components/Assessment/TrueFalseQuiz"
 import { CssBaseline } from "@mui/material"
 import WritingPage from "./components/Curriculum/WritingPage"
 import WritingTest from "./components/Assessment/WritingTest"
+import SpeakingPage from "./components/Curriculum/SpeakingPage"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -130,6 +131,10 @@ export default function Home() {
             <Route
               path="class-curriculum/:id/writing/:lessonId"
               element={<WritingPage />}
+            />
+            <Route
+              path="class-curriculum/:id/speaking/:lessonId"
+              element={<SpeakingPage />}
             />
             <Route path="student/:id" element={<StudentProfile />} />
             <Route path="settings" element={<MySettings />} />
