@@ -243,7 +243,7 @@ function WritingPage() {
             }}
           >
             {" "}
-            📝 {lessonContent.topic}!
+            📝 {lessonContent?.topic}!
           </h3>
 
           <p

@@ -3,7 +3,7 @@ import VideocamIcon from "@mui/icons-material/Videocam"
 import { useStoreTemporary } from "@/pages/zustand"
 import { memo } from "react"
 import { auth } from "../firebaseX"
-import AccountMenu from "../Auth/User/SignOut"
+import AccountMenu from "../auth/User/SignOut"
 
 const Navbar = () => {
   const { classInfo } = useStoreTemporary()
