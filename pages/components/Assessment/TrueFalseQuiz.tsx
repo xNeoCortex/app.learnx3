@@ -157,7 +157,11 @@ function TrueFalseQuiz() {
       {!show && (
         <Button
           variant="contained"
-          style={{ margin: 15, background: "rgb(95, 106, 196)", minWidth: 200 }}
+          style={{
+            margin: 15,
+            minWidth: 200,
+            background: "rgb(95, 106, 196)",
+          }}
           onClick={handleSubmit}
         >
           Submit

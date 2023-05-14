@@ -83,9 +83,10 @@ export const TestContainer = ({ link, test, category, topic, level }) => {
             variant="contained"
             size="small"
             sx={{
-              background: "#0092e4",
+              background: "rgb(95, 106, 196)",
               boxShadow: "none",
               fontWeight: 600,
+              width: "100px",
             }}
           >
             Start

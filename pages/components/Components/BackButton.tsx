@@ -5,7 +5,7 @@ function BackButton() {
   const navigate = useNavigate()
 
   return (
-    <Box sx={{ position: "absolute", top: 20, right: 10 }}>
+    <Box sx={{ position: "absolute", top: 30, right: 10 }}>
       <Button
         onClick={() => navigate(-1)}
         variant="contained"

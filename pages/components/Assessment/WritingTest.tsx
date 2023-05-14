@@ -205,7 +205,7 @@ function WritingTest() {
             />
           </Box>
           <Button
-            sx={{ m: 1 }}
+            sx={{ m: 1, background: "rgb(95, 106, 196)" }}
             variant="contained"
             onClick={handleSubmit}
             disabled={essay.length < 10 ? true : false}

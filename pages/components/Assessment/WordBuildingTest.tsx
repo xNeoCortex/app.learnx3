@@ -131,7 +131,7 @@ function WordBuildingTest() {
       {!show && (
         <Button
           variant="contained"
-          style={{ margin: 15 }}
+          style={{ margin: 15, background: "rgb(95, 106, 196)" }}
           onClick={handleSubmit}
         >
           Submit
