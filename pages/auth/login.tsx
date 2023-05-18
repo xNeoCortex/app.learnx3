@@ -13,9 +13,9 @@ import Box from "@mui/material/Box"
 import LoginIcon from "@mui/icons-material/Login"
 import Typography from "@mui/material/Typography"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/pages/firebaseX"
 import { Alert } from "@mui/material"
 import AuthLayout from "@/components/auth/AuthLayout"
+import { auth } from "@/components/firebaseX"
 
 export default function Login() {
 	const { push: navigate } = useRouter()

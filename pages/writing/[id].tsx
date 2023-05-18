@@ -2,12 +2,12 @@ import { useState } from "react"
 import { Box, Button, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import { WritingData } from "@/components/data/WritingData"
-import { auth } from "@/pages/firebaseX"
 import { useMutation, useQueryClient } from "react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import BackButton from "@/components/other/BackButton"
+import { auth } from "@/components/firebaseX"
 
 function Writing() {
 	const {

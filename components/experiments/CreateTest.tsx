@@ -1,4 +1,4 @@
-import { auth } from "@/pages/firebaseX"
+
 import {
   Avatar,
   Box,
@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material"
 import { useState } from "react"
+import { auth } from "../firebaseX"
 import CreateTestAI from "./CreateTestAI"
 
 function CreateTest() {
