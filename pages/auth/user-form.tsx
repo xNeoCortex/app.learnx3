@@ -1,6 +1,4 @@
 import * as React from "react"
-import { auth, db } from "@/pages//firebaseX"
-import { useStoreUser } from "@/pages//zustand"
 import { updateProfile } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import Button from "@mui/material/Button"
@@ -11,6 +9,8 @@ import Box from "@mui/material/Box"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
+import { useStoreUser } from "@/components/zustand"
+import { db } from "@/components/firebaseX"
 
 export default function UserForm() {
 	const { push: navigate, back } = useRouter()
