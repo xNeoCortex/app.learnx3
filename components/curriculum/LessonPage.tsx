@@ -1,16 +1,15 @@
 import { Avatar, Box, Button, Container, Typography } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
-import BackButton from "../Components/BackButton"
-import { WritingContainer } from "../Components/WritingContainer"
-import { TestContainer } from "../Assessment/TestContainer"
 import MenuBookIcon from "@mui/icons-material/MenuBook"
-import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { TestData } from "@/components/data/TestData"
 import { WritingData } from "@/components/data/WritingData"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
+import ErrorPage from "../ErrorPage"
+import { WritingContainer } from "../other/WritingContainer"
+import BackButton from "../other/BackButton"
 
 function LessonPage(props) {
 	const {
