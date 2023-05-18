@@ -10,7 +10,7 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
 import { useStoreUser } from "@/components/zustand"
-import { db } from "@/components/firebaseX"
+import { auth, db } from "@/components/firebaseX"
 
 export default function UserForm() {
 	const { push: navigate, back } = useRouter()
