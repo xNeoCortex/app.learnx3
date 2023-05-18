@@ -7,11 +7,11 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import TableRowsIcon from "@mui/icons-material/TableRows"
 import ViewModuleIcon from "@mui/icons-material/ViewModule"
 import ApiServices from "@/pages/api/ApiServices"
-import { useStoreTemporary } from "@/pages/zustand"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
+import { useStoreTemporary } from "@/components/zustand"
 
 function ClassStudents() {
 	const {

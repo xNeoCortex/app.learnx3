@@ -2,10 +2,10 @@ import React from "react"
 import OneLesson from "./other/OneLesson"
 import ErrorPage from "./ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { useStoreTemporary } from "@/pages/zustand"
 import { useQuery } from "react-query"
 import LoadingPage from "@/components/LoadingPage"
 import SnackbarX from "@/components/other/SnackbarX"
+import { useStoreTemporary } from "./zustand"
 
 function Lessons(props) {
 	const [open, setOpen] = React.useState(false)

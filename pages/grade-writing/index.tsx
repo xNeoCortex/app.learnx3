@@ -15,9 +15,9 @@ import {
 } from "@mui/material"
 import Paper from "@mui/material/Paper"
 import ApiServices from "@/pages/api/ApiServices"
-import { useStoreTemporary, useStoreUser } from "@/pages/zustand"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
+import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 
 function GradeWritingList() {
 	const { userInfo } = useStoreUser()

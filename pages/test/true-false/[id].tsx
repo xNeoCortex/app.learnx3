@@ -6,7 +6,7 @@ import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { auth } from "../../firebaseX"
+import { auth } from "../../../components/firebaseX"
 import LoadingPage from "@/components/LoadingPage"
 
 function TrueFalseQuiz() {

@@ -1,12 +1,12 @@
 import React from "react"
 import { useQuery } from "react-query"
 import ApiServices from "@/pages/api/ApiServices"
-import { useStoreTemporary } from "@/pages/zustand"
 import { Box } from "@mui/material"
 import ErrorPage from "../ErrorPage"
 import AddClass from "./AddClassDialog"
 import ClassCard from "./ClassCard"
 import LoadingPage from "../LoadingPage"
+import { useStoreTemporary } from "../zustand"
 
 function AddClassPage(props) {
 	const { sidebarWidth } = useStoreTemporary()

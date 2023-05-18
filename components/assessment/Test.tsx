@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query"
-import { auth } from "../../pages/firebaseX"
+import { auth } from "../firebaseX"
 import { Box, Button, CssBaseline, Typography } from "@mui/material"
 import { TestData } from "../data/TestData"
 import Radio from "@mui/material/Radio"

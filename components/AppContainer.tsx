@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
-import { useStoreTemporary, useStoreUser } from "@/pages/zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
 import Sidebar from "./sidebar"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "./ErrorPage"
 import ClassAllocation from "./other/ClassAllocation"
+import { useStoreTemporary, useStoreUser } from "./zustand"
 
 const theme = createTheme()
 

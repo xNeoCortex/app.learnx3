@@ -1,7 +1,6 @@
 import React from "react"
 import { useQuery } from "react-query"
 import ApiServices from "@/pages/api/ApiServices"
-import { useStoreUser } from "@/pages/zustand"
 import { Grid } from "@mui/material"
 import TeacherList from "../components/teacher/TeacherList"
 import ErrorPage from "../components/ErrorPage"
@@ -11,6 +10,7 @@ import AddClassPage from "../components/school/AddClassComponent"
 import AppContainer from "@/components/AppContainer"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
+import { useStoreUser } from "@/components/zustand"
 
 function SchoolPage() {
 	const { push: navigate } = useRouter()

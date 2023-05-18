@@ -14,7 +14,7 @@ import AdbIcon from "@mui/icons-material/Adb"
 import CastForEducationIcon from "@mui/icons-material/CastForEducation"
 import PersonIcon from "@mui/icons-material/Person"
 import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
-import { useStoreTemporary, useStoreUser } from "../pages/zustand"
+import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
 

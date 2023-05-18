@@ -1,8 +1,6 @@
 import * as React from "react"
 import { updateProfile } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
-import { useStoreUser } from "@/pages/zustand"
-import { auth, db } from "@/pages/firebaseX"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
@@ -11,6 +9,8 @@ import Box from "@mui/material/Box"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
+import { useStoreUser } from "@/components/zustand"
+import { auth, db } from "@/components/firebaseX"
 
 export default function StudentForm() {
 	const { push: navigate, back } = useRouter()

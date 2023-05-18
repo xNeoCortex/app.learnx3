@@ -1,9 +1,9 @@
-import { useStoreTemporary } from "@/pages/zustand"
+import React from "react"
+import Link from "next/link"
 import { Button } from "@mui/material"
 import { Box } from "@mui/system"
-import Link from "next/link"
-import React from "react"
 import AddClass from "./AddClassDialog"
+import { useStoreTemporary } from "../zustand"
 
 function ClassCard({ item }) {
 	const { setClassId } = useStoreTemporary()

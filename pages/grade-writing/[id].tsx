@@ -1,14 +1,14 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
+import { useMutation, useQuery } from "react-query"
 import { Avatar, Box, Button, TextField, TextareaAutosize, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
-import { useStoreUser } from "@/pages/zustand"
-import { useMutation, useQuery } from "react-query"
-import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import ExplainAI from "@/components/ExplainAI"
 import BackButton from "../../components/other/BackButton"
+import { useStoreUser } from "@/components/zustand"
 
 function GradeWritingPage() {
 	const {

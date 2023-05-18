@@ -2,8 +2,6 @@ import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { signOut } from "firebase/auth"
-import { useStoreUser } from "@/pages/zustand"
-import { auth } from "@/pages/firebaseX"
 import Box from "@mui/material/Box"
 import Avatar from "@mui/material/Avatar"
 import Menu from "@mui/material/Menu"
@@ -18,6 +16,8 @@ import { Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import PersonIcon from "@mui/icons-material/Person"
+import { useStoreUser } from "../zustand"
+import { auth } from "../firebaseX"
 
 export default function AccountMenu() {
 	const { push: navigate } = useRouter()

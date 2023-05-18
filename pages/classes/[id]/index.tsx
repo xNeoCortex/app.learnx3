@@ -1,6 +1,5 @@
 import React from "react"
 import { useRouter } from "next/router"
-import { useStoreUser } from "@/pages/zustand"
 import AppContainer from "@/components/AppContainer"
 import Navbar from "@/components/Navbar"
 import Lessons from "@/components/Lessons"
@@ -8,6 +7,7 @@ import Translator from "@/components/Translator"
 import TestResult from "@/components/result/TestResult"
 import Statistics from "@/components/Statistics"
 import ClassStudents from "./class-students"
+import { useStoreUser } from "@/components/zustand"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
