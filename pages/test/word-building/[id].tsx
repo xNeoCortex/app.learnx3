@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { auth } from "../../../components/firebaseX"
+import { auth } from "../../../components/FirebaseX"
 import { Box, Button, Chip, CssBaseline, TextField, Typography } from "@mui/material"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"

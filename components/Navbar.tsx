@@ -1,8 +1,8 @@
-import { auth } from "./firebaseX"
+import { auth } from "./FirebaseX"
 import { Box, Button, Grid } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
-import { useStoreTemporary } from "./zustand"
+import { useStoreTemporary } from "./Zustand"
 
 const Navbar = () => {
 	const { classInfo } = useStoreTemporary()

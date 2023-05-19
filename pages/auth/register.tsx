@@ -10,7 +10,7 @@ import { Alert, Typography } from "@mui/material"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
 import AuthLayout from "@/components/auth/AuthLayout"
 import Link from "next/link"
-import { auth } from "@/components/firebaseX"
+import { auth } from "@/components/FirebaseX"
 
 function Copyright(props: any) {
 	return (

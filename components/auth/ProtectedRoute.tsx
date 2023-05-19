@@ -1,15 +1,21 @@
 import { useRouter } from "next/router"
-import LoadingPage from "../LoadingPage"
+import { useEffect } from "react"
 import WaitingPage from "../other/WaitingPage"
+import { useStoreUser } from "../Zustand"
 
-function ProtectedRoute({ children, user, userInfo }) {
+function ProtectedRoute({ children, permitArray = [] }): any {
 	const { push: navigate } = useRouter()
+	const { userInfo } = useStoreUser()
+	console.log("ProtectedRoute userInfo :>> ", userInfo)
 
-	if (user === undefined) {
-		return <LoadingPage />
-	}
-	if (!userInfo.permit && userInfo.role == "teacher") return <WaitingPage />
-	return user ? { children } : navigate("/auth/login")
+	useEffect(() => {
+		!userInfo && navigate("/auth/login")
+		!permitArray.includes(userInfo?.role) && navigate("/auth/login")
+	}, [userInfo, permitArray])
+
+	if (!userInfo?.permit && userInfo?.role == "teacher") return <WaitingPage />
+
+	return userInfo && permitArray.includes(userInfo?.role) && <>{children}</>
 }
 
 export default ProtectedRoute

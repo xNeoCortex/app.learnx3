@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore"
-import { db } from "../../components/firebaseX"
+import { db } from "../../components/FirebaseX"
 
 export default async function handler(req, res) {
 	if (req.method === "PATCH") {

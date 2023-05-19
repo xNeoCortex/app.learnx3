@@ -6,7 +6,7 @@ import { MenuProps } from "@mui/material/Menu"
 import ClearIcon from "@mui/icons-material/Clear"
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh"
 import { Box, IconButton } from "@mui/material"
-import Fina from "@/pages/fina"
+import FinaAI from "../FinaAI"
 
 export default function VirtualTeacherPopup() {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -59,7 +59,7 @@ export default function VirtualTeacherPopup() {
 				>
 					<ClearIcon />
 				</IconButton>
-				<Fina />
+				<FinaAI />
 			</StyledMenu>
 		</Box>
 	)

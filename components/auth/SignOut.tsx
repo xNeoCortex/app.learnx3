@@ -16,12 +16,12 @@ import { Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import PersonIcon from "@mui/icons-material/Person"
-import { useStoreUser } from "../zustand"
-import { auth } from "../firebaseX"
+import { useStoreUser } from "../Zustand"
+import { auth } from "../FirebaseX"
 
 export default function AccountMenu() {
 	const { push: navigate } = useRouter()
-	const { userInfo } = useStoreUser((state) => state)
+	const { userInfo, setUserInfo } = useStoreUser((state) => state)
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
@@ -34,6 +34,7 @@ export default function AccountMenu() {
 			.then(() => {
 				// Sign-out successful.
 				navigate("/auth/login")
+				setUserInfo(null)
 				console.log("Signed out successfully")
 			})
 			.catch((error) => {
@@ -87,7 +88,7 @@ export default function AccountMenu() {
 						fontSize: "12px",
 					}}
 				>
-					{userInfo.role === "teacher" ? "Teacher Account" : userInfo.role === "student" ? "Student Account" : ""}
+					{userInfo?.role === "teacher" ? "Teacher Account" : userInfo?.role === "student" ? "Student Account" : ""}
 				</Typography>
 			</Box>
 			<Menu

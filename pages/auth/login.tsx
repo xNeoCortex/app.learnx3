@@ -1,5 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
+import { getDoc, doc } from "firebase/firestore"
 import { useRouter } from "next/router"
 import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
@@ -15,22 +16,49 @@ import Typography from "@mui/material/Typography"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { Alert } from "@mui/material"
 import AuthLayout from "@/components/auth/AuthLayout"
-import { auth } from "@/components/firebaseX"
+import { auth, db } from "@/components/FirebaseX"
+import { useStoreUser } from "@/components/Zustand"
 
 export default function Login() {
 	const { push: navigate } = useRouter()
 	const [email, setEmail] = React.useState("")
 	const [password, setPassword] = React.useState("")
 	const [error, setError] = React.useState("")
+	const { setUserInfo } = useStoreUser()
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential: any): any => {
+			.then(async (userCredential: any) => {
 				// Signed in
 				const user = userCredential.user
+				console.log("login user :>> ", user)
 				if (user.emailVerified) {
-					return user.displayName ? navigate("/school") : navigate("/auth/user-type")
+					const docRef = doc(db, "teachers", user.uid)
+					const usersData = await getDoc(docRef)
+
+					console.log("login usersData :>> ", usersData?.data())
+					const docRefStudent = doc(db, "students", user.uid)
+					const usersDataStudent = await getDoc(docRefStudent)
+					console.log("login usersDataStudent :>> ", usersDataStudent?.data())
+					try {
+						if (user.displayName) {
+							if (usersData.exists()) {
+								setUserInfo(usersData.data())
+								return usersData?.data().role === "admin" ? navigate("/classes") : navigate("/resources")
+							} else if (usersDataStudent.exists()) {
+								setUserInfo(usersDataStudent.data())
+								return navigate("/test")
+							} else {
+								console.log(" :>> no user")
+							}
+						} else {
+							return navigate("/auth/user-type")
+						}
+					} catch (error) {
+						console.log("fetchData :>> ", error)
+						console.log("_app :>> error")
+					}
 				} else {
 					return setError("Please verify your email")
 				}

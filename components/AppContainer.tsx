@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
 import { useQuery } from "react-query"
 import { useRouter } from "next/router"
+import { useStoreTemporary, useStoreUser } from "./Zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
-import Sidebar from "./sidebar"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "./ErrorPage"
 import ClassAllocation from "./other/ClassAllocation"
-import { useStoreTemporary, useStoreUser } from "./zustand"
+import Sidebar from "./sidebar"
 
 const theme = createTheme()
 
@@ -19,18 +19,24 @@ function AppContainer({ children }) {
 	const { classInfo, setClassInfo } = useStoreTemporary()
 
 	const matchedTeacherClass = classList?.data.find((c) => c.teachers.includes(userInfo.uid))
-
 	const matchedStudentClass = classList?.data.find((c) => c.students.includes(userInfo.uid))
 
+	console.log("AppContainer userInfo :>> ", userInfo)
 	const navigateUser = () => {
 		if (userInfo.role === "teacher" && userInfo.permit === true) {
 			matchedTeacherClass && setClassInfo(matchedTeacherClass)
-			return matchedTeacherClass && navigate(`class/${matchedTeacherClass?.uid}`)
+			return matchedTeacherClass && navigate(`classes/${matchedTeacherClass?.uid}`)
 		} else if (userInfo.role === "student") {
 			matchedStudentClass && setClassInfo(matchedStudentClass)
-			return matchedStudentClass && navigate(`class/${matchedStudentClass?.uid}`)
+			return matchedStudentClass && navigate(`classes/${matchedStudentClass?.uid}`)
+		} else if (userInfo.role === "admin") {
+			return navigate("/classes")
+		} else {
+			return navigate("error")
 		}
 	}
+
+	console.log("appContainer userInfo:>> ", userInfo)
 
 	useEffect(() => {
 		navigateUser()

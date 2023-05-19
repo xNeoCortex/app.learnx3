@@ -5,7 +5,7 @@ import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "react-query"
 import LoadingPage from "@/components/LoadingPage"
 import SnackbarX from "@/components/other/SnackbarX"
-import { useStoreTemporary } from "./zustand"
+import { useStoreTemporary } from "./Zustand"
 
 function Lessons(props) {
 	const [open, setOpen] = React.useState(false)

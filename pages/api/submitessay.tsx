@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "../../components/firebaseX"
+import { db } from "../../components/FirebaseX"
 
 export default async function handle(req, res) {
 	if (req.method === "POST") {

@@ -6,7 +6,7 @@ import ErrorPage from "../ErrorPage"
 import AddClass from "./AddClassDialog"
 import ClassCard from "./ClassCard"
 import LoadingPage from "../LoadingPage"
-import { useStoreTemporary } from "../zustand"
+import { useStoreTemporary } from "../Zustand"
 
 function AddClassPage(props) {
 	const { sidebarWidth } = useStoreTemporary()

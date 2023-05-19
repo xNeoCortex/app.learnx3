@@ -11,7 +11,10 @@ import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
-import { useStoreTemporary } from "@/components/zustand"
+import { useStoreTemporary } from "@/components/Zustand"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
+import SidebarContainer from "@/components/SidebarContainer"
+import StudentCardList from "@/components/student/StudentCardList"
 
 function ClassStudents() {
 	const {
@@ -42,73 +45,13 @@ function ClassStudents() {
 
 	if (isLoading || classIsLoading) return <LoadingPage />
 	if (isError || classIsError) return <ErrorPage />
+
 	return (
-		<div
-			style={{
-				overflowY: "scroll",
-				overflow: "hidden",
-				width: `calc(100vw - ${sidebarWidth}px)`,
-				marginTop: "40px",
-			}}
-		>
-			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
-				<h3
-					style={{
-						margin: 10,
-						fontWeight: 600,
-						fontSize: 19,
-						color: "#5f616a",
-					}}
-				>
-					Class Students
-					<Button
-						style={{
-							background: "#5f6ac4",
-							color: "white",
-							boxShadow: "none",
-							padding: "1px 10px 0px",
-							marginLeft: "10px",
-							fontWeight: 600,
-						}}
-					>
-						{studentList?.length ?? 0} Students
-					</Button>
-				</h3>
-				<ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform">
-					<ToggleButton value="row" style={{ padding: "0px 5px", height: 35 }}>
-						<TableRowsIcon />
-					</ToggleButton>
-					<ToggleButton value="grid" style={{ padding: "0px 5px", height: 35 }}>
-						<ViewModuleIcon />
-					</ToggleButton>
-				</ToggleButtonGroup>
-			</Box>
-			{alignment == "grid" ? (
-				<div
-					style={{
-						display: "flex",
-						flexWrap: "nowrap",
-						overflowX: "scroll",
-						marginBottom: 45,
-						marginLeft: "10px",
-					}}
-				>
-					{studentList?.map((item, index) => (
-						<div key={index}>
-							<StudentCard studentDetails={item} />
-						</div>
-					))}
-				</div>
-			) : (
-				<div style={{ display: "flex", flexDirection: "column" }}>
-					<Grid container>
-						<Grid item xs={12}>
-							<StudentList data={studentList} />
-						</Grid>
-					</Grid>
-				</div>
-			)}
-		</div>
+		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
+			<SidebarContainer>
+				<StudentCardList />
+			</SidebarContainer>
+		</ProtectedRoute>
 	)
 }
 

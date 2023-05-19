@@ -5,7 +5,7 @@ import React from "react"
 import CssBaseline from "@mui/material/CssBaseline"
 import AuthLayout from "@/components/auth/AuthLayout"
 import Link from "next/link"
-import { auth } from "@/components/firebaseX"
+import { auth } from "@/components/FirebaseX"
 
 function ForgotPassword(props) {
 	const [email, setEmail] = React.useState("")

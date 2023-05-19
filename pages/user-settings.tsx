@@ -11,11 +11,11 @@ import { updateDoc, deleteDoc, doc } from "firebase/firestore"
 import { sendPasswordResetEmail } from "firebase/auth"
 import { Alert } from "@mui/material"
 import { updateProfile } from "firebase/auth"
-import { useStoreUser } from "../components/zustand"
-import { auth, db } from "../components/firebaseX"
-import AppContainer from "@/components/AppContainer"
+import { useStoreUser } from "../components/Zustand"
+import { auth, db } from "../components/FirebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
 import SnackbarX from "@/components/other/SnackbarX"
+import ProtectedRoute from "@/components/auth/ProtectedRoute"
 
 export default function MySettings() {
 	const { userInfo } = useStoreUser((state) => state)
@@ -98,7 +98,7 @@ export default function MySettings() {
 	}
 
 	return (
-		<AppContainer>
+		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<CssBaseline />
 			<ConfirmationModal
 				openConfirm={openConfirmDelete}
@@ -263,6 +263,6 @@ export default function MySettings() {
 					<img src="/business-account.png" style={{ width: 400 }} alt="profile" />
 				</Box>
 			</Box>
-		</AppContainer>
+		</ProtectedRoute>
 	)
 }

@@ -9,7 +9,7 @@ import BackButton from "@/components/other/BackButton"
 import LoadingPage from "@/components/LoadingPage"
 import CreateLesson from "@/components/curriculum/CreateLesson"
 import ErrorPage from "@/components/ErrorPage"
-import AppContainer from "@/components/AppContainer"
+import SidebarContainer from "@/components/SidebarContainer"
 
 function EachCurriculum() {
 	const {
@@ -43,7 +43,7 @@ function EachCurriculum() {
 	}
 
 	return (
-		<AppContainer>
+		<SidebarContainer>
 			<Box sx={{ marginTop: "20px", width: "100%" }}>
 				<BackButton />
 				<CssBaseline />
@@ -165,7 +165,7 @@ function EachCurriculum() {
 					</Grid>
 				</Grid>
 			</Box>
-		</AppContainer>
+		</SidebarContainer>
 	)
 }
 

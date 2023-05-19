@@ -14,7 +14,7 @@ import AdbIcon from "@mui/icons-material/Adb"
 import CastForEducationIcon from "@mui/icons-material/CastForEducation"
 import PersonIcon from "@mui/icons-material/Person"
 import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
-import { useStoreTemporary, useStoreUser } from "./zustand"
+import { useStoreTemporary, useStoreUser } from "./Zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
 
@@ -257,8 +257,8 @@ const dataAdmin = (class_id) => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/",
-			link: "/",
+			href: "/classes",
+			link: "/classes",
 			icon: <CastForEducationIcon />,
 		},
 		{
