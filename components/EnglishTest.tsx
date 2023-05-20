@@ -1,7 +1,7 @@
 import { Box, Button, CardMedia, CssBaseline, Grid, Typography } from "@mui/material"
 import Link from "next/link"
 import React from "react"
-import { TestData } from "../components/data/TestData"
+import { TestData } from "./data/TestData"
 
 function EnglishTest(props) {
 	const uniqueTests = TestData.filter(
