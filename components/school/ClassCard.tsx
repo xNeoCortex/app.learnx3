@@ -22,6 +22,7 @@ function ClassCard({ item }) {
 				borderRadius: "8px",
 				maxHeight: "250px",
 				display: "flex",
+				color: "rgb(50, 50, 93)",
 				justifyContent: "space-between",
 				flexDirection: "column",
 				position: "relative",
