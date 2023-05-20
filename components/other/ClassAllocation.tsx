@@ -51,11 +51,11 @@ function ClassAllocation() {
 						</Typography>
 					</Box>
 				</Box>
-				<Link href="/auth/login">
+				{/* <Link href="/auth/login">
 					<Button variant="contained" onClick={() => setUserInfo(null)}>
 						Login
 					</Button>
-				</Link>
+				</Link> */}
 			</Box>
 		</Box>
 	)

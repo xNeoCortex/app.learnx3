@@ -6,11 +6,9 @@ import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "../../components/ErrorPage"
 import BackButton from "../../components/other/BackButton"
 import LoadingPage from "@/components/LoadingPage"
-import CreateAssessment from "../../components/curriculum/CreateAssessment"
-import CreateCurriculum from "@/components/curriculum/CreateCurriculum"
-import CreateLesson from "@/components/curriculum/CreateLesson"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
+import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 
 function Curriculum() {
 	const { fetchAllCurriculum } = ApiServices()
@@ -52,11 +50,14 @@ function Curriculum() {
 								margin: "0px 0px 30px",
 							}}
 						>
-							<Box sx={{ display: "flex", mb: 3, mt: 3 }}>
-								{!openLesson && !openTest && <CreateCurriculum open={open} setOpen={setOpen} />}
-								{!open && !openTest && <CreateLesson open={openLesson} setOpen={setOpenLesson} />}
-								{!open && !openLesson && <CreateAssessment open={openTest} setOpen={setOpenTest} />}
-							</Box>
+							<CreateAllCurriculum
+								open={open}
+								openLesson={openLesson}
+								openTest={openTest}
+								setOpen={setOpen}
+								setOpenLesson={setOpenLesson}
+								setOpenTest={setOpenTest}
+							/>
 							{!open &&
 								!openLesson &&
 								!openTest &&

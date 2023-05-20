@@ -10,6 +10,7 @@ import LoadingPage from "@/components/LoadingPage"
 import CreateLesson from "@/components/curriculum/CreateLesson"
 import ErrorPage from "@/components/ErrorPage"
 import SidebarContainer from "@/components/SidebarContainer"
+import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 
 function EachCurriculum() {
 	const {
@@ -18,6 +19,8 @@ function EachCurriculum() {
 	const { fetchCurriculum, fetchLessons } = ApiServices()
 	const { capitalizeFirstLetter, setEnglishLevel } = HelperFuncitons()
 	const [open, setOpen] = useState(false)
+	const [openLesson, setOpenLesson] = useState(false)
+	const [openTest, setOpenTest] = useState(false)
 
 	// Fetching curriculum
 	const { data: curriculum, isLoading, isError } = useQuery([`curriuclum-${id}`], () => fetchCurriculum(String(id)))
@@ -67,7 +70,14 @@ function EachCurriculum() {
 							margin: "0px 0px 30px",
 						}}
 					>
-						<CreateLesson open={open} setOpen={setOpen} />
+						<CreateAllCurriculum
+							open={open}
+							openLesson={openLesson}
+							openTest={openTest}
+							setOpen={setOpen}
+							setOpenLesson={setOpenLesson}
+							setOpenTest={setOpenTest}
+						/>{" "}
 						{!open &&
 							curriculumLessons?.map((x, index) => (
 								<Box
