@@ -19,7 +19,7 @@ import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
 import ErrorPage from "../ErrorPage"
 import MultipleSelect from "@/components/curriculum/MultipleSelect"
-import { useStoreUser } from "../Zustand"
+import { useStoreUser } from "../zustand"
 
 function CreateCurriculum({ open, setOpen }) {
 	const { userInfo } = useStoreUser()

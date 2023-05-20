@@ -1,7 +1,7 @@
 import React from "react"
 import { Box } from "@mui/material"
 import ExerciseResult from "../assessment/ExerciseResult"
-import { useStoreUser } from "../Zustand"
+import { useStoreUser } from "../zustand"
 import WritingResult from "./WritingResult"
 
 function TestResult(props) {

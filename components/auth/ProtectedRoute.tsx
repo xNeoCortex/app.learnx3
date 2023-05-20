@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import WaitingPage from "../other/WaitingPage"
-import { useStoreUser } from "../Zustand"
+import { useStoreUser } from "../zustand"
 
 function ProtectedRoute({ children, permitArray = [] }): any {
 	const { push: navigate } = useRouter()

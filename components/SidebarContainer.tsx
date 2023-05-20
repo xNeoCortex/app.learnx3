@@ -1,5 +1,5 @@
 import React from "react"
-import { useStoreTemporary } from "./Zustand"
+import { useStoreTemporary } from "./zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
 import Sidebar from "./Sidebar"

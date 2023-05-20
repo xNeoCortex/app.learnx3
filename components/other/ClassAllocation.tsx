@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import Link from "next/link"
-import { useStoreUser } from "../Zustand"
+import { useStoreUser } from "../zustand"
 
 function ClassAllocation() {
 	const { setUserInfo } = useStoreUser()

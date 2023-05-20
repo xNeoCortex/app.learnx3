@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Button } from "@mui/material"
 import { Box } from "@mui/system"
 import AddClass from "./AddClassDialog"
-import { useStoreTemporary } from "../Zustand"
+import { useStoreTemporary } from "../zustand"
 
 function ClassCard({ item }) {
 	const { setClassId } = useStoreTemporary()

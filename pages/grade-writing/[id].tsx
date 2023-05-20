@@ -8,7 +8,7 @@ import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import ExplainAI from "@/components/ExplainAI"
 import BackButton from "../../components/other/BackButton"
-import { useStoreUser } from "@/components/Zustand"
+import { useStoreUser } from "@/components/zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 

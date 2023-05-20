@@ -6,7 +6,7 @@ import { Box } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "./ErrorPage"
 import ClassAllocation from "./other/ClassAllocation"
-import { useStoreTemporary, useStoreUser } from "./Zustand"
+import { useStoreTemporary, useStoreUser } from "./zustand"
 
 function AppContainer({ children }: any) {
 	const { push: navigate } = useRouter()

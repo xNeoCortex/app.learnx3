@@ -16,7 +16,7 @@ import { Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import PersonIcon from "@mui/icons-material/Person"
-import { useStoreUser } from "../Zustand"
+import { useStoreUser } from "../zustand"
 import { auth } from "../FirebaseX"
 
 export default function AccountMenu() {

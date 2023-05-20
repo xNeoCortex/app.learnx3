@@ -11,7 +11,7 @@ import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
-import { useStoreTemporary } from "@/components/Zustand"
+import { useStoreTemporary } from "@/components/zustand"
 
 function StudentCardList() {
 	const {
