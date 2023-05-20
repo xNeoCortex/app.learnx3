@@ -10,20 +10,18 @@ import { useStoreUser } from "@/components/Zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import StudentCardList from "@/components/student/StudentCardList"
+import { Box } from "@mui/material"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
-	const {
-		query: { id },
-	} = useRouter()
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<div style={{ display: "flex", flexDirection: "column" }}>
+				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Navbar />
-					<div style={{ display: "flex" }}>
-						<div style={{ display: "flex", flex: 2, flexDirection: "column" }}>
+					<Box style={{ display: "flex" }}>
+						<Box style={{ display: "flex", flex: 2, flexDirection: "column" }}>
 							{userInfo?.role === "student" ? (
 								<>
 									<Lessons num={1} />
@@ -37,9 +35,9 @@ function MyDashboard() {
 									<StudentCardList />
 								</>
 							) : null}
-						</div>
-					</div>
-				</div>
+						</Box>
+					</Box>
+				</Box>
 			</SidebarContainer>
 		</ProtectedRoute>
 	)

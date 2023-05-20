@@ -6,11 +6,10 @@ import { useStoreUser } from "../Zustand"
 function ProtectedRoute({ children, permitArray = [] }): any {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
-	console.log("ProtectedRoute userInfo :>> ", userInfo)
 
 	useEffect(() => {
 		!userInfo && navigate("/auth/login")
-		!permitArray.includes(userInfo?.role) && navigate("/auth/login")
+		!permitArray.includes(userInfo?.role) && navigate("/error")
 	}, [userInfo, permitArray])
 
 	if (!userInfo?.permit && userInfo?.role == "teacher") return <WaitingPage />

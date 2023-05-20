@@ -44,7 +44,7 @@ function StudentCardList() {
 	if (isError || classIsError) return <ErrorPage />
 
 	return (
-		<div
+		<Box
 			style={{
 				overflowY: "scroll",
 				overflow: "hidden",
@@ -85,31 +85,31 @@ function StudentCardList() {
 				</ToggleButtonGroup>
 			</Box>
 			{alignment == "grid" ? (
-				<div
+				<Box
 					style={{
 						display: "flex",
 						flexWrap: "nowrap",
 						overflowX: "scroll",
-						marginBottom: 45,
+						marginBottom: "45px",
 						marginLeft: "10px",
 					}}
 				>
 					{studentList?.map((item, index) => (
-						<div key={index}>
+						<Box key={index}>
 							<StudentCard studentDetails={item} />
-						</div>
+						</Box>
 					))}
-				</div>
+				</Box>
 			) : (
-				<div style={{ display: "flex", flexDirection: "column" }}>
+				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Grid container>
 						<Grid item xs={12}>
 							<StudentList data={studentList} />
 						</Grid>
 					</Grid>
-				</div>
+				</Box>
 			)}
-		</div>
+		</Box>
 	)
 }
 

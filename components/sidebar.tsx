@@ -43,7 +43,7 @@ function Sidebar({ classId }) {
 			onMouseLeave={() => setIsShown(false)}
 		>
 			<Link
-				href={userInfo.role === "admin" ? "/" : `/classes/${classId}`}
+				href={userInfo?.role === "admin" ? "/" : `/classes/${classId}`}
 				style={{ display: "flex", marginLeft: !hide && 10 }}
 			>
 				{hide ? (
@@ -81,8 +81,8 @@ function Sidebar({ classId }) {
 									<ListItemButton
 										className="onHover"
 										style={{
-											background: pathname == item.link ? "#5f6ac4" : "inherit",
-											color: pathname == item.link ? "white" : "#BAB9CC",
+											background: pathname == item.href ? "#5f6ac4" : "inherit",
+											color: pathname == item.href ? "white" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
 										}}
@@ -101,8 +101,8 @@ function Sidebar({ classId }) {
 										<ListItemButton
 											className="onHover"
 											style={{
-												background: pathname == item.link ? "#5f6ac4" : "inherit",
-												color: pathname == item.link ? "white" : "#BAB9CC",
+												background: pathname == item.href ? "#5f6ac4" : "inherit",
+												color: pathname == item.href ? "white" : "#BAB9CC",
 												borderRadius: 5,
 												marginBottom: 5,
 											}}
@@ -113,13 +113,13 @@ function Sidebar({ classId }) {
 									</ListItem>
 								</Link>
 							))}
-							<Link href={`/student/[id]`} as={`/student/${userInfo.uid}`}>
+							<Link href={`/student/[id]`} as={`/student/${userInfo?.uid}`}>
 								<ListItem disablePadding>
 									<ListItemButton
 										className="onHover"
 										style={{
-											background: pathname == `/student/${userInfo.uid}` ? "#5f6ac4" : "inherit",
-											color: pathname == `/student/${userInfo.uid}` ? "white" : "#BAB9CC",
+											background: pathname == `/student/[id]` ? "#5f6ac4" : "inherit",
+											color: pathname == `/student/[id]` ? "white" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
 										}}
@@ -140,8 +140,8 @@ function Sidebar({ classId }) {
 										<ListItemButton
 											className="onHover"
 											style={{
-												background: pathname == item.link ? "#5f6ac4" : "inherit",
-												color: pathname == item.link ? "white" : "#BAB9CC",
+												background: pathname == item.href ? "#5f6ac4" : "inherit",
+												color: pathname == item.href ? "white" : "#BAB9CC",
 												borderRadius: 5,
 												marginBottom: 5,
 											}}

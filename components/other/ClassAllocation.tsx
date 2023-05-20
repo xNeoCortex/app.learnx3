@@ -1,8 +1,12 @@
-import { Avatar, Box, Typography } from "@mui/material"
+import { Avatar, Box, Button, Typography } from "@mui/material"
+import Link from "next/link"
+import { useStoreUser } from "../Zustand"
 
 function ClassAllocation() {
+	const { setUserInfo } = useStoreUser()
+
 	return (
-		<div
+		<Box
 			style={{
 				height: "100vh",
 				display: "flex",
@@ -47,8 +51,13 @@ function ClassAllocation() {
 						</Typography>
 					</Box>
 				</Box>
+				<Link href="/auth/login">
+					<Button variant="contained" onClick={() => setUserInfo(null)}>
+						Login
+					</Button>
+				</Link>
 			</Box>
-		</div>
+		</Box>
 	)
 }
 

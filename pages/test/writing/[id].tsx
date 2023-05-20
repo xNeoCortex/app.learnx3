@@ -41,8 +41,8 @@ function WritingTest() {
 			essay: essay,
 			feedback: "",
 			result: null,
-			student_id: auth.currentUser.uid,
-			student_name: auth.currentUser.displayName,
+			student_id: auth.currentUser?.uid,
+			student_name: auth.currentUser?.displayName,
 		})
 		setShowCongrats(true)
 	}
@@ -127,7 +127,7 @@ function WritingTest() {
 						}}
 					>
 						Key Words:
-						{writingAssessment?.data?.key_words?.map((word) => ` ${word}, `)}
+						{writingAssessment?.data?.key_words?.map((word: string) => ` ${word}, `)}
 					</span>
 				</Box>
 				<BackButton />

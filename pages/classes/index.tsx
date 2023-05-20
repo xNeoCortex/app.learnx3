@@ -1,21 +1,17 @@
 import React from "react"
 import { useQuery } from "react-query"
 import ApiServices from "@/pages/api/ApiServices"
-import { Grid } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import ErrorPage from "@/components/ErrorPage"
 import Navbar from "@/components/Navbar"
 import StudentList from "@/components/student/StudentList"
 import AddClassPage from "@/components/school/AddClassComponent"
-import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
-import { useStoreUser } from "@/components/Zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import TeacherList from "@/components/teacher/TeacherList"
 
 function SchoolPage() {
-	const { push: navigate } = useRouter()
-	const { userInfo } = useStoreUser()
 	const { fetchAllStudents, fetchAllTeachers } = ApiServices()
 	const { data: studentList, isLoading, isError } = useQuery(["students"], fetchAllStudents)
 
@@ -31,7 +27,7 @@ function SchoolPage() {
 	return (
 		<ProtectedRoute permitArray={["admin"]}>
 			<SidebarContainer>
-				<div style={{ display: "flex", flexDirection: "column" }}>
+				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Navbar />
 					<AddClassPage />
 					<Grid container spacing={4} sx={{ mt: 2 }}>
@@ -42,7 +38,7 @@ function SchoolPage() {
 							<StudentList data={studentList?.data} />
 						</Grid>
 					</Grid>
-				</div>
+				</Box>
 			</SidebarContainer>
 		</ProtectedRoute>
 	)

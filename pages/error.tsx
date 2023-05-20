@@ -1,13 +1,15 @@
 import { Avatar, Box, Button, Typography } from "@mui/material"
+import Link from "next/link"
 
 function ErrorPage({ message = "" }) {
 	return (
-		<div
+		<Box
 			style={{
 				height: "100vh",
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
+				flexDirection: "column",
 			}}
 		>
 			<Box
@@ -42,7 +44,10 @@ function ErrorPage({ message = "" }) {
 					</Typography>
 				</Box>
 			</Box>
-		</div>
+			<Link href="/auth/login">
+				<Button variant="contained">Login</Button>
+			</Link>
+		</Box>
 	)
 }
 

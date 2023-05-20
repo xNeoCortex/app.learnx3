@@ -45,10 +45,10 @@ export default function Login() {
 						if (user.displayName) {
 							if (usersData.exists()) {
 								setUserInfo(usersData.data())
-								return usersData?.data().role === "admin" ? navigate("/classes") : navigate("/resources")
+								return usersData?.data().role === "admin" ? navigate("/classes") : navigate("/test")
 							} else if (usersDataStudent.exists()) {
 								setUserInfo(usersDataStudent.data())
-								return navigate("/test")
+								return navigate("/resources")
 							} else {
 								console.log(" :>> no user")
 							}

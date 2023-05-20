@@ -131,7 +131,7 @@ export default function WritingResult({ id }) {
 											textAlign: "center",
 										}}
 									>
-										<Link href={`/grade-writing/${row?.uid}`}>
+										<Link href={`/grade-writing/[id]`} as={`/grade-writing/${row?.uid}`}>
 											<Button
 												variant="contained"
 												size="small"
