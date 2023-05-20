@@ -76,7 +76,7 @@ function sidebar({ classId }) {
 				<List>
 					{userInfo?.role === "teacher" ? (
 						dataTeacher(classId)?.map((item, index) => (
-							<Link key={index} href={item?.href} as={item?.link}>
+							<Link key={index} href={item?.link}>
 								<ListItem disablePadding>
 									<ListItemButton
 										className="onHover"
@@ -96,7 +96,7 @@ function sidebar({ classId }) {
 					) : userInfo?.role === "student" ? (
 						<>
 							{dataStudent(classId)?.map((item, index) => (
-								<Link key={index} href={item?.href} as={item?.link}>
+								<Link key={index} href={item?.link}>
 									<ListItem disablePadding>
 										<ListItemButton
 											className="onHover"
@@ -113,7 +113,7 @@ function sidebar({ classId }) {
 									</ListItem>
 								</Link>
 							))}
-							<Link href={`/student/[id]`} as={`/student/${userInfo?.uid}`}>
+							<Link href={`/student/${userInfo?.uid}`}>
 								<ListItem disablePadding>
 									<ListItemButton
 										className="onHover"
@@ -134,7 +134,7 @@ function sidebar({ classId }) {
 						</>
 					) : userInfo?.role === "admin" ? (
 						dataAdmin(class_id).map((item, index) => (
-							<Link key={index} href={item?.href} as={item?.link}>
+							<Link key={index} href={item?.link}>
 								<ListItem disablePadding>
 									<ListItemButton
 										className="onHover"
