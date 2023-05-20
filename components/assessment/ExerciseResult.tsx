@@ -122,7 +122,7 @@ export default function ExerciseResult({ id }) {
 													margin: "auto",
 												}}
 											>
-												{row?.result !== null ? row?.result : "N/A"}
+												{row?.result !== null ? Math.round(row?.result) : "N/A"}
 											</p>
 										</TableCell>
 									</TableRow>
