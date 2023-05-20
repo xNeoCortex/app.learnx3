@@ -43,7 +43,7 @@ const useStore = create(
 const useStoreUser = create(
     persist(
         (set, get) => ({
-            userInfo: {},
+            userInfo: null,
             setUserInfo: (user) => set({
                 userInfo: user
             }),
