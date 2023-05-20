@@ -38,7 +38,7 @@ function AddClassPage(props) {
 							if (a.class_name < b.class_name) return -1
 							return 0
 						})
-						.map((item, index) => <ClassCard item={item} />)}
+						.map((item, index) => <ClassCard key={index} item={item} />)}
 			</div>
 		</Box>
 	)

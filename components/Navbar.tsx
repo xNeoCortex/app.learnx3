@@ -24,9 +24,11 @@ const Navbar = () => {
 		>
 			<Box>
 				<h2 style={{ color: "#32325d", marginLeft: 2 }}>
-					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 🙂" : "Hello"}
+					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👨‍🏫" : "Hello"}
 				</h2>
-				<p style={{ color: "#32325d", marginLeft: 2 }}>{classInfo?.class_name}</p>
+				<p style={{ color: "#32325d", marginLeft: 2 }}>
+					<span style={{ color: "rgba(50, 50, 93, 0.7)" }}>Class: </span> {classInfo?.class_name}
+				</p>
 			</Box>
 			<Box display="flex" alignItems="center">
 				<a target="_blank" rel="noreferrer" href={`http://teleport.video/sakinah/yaseenavgani`}>

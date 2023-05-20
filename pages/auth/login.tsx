@@ -42,12 +42,13 @@ export default function Login() {
 						if (user.displayName) {
 							if (usersData.exists()) {
 								setUserInfo(usersData.data())
-								return usersData?.data().role === "admin" ? navigate("/classes") : navigate("/test")
+								return navigate("/classes")
 							} else if (usersDataStudent.exists()) {
 								setUserInfo(usersDataStudent.data())
-								return navigate("/resources")
+								return navigate("/classes")
 							} else {
 								console.log(" :>> no user")
+								setError("No user found")
 							}
 						} else {
 							return navigate("/auth/user-type")

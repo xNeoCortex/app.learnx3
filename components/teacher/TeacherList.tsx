@@ -49,7 +49,7 @@ export default function TeacherList({ data }) {
 									if (a.name < b.name) return -1
 									return 0
 								})
-								?.map((teacher) => <TableRows teacher={teacher} />)}
+								?.map((teacher, index) => <TableRows key={index} teacher={teacher} />)}
 					</TableBody>
 				</Table>
 			</TableContainer>

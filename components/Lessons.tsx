@@ -5,6 +5,7 @@ import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "react-query"
 import LoadingPage from "@/components/LoadingPage"
 import SnackbarX from "@/components/other/SnackbarX"
+import { Box } from "@mui/material"
 import { useStoreTemporary } from "./zustand"
 
 function Lessons(props) {
@@ -28,9 +29,9 @@ function Lessons(props) {
 			/>
 
 			{
-				<div
+				<Box
 					style={{
-						marginTop: 50,
+						marginTop: "50px",
 						display: "flex",
 						overflowX: "scroll",
 						overflowY: "hidden",
@@ -45,8 +46,8 @@ function Lessons(props) {
 								if (a.name < b.name) return -1
 								return 0
 							})
-							.map((lesson, index) => <OneLesson lesson={lesson} index={index} />)}
-				</div>
+							.map((lesson, index) => <OneLesson key={index} lesson={lesson} />)}
+				</Box>
 			}
 		</>
 	)

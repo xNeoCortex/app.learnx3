@@ -1,11 +1,10 @@
 import React from "react"
-import { Box, Button, Chip, Grid, Typography } from "@mui/material"
+import { Box, Button, Chip, Typography } from "@mui/material"
 import Link from "next/link"
 
-function OneLesson({ lesson, index }) {
+function OneLesson({ lesson }) {
 	return (
 		<Box
-			key={index}
 			style={{
 				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				padding: "10px 20px",
@@ -32,7 +31,7 @@ function OneLesson({ lesson, index }) {
 					height: "100%",
 				}}
 			>
-				<Grid wrap="nowrap" width="100%">
+				<Box width="100%">
 					<Typography
 						style={{
 							color: "rgb(50, 50, 93)",
@@ -100,7 +99,7 @@ function OneLesson({ lesson, index }) {
 							</Button>
 						</Link>
 					</Box>
-				</Grid>
+				</Box>
 				<img
 					style={{
 						color: "aqua",

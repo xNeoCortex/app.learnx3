@@ -10,6 +10,7 @@ import LoadingPage from "@/components/LoadingPage"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import TeacherList from "@/components/teacher/TeacherList"
+import AppContainer from "@/components/AppContainer"
 
 function SchoolPage() {
 	const { fetchAllStudents, fetchAllTeachers } = ApiServices()
@@ -25,22 +26,24 @@ function SchoolPage() {
 	if (isError || isErrorTeacher) return <ErrorPage />
 
 	return (
-		<ProtectedRoute permitArray={["admin"]}>
-			<SidebarContainer>
-				<Box style={{ display: "flex", flexDirection: "column" }}>
-					<Navbar />
-					<AddClassPage />
-					<Grid container spacing={4} sx={{ mt: 2 }}>
-						<Grid item xs={12} sm={6}>
-							<TeacherList data={teacherList?.data} />
+		<AppContainer>
+			<ProtectedRoute permitArray={["admin"]}>
+				<SidebarContainer>
+					<Box style={{ display: "flex", flexDirection: "column" }}>
+						<Navbar />
+						<AddClassPage />
+						<Grid container spacing={4} sx={{ mt: 2 }}>
+							<Grid item xs={12} sm={6}>
+								<TeacherList data={teacherList?.data} />
+							</Grid>
+							<Grid item xs={12} sm={6}>
+								<StudentList data={studentList?.data} />
+							</Grid>
 						</Grid>
-						<Grid item xs={12} sm={6}>
-							<StudentList data={studentList?.data} />
-						</Grid>
-					</Grid>
-				</Box>
-			</SidebarContainer>
-		</ProtectedRoute>
+					</Box>
+				</SidebarContainer>
+			</ProtectedRoute>
+		</AppContainer>
 	)
 }
 export default SchoolPage

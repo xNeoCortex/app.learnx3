@@ -134,24 +134,22 @@ function sidebar({ classId }) {
 						</>
 					) : userInfo?.role === "admin" ? (
 						dataAdmin(class_id).map((item, index) => (
-							<>
-								<Link key={index} href={item?.href} as={item?.link}>
-									<ListItem disablePadding>
-										<ListItemButton
-											className="onHover"
-											style={{
-												background: pathname == item.href ? "#5f6ac4" : "inherit",
-												color: pathname == item.href ? "white" : "#BAB9CC",
-												borderRadius: 5,
-												marginBottom: 5,
-											}}
-										>
-											<ListItemIcon style={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-											<ListItemText primary={item.name} />
-										</ListItemButton>
-									</ListItem>
-								</Link>
-							</>
+							<Link key={index} href={item?.href} as={item?.link}>
+								<ListItem disablePadding>
+									<ListItemButton
+										className="onHover"
+										style={{
+											background: pathname == item.href ? "#5f6ac4" : "inherit",
+											color: pathname == item.href ? "white" : "#BAB9CC",
+											borderRadius: 5,
+											marginBottom: 5,
+										}}
+									>
+										<ListItemIcon style={{ color: "inherit" }}>{item.icon}</ListItemIcon>
+										<ListItemText primary={item.name} />
+									</ListItemButton>
+								</ListItem>
+							</Link>
 						))
 					) : (
 						""

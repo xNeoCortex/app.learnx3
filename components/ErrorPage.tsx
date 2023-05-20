@@ -1,6 +1,9 @@
 import { Avatar, Box, Button, Typography } from "@mui/material"
+import Link from "next/link"
+import { useRouter } from "next/router"
 
 function ErrorPage({ message = "" }) {
+	const { back } = useRouter()
 	return (
 		<div
 			style={{
@@ -38,9 +41,11 @@ function ErrorPage({ message = "" }) {
 					/>
 					<Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
 						{message.length > 0 ? message : "Sorry, something went wrong!"}
-						{/* : "Sorry, you do not have access to this page!"} */}
 					</Typography>
 				</Box>
+				<Button variant="contained" onClick={() => back()}>
+					Go Back
+				</Button>
 			</Box>
 		</div>
 	)

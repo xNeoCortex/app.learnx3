@@ -2,8 +2,12 @@ import React from "react"
 import Head from "next/head"
 import { CssBaseline } from "@mui/material"
 import SchoolPage from "./classes"
+import { useStoreUser } from "@/components/zustand"
+import Login from "./auth/login"
 
 export default function Home() {
+	const { userInfo } = useStoreUser()
+	if (!userInfo?.role) return <Login />
 	return (
 		<>
 			<Head>
