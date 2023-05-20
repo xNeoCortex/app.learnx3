@@ -87,7 +87,7 @@ function SpeakingPage() {
 							</p>
 							<p style={{ fontWeight: "bolder" }}>
 								Keyword:{" "}
-								{item.key_words.map((word) => (
+								{item?.key_words?.map((word) => (
 									<Chip
 										label={word}
 										variant="outlined"

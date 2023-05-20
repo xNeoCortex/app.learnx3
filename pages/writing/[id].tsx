@@ -100,7 +100,7 @@ function Writing() {
 						}}
 					>
 						Key Words:
-						{currentWriting[0].key_words.map((word) => ` ${word}, `)}
+						{currentWriting[0]?.key_words.map((word) => ` ${word}, `)}
 					</span>
 				</Box>
 				<BackButton />
