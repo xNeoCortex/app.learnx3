@@ -18,7 +18,7 @@ import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
 
-function Sidebar({ classId }) {
+function sidebar({ classId }) {
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
 	const [hide, setHide] = useState(true)
@@ -163,7 +163,7 @@ function Sidebar({ classId }) {
 	)
 }
 
-export default Sidebar
+export default sidebar
 
 const dataTeacher = (classId) => {
 	return [

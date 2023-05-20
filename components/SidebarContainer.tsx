@@ -2,7 +2,8 @@ import React from "react"
 import { useStoreTemporary } from "./zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
-import Sidebar from "./Sidebar"
+//@ts-ignore
+import Sidebar from "./sidebar"
 
 const theme = createTheme()
 
