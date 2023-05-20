@@ -1,4 +1,4 @@
-import { auth } from "./FirebaseX"
+import { auth } from "./firebaseX"
 import { Box, Button, Grid } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"

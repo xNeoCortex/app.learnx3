@@ -1,7 +1,7 @@
 import ExplainAI from "@/components/ExplainAI"
 import { Avatar, Box, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import { useState } from "react"
-import { auth } from "./FirebaseX"
+import { auth } from "./firebaseX"
 
 function FinaAI() {
 	const [question, setQuestion] = useState("")

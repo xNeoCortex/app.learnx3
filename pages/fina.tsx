@@ -4,7 +4,7 @@ import FinaAI from "@/components/FinaAI"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Avatar, Box, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import { useState } from "react"
-import { auth } from "../components/FirebaseX"
+import { auth } from "../components/firebaseX"
 
 function Fina() {
 	const [question, setQuestion] = useState("")

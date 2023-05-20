@@ -17,7 +17,7 @@ import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
-import { auth } from "../FirebaseX"
+import { auth } from "../firebaseX"
 
 export default function AccountMenu() {
 	const { push: navigate } = useRouter()

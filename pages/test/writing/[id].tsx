@@ -7,7 +7,7 @@ import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import { auth } from "@/components/FirebaseX"
+import { auth } from "@/components/firebaseX"
 
 function WritingTest() {
 	const queryClient = useQueryClient()

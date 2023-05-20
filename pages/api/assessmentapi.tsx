@@ -1,5 +1,5 @@
 import { collection, addDoc, query, getDocs } from "firebase/firestore"
-import { db } from "../../components/FirebaseX"
+import { db } from "../../components/firebaseX"
 
 export default async function handler(req, res) {
 	const { type } = req.query

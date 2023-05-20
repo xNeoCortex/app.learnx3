@@ -1,6 +1,6 @@
 import { Avatar, Box, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import { useState } from "react"
-import { auth } from "../FirebaseX"
+import { auth } from "../firebaseX"
 import CreateTestAI from "./CreateTestAI"
 
 function CreateTest() {

@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore"
-import { db } from "../../components/FirebaseX"
+import { db } from "../../components/firebaseX"
 
 export default async function hundler(req, res) {
 	if (req.method === "PATCH") {
