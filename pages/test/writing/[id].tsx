@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { useMutation, useQuery, useQueryClient } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Box, Button, Container, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
@@ -29,7 +29,7 @@ function WritingTest() {
 	// Function to handle essay submission
 	const { submitEssay } = ApiPostServices()
 	const { mutate, isLoading, isError } = useMutation((body) => submitEssay(body), {
-		onSuccess: () => queryClient.invalidateQueries("essayResult"),
+		onSuccess: () => queryClient.invalidateQueries(["essayResult"]),
 	})
 
 	function handleSubmit() {

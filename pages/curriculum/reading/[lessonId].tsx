@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import BackButton from "@/components/other/BackButton"

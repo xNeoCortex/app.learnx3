@@ -13,7 +13,7 @@ import {
 	Typography,
 } from "@mui/material"
 import ErrorPage from "../ErrorPage"
-import { useMutation } from "react-query"
+import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import { WordBuilding } from "@/components/data/CurriculumDataX"

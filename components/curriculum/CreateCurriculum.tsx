@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 import { useState } from "react"
-import { useQuery, useQueryClient, useMutation } from "react-query"
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
 import {
 	Box,
 	Button,
@@ -34,7 +34,7 @@ function CreateCurriculum({ open, setOpen }) {
 
 	// Add curriculum
 	const { mutate, isError: isErrorM } = useMutation((body) => addCurriculum(body), {
-		onSuccess: () => queryClient.invalidateQueries("curriculumList"),
+		onSuccess: () => queryClient.invalidateQueries(["curriculumList"]),
 	})
 
 	if (isLoading) return <LoadingPage />

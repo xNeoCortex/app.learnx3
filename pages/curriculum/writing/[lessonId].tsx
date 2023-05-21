@@ -1,4 +1,4 @@
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Box, Container } from "@mui/material"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"

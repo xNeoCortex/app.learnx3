@@ -12,7 +12,7 @@ import { Box } from "@mui/material"
 import Switch from "@mui/material/Switch"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../ErrorPage"
-import { useMutation } from "react-query"
+import { useMutation } from "@tanstack/react-query"
 
 export default function TeacherList({ data }) {
 	return (

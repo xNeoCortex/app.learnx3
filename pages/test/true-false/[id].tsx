@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { Box, Button, Chip, Container, CssBaseline, Typography } from "@mui/material"
-import { useMutation, useQuery, useQueryClient } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
@@ -23,7 +23,7 @@ function TrueFalseQuiz() {
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
-		onSuccess: () => queryClient.invalidateQueries("testResult"),
+		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
 	})
 
 	// Get assessment data from database

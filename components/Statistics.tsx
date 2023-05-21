@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { Box, Grid } from "@mui/material"
 import GppBadIcon from "@mui/icons-material/GppBad"
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious"

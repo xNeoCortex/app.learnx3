@@ -1,5 +1,5 @@
+import { useQuery } from "@tanstack/react-query"
 import React from "react"
-import { useQuery } from "react-query"
 import Link from "next/link"
 import {
 	Avatar,
@@ -25,7 +25,7 @@ function GradeWritingList() {
 	const { sidebarWidth, classInfo } = useStoreTemporary()
 
 	const { fetchEssayResults } = ApiServices()
-	const { data, isLoading, isError } = useQuery("essayResult", fetchEssayResults)
+	const { data, isLoading, isError } = useQuery(["essayResult"], fetchEssayResults)
 
 	const notGraded = data?.data.filter((item) => item.result === null)
 

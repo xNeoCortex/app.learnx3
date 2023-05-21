@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
-import { useMutation, useQuery } from "react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { Avatar, Box, Button, TextField, TextareaAutosize, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
@@ -42,7 +42,7 @@ function GradeWritingPage() {
 
 	// fetch essay info
 	const { fetchEssayInfo } = ApiServices()
-	const { data: essayInfo, isLoading, isError } = useQuery("essayInfo", () => fetchEssayInfo(String(id)))
+	const { data: essayInfo, isLoading, isError } = useQuery(["essayInfo", String(id)], () => fetchEssayInfo(String(id)))
 
 	// manage loading and error
 	if (isLoading || isLoadingFeedback) return <LoadingPage />

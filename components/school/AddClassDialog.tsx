@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useQuery, useQueryClient, useMutation } from "react-query"
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
 import Button from "@mui/material/Button"
 import { styled } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"
@@ -44,7 +44,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
   )
 
   const { mutate, isSuccess, isError } = useMutation((body) => addClass(body), {
-    onSuccess: () => queryClient.invalidateQueries("listClasses"),
+    onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
   })
 
   const {
@@ -52,7 +52,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
     isSuccess: isSuccessPut,
     isError: isErrorPut,
   } = useMutation((body) => updateClass(body, _class.uid), {
-    onSuccess: () => queryClient.invalidateQueries("listClasses"),
+    onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
   })
 
   const handleClickOpen = () => {

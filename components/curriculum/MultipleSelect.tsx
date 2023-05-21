@@ -7,7 +7,7 @@ import ListItemText from "@mui/material/ListItemText"
 import Select from "@mui/material/Select"
 import Checkbox from "@mui/material/Checkbox"
 import ApiServices from "@/pages/api/ApiServices"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import ErrorPage from "../ErrorPage"
 import LoadingPage from "../LoadingPage"
 

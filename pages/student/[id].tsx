@@ -1,6 +1,6 @@
 import { Avatar, Box } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
@@ -15,7 +15,7 @@ function StudentProfile() {
 		query: { id },
 	} = useRouter()
 	const { fetchStudentData } = ApiServices()
-	const { data, isLoading, isError } = useQuery("student", () => fetchStudentData(String(id)))
+	const { data, isLoading, isError } = useQuery(["student", String(id)], () => fetchStudentData(String(id)))
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />

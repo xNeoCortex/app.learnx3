@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { Box } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"

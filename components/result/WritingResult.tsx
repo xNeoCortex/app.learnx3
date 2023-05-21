@@ -11,7 +11,7 @@ import ExplainAI from "../ExplainAI"
 import { BarChart } from "../other/BarChart"
 import ErrorPage from "../ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import LoadingPage from "@/components/LoadingPage"
 
@@ -21,7 +21,7 @@ export default function WritingResult({ id }) {
 		data: writingResult,
 		isLoading,
 		isError,
-	} = useQuery("essayResult", fetchEssayResults, {
+	} = useQuery(["essayResult"], fetchEssayResults, {
 		select: (data) => {
 			const filteredEssays = data?.data.filter((item) => item.student_id === id)
 			if (filteredEssays.length > 0) {

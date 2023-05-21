@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { Box, Button, Grid } from "@mui/material"
 import ToggleButton from "@mui/material/ToggleButton"

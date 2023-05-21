@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 import { Box, Button, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
 import HelperFuncitons from "@/components/helpers/helperFuncitons"

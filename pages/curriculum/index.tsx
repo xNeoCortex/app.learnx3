@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { Box, Button, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"

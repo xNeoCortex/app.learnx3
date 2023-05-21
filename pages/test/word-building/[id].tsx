@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { useMutation, useQuery, useQueryClient } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { auth } from "../../../components/firebaseX"
 import { Box, Button, Chip, Container, CssBaseline, TextField, Typography } from "@mui/material"
 import BackButton from "../../../components/other/BackButton"
@@ -23,7 +23,7 @@ function WordBuildingTest() {
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
-		onSuccess: () => queryClient.invalidateQueries("testResult"),
+		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
 	})
 
 	// Get assessment data from database

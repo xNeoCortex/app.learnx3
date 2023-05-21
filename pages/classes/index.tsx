@@ -1,5 +1,5 @@
 import React from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 import { Box, Grid } from "@mui/material"
 import ErrorPage from "@/components/ErrorPage"

@@ -11,7 +11,7 @@ import { BarChart } from "../other/BarChart"
 import ErrorPage from "../ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import ExplainAI from "../ExplainAI"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
 
 export default function ExerciseResult({ id }) {
