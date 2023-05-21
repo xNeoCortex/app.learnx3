@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { Box, Button, Chip, CssBaseline, Typography } from "@mui/material"
+import { Box, Button, Chip, Container, CssBaseline, Typography } from "@mui/material"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
@@ -67,96 +67,98 @@ function TrueFalseQuiz() {
 	if (isError || isErrorQuiz) <ErrorPage />
 
 	return (
-		<Box sx={{ marginTop: "20px", flexGrow: 1 }}>
-			<CssBaseline />
-			<Box
-				sx={{
-					background: "#bdbdbd33",
-					margin: "15px ",
-					padding: "1px 0px",
-					borderRadius: 3,
-					position: "relative",
-				}}
-			>
-				<Typography
+		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
+			<Container sx={{ padding: "20px 5px" }}>
+				<CssBaseline />
+				<Box
 					sx={{
-						margin: "15px 15px 0px",
-						marginBottom: "10px",
-						fontWeight: 600,
-						fontSize: "19px",
-						color: "rgb(50, 50, 93)",
-					}}
-				>
-					{reading_quiz?.data?.topic}
-				</Typography>
-				<Typography sx={{ margin: "0px 15px 15px" }}>
-					{" "}
-					Please answer the following questions within 5 minutes.{" "}
-				</Typography>
-				<BackButton />
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					margin: 2,
-					padding: 4,
-					background: "#f4eee3",
-					color: "#404040",
-					borderRadius: 3,
-				}}
-			>
-				<h3>📝 {reading_quiz?.data?.topic} </h3>
-				<p
-					style={{ color: "black" }}
-					dangerouslySetInnerHTML={{
-						__html: reading_quiz?.data?.text?.replace(/\n/g, "<br /> <br />"),
-					}}
-				/>
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					margin: 1,
-					mt: 5,
-				}}
-			>
-				<h3 style={{ margin: 12 }}>❓ Questions </h3>
-				{reading_quiz?.data?.questions.map((test, index) => (
-					<ReadingQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
-				))}
-			</Box>
-			{show && (
-				<Typography
-					sx={{
-						flex: 1,
-						margin: "0px 15px",
-						mb: 1,
-						border: "2px solid #3c096c",
+						background: "#bdbdbd33",
+						margin: "15px ",
+						padding: "1px 0px",
 						borderRadius: 3,
-						p: 1,
-						background: "#e0aaff",
-						textAlign: "center",
-						fontWeight: 600,
+						position: "relative",
 					}}
 				>
-					You scored {score}% out of 100%
-				</Typography>
-			)}
-			{!show && (
-				<Button
-					variant="contained"
-					style={{
-						margin: 15,
-						minWidth: 200,
-						background: "rgb(95, 106, 196)",
+					<Typography
+						sx={{
+							margin: "15px 15px 0px",
+							marginBottom: "10px",
+							fontWeight: 600,
+							fontSize: "19px",
+							color: "rgb(50, 50, 93)",
+						}}
+					>
+						{reading_quiz?.data?.topic}
+					</Typography>
+					<Typography sx={{ margin: "0px 15px 15px" }}>
+						{" "}
+						Please answer the following questions within 5 minutes.{" "}
+					</Typography>
+					<BackButton />
+				</Box>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						margin: 2,
+						padding: 4,
+						background: "#f4eee3",
+						color: "#404040",
+						borderRadius: 3,
 					}}
-					onClick={handleSubmit}
 				>
-					Submit
-				</Button>
-			)}
+					<h3>📝 {reading_quiz?.data?.topic} </h3>
+					<p
+						style={{ color: "black" }}
+						dangerouslySetInnerHTML={{
+							__html: reading_quiz?.data?.text?.replace(/\n/g, "<br /> <br />"),
+						}}
+					/>
+				</Box>
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						margin: 1,
+						mt: 5,
+					}}
+				>
+					<h3 style={{ margin: 12 }}>❓ Questions </h3>
+					{reading_quiz?.data?.questions.map((test, index) => (
+						<ReadingQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
+					))}
+				</Box>
+				{show && (
+					<Typography
+						sx={{
+							flex: 1,
+							margin: "0px 15px",
+							mb: 1,
+							border: "2px solid #3c096c",
+							borderRadius: 3,
+							p: 1,
+							background: "#e0aaff",
+							textAlign: "center",
+							fontWeight: 600,
+						}}
+					>
+						You scored {score}% out of 100%
+					</Typography>
+				)}
+				{!show && (
+					<Button
+						variant="contained"
+						style={{
+							margin: 15,
+							minWidth: 200,
+							background: "rgb(95, 106, 196)",
+						}}
+						onClick={handleSubmit}
+					>
+						Submit
+					</Button>
+				)}
+			</Container>
 		</Box>
 	)
 }
