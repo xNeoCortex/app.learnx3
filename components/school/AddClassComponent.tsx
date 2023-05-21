@@ -1,7 +1,7 @@
 import React from "react"
 import { useQuery } from "react-query"
 import ApiServices from "@/pages/api/ApiServices"
-import { Box } from "@mui/material"
+import { Box, Skeleton } from "@mui/material"
 import ErrorPage from "../ErrorPage"
 import AddClass from "./AddClassDialog"
 import ClassCard from "./ClassCard"
@@ -13,7 +13,7 @@ function AddClassPage(props) {
 	const { fetchClasses } = ApiServices()
 	const { data: classList, isLoading, isError } = useQuery(["listClasses"], fetchClasses)
 
-	if (isLoading) return <LoadingPage />
+	// if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
 	return (
@@ -31,14 +31,18 @@ function AddClassPage(props) {
 					width: `calc(100vw - ${sidebarWidth}px)`,
 				}}
 			>
-				{classList?.data.length > 0 &&
-					classList?.data
-						.sort((a, b) => {
-							if (a.class_name > b.class_name) return 1
-							if (a.class_name < b.class_name) return -1
-							return 0
-						})
-						.map((item, index) => <ClassCard key={index} item={item} />)}
+				{isLoading
+					? [1, 2, 3, 4, 5].map((item, index) => (
+							<Skeleton variant="rounded" width="320px" height="250px" sx={{ margin: "10px" }} />
+					  ))
+					: classList?.data.length > 0 &&
+					  classList?.data
+							.sort((a, b) => {
+								if (a.class_name > b.class_name) return 1
+								if (a.class_name < b.class_name) return -1
+								return 0
+							})
+							.map((item, index) => <ClassCard key={index} item={item} />)}
 			</div>
 		</Box>
 	)

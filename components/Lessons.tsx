@@ -3,9 +3,8 @@ import OneLesson from "./other/OneLesson"
 import ErrorPage from "./ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "react-query"
-import LoadingPage from "@/components/LoadingPage"
 import SnackbarX from "@/components/other/SnackbarX"
-import { Box } from "@mui/material"
+import { Box, Skeleton } from "@mui/material"
 import { useStoreTemporary } from "./zustand"
 
 function Lessons(props) {
@@ -16,7 +15,6 @@ function Lessons(props) {
 	const { fetchLessons } = ApiServices()
 	const { data: lessonState, isLoading, isError } = useQuery(["lessons"], fetchLessons)
 
-	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
 	return (
@@ -39,14 +37,18 @@ function Lessons(props) {
 						width: `calc(100vw - ${sidebarWidth}px)`,
 					}}
 				>
-					{lessonState?.data.length > 0 &&
-						lessonState.data
-							?.sort((a, b) => {
-								if (a.name > b.name) return 1
-								if (a.name < b.name) return -1
-								return 0
-							})
-							.map((lesson, index) => <OneLesson key={index} lesson={lesson} />)}
+					{isLoading
+						? [1, 2, 3, 4, 5].map((item, index) => (
+								<Skeleton variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
+						  ))
+						: lessonState?.data.length > 0 &&
+						  lessonState.data
+								?.sort((a, b) => {
+									if (a.name > b.name) return 1
+									if (a.name < b.name) return -1
+									return 0
+								})
+								.map((lesson, index) => <OneLesson key={index} lesson={lesson} />)}
 				</Box>
 			}
 		</>
