@@ -16,6 +16,7 @@ import { auth, db } from "../components/firebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
 import SnackbarX from "@/components/other/SnackbarX"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
+import SidebarContainer from "@/components/SidebarContainer"
 
 export default function MySettings() {
 	const { userInfo } = useStoreUser((state) => state)
@@ -99,118 +100,119 @@ export default function MySettings() {
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
-			<CssBaseline />
-			<ConfirmationModal
-				openConfirm={openConfirmDelete}
-				setOpenConfirm={setOpenConfirmDelete}
-				action={deleteUserAccount}
-				topic="Delete"
-				message="Are you sure you want to delete your account?"
-			/>
-			<ConfirmationModal
-				openConfirm={openConfirmPassword}
-				setOpenConfirm={setOpenConfirmPassword}
-				action={resetPassword}
-				topic="Reset Password"
-				message="Are you sure you want to reset your password?"
-			/>
-			<ConfirmationModal
-				openConfirm={openConfirmUpdate}
-				setOpenConfirm={setOpenConfirmUpdate}
-				action={updateData}
-				topic="Update Information"
-				message="Are you sure you want to update your information?"
-			/>
-			<SnackbarX open={open} setOpen={setOpen} backgroundColor="#32a676" message={message} />
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "start",
-					margin: "20px 40px",
-				}}
-			>
-				<p
-					style={{
-						display: "flex",
-						alignItems: "center",
-						fontWeight: 600,
-						fontSize: 22,
-						margin: "10px 0px",
-					}}
-				>
-					{/* <Avatar sx={{ m: 1, bgcolor: "rgb(95, 106, 196)" }}>
-            <SettingsIcon />
-          </Avatar> */}
-					Profile details
-				</p>
-				<p>Change your account info</p>
-
+			<SidebarContainer>
+				<CssBaseline />
+				<ConfirmationModal
+					openConfirm={openConfirmDelete}
+					setOpenConfirm={setOpenConfirmDelete}
+					action={deleteUserAccount}
+					topic="Delete"
+					message="Are you sure you want to delete your account?"
+				/>
+				<ConfirmationModal
+					openConfirm={openConfirmPassword}
+					setOpenConfirm={setOpenConfirmPassword}
+					action={resetPassword}
+					topic="Reset Password"
+					message="Are you sure you want to reset your password?"
+				/>
+				<ConfirmationModal
+					openConfirm={openConfirmUpdate}
+					setOpenConfirm={setOpenConfirmUpdate}
+					action={updateData}
+					topic="Update Information"
+					message="Are you sure you want to update your information?"
+				/>
+				<SnackbarX open={open} setOpen={setOpen} backgroundColor="#32a676" message={message} />
 				<Box
 					sx={{
 						display: "flex",
-						justifyContent: "space-between",
-						width: "100%",
+						flexDirection: "column",
+						alignItems: "start",
+						margin: "20px 40px",
 					}}
 				>
-					<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5, maxWidth: 500 }}>
-						<Grid container spacing={4}>
-							<Grid item xs={12}>
-								<TextField
-									name="firstName"
-									required
-									fullWidth
-									id="firstName"
-									label="Name"
-									autoFocus
-									value={currentUser?.name}
-									onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									type="number"
-									fullWidth
-									label="Age"
-									value={currentUser?.age}
-									onChange={(e) => setCurrentUser({ ...currentUser, age: e.target.value })}
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<ToggleButtonGroup
-									color="primary"
-									value={currentUser?.gender || "male"}
-									exclusive
-									onChange={handleChange}
-									aria-label="Platform"
-									style={{ borderColor: "#e5e7eb", height: 56 }}
-								>
-									<ToggleButton
-										value="male"
-										style={{
-											display: "flex",
-											flex: 1,
-											width: 117,
-											borderColor: "#e5e7eb",
-										}}
+					<p
+						style={{
+							display: "flex",
+							alignItems: "center",
+							fontWeight: 600,
+							fontSize: 22,
+							margin: "10px 0px",
+						}}
+					>
+						{/* <Avatar sx={{ m: 1, bgcolor: "rgb(95, 106, 196)" }}>
+            <SettingsIcon />
+          </Avatar> */}
+						Profile details
+					</p>
+					<p>Change your account info</p>
+
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							width: "100%",
+						}}
+					>
+						<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 5, maxWidth: 500 }}>
+							<Grid container spacing={4}>
+								<Grid item xs={12}>
+									<TextField
+										name="firstName"
+										required
+										fullWidth
+										id="firstName"
+										label="Name"
+										autoFocus
+										value={currentUser?.name}
+										onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
+									/>
+								</Grid>
+								<Grid item xs={12} sm={6}>
+									<TextField
+										required
+										type="number"
+										fullWidth
+										label="Age"
+										value={currentUser?.age}
+										onChange={(e) => setCurrentUser({ ...currentUser, age: e.target.value })}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<ToggleButtonGroup
+										color="primary"
+										value={currentUser?.gender || "male"}
+										exclusive
+										onChange={handleChange}
+										aria-label="Platform"
+										style={{ borderColor: "#e5e7eb", height: 56 }}
 									>
-										Male
-									</ToggleButton>
-									<ToggleButton
-										value="female"
-										style={{
-											display: "flex",
-											flex: 1,
-											width: 117,
-											borderColor: "#e5e7eb",
-										}}
-									>
-										Female
-									</ToggleButton>
-								</ToggleButtonGroup>
-							</Grid>
-							{/* <Grid item xs={12}>
+										<ToggleButton
+											value="male"
+											style={{
+												display: "flex",
+												flex: 1,
+												width: 117,
+												borderColor: "#e5e7eb",
+											}}
+										>
+											Male
+										</ToggleButton>
+										<ToggleButton
+											value="female"
+											style={{
+												display: "flex",
+												flex: 1,
+												width: 117,
+												borderColor: "#e5e7eb",
+											}}
+										>
+											Female
+										</ToggleButton>
+									</ToggleButtonGroup>
+								</Grid>
+								{/* <Grid item xs={12}>
                 <TextField
                   required
                   value={email}
@@ -222,47 +224,48 @@ export default function MySettings() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid> */}
-						</Grid>
-						<Button
-							onClick={() => setOpenConfirmUpdate(true)}
-							// type="submit"
-							fullWidth
-							variant="contained"
-							sx={{ mt: 8, mb: 2, background: "rgb(226, 109, 128)" }}
-						>
-							Update
-						</Button>
-						<Button
-							onClick={() => setOpenConfirmDelete(true)}
-							style={{
-								width: "100%",
-								marginBottom: "16px",
-								color: "rgb(226, 109, 128)",
-								border: "1px solid rgb(226, 109, 128)",
-							}}
-						>
-							Delete My Profile
-						</Button>
-						<Button
-							onClick={() => setOpenConfirmPassword(true)}
-							style={{
-								width: "100%",
-								color: "#1976d2",
-								border: "1px solid #1976d2",
-								marginRight: "10px",
-							}}
-						>
-							Change Login Password
-						</Button>
-						{emailMessage && (
-							<Alert severity="success" style={{ marginTop: 10 }}>
-								{emailMessage}
-							</Alert>
-						)}
+							</Grid>
+							<Button
+								onClick={() => setOpenConfirmUpdate(true)}
+								// type="submit"
+								fullWidth
+								variant="contained"
+								sx={{ mt: 8, mb: 2, background: "rgb(226, 109, 128)" }}
+							>
+								Update
+							</Button>
+							<Button
+								onClick={() => setOpenConfirmDelete(true)}
+								style={{
+									width: "100%",
+									marginBottom: "16px",
+									color: "rgb(226, 109, 128)",
+									border: "1px solid rgb(226, 109, 128)",
+								}}
+							>
+								Delete My Profile
+							</Button>
+							<Button
+								onClick={() => setOpenConfirmPassword(true)}
+								style={{
+									width: "100%",
+									color: "#1976d2",
+									border: "1px solid #1976d2",
+									marginRight: "10px",
+								}}
+							>
+								Change Login Password
+							</Button>
+							{emailMessage && (
+								<Alert severity="success" style={{ marginTop: 10 }}>
+									{emailMessage}
+								</Alert>
+							)}
+						</Box>
+						<img src="/business-account.png" style={{ width: 400 }} alt="profile" />
 					</Box>
-					<img src="/business-account.png" style={{ width: 400 }} alt="profile" />
 				</Box>
-			</Box>
+			</SidebarContainer>
 		</ProtectedRoute>
 	)
 }
