@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { Box, Button, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
@@ -9,22 +9,48 @@ import LoadingPage from "@/components/LoadingPage"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
+import SnackbarX from "@/components/other/SnackbarX"
+import ConfirmationModal from "@/components/other/ConfirmationModal"
+import { useStoreUser } from "@/components/zustand"
 
 function Curriculum() {
-	const { fetchAllCurriculum } = ApiServices()
-	const [open, setOpen] = useState(false)
+	const { apiRequest } = ApiServices()
+	const queryClient = useQueryClient()
+	const {userInfo} = useStoreUser()
+	const [openX, setOpenX] = useState(false)
 	const [openLesson, setOpenLesson] = useState(false)
 	const [openTest, setOpenTest] = useState(false)
+	const [open, setOpen] = useState(false)
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
+
+	const {
+		mutate,
+		isError: isErrorM,
+		isLoading: isLoadingM,
+	} = useMutation((uid: string) => apiRequest("DELETE", null, { collectionName: "curriculum", uid }), {
+		onSuccess: () => queryClient.invalidateQueries(["curriculumList"]),
+	})
 
 	// Fetch curriculum
-	const { data: curriculumList, isLoading, isError } = useQuery(["curriculumList"], fetchAllCurriculum)
+	const {
+		data: curriculumList,
+		isLoading,
+		isError,
+	} = useQuery(["curriculumList"], () => apiRequest("GET", null, { collectionName: "curriculum" }))
 
-	if (isLoading) return <LoadingPage />
-	if (isError) return <ErrorPage />
+	if (isLoading || isLoadingM) return <LoadingPage />
+	if (isError || isErrorM) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
+				<SnackbarX
+					open={open}
+					setOpen={setOpen}
+					backgroundColor="#32a676"
+					message="Curriculum has been successfully deleted!"
+				/>
+
 				<Box sx={{ marginTop: "20px", width: "100%" }}>
 					<CssBaseline />
 					<BackButton />
@@ -51,14 +77,14 @@ function Curriculum() {
 							}}
 						>
 							<CreateAllCurriculum
-								open={open}
+								open={openX}
 								openLesson={openLesson}
 								openTest={openTest}
-								setOpen={setOpen}
+								setOpen={setOpenX}
 								setOpenLesson={setOpenLesson}
 								setOpenTest={setOpenTest}
 							/>
-							{!open &&
+							{!openX &&
 								!openLesson &&
 								!openTest &&
 								curriculumList?.data.map((c, index) => (
@@ -139,6 +165,28 @@ function Curriculum() {
 													View
 												</Button>
 											</Link>
+											<ConfirmationModal
+												openConfirm={openConfirmDelete}
+												setOpenConfirm={setOpenConfirmDelete}
+												action={() => (mutate(c.uid), setOpen(true))}
+												topic="Delete"
+												message="Are you sure you want to delete your account?"
+											/>
+											{userInfo.role === "admin" && (
+												<Button
+													onClick={() => setOpenConfirmDelete(true)}
+													style={{
+														background: "black",
+														color: "white",
+														margin: "0px 15px",
+														padding: "5px 30px",
+														textTransform: "none",
+														fontWeight: "bold",
+													}}
+												>
+													Delete
+												</Button>
+											)}
 										</Box>
 									</Box>
 								))}

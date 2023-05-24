@@ -20,13 +20,15 @@ function StudentCardList() {
 	} = useRouter()
 	const { sidebarWidth } = useStoreTemporary()
 	const [alignment, setAlignment] = React.useState("grid")
-	const { fetchAllStudents, fetchOneClass } = ApiServices()
-	const { data, isLoading, isError } = useQuery(["students"], fetchAllStudents)
+	const { apiRequest } = ApiServices()
+	const { data, isLoading, isError } = useQuery(["students"], () =>
+		apiRequest("GET", null, { collectionName: "students" })
+	)
 	const {
 		data: classInfo,
 		isLoading: classIsLoading,
 		isError: classIsError,
-	} = useQuery([`class-students`], () => fetchOneClass(id), {
+	} = useQuery([`class-students`], () => apiRequest("GET", null, { collectionName: "classes", uid: id.toString() }), {
 		enabled: !!id && id?.length > 5,
 	})
 

@@ -1,4 +1,3 @@
-import dayjs from "dayjs"
 import {
 	Box,
 	Button,
@@ -15,28 +14,29 @@ import {
 import ErrorPage from "../ErrorPage"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
-import ApiPostServices from "@/pages/api/ApiPostServices"
-import { WordBuilding } from "@/components/data/CurriculumDataX"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
 import { SpeakingData } from "@/components/data/SpeakingData"
 import LoadingPage from "../LoadingPage"
+import ApiServices from "@/pages/api/ApiServices"
 
 function CreateAssessment({ open, setOpen }) {
-	const { addAssessment } = ApiPostServices()
+	const { apiRequest } = ApiServices()
 	const [topic, setTopic] = useState("")
 	const [category, setCategory] = useState("")
 	const [lessonNumber, setLessonNumber] = useState("")
 	const [selectedAssessment, setSelectedAssessment] = useState([])
-	const [assessmentType, setAssessmentType] = useState("speakingContent")
+	const [assessmentType] = useState("speakingContent")
 
 	// Add assessment
-	const { mutate, isLoading, isError } = useMutation((body) => addAssessment(SpeakingData, assessmentType))
+	const { mutate, isLoading, isError } = useMutation((body) =>
+		apiRequest("POST", body, { collectionName: assessmentType })
+	)
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box>
+		<Box width="100%">
 			<CssBaseline />
 			<Button
 				sx={{
@@ -115,7 +115,7 @@ function CreateAssessment({ open, setOpen }) {
 						variant="contained"
 						onClick={() => (
 							//@ts-ignore
-							mutate(WordBuilding), setOpen(false)
+							mutate(SpeakingData), setOpen(false)
 						)}
 					>
 						Save
