@@ -54,7 +54,7 @@ export default function Login() {
 							return navigate("/auth/user-type")
 						}
 					} catch (error) {
-						console.log("fetchData :>> ", error)
+						console.log("error :>> ", error)
 					}
 				} else {
 					return setError("Please verify your email")

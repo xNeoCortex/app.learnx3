@@ -36,7 +36,7 @@ function CreateLesson({ open, setOpen }) {
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box>
+		<Box width="100%">
 			<CssBaseline />
 			<Button
 				sx={{
