@@ -16,7 +16,7 @@ import { useStoreUser } from "@/components/zustand"
 function Curriculum() {
 	const { apiRequest } = ApiServices()
 	const queryClient = useQueryClient()
-	const {userInfo} = useStoreUser()
+	const { userInfo } = useStoreUser()
 	const [openX, setOpenX] = useState(false)
 	const [openLesson, setOpenLesson] = useState(false)
 	const [openTest, setOpenTest] = useState(false)
@@ -172,7 +172,7 @@ function Curriculum() {
 												topic="Delete"
 												message="Are you sure you want to delete your account?"
 											/>
-											{userInfo.role === "admin" && (
+											{userInfo?.role === "admin" && (
 												<Button
 													onClick={() => setOpenConfirmDelete(true)}
 													style={{
