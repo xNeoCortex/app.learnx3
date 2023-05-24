@@ -19,7 +19,7 @@ function CreateAllCurriculum({ open, openLesson, openTest, setOpen, setOpenLesso
 
 	if (userInfo?.role === "teacher" || userInfo?.role === "admin") {
 		return (
-			<Box sx={{ display: "flex", mb: 3, mt: 3 }}>
+			<Box sx={{ display: "flex", mb: 3, mt: 3, justifyContent: "start", width: "100%" }}>
 				{!openLesson && !openTest && <CreateCurriculum open={open} setOpen={setOpen} />}
 				{!open && !openTest && <CreateLesson open={openLesson} setOpen={setOpenLesson} />}
 				{!open && !openLesson && <CreateAssessment open={openTest} setOpen={setOpenTest} />}
