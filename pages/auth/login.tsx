@@ -33,13 +33,14 @@ export default function Login() {
 				// Signed in
 				const user = userCredential.user
 				if (user.emailVerified) {
-					const docRef = doc(db, "teachers", user.uid)
-					const usersData = await getDoc(docRef)
-
-					const docRefStudent = doc(db, "students", user.uid)
-					const usersDataStudent = await getDoc(docRefStudent)
 					try {
 						if (user.displayName) {
+							const docRef = doc(db, "teachers", user.uid)
+							const usersData = await getDoc(docRef)
+
+							const docRefStudent = doc(db, "students", user.uid)
+							const usersDataStudent = await getDoc(docRefStudent)
+
 							if (usersData.exists()) {
 								setUserInfo(usersData.data())
 								return navigate("/classes")
@@ -54,7 +55,7 @@ export default function Login() {
 							return navigate("/auth/user-type")
 						}
 					} catch (error) {
-						console.log("error :>> ", error)
+						console.log("error 57 :>> ", error)
 					}
 				} else {
 					return setError("Please verify your email")

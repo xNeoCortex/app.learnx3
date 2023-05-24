@@ -73,7 +73,7 @@ export default function UserForm() {
 				.catch((error) => {
 					const errorCode = error.code
 					const errorMessage = error.message
-					console.log(errorCode, errorMessage)
+					console.log("user-type 76", errorCode, errorMessage)
 					// ..
 				})
 		} else {
@@ -85,7 +85,7 @@ export default function UserForm() {
 		<Box
 			sx={{
 				display: "flex",
-				flexDirection: "row",
+				flexDirection: { xs: "row", sm: "column" },
 				alignItems: "center",
 				justifyContent: "space-between",
 				margin: "20px 40px",
