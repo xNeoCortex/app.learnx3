@@ -33,7 +33,7 @@ function FinaAI() {
 						Fina
 					</Typography>
 					<Typography sx={{ margin: "0px 15px 15px" }}>
-						Hi {auth.currentUser?.displayName}! I am professor Johny. How can I help you? 🙂
+						Hi {auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂
 					</Typography>
 				</Box>
 			</Box>

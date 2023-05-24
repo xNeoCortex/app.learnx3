@@ -98,7 +98,7 @@ function Curriculum() {
 											justifyContent: "space-between",
 											alignItems: "center",
 											marginBottom: 3,
-											backgroundColor: "rgba(255, 139, 79, 0.07)",
+											backgroundColor: "rgba(226, 230, 251, 0.3)",
 											boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 										}}
 									>
@@ -129,10 +129,10 @@ function Curriculum() {
 												label={c.level}
 												variant="outlined"
 												style={{
-													color: "rgb(255, 139, 79)",
+													color: "#5f61c4",
 													background: "transparent",
 													margin: "5px 10px 5px 0px",
-													border: "1px solid rgb(255, 139, 79)",
+													border: "1px solid #5f61c4",
 													borderRadius: "0.75rem",
 													padding: "0px 2px",
 													fontSize: 12,
@@ -142,9 +142,9 @@ function Curriculum() {
 												label={`60 min`}
 												variant="outlined"
 												style={{
-													color: "rgb(255, 139, 79)",
+													color: "#5f61c4",
 													background: "transparent",
-													border: "1px solid rgb(255, 139, 79)",
+													border: "1px solid #5f61c4",
 													margin: "5px 20px 5px 0px",
 													borderRadius: "0.75rem",
 													padding: "0px 2px",
@@ -154,7 +154,7 @@ function Curriculum() {
 											<Link href={`/curriculum/[id]`} as={`/curriculum/${c.uid}`}>
 												<Button
 													style={{
-														background: "darkorange",
+														background: "#5f61c4",
 														color: "white",
 														margin: "0px 15px",
 														padding: "5px 30px",
