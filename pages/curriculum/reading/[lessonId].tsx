@@ -77,56 +77,7 @@ function ReadingPage() {
 							}}
 						/>
 					</Box>
-					<Box
-						sx={{
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "start",
-							alignItems: "center",
-							width: "100%",
-							padding: "10px 10px 0px",
-							background: "rgba(226, 230, 251, 0.3)",
-							boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
-							borderRadius: 3,
-							p: "20px 0px",
-							mt: 3,
-						}}
-					>
-						<h3
-							style={{
-								padding: "0px 20px",
-								color: "rgb(50, 50, 93)",
-								fontWeight: 600,
-								fontSize: 19,
-								width: "100%",
-							}}
-						>
-							Assessments
-						</h3>
-						{lessonState?.data.assessments.length && (
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "start",
-									justifyContent: "center",
-									flexDirection: { xs: "column", sm: "row" },
-									width: "100%",
-									margin: "0px 10px ",
-								}}
-							>
-								{lessonState?.data.assessments?.map((test) => (
-									<TestContainer
-										link={`/test/true-false/[id]`}
-										as={`/test/true-false/${test}`}
-										topic={lessonState?.data.topic}
-										category={lessonState?.data.category}
-										level={lessonState?.data.level}
-										test={test}
-									/>
-								))}
-							</Box>
-						)}
-					</Box>
+					<TestContainer data={lessonState?.data} link={`/test/true-false/`} />
 					<BackButton />
 				</Container>
 			</Box>
