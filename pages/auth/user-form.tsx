@@ -85,7 +85,7 @@ export default function UserForm() {
 		<Box
 			sx={{
 				display: "flex",
-				flexDirection: { xs: "row", sm: "column" },
+				flexDirection: { xs: "column", sm: "row" },
 				alignItems: "center",
 				justifyContent: "space-between",
 				margin: "20px 40px",
