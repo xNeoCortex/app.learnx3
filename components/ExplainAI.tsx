@@ -6,7 +6,7 @@ import ClearIcon from "@mui/icons-material/Clear"
 
 function ExplainAI({ prompt, buttonTitle, bg }) {
   const configuration = new Configuration({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
   })
 
   const openAI = new OpenAIApi(configuration)

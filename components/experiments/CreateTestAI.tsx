@@ -5,37 +5,35 @@ import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh"
 import ClearIcon from "@mui/icons-material/Clear"
 
 function CreateTestAI({ prompt, buttonTitle, bg }) {
-  const [type, setType] = useState(true)
+	const [type, setType] = useState(true)
 
-  const configuration = new Configuration({
-    apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-  })
+	const configuration = new Configuration({
+		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+	})
 
-  const openAI = new OpenAIApi(configuration)
+	const openAI = new OpenAIApi(configuration)
 
-  // const [prompt, setPrompt] = useState("");
-  const [result, setResult] = useState("")
-  const [loading, setLoading] = useState(false)
+	// const [prompt, setPrompt] = useState("");
+	const [result, setResult] = useState("")
+	const [loading, setLoading] = useState(false)
 
-  const handleClick = async () => {
-    setLoading(true)
-    try {
-      const response = await openAI.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are english language exam creator. You create english language tests in json format",
-          },
-          {
-            role: "user",
-            content:
-              "Create 4 multiple choice language tests for the topic Present continuous ",
-          },
-          {
-            role: "assistant",
-            content: `[
+	const handleClick = async () => {
+		setLoading(true)
+		try {
+			const response = await openAI.createChatCompletion({
+				model: "gpt-3.5-turbo",
+				messages: [
+					{
+						role: "system",
+						content: "You are english language exam creator. You create english language tests in json format",
+					},
+					{
+						role: "user",
+						content: "Create 4 multiple choice language tests for the topic Present continuous ",
+					},
+					{
+						role: "assistant",
+						content: `[
               {
                 topic: "Present continuous",
                 level: "intermediate",
@@ -62,102 +60,99 @@ function CreateTestAI({ prompt, buttonTitle, bg }) {
                 explanation:
                   "A sentence in the present continuous tense will include a form of the verb - to be - (am, is, are) and a verb ending in -ing. For example, I am eating dinner. This sentence indicates that the action of eating dinner is happening now.",
               }]`,
-          },
-          {
-            role: "user",
-            content: `${prompt}. Response should be in the exact same format as above.`,
-          },
-        ],
-        temperature: 0.7,
-        max_tokens: 2000,
-        presence_penalty: 0,
-      })
-      setResult(response.data.choices[0].message.content)
-      setLoading(false)
-    } catch (error) {
-      console.error(error)
-      setLoading(false)
-    }
-  }
+					},
+					{
+						role: "user",
+						content: `${prompt}. Response should be in the exact same format as above.`,
+					},
+				],
+				temperature: 0.7,
+				max_tokens: 2000,
+				presence_penalty: 0,
+			})
+			setResult(response.data.choices[0].message.content)
+			setLoading(false)
+		} catch (error) {
+			console.error(error)
+			setLoading(false)
+		}
+	}
 
-  function getArray(text) {
-    const start = text.indexOf("[")
-    const end = text.lastIndexOf("]") + 1
-    const arrayText = text.substring(start, end)
-    const array = eval(arrayText)
-    if (array?.length > 0 && typeof array === "object") {
-      return array
-    } else {
-      return []
-    }
-  }
+	function getArray(text) {
+		const start = text.indexOf("[")
+		const end = text.lastIndexOf("]") + 1
+		const arrayText = text.substring(start, end)
+		const array = eval(arrayText)
+		if (array?.length > 0 && typeof array === "object") {
+			return array
+		} else {
+			return []
+		}
+	}
 
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "start",
-        background: bg || "white",
-        borderRadius: "7px",
-        marginBottom: "10px",
-      }}
-    >
-      <Box
-        sx={{
-          position: "relative",
-          padding: 2,
-        }}
-      >
-        {result.length > 0 && (
-          <Box
-            sx={{
-              position: "absolute",
-              right: 5,
-              color: "black",
-              cursor: "pointer",
-            }}
-            onClick={() => setResult("")}
-          >
-            <IconButton>
-              <ClearIcon />
-            </IconButton>
-          </Box>
-        )}
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          disabled={loading}
-          style={{
-            background: "rgb(50, 51, 49)",
-            color: "white",
-            fontWeight: "bold",
-            fontSize: 12,
-          }}
-        >
-          <AutoFixHighIcon style={{ marginRight: 10 }} />{" "}
-          {loading ? "Loading..." : buttonTitle}
-        </Button>
-        <Button onClick={() => setType(!type)}>
-          {type ? "True" : "false"}
-        </Button>
-        <div
-          style={{
-            width: "100%",
-            minHeight: "100%",
-            color: "black",
-            margin: "20px 2px",
-          }}
-        >
-          <p
-            dangerouslySetInnerHTML={{
-              __html: result.replace(/\n/g, "<br />"),
-            }}
-          />
-        </div>
-        <div>{/* <Test data={getArray(result)} /> */}</div>
-      </Box>
-    </Box>
-  )
+	return (
+		<Box
+			sx={{
+				display: "flex",
+				alignItems: "start",
+				background: bg || "white",
+				borderRadius: "7px",
+				marginBottom: "10px",
+			}}
+		>
+			<Box
+				sx={{
+					position: "relative",
+					padding: 2,
+				}}
+			>
+				{result.length > 0 && (
+					<Box
+						sx={{
+							position: "absolute",
+							right: 5,
+							color: "black",
+							cursor: "pointer",
+						}}
+						onClick={() => setResult("")}
+					>
+						<IconButton>
+							<ClearIcon />
+						</IconButton>
+					</Box>
+				)}
+				<Button
+					variant="contained"
+					onClick={handleClick}
+					disabled={loading}
+					style={{
+						background: "rgb(50, 51, 49)",
+						color: "white",
+						fontWeight: "bold",
+						fontSize: 12,
+					}}
+				>
+					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loading ? "Loading..." : buttonTitle}
+				</Button>
+				<Button onClick={() => setType(!type)}>{type ? "True" : "false"}</Button>
+				<div
+					style={{
+						width: "100%",
+						minHeight: "100%",
+						color: "black",
+						margin: "20px 2px",
+					}}
+				>
+					<p
+						dangerouslySetInnerHTML={{
+							__html: result.replace(/\n/g, "<br />"),
+						}}
+					/>
+				</div>
+				<div>{/* <Test data={getArray(result)} /> */}</div>
+			</Box>
+		</Box>
+	)
 }
 
 export default CreateTestAI
