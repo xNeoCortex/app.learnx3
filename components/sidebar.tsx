@@ -230,12 +230,12 @@ const dataStudent = (classId) => {
 			link: "/resources",
 			icon: <FolderSpecialIcon />,
 		},
-		{
-			name: "Tests",
-			href: "/test",
-			link: "/test",
-			icon: <QuizIcon />,
-		},
+		// {
+		// 	name: "Tests",
+		// 	href: "/test",
+		// 	link: "/test",
+		// 	icon: <QuizIcon />,
+		// },
 		{
 			name: "Writing",
 			href: "/writing",
