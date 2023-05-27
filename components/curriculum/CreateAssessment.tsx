@@ -36,11 +36,11 @@ function CreateAssessment({ open, setOpen }) {
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box width="100%">
+		<Box sx={{ width: "100%", paddingX: 2 }}>
 			<CssBaseline />
 			<Button
 				sx={{
-					mr: "10px",
+					width: "100%",
 					background: "rgb(95, 106, 196)",
 					color: "white",
 					"&:hover": { backgroundColor: "rgba(95, 106, 196, 0.9)" },
