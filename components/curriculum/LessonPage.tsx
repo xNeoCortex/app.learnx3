@@ -163,7 +163,7 @@ function LessonPage(props) {
 							View Book
 						</Button>
 					</a>
-					<a target="_blank" rel="noreferrer" href={`http://teleport.video/sakinah/yaseenavgani`}>
+					<a target="_blank" rel="noreferrer" href={`https://meet.google.com/spb-qdmh-sij`}>
 						<Button
 							variant="outlined"
 							sx={{

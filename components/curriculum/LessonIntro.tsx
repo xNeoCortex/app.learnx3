@@ -90,7 +90,7 @@ export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
 					}}
 					target="_blank"
 					rel="noreferrer"
-					href={`http://teleport.video/sakinah/yaseenavgani`}
+					href={`https://meet.google.com/spb-qdmh-sij`}
 				>
 					<Button
 						variant="outlined"

@@ -31,7 +31,7 @@ const Navbar = () => {
 				</p>
 			</Box>
 			<Box display="flex" alignItems="center">
-				<a target="_blank" rel="noreferrer" href={`http://teleport.video/sakinah/yaseenavgani`}>
+				<a target="_blank" rel="noreferrer" href={`https://meet.google.com/spb-qdmh-sij`}>
 					<Button
 						style={{
 							marginRight: 5,
