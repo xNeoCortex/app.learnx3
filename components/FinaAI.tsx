@@ -19,7 +19,7 @@ function FinaAI() {
 					alignItems: "center",
 				}}
 			>
-				<Avatar style={{ width: 80, height: 80 }} alt="professor" src="/teacher-johny.png" />
+				<Avatar style={{ width: 80, height: 80 }} alt="professor" src="/fina.image.png" />
 				<Box>
 					<Typography
 						sx={{
