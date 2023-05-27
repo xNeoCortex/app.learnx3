@@ -1,142 +1,52 @@
-const curriculum = [
-  {
-    id: 100,
-    name: `Shamil's curriculum`,
-    level: "b1",
-    lessons: [
-      {
-        topic: "travel",
-        id: 1,
-        lesson: 1,
-        type: "file",
-        link: "",
-        for: "vocabluary",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 2,
-        lesson: 1,
-        type: "file",
-        link: "",
-        for: "speaking",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 3,
-        lesson: 1,
-        type: "file",
-        link: "",
-        for: "reading",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 4,
-        lesson: 1,
-        link: "",
-        type: "file",
-        for: "writing",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-
-      {
-        id: 5,
-        lesson: 2,
-        link: "",
-        type: "file",
-        for: "vocabluary",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 6,
-        lesson: 2,
-        link: "",
-        type: "file",
-        for: "speaking",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 7,
-        lesson: 2,
-        link: "",
-        type: "file",
-        for: "reading",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 8,
-        lesson: 2,
-        link: "",
-        type: "file",
-        for: "writing",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-    ],
-  },
-  {
-    id: 200,
-    type: "file",
-    name: `Qalam's curriculum`,
-    level: "b1",
-    topic: "travel",
-    lessons: [
-      {
-        id: 9,
-        lesson: 1,
-        link: 10,
-        for: "vocabluary",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 11,
-        lesson: 1,
-        link: "",
-        for: "speaking",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 12,
-        lesson: 1,
-        link: "",
-        for: "reading",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 13,
-        lesson: 1,
-        link: "",
-        for: "writing",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 14,
-        lesson: 2,
-        link: "",
-        for: "vocabluary",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 15,
-        lesson: 2,
-        link: "",
-        for: "speaking",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 16,
-        lesson: 2,
-        link: "",
-        for: "reading",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-      {
-        id: 17,
-        lesson: 2,
-        link: "",
-        for: "writing",
-        assessment: ["212332", "23sadas", "3234sda"],
-      },
-    ],
-  },
+// Curriculum table
+const curriculumX = [
+	{
+		curriculum_name: "Shamil's curriculum",
+		level: "b1",
+		lessons: ["1", "2", "3", "4"],
+		createdBy: {
+			email: "yosin1@icloud.com",
+			name: "Admin Account",
+			time: "2023-05-08T14:55:41.950Z",
+			uid: "iH5hmoGObedS4svoZao1q4vByPZ2",
+		},
+	},
 ]
 
-export { curriculum }
+// Lessons table
+const lessonsX = [
+	{
+		uid: "1",
+		level: "b1",
+		topic: "Word Building",
+		lesson_number: 1,
+		type: "file", // ENUM: "file", "video", "audio"
+		teach_material: "",
+		category: "vocabulary",
+		createdBy: {
+			email: "yosin1@icloud.com",
+			name: "Admin Account",
+			time: "2023-05-08T14:55:41.950Z",
+			uid: "iH5hmoGObedS4svoZao1q4vByPZ2",
+		},
+		aseessments: [],
+	},
+	{
+		uid: "1",
+		level: "b1",
+		topic: "Word Building",
+		lesson_number: 1,
+		type: "file", // ENUM: "file", "video", "audio"
+		teach_material: "",
+		category: "vocabulary",
+		createdBy: {
+			email: "yosin1@icloud.com",
+			name: "Admin Account",
+			time: "2023-05-08T14:55:41.950Z",
+			uid: "iH5hmoGObedS4svoZao1q4vByPZ2",
+		},
+		aseessments: [],
+	},
+]
+
+export { curriculumX, lessonsX }

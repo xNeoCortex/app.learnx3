@@ -117,6 +117,10 @@ function CreateLesson({ open, setOpen }) {
 								name: "Writing assessment",
 								type: "writingAssessment",
 							},
+							{
+								name: "Speaking assessment",
+								type: "speakingContent",
+							},
 						].map((item) => (
 							<Button sx={{ mr: 1, mt: 1 }} variant="contained" onClick={() => setAssessmentType(item.type)}>
 								{item.name}

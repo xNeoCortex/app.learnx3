@@ -15,9 +15,9 @@ import ErrorPage from "../ErrorPage"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
-import { SpeakingData } from "@/components/data/SpeakingData"
 import LoadingPage from "../LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
+import { WritingDataX } from "../data/WritingData"
 
 function CreateAssessment({ open, setOpen }) {
 	const { apiRequest } = ApiServices()
@@ -25,11 +25,11 @@ function CreateAssessment({ open, setOpen }) {
 	const [category, setCategory] = useState("")
 	const [lessonNumber, setLessonNumber] = useState("")
 	const [selectedAssessment, setSelectedAssessment] = useState([])
-	const [assessmentType] = useState("speakingContent")
+	const [assessmentType, setAssessmentType] = useState("writingContent")
 
 	// Add assessment
-	const { mutate, isLoading, isError } = useMutation((body) =>
-		apiRequest("POST", body, { collectionName: assessmentType })
+	const { mutate, isLoading, isError } = useMutation(() =>
+		apiRequest("POST", WritingDataX, { collectionName: assessmentType })
 	)
 
 	if (isLoading) return <LoadingPage />
@@ -78,6 +78,9 @@ function CreateAssessment({ open, setOpen }) {
 							setSelectedLessons={setSelectedAssessment}
 							assessmentType={assessmentType}
 						/>
+						{["readingAssessment", "writingAssessment", "word_building"].map((item) => (
+							<Button onClick={() => setAssessmentType(item)}>{item}</Button>
+						))}
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<Typography sx={{ fontWeight: "bolder", mb: 2 }}>Selected Assessment</Typography>
@@ -115,7 +118,7 @@ function CreateAssessment({ open, setOpen }) {
 						variant="contained"
 						onClick={() => (
 							//@ts-ignore
-							mutate(SpeakingData), setOpen(false)
+							mutate(), setOpen(false)
 						)}
 					>
 						Save
