@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import { Box } from "@mui/material"
@@ -20,12 +20,12 @@ function AppContainer({ children }: any) {
 
 	const navigateUser = () => {
 		if (!userInfo?.role) return navigate("/auth/login")
-		if (userInfo?.role === "teacher" && userInfo?.permit === true) {
-			matchedTeacherClass && setClassInfo(matchedTeacherClass)
-			return matchedTeacherClass && navigate(`/classes/${matchedTeacherClass?.uid}`)
-		} else if (userInfo?.role === "student") {
-			matchedStudentClass && setClassInfo(matchedStudentClass)
-			return matchedStudentClass && navigate(`/classes/${matchedStudentClass?.uid}`)
+		if (userInfo?.role === "teacher" && userInfo?.permit === true && matchedTeacherClass !== undefined) {
+			setClassInfo(matchedTeacherClass)
+			return navigate(`/classes/${matchedTeacherClass?.uid}`)
+		} else if (userInfo?.role === "student" && matchedStudentClass) {
+			setClassInfo(matchedStudentClass)
+			return navigate(`/classes/${matchedStudentClass?.uid}`)
 		}
 	}
 
@@ -34,18 +34,16 @@ function AppContainer({ children }: any) {
 	}, [isLoading, userInfo])
 
 	if (isError) return <ErrorPage />
-	if (isLoading) {
-		return <LoadingPage />
-	}
+	if (isLoading) return <LoadingPage />
 
 	if (
 		(userInfo?.role === "teacher" && !matchedTeacherClass) ||
 		(userInfo?.role === "student" && !matchedStudentClass)
 	) {
 		return <ClassAllocation />
-	} else {
-		return <Box sx={{ width: "100%" }}>{children}</Box>
 	}
+
+	return <Box sx={{ width: "100%" }}>{children}</Box>
 }
 
 export default AppContainer

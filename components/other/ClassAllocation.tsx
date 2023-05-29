@@ -3,7 +3,6 @@ import Link from "next/link"
 import { useStoreUser } from "../zustand"
 
 function ClassAllocation() {
-	const { setUserInfo } = useStoreUser()
 
 	return (
 		<Box

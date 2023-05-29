@@ -14,10 +14,11 @@ function ProtectedRoute({ children, permitArray = [] }): any {
 
 	if (!userInfo?.permit && userInfo?.role == "teacher") return <WaitingPage />
 
+	if (!userInfo && !permitArray.includes(userInfo?.role)) {
+		return <ErrorPage message="You do not have permission to visit this page!" />
+	}
 	if (userInfo && permitArray.includes(userInfo?.role)) {
 		return <>{children}</>
-	} else {
-		return <ErrorPage message="You do not have permission to visit this page!" />
 	}
 }
 

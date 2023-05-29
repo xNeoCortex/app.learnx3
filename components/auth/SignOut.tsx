@@ -35,7 +35,6 @@ export default function AccountMenu() {
 				// Sign-out successful.
 				navigate("/auth/login")
 				setUserInfo(null)
-				console.log("Signed out successfully")
 			})
 			.catch((error) => {
 				// An error happened.
