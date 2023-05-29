@@ -9,7 +9,10 @@ import { useStoreTemporary, useStoreUser } from "./zustand"
 import LoadingPage from "./LoadingPage"
 
 function AppContainer({ children }: any) {
-	const { push: navigate } = useRouter()
+	const {
+		push: navigate,
+		query: { id },
+	} = useRouter()
 	const { userInfo } = useStoreUser()
 	const { fetchClasses } = ApiServices()
 	const { data: classList, isLoading, isError } = useQuery(["classList"], fetchClasses)
@@ -17,8 +20,10 @@ function AppContainer({ children }: any) {
 
 	const matchedTeacherClass = classList?.data.find((c) => c?.teachers.includes(userInfo?.uid))
 	const matchedStudentClass = classList?.data.find((c) => c?.students.includes(userInfo?.uid))
+	const currentClass = classList?.data.find((c) => c.uid === id)
 
 	const navigateUser = () => {
+		if (id) setClassInfo(currentClass)
 		if (!userInfo?.role) return navigate("/auth/login")
 		if (userInfo?.role === "teacher" && userInfo?.permit === true && matchedTeacherClass !== undefined) {
 			setClassInfo(matchedTeacherClass)

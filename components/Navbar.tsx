@@ -1,8 +1,9 @@
 import { auth } from "./firebaseX"
-import { Box, Button, Grid } from "@mui/material"
+import { Alert, Box, Button, Grid, Typography } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
 import { useStoreTemporary } from "./zustand"
+import AddClass from "./school/AddClassDialog"
 
 const Navbar = () => {
 	const { classInfo } = useStoreTemporary()
@@ -31,27 +32,35 @@ const Navbar = () => {
 				</p>
 			</Box>
 			<Box display="flex" alignItems="center">
-				<a target="_blank" rel="noreferrer" href={`https://meet.google.com/spb-qdmh-sij`}>
-					<Button
-						style={{
-							marginRight: 5,
-							textTransform: "none",
-							background: "#5f61c4",
-							color: "white",
-							fontSize: 12,
-							fontWeight: "600",
-							padding: "5px 10px",
-						}}
-					>
-						<VideocamIcon
+				<Box style={{ display: "flex", flexDirection: "row" }}>
+					<a target="_blank" rel="noreferrer" href={classInfo?.video_call_link}>
+						<Button
 							style={{
+								marginRight: 5,
+								textTransform: "none",
+								background: "#5f61c4",
 								color: "white",
-								marginRight: 6,
+								fontWeight: "600",
+								padding: "6px 10px",
 							}}
-						/>{" "}
-						Video Call
-					</Button>
-				</a>
+						>
+							<VideocamIcon
+								style={{
+									color: "white",
+									marginRight: 6,
+								}}
+							/>{" "}
+							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
+						</Button>
+					</a>
+					<AddClass _class={classInfo} buttonName="Edit Class" />
+					{!classInfo?.video_call_link && (
+						<Alert severity="error" sx={{ p: 1, paddingY: "0px", fontSize: 14, marginLeft: "5px" }}>
+							Please add video link
+						</Alert>
+					)}
+				</Box>
+
 				<AccountMenu />
 			</Box>
 		</Grid>
