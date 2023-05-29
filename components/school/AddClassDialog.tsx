@@ -1,21 +1,26 @@
 import * as React from "react"
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
-import Button from "@mui/material/Button"
-import { styled } from "@mui/material/styles"
-import Dialog from "@mui/material/Dialog"
-import DialogContent from "@mui/material/DialogContent"
-import DialogActions from "@mui/material/DialogActions"
-import IconButton from "@mui/material/IconButton"
-import CloseIcon from "@mui/icons-material/Close"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import { Alert, TextField, ToggleButton, ToggleButtonGroup } from "@mui/material"
+import { useRouter } from "next/router"
+import { useStoreTemporary } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
 import ErrorPage from "../ErrorPage"
-import { useStoreTemporary } from "../zustand"
-import { useRouter } from "next/router"
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
+import {
+	Alert,
+	Button,
+	TextField,
+	ToggleButton,
+	ToggleButtonGroup,
+	Box,
+	Dialog,
+	DialogContent,
+	DialogActions,
+	IconButton,
+	Grid,
+} from "@mui/material"
+import { styled } from "@mui/material/styles"
+import CloseIcon from "@mui/icons-material/Close"
 
 const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	const {
@@ -33,18 +38,23 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	const [level, setLevel] = React.useState("intermediate")
 	const [teachers, setTeachers] = React.useState([])
 	const [students, setStudents] = React.useState([])
+
+	// Student info
 	const {
 		data: fetchedStudents,
 		isLoading: isLoadingStudents,
 		isError: isErrorStudents,
 	} = useQuery(["students"], fetchAllStudents)
 
+	// Teacher info
 	const { data: fetchedTeachers, isLoading: isLoadingTeachers } = useQuery(["teachers"], fetchAllTeachers)
 
+	// Add class
 	const { mutate, isSuccess, isError } = useMutation((body) => addClass(body), {
 		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
 	})
 
+	// Edit class
 	const {
 		mutate: mutatePut,
 		isSuccess: isSuccessPut,
@@ -127,6 +137,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		}
 	}
 
+	// Clean inputs after api requests
 	React.useEffect(() => {
 		if (isSuccess && !_class) {
 			setClassName("")

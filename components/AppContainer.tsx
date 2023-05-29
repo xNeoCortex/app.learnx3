@@ -23,7 +23,7 @@ function AppContainer({ children }: any) {
 	const currentClass = classList?.data.find((c) => c.uid === id)
 
 	const navigateUser = () => {
-		if (id) setClassInfo(currentClass)
+		if (id) setClassInfo(currentClass) // setClassInfo when a user is on that class -> this was implemented to fix admin navbar class info issue
 		if (!userInfo?.role) return navigate("/auth/login")
 		if (userInfo?.role === "teacher" && userInfo?.permit === true && matchedTeacherClass !== undefined) {
 			setClassInfo(matchedTeacherClass)
