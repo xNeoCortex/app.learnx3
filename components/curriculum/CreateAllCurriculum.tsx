@@ -17,7 +17,7 @@ interface PropOpen {
 function CreateAllCurriculum({ open, openLesson, openTest, setOpen, setOpenLesson, setOpenTest }: PropOpen) {
 	const { userInfo } = useStoreUser()
 
-	if (userInfo?.role === "teacher" || userInfo?.role === "admin") {
+	if (userInfo?.role === "admin") {
 		return (
 			<Box sx={{ display: "flex", mb: 3, mt: 3, justifyContent: "start", width: "100%" }}>
 				{!openLesson && !openTest && <CreateCurriculum open={open} setOpen={setOpen} />}
