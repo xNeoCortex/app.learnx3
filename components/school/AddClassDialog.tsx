@@ -248,7 +248,6 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 											fullWidth
 											id="passcode"
 											label="Passcode"
-											autoFocus
 											value={passcode}
 											onChange={(e) => setPasscode(e.target.value)}
 										/>
@@ -260,7 +259,6 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 											fullWidth
 											id="videoLink"
 											label="Video Call Link"
-											autoFocus
 											value={videoLink}
 											onChange={(e) => setVideoLink(e.target.value)}
 										/>
@@ -394,7 +392,6 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 						</Box>
 						<Button
 							disabled={className?.length === 0 || passcode?.length === 0}
-							autoFocus
 							variant="contained"
 							onClick={handleSave}
 							sx={{ m: "10px 30px" }}
