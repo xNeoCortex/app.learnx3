@@ -28,7 +28,7 @@ export default function Login() {
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		signInWithEmailAndPassword(auth, email, password)
+		signInWithEmailAndPassword(auth, email.trim(), password.trim())
 			.then(async (userCredential: any) => {
 				// Signed in
 				const user = userCredential.user
