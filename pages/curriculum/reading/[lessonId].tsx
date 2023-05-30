@@ -18,7 +18,7 @@ function ReadingPage() {
 		data: article,
 		isLoading: isLoadingData,
 		isError: isLoadingError,
-	} = useQuery(["readingArticle"], () => fetchAssessment("readingArticle"))
+	} = useQuery(["readingContent"], () => fetchAssessment("readingContent"))
 
 	const {
 		data: lessonState,
@@ -28,6 +28,7 @@ function ReadingPage() {
 
 	const lessonArticle = article?.data?.filter((item) => lessonState?.data.content?.includes(item.uid))[0]
 
+	console.log("lessonArticle :>> ", lessonArticle)
 	if (isLoading || isLoadingData) return <LoadingPage />
 	if (isError || isLoadingError) return <ErrorPage />
 
@@ -73,7 +74,7 @@ function ReadingPage() {
 						<p
 							style={{ color: "black" }}
 							dangerouslySetInnerHTML={{
-								__html: lessonArticle?.text.replace(/\n/g, "<br /> <br />"),
+								__html: lessonArticle?.content.replace(/\n/g, "<br /> <br />"),
 							}}
 						/>
 					</Box>

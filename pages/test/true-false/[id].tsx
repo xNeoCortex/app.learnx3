@@ -8,6 +8,7 @@ import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import { auth } from "../../../components/firebaseX"
 import LoadingPage from "@/components/LoadingPage"
+import ReadingQuiz from "@/components/assessment/ReadingQuiz"
 
 function TrueFalseQuiz() {
 	const {
@@ -41,7 +42,7 @@ function TrueFalseQuiz() {
 	}
 
 	function handleSubmit() {
-		const correctAnswers = answers.filter((item) => item.response === item.answer)
+		const correctAnswers = answers.filter((item) => item.response == item.answer)
 		const score = (correctAnswers?.length / answers?.length) * 100
 
 		setShow(true)
@@ -111,7 +112,7 @@ function TrueFalseQuiz() {
 					<p
 						style={{ color: "black" }}
 						dangerouslySetInnerHTML={{
-							__html: reading_quiz?.data?.text?.replace(/\n/g, "<br /> <br />"),
+							__html: reading_quiz?.data?.content?.replace(/\n/g, "<br /> <br />"),
 						}}
 					/>
 				</Box>
@@ -124,7 +125,7 @@ function TrueFalseQuiz() {
 					}}
 				>
 					<h3 style={{ margin: 12 }}>❓ Questions </h3>
-					{reading_quiz?.data?.questions.map((test, index) => (
+					{answers?.map((test, index) => (
 						<ReadingQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
 					))}
 				</Box>
@@ -164,60 +165,3 @@ function TrueFalseQuiz() {
 }
 
 export default TrueFalseQuiz
-
-const ReadingQuiz = ({ test, show, index, handleSelect }) => {
-	return (
-		<Box
-			key={index}
-			mb="10px"
-			m={1}
-			p={2}
-			borderRadius="10px"
-			sx={{
-				display: "flex",
-				flex: 1,
-				margin: 1,
-				flexDirection: "column",
-				background: show ? (test?.response === test?.answer ? "#d8f3dc" : "#ffccd578") : "white",
-				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
-			}}
-		>
-			<CssBaseline />
-			<h4>{test.question}</h4>
-			<Box>
-				{[
-					{ label: "True", boolean: true },
-					{ label: "False", boolean: false },
-					{ label: "Don't know", boolean: null },
-				].map((item) => (
-					<Chip
-						onClick={() => handleSelect(item.boolean, index)}
-						sx={{
-							width: "fit-content",
-							margin: "20px 20px 0px 0px",
-							fontWeight: "bolder",
-							background: test.response === item.boolean ? "#5d5fc4b5" : "white",
-						}}
-						label={item.label}
-						color="secondary"
-						variant="outlined"
-					/>
-				))}
-			</Box>
-			{show && (
-				<Typography
-					sx={{
-						mt: 2,
-						mb: 1,
-						border: "2px solid #06d6a0",
-						borderRadius: 2,
-						p: 1,
-						background: "#06d6a021",
-					}}
-				>
-					Correct Answer: <strong> {test.answer === true ? "True" : "False"}</strong>
-				</Typography>
-			)}
-		</Box>
-	)
-}
