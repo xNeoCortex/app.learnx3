@@ -28,7 +28,6 @@ function ReadingPage() {
 
 	const lessonArticle = article?.data?.filter((item) => lessonState?.data.content?.includes(item.uid))[0]
 
-	console.log("lessonArticle :>> ", lessonArticle)
 	if (isLoading || isLoadingData) return <LoadingPage />
 	if (isError || isLoadingError) return <ErrorPage />
 

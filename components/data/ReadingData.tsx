@@ -4,7 +4,7 @@ const ReadingData = {
 	lesson_type: "reading", // ENUM: "file", "video", "audio"
 	level: "b1",
 	type: "article",
-	text: `
+	content: `
         Curitiba in Brazil is no ordinary city; it has the best public transport system in the world. The mayor, Jaime Lerner, along with the council, began developing the world-famous system in 1971.
         Mr Lerner had grown up in Curitiba and knew that the street was an important part of city life for the residents. He made many of the streets into pedestrian areas, with no access for cars. The council put in flowers, lights, and kiosks where people could sell food and other products. To encourage shoppers to use the new areas, the mayor gave away free paper so that local children could paint pictures in the street. Cyclists also benefit from 150km of cycle lanes, which follow old river valleys and railway tracks around the city.
         Mr Lerner realized that to increase the development and growth of the city in the future, the public transport system also had to improve. Buses were chosen as the main transport because it was the cheapest. Curitiba’s transport system now consists of over 300 routes that use around 1,900 buses to carry approximately 1.9 million passengers every day. Approximately 60km of the roads are for buses only, so traffic jams are unusual. Bus travel is faster and more convenient than using private cars. The city now uses 30% less fuel than other large cities in Brazil and people spend only about 10% of their yearly salaries on transport costs.
@@ -12,15 +12,15 @@ const ReadingData = {
         Because of the success of Curitiba’s public transport system, Jaime Lerner now offers advice to city councils around the world on how they can solve their cities’ transport problems.    
         `,
 	assessment: [],
-	content: [],
 }
 
 const ReadingTest1 = {
-	level: "b1",
 	lesson_number: 1,
 	topic: `The best public transport system in the world.`,
-	assessment_type: "article",
-	text: `
+	lesson_type: "reading",
+	level: "b1",
+	type: "article",
+	content: `
         Curitiba in Brazil is no ordinary city; it has the best public transport system in the world. The mayor, Jaime Lerner, along with the council, began developing the world-famous system in 1971.
         Mr Lerner had grown up in Curitiba and knew that the street was an important part of city life for the residents. He made many of the streets into pedestrian areas, with no access for cars. The council put in flowers, lights, and kiosks where people could sell food and other products. To encourage shoppers to use the new areas, the mayor gave away free paper so that local children could paint pictures in the street. Cyclists also benefit from 150km of cycle lanes, which follow old river valleys and railway tracks around the city.
         Mr Lerner realized that to increase the development and growth of the city in the future, the public transport system also had to improve. Buses were chosen as the main transport because it was the cheapest. Curitiba’s transport system now consists of over 300 routes that use around 1,900 buses to carry approximately 1.9 million passengers every day. Approximately 60km of the roads are for buses only, so traffic jams are unusual. Bus travel is faster and more convenient than using private cars. The city now uses 30% less fuel than other large cities in Brazil and people spend only about 10% of their yearly salaries on transport costs.
@@ -29,51 +29,127 @@ const ReadingTest1 = {
         `,
 	questions: [
 		{
-			question: "Jaime Lerner designed the transport system because he grew up in Curitiba.",
-			answer: false,
+			question: "Curitiba is different from other cities in the world.",
+			answer: "A",
 		},
 		{
-			question: "Cars are allowed to drive on the pedestrian streets in the evenings.",
-			answer: false,
+			question: "Jaime Lerner spent a lot of time playing on the streets when he was a child.",
+			answer: "C",
 		},
 		{
-			question: "There is good access to the city centre for cyclists.",
-			answer: true,
+			question: "The council allows people to sell things in the pedestrian streets.",
+			answer: "A",
 		},
 		{
-			question: "Curitiba’s public transport system currently uses more than 1,900 buses.",
-			answer: true,
+			question: "All the kiosks sell local food.",
+			answer: "B",
 		},
 		{
-			question: "Traffic jams are common on the roads of Curitiba.",
-			answer: false,
+			question: "The council chose to increase the bus service because it was the least expensive type of transport.",
+			answer: "A",
 		},
 		{
-			question: "Cars are allowed to drive on the pedestrian streets in the evenings.",
-			answer: false,
+			question: "The population of the city is about 1.9 million.",
+			answer: "C",
 		},
 		{
-			question: "There is good access to the city centre for cyclists.",
-			answer: true,
+			question: "Other large Brazilian cities are planning to cut the amount of fuel they use.",
+			answer: "C",
 		},
 		{
-			question: "Curitiba’s public transport system currently uses more than 1,900 buses.",
-			answer: true,
+			question: "The buses are different colors according to what they are used for.",
+			answer: "A",
 		},
 		{
-			question: "Traffic jams are common on the roads of Curitiba.",
-			answer: false,
+			question: "Passengers buy their tickets as they get on the buses.",
+			answer: "B",
 		},
 		{
-			question: "The inhabitants of Curitiba prefer using public transport to their own cars.",
-			answer: true,
+			question: "Mr Lerner enjoys being an expert in developing public transport systems.",
+			answer: "C",
 		},
 	],
 }
 
-export { ReadingData, ReadingTest1 }
-
 const ReadingData2 = {
+	lesson_number: 2,
+	topic: `We interviewed three people about how family and friends have affected their personalities.`,
+	lesson_type: "reading", // ENUM: "file", "video", "audio"
+	level: "b1",
+	type: "article",
+	content: `
+	*Maria Stanovich*
+	I’ve always had a strong relationship with my family. An important influence on my personality was my grandmother, Hannah. She was born in 1930 into a poor family with seven children – they had to take very good care of each other in order to survive. Growing up in such difficult conditions had a positive effect on her, teaching her to share everything, be honest, helpful, hard-working, and affectionate. My grandmother taught me all these things, making me realize that family is more important than material possessions.
+	
+	*Katie Dupont*
+	The people around you have the greatest influence on your life – they affect the way you behave and think. As soon as Rob and I met, we connected. When Rob was young, his father died in a motorcycle accident. Being brought up as an only child by a single parent made him independent and ambitious. He left home at 16, and since then has lived in different places and had various jobs. He’s taught me that it’s important to find time for friends and family and to do what makes you happy. He always has fun, trying new things, keeping his mind and body healthy, and he still works hard to achieve his goals. I greatly admire Rob and I hope that one day I can look at life in the way that he does.   
+
+	*Jed Mitchell*
+	I spent many hours as a child listening to my uncle Wilson’s stories. He was the youngest of 11 children whose family lived in a fishing town in Scotland. Life was hard and with so many mouths to feed, the children began working from an early age. At just 14, my uncle began his first job as a fisherman. That was the beginning of his adventures – he traveled and worked in Alaska, South-East Asia, India, and Africa. He educated himself, learnt to be a chef, an engineer, a farmer, and photographer. Uncle Wilson taught me that life is special and that you should take every opportunity that you can to fill it with adventure.
+        `,
+	assessment: [],
+}
+const ReadingDataTest2 = {
+	lesson_number: 2,
+	topic: `We interviewed three people about how family and friends have affected their personalities.`,
+	lesson_type: "reading", // ENUM: "file", "video", "audio"
+	level: "b1",
+	type: "article",
+	content: `
+	*Maria Stanovich*
+	I’ve always had a strong relationship with my family. An important influence on my personality was my grandmother, Hannah. She was born in 1930 into a poor family with seven children – they had to take very good care of each other in order to survive. Growing up in such difficult conditions had a positive effect on her, teaching her to share everything, be honest, helpful, hard-working, and affectionate. My grandmother taught me all these things, making me realize that family is more important than material possessions.
+	
+	*Katie Dupont*
+	The people around you have the greatest influence on your life – they affect the way you behave and think. As soon as Rob and I met, we connected. When Rob was young, his father died in a motorcycle accident. Being brought up as an only child by a single parent made him independent and ambitious. He left home at 16, and since then has lived in different places and had various jobs. He’s taught me that it’s important to find time for friends and family and to do what makes you happy. He always has fun, trying new things, keeping his mind and body healthy, and he still works hard to achieve his goals. I greatly admire Rob and I hope that one day I can look at life in the way that he does.   
+
+	*Jed Mitchell*
+	I spent many hours as a child listening to my uncle Wilson’s stories. He was the youngest of 11 children whose family lived in a fishing town in Scotland. Life was hard and with so many mouths to feed, the children began working from an early age. At just 14, my uncle began his first job as a fisherman. That was the beginning of his adventures – he traveled and worked in Alaska, South-East Asia, India, and Africa. He educated himself, learnt to be a chef, an engineer, a farmer, and photographer. Uncle Wilson taught me that life is special and that you should take every opportunity that you can to fill it with adventure.
+        `,
+	questions: [
+		{
+			question: "Maria has a close relationship with her family.",
+			answer: "A",
+		},
+		{
+			question: "Maria’s grandmother had seven children.",
+			answer: "C",
+		},
+		{
+			question: "Maria’s grandmother is still alive.",
+			answer: "C",
+		},
+		{
+			question: "Growing up in a big family made Maria’s grandmother less selfish.",
+			answer: "A",
+		},
+		{
+			question: "Katie met Rob at work.",
+			answer: "C",
+		},
+		{
+			question: "Katie knew she and Rob would be good friends because they immediately got on well.",
+			answer: "A",
+		},
+		{
+			question: "Katie thinks Rob lives his life in a positive way.",
+			answer: "A",
+		},
+		{
+			question: "Jed’s uncle’s first job was as a chef.",
+			answer: "B",
+		},
+		{
+			question: "Jed thinks people shouldn’t waste any chances in life.",
+			answer: "A",
+		},
+		{
+			question: "Jed would like to travel like his uncle did.",
+			answer: "C",
+		},
+	],
+}
+
+const ReadingData3 = {
 	lesson_number: 1,
 	topic: `The Amazing Spider-Man: A Hero in New York City`,
 	lesson_type: "reading", // ENUM: "file", "video", "audio"
@@ -85,3 +161,5 @@ const ReadingData2 = {
 	assessment: [],
 	content: [],
 }
+
+export { ReadingData, ReadingTest1, ReadingData2, ReadingDataTest2 }
