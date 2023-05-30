@@ -73,7 +73,9 @@ function ReadingPage() {
 						<p
 							style={{ color: "black" }}
 							dangerouslySetInnerHTML={{
-								__html: lessonArticle?.content.replace(/\n/g, "<br /> <br />"),
+								__html: lessonArticle?.content
+									.replace(/\n/g, "<br /> <br />")
+									.replace(/\*([^*]+)\*/g, "<strong>$1</strong>"),
 							}}
 						/>
 					</Box>

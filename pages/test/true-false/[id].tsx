@@ -112,7 +112,9 @@ function TrueFalseQuiz() {
 					<p
 						style={{ color: "black" }}
 						dangerouslySetInnerHTML={{
-							__html: reading_quiz?.data?.content?.replace(/\n/g, "<br /> <br />"),
+							__html: reading_quiz?.data?.content
+								?.replace(/\n/g, "<br /> <br />")
+								.replace(/\*([^*]+)\*/g, "<strong>$1</strong>"),
 						}}
 					/>
 				</Box>
