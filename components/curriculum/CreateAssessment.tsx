@@ -17,7 +17,7 @@ import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
 import LoadingPage from "../LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { WritingDataX } from "../data/WritingData"
+import { WordBuilding2 } from "../data/VocabularyData"
 
 function CreateAssessment({ open, setOpen }) {
 	const { apiRequest } = ApiServices()
@@ -25,11 +25,11 @@ function CreateAssessment({ open, setOpen }) {
 	const [category, setCategory] = useState("")
 	const [lessonNumber, setLessonNumber] = useState("")
 	const [selectedAssessment, setSelectedAssessment] = useState([])
-	const [assessmentType, setAssessmentType] = useState("writingContent")
+	const [assessmentType, setAssessmentType] = useState("wordBuildingAssessment")
 
 	// Add assessment
 	const { mutate, isLoading, isError } = useMutation(() =>
-		apiRequest("POST", WritingDataX, { collectionName: assessmentType })
+		apiRequest("POST", WordBuilding2, { collectionName: assessmentType })
 	)
 
 	if (isLoading) return <LoadingPage />
@@ -78,7 +78,7 @@ function CreateAssessment({ open, setOpen }) {
 							setSelectedLessons={setSelectedAssessment}
 							assessmentType={assessmentType}
 						/>
-						{["readingAssessment", "writingAssessment", "word_building"].map((item) => (
+						{["readingAssessment", "writingAssessment", "wordBuildingAssessment"].map((item) => (
 							<Button onClick={() => setAssessmentType(item)}>{item}</Button>
 						))}
 					</Grid>

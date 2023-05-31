@@ -143,4 +143,130 @@ const Vocabulary_1 = {
 	],
 }
 
-export { WordBuilding, Vocabulary_1 }
+const Vocabulary_2 = {
+	vocabulary: 2,
+	level: "b1",
+	type: "verb",
+	vocabularies: [
+		{
+			word: "love",
+			synonyms: ["adore", "cherish", "care for"],
+			definition: "to have a strong affection or deep emotional attachment for someone",
+			antonyms: ["hate", "dislike", "detest"],
+			example: "I love spending time with my family.",
+		},
+		{
+			word: "support",
+			synonyms: ["encourage", "uphold", "assist"],
+			definition: "to provide assistance, encouragement, or help to someone",
+			antonyms: ["oppose", "discourage", "hinder"],
+			example: "My family always supports me in pursuing my dreams.",
+		},
+		{
+			word: "care",
+			synonyms: ["concern", "attention", "regard"],
+			definition: "to feel concern or interest for the well-being of someone",
+			antonyms: ["neglect", "disregard", "ignore"],
+			example: "My parents take great care of me.",
+		},
+		{
+			word: "bond",
+			synonyms: ["connection", "tie", "relationship"],
+			definition: "a strong emotional connection or relationship between people",
+			antonyms: ["distance", "separation", "estrangement"],
+			example: "There is a strong bond between siblings.",
+		},
+		{
+			word: "trust",
+			synonyms: ["confidence", "reliance", "faith"],
+			definition: "a firm belief in the reliability, truth, or ability of someone",
+			antonyms: ["distrust", "suspicion", "doubt"],
+			example: "I trust my family completely.",
+		},
+		{
+			word: "communicate",
+			synonyms: ["convey", "express", "share"],
+			definition: "to exchange information, ideas, or feelings with others",
+			antonyms: ["miscommunicate", "withhold", "conceal"],
+			example: "Open and honest communication is important in a family.",
+		},
+		{
+			word: "respect",
+			synonyms: ["admiration", "esteem", "regard"],
+			definition: "to have a high or deep regard for someone; to show consideration and honor",
+			antonyms: ["disrespect", "disregard", "contempt"],
+			example: "Respect is essential in maintaining a healthy family relationship.",
+		},
+		{
+			word: "supportive",
+			synonyms: ["encouraging", "helpful", "reliable"],
+			definition: "providing assistance, encouragement, or comfort to someone",
+			antonyms: ["unsupportive", "unhelpful", "indifferent"],
+			example: "My family is always supportive of my decisions.",
+		},
+		{
+			word: "unconditional",
+			synonyms: ["absolute", "complete", "unrestricted"],
+			definition: "not limited by conditions or requirements; without limitations or expectations",
+			antonyms: ["conditional", "limited", "restrictive"],
+			example: "A parent's love is often described as unconditional.",
+		},
+	],
+}
+
+const WordBuilding2 = {
+	level: "b1",
+	topic: "Word Building 2",
+	lesson_number: 2,
+	question_type: "word_building", // ENUM: "file", "video", "audio"
+	questions: [
+		{
+			question: "There is a lot of ______in the street. Are we missing something?.",
+			word: "ACTIVE",
+			answers: "activity",
+		},
+		{
+			question: "There are _______ reasons not to fall in love.",
+			word: "COUNT",
+			answers: "countless",
+		},
+		{
+			question: `Don't ask. I'm afraid I'm _______ to help you.`,
+			word: "POWER",
+			answers: "powerless",
+		},
+		{
+			question: `I'd love to, but _______ I can't make it this FORTUNE TV hardware weekend.`,
+			word: "FORTUNE",
+			answers: "unfortunately",
+		},
+		{
+			question: `Just what is the _______ of listening to four old men playing rock music?.`,
+			word: "ATTRACT",
+			answers: "attraction",
+		},
+		{
+			question: `Safety is not my _______. Speak to my supervisor.`,
+			word: "RESPONSE",
+			answers: "responsibility",
+		},
+		{
+			question: `Clean it up now. It' ______ ,and sooner or later somebody will fall over.`,
+			word: "SLIP",
+			answers: "slippery",
+		},
+		{
+			question: `'I've been concerned about your _______ for some time,' the head teacher said in a rather
+			threatening voice.`,
+			word: "BEHAVE",
+			answers: "behavior",
+		},
+		{
+			question: `What do we want? _______! When do we want it? Now!`,
+			word: "EQUAL",
+			answers: "equality",
+		},
+	],
+}
+
+export { WordBuilding, Vocabulary_1, Vocabulary_2 , WordBuilding2}

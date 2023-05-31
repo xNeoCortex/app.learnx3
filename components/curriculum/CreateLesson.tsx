@@ -27,7 +27,7 @@ function CreateLesson({ open, setOpen }) {
 	const [category, setCategory] = useState("")
 	const [lessonNumber, setLessonNumber] = useState("")
 	const [selectedAssessment, setSelectedAssessment] = useState([])
-	const [assessmentType, setAssessmentType] = useState("word_building")
+	const [assessmentType, setAssessmentType] = useState("wordBuildingAssessment")
 
 	// Add lesson
 	const { mutate, isLoading, isError } = useMutation((body) => addLesson(body))
@@ -109,7 +109,7 @@ function CreateLesson({ open, setOpen }) {
 						<Typography sx={{ fontWeight: "bolder" }}>Add assessment to your lesson</Typography>
 						<Typography style={{ color: "grey" }}>{assessmentType}</Typography>
 						{[
-							{ name: "Word building", type: "word_building" },
+							{ name: "Word building", type: "wordBuildingAssessment" },
 							{
 								name: "Reading assessment",
 								type: "readingAssessment",

@@ -27,8 +27,8 @@ function WordBuildingTest() {
 	})
 
 	// Get assessment data from database
-	const { data: word_building } = useQuery(["word_building"], () =>
-		fetchOneAssessment({ db_collection: "word_building", id: id })
+	const { data: word_building } = useQuery(["wordBuildingAssessment"], () =>
+		fetchOneAssessment({ db_collection: "wordBuildingAssessment", id: id })
 	)
 
 	// Get correct answers
