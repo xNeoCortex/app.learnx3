@@ -8,7 +8,6 @@ import AddClass from "./school/AddClassDialog"
 const Navbar = () => {
 	const { classInfo } = useStoreTemporary()
 	const { userInfo } = useStoreUser()
-	console.log("userInfo :>> ", userInfo)
 	return (
 		<Grid
 			item
@@ -51,7 +50,7 @@ const Navbar = () => {
 									color: "white",
 									marginRight: 6,
 								}}
-							/>{" "}
+							/>
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 						</Button>
 					</a>

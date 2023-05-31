@@ -18,6 +18,10 @@ import {
 	DialogActions,
 	IconButton,
 	Grid,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import CloseIcon from "@mui/icons-material/Close"
@@ -35,9 +39,17 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	const [className, setClassName] = React.useState("")
 	const [videoLink, setVideoLink] = React.useState("")
 	const [passcode, setPasscode] = React.useState("")
+	const [curriculumX, setCurriculumX] = React.useState("")
 	const [level, setLevel] = React.useState("intermediate")
 	const [teachers, setTeachers] = React.useState([])
 	const [students, setStudents] = React.useState([])
+
+	// Fetch curriculum
+	const {
+		data: curriculum,
+		isLoading: cIsLoading,
+		isError: cIsError,
+	} = useQuery(["curriculumList"], () => apiRequest("GET", null, { collectionName: "curriculum" }), {})
 
 	// Student info
 	const {
@@ -69,7 +81,9 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		isSuccess: isSuccessPut,
 		isError: isErrorPut,
 	} = useMutation((body) => updateClass(body, _class.uid || id), {
-		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
+		onSuccess: () => (
+			queryClient.invalidateQueries(["listClasses"]), queryClient.invalidateQueries(["class-students"])
+		),
 	})
 
 	const handleClickOpen = () => {
@@ -82,18 +96,17 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	}
 
 	function handleSave() {
-		if (className.length > 0 && passcode.length > 0) {
+		if (className?.length > 0 && passcode?.length > 0) {
 			if (_class) {
 				//@ts-ignore
 				mutatePut({
 					class_name: className,
 					students,
 					teachers,
-					curriculum_id: "qwerty",
-					curriculum_topic: "Present Tense",
+					curriculum_id: curriculumX,
 					level: level,
-					passcode: passcode.trim(),
-					video_call_link: videoLink.trim(),
+					passcode: passcode?.trim(),
+					video_call_link: videoLink?.trim(),
 				})
 			} else {
 				//@ts-ignore
@@ -101,22 +114,20 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 					class_name: className,
 					students,
 					teachers,
-					curriculum_id: "qwerty",
-					curriculum_topic: "Present Tense",
+					curriculum_id: curriculumX,
 					level: level,
-					passcode: passcode.trim(),
-					video_call_link: videoLink.trim(),
+					passcode: passcode?.trim(),
+					video_call_link: videoLink?.trim(),
 				})
 			}
 			setClassInfo({
 				class_name: className,
 				students,
 				teachers,
-				curriculum_id: "qwerty",
-				curriculum_topic: "Present Tense",
+				curriculum_id: curriculumX,
 				level: level,
-				passcode: passcode.trim(),
-				video_call_link: videoLink.trim(),
+				passcode: passcode.trim() || null,
+				video_call_link: videoLink.trim() || "",
 			})
 		}
 	}
@@ -146,6 +157,10 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		}
 	}
 
+	const hnadleCurriculum = (event) => {
+		setCurriculumX(event.target.value)
+	}
+
 	// Clean inputs after api requests
 	React.useEffect(() => {
 		if (isSuccess && !_class) {
@@ -167,11 +182,12 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 			setTeachers(_class.teachers)
 			setStudents(_class.students)
 			setVideoLink(_class.video_call_link)
+			setCurriculumX(_class.curriculum_id)
 		}
 	}, [_class])
 
-	if (isLoadingStudents || isLoadingTeachers) return <LoadingPage />
-	if (isError || isErrorStudents || isErrorPut) return <ErrorPage />
+	if (isLoadingStudents || isLoadingTeachers || cIsLoading) return <LoadingPage />
+	if (isError || isErrorStudents || isErrorPut || cIsError) return <ErrorPage />
 
 	return (
 		<div>
@@ -273,6 +289,26 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 										/>
 									</Grid>
 
+									<Grid item xs={12} sm={6}>
+										<FormControl fullWidth>
+											<InputLabel id="demo-select-small-label">Curriculum</InputLabel>
+											<Select
+												labelId="demo-select-small-label"
+												id="demo-select-small"
+												value={curriculumX}
+												label="Curriculum"
+												onChange={hnadleCurriculum}
+											>
+												<MenuItem value="">
+													<em>None</em>
+												</MenuItem>
+												{curriculum?.data.map((lesson) => (
+													<MenuItem value={lesson.uid}>{lesson.curriculum_name}</MenuItem>
+												))}
+											</Select>
+										</FormControl>
+									</Grid>
+
 									<Grid item xs={12}>
 										<ToggleButtonGroup
 											color="primary"
@@ -331,9 +367,9 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 													<Button
 														onClick={() => handleTeachers(item.uid)}
 														variant="outlined"
-														color={teachers.includes(item.uid) ? "error" : "primary"}
+														color={teachers?.includes(item.uid) ? "error" : "primary"}
 													>
-														{teachers.includes(item.uid) ? "Remove" : "Add"}
+														{teachers?.includes(item.uid) ? "Remove" : "Add"}
 													</Button>
 												</Box>
 											))}
@@ -367,9 +403,9 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 													<Button
 														onClick={() => handleStudents(item.uid)}
 														variant="outlined"
-														color={students.includes(item.uid) ? "error" : "primary"}
+														color={students?.includes(item.uid) ? "error" : "primary"}
 													>
-														{students.includes(item.uid) ? "Remove" : "Add"}
+														{students?.includes(item.uid) ? "Remove" : "Add"}
 													</Button>
 												</Box>
 											))}

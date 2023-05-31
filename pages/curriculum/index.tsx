@@ -11,12 +11,13 @@ import SidebarContainer from "@/components/SidebarContainer"
 import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 import SnackbarX from "@/components/other/SnackbarX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
-import { useStoreUser } from "@/components/zustand"
+import { useStoreUser, useStoreTemporary } from "@/components/zustand"
 
 function Curriculum() {
 	const { apiRequest } = ApiServices()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
+	const { classInfo } = useStoreTemporary()
 	const [openX, setOpenX] = useState(false)
 	const [openLesson, setOpenLesson] = useState(false)
 	const [openTest, setOpenTest] = useState(false)
@@ -87,109 +88,111 @@ function Curriculum() {
 							{!openX &&
 								!openLesson &&
 								!openTest &&
-								curriculumList?.data.map((c, index) => (
-									<Box
-										key={index}
-										sx={{
-											margin: "auto",
-											borderRadius: "10px",
-											padding: "20px",
-											display: "flex",
-											justifyContent: "space-between",
-											alignItems: "center",
-											marginBottom: 3,
-											backgroundColor: "rgba(226, 230, 251, 0.3)",
-											boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
-										}}
-									>
-										<Box sx={{ display: "flex", alignItems: "center" }}>
-											<Box sx={{ width: "60px", marginRight: "15px" }}>
-												<CardMedia component="img" image="/book.svg" alt="test image" />
-											</Box>
-											<Typography
-												sx={{
-													marginRight: 5,
-													color: "black",
-													fontWeight: 600,
-													fontSize: 18,
-													padding: 0,
-													maxWidth: 400,
-												}}
-											>
-												{c.curriculum_name}
-											</Typography>
-										</Box>
+								curriculumList?.data
+									?.filter((item) => (userInfo.role == "admin" ? item : item.uid === classInfo?.curriculum_id))
+									.map((c, index) => (
 										<Box
+											key={index}
 											sx={{
+												margin: "auto",
+												borderRadius: "10px",
+												padding: "20px",
 												display: "flex",
+												justifyContent: "space-between",
 												alignItems: "center",
+												marginBottom: 3,
+												backgroundColor: "rgba(226, 230, 251, 0.3)",
+												boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 											}}
 										>
-											<Chip
-												label={c.level}
-												variant="outlined"
-												style={{
-													color: "#5f61c4",
-													background: "transparent",
-													margin: "5px 10px 5px 0px",
-													border: "1px solid #5f61c4",
-													borderRadius: "0.75rem",
-													padding: "0px 2px",
-													fontSize: 12,
-												}}
-											/>
-											<Chip
-												label={`60 min`}
-												variant="outlined"
-												style={{
-													color: "#5f61c4",
-													background: "transparent",
-													border: "1px solid #5f61c4",
-													margin: "5px 20px 5px 0px",
-													borderRadius: "0.75rem",
-													padding: "0px 2px",
-													fontSize: 12,
-												}}
-											/>
-											<Link href={`/curriculum/[id]`} as={`/curriculum/${c.uid}`}>
-												<Button
-													style={{
-														background: "#5f61c4",
-														color: "white",
-														margin: "0px 15px",
-														padding: "5px 30px",
-														textTransform: "none",
-														fontWeight: "bold",
+											<Box sx={{ display: "flex", alignItems: "center" }}>
+												<Box sx={{ width: "60px", marginRight: "15px" }}>
+													<CardMedia component="img" image="/book.svg" alt="test image" />
+												</Box>
+												<Typography
+													sx={{
+														marginRight: 5,
+														color: "black",
+														fontWeight: 600,
+														fontSize: 18,
+														padding: 0,
+														maxWidth: 400,
 													}}
 												>
-													View
-												</Button>
-											</Link>
-											<ConfirmationModal
-												openConfirm={openConfirmDelete}
-												setOpenConfirm={setOpenConfirmDelete}
-												action={() => (mutate(c.uid), setOpen(true))}
-												topic="Delete"
-												message="Are you sure you want to delete your account?"
-											/>
-											{userInfo?.role === "admin" && (
-												<Button
-													onClick={() => setOpenConfirmDelete(true)}
+													{c.curriculum_name}
+												</Typography>
+											</Box>
+											<Box
+												sx={{
+													display: "flex",
+													alignItems: "center",
+												}}
+											>
+												<Chip
+													label={c.level}
+													variant="outlined"
 													style={{
-														background: "black",
-														color: "white",
-														margin: "0px 15px",
-														padding: "5px 30px",
-														textTransform: "none",
-														fontWeight: "bold",
+														color: "#5f61c4",
+														background: "transparent",
+														margin: "5px 10px 5px 0px",
+														border: "1px solid #5f61c4",
+														borderRadius: "0.75rem",
+														padding: "0px 2px",
+														fontSize: 12,
 													}}
-												>
-													Delete
-												</Button>
-											)}
+												/>
+												<Chip
+													label={`60 min`}
+													variant="outlined"
+													style={{
+														color: "#5f61c4",
+														background: "transparent",
+														border: "1px solid #5f61c4",
+														margin: "5px 20px 5px 0px",
+														borderRadius: "0.75rem",
+														padding: "0px 2px",
+														fontSize: 12,
+													}}
+												/>
+												<Link href={`/curriculum/[id]`} as={`/curriculum/${c.uid}`}>
+													<Button
+														style={{
+															background: "#5f61c4",
+															color: "white",
+															margin: "0px 15px",
+															padding: "5px 30px",
+															textTransform: "none",
+															fontWeight: "bold",
+														}}
+													>
+														View
+													</Button>
+												</Link>
+												<ConfirmationModal
+													openConfirm={openConfirmDelete}
+													setOpenConfirm={setOpenConfirmDelete}
+													action={() => (mutate(c.uid), setOpen(true))}
+													topic="Delete"
+													message="Are you sure you want to delete your account?"
+												/>
+												{userInfo?.role === "admin" && (
+													<Button
+														onClick={() => setOpenConfirmDelete(true)}
+														style={{
+															background: "black",
+															color: "white",
+															margin: "0px 15px",
+															padding: "5px 30px",
+															textTransform: "none",
+															fontWeight: "bold",
+														}}
+													>
+														Delete
+													</Button>
+												)}
+											</Box>
 										</Box>
-									</Box>
-								))}
+									))}
 						</Grid>
 					</Grid>
 				</Box>

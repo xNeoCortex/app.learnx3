@@ -28,8 +28,8 @@ function StudentCardList() {
 		data: classInfo,
 		isLoading: classIsLoading,
 		isError: classIsError,
-	} = useQuery([`class-students`], () => apiRequest("GET", null, { collectionName: "classes", uid: id.toString() }), {
-		enabled: !!id && id?.length > 5,
+	} = useQuery([`classes-${id}`], () => apiRequest("GET", null, { collectionName: "classes", uid: String(id) }), {
+		enabled: id?.length > 5,
 	})
 
 	const studentList = data?.data.filter((item) => classInfo?.data.students?.includes(item.uid))
