@@ -28,7 +28,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	} = useRouter()
 	const queryClient = useQueryClient()
 	const { setClassInfo } = useStoreTemporary()
-	const { fetchAllStudents, fetchAllTeachers } = ApiServices()
+	const { fetchAllStudents, fetchAllTeachers, apiRequest } = ApiServices()
 	const { addClass, updateClass } = ApiPostServices()
 	const [open, setOpen] = React.useState(false)
 	const [message, setMessage] = React.useState(false)
@@ -51,6 +51,15 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 
 	// Add class
 	const { mutate, isSuccess, isError } = useMutation((body) => addClass(body), {
+		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
+	})
+
+	//Delete Class
+	const {
+		mutate: deleteClass,
+		isSuccess: deleteIsSuccess,
+		isError: deleteIsError,
+	} = useMutation((body) => apiRequest("DELETE", null, { collectionName: "classes", uid: id || _class?.uid }), {
 		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
 	})
 
@@ -375,7 +384,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 					<Box
 						sx={{
 							display: "flex",
-							justifyContent: "space-between",
+							justifyContent: "right",
 							width: "100%",
 						}}
 					>
@@ -391,10 +400,18 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 							)}
 						</Box>
 						<Button
+							variant="contained"
+							color="error"
+							onClick={() => (deleteClass(), handleClose())}
+							sx={{ m: "10px " }}
+						>
+							Delete Class
+						</Button>
+						<Button
 							disabled={className?.length === 0 || passcode?.length === 0}
 							variant="contained"
 							onClick={handleSave}
-							sx={{ m: "10px 30px" }}
+							sx={{ m: "10px " }}
 						>
 							{_class ? "Update Class" : "Save changes"}
 						</Button>
