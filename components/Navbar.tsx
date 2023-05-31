@@ -2,11 +2,13 @@ import { auth } from "./firebaseX"
 import { Alert, Box, Button, Grid, Typography } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
-import { useStoreTemporary } from "./zustand"
+import { useStoreTemporary, useStoreUser } from "./zustand"
 import AddClass from "./school/AddClassDialog"
 
 const Navbar = () => {
 	const { classInfo } = useStoreTemporary()
+	const { userInfo } = useStoreUser()
+	console.log("userInfo :>> ", userInfo)
 	return (
 		<Grid
 			item
@@ -53,7 +55,9 @@ const Navbar = () => {
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 						</Button>
 					</a>
-					<AddClass _class={classInfo} buttonName="Edit Class" />
+					{(userInfo?.role === "teacher" || userInfo?.role === "admin") && (
+						<AddClass _class={classInfo} buttonName="Edit Class" />
+					)}
 					{!classInfo?.video_call_link && (
 						<Alert severity="error" sx={{ p: 1, paddingY: "0px", fontSize: 14, marginLeft: "5px" }}>
 							Please add video link
