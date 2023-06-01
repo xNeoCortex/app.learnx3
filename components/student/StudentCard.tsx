@@ -63,6 +63,7 @@ const StudentCard = memo<{ studentDetails: any }>(({ studentDetails }) => {
 							margin: 0,
 							marginTop: 8,
 							marginBottom: 8,
+							textAlign: "center",
 						}}
 					>
 						{studentDetails.name}
