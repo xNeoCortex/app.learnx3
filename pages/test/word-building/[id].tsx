@@ -8,6 +8,7 @@ import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
+import LinearTimer from "@/components/other/LinearTimer"
 
 function WordBuildingTest() {
 	const {
@@ -16,6 +17,7 @@ function WordBuildingTest() {
 
 	const queryClient = useQueryClient()
 	const [arrayInput, setArrayInput] = useState([])
+	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [show, setShow] = useState(false)
 	const [score, setScore] = useState(0)
 	const { submitTest } = ApiPostServices()
@@ -27,8 +29,8 @@ function WordBuildingTest() {
 	})
 
 	// Get assessment data from database
-	const { data: word_building } = useQuery(["wordBuildingAssessment"], () =>
-		fetchOneAssessment({ db_collection: "wordBuildingAssessment", id: id })
+	const { data: word_building } = useQuery(["word_building"], () =>
+		fetchOneAssessment({ db_collection: "word_building", id: id })
 	)
 
 	// Get correct answers
@@ -39,6 +41,7 @@ function WordBuildingTest() {
 		const score = (correctAnswers.length / arrayInput.length) * 100
 		setScore(Math.round(score))
 		setShow(true)
+		setButtonDisabled(false)
 		//@ts-ignore
 		mutate({
 			topic: word_building?.data.topic,
@@ -83,7 +86,8 @@ function WordBuildingTest() {
 						{" "}
 						Please answer the following questions within 15 minutes.{" "}
 					</Typography>
-					<BackButton />
+					<BackButton disabled={buttonDisabled} />
+					<LinearTimer minutes={1} handleSubmit={handleSubmit} />
 				</Box>
 				<Box
 					sx={{
