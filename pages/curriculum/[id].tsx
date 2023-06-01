@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import sortBy from "lodash.sortby"
 import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
