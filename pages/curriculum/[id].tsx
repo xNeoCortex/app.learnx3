@@ -36,7 +36,6 @@ function EachCurriculum() {
 	// Filtering lessons for this curriculum
 	const curriculumLessons = fetchedLessons?.data?.filter((item) => curriculum?.data?.lessons.includes(item.uid))
 
-	console.log("fetchedLessons :>> ", fetchedLessons)
 	// Filtering lessons by number
 	function filterLessonsByNumber(array = []) {
 		const lessons = {}

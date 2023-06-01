@@ -28,7 +28,7 @@ export default function ExerciseResult({ id }) {
 
 	// Student performance data for AI
 	const studentResult = testResult?.data.map((item) => item.result)
-	const testTopics = testResult?.data.map((item) => item.topic)
+	const testTopics = testResult?.data.map((item) => item.topic.slice(0, 15) + "...")
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
