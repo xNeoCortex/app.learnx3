@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
+import sortBy from "lodash.sortby"
 import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
@@ -35,6 +36,7 @@ function EachCurriculum() {
 	// Filtering lessons for this curriculum
 	const curriculumLessons = fetchedLessons?.data?.filter((item) => curriculum?.data?.lessons.includes(item.uid))
 
+	console.log("fetchedLessons :>> ", fetchedLessons)
 	// Filtering lessons by number
 	function filterLessonsByNumber(array = []) {
 		const lessons = {}
@@ -94,111 +96,129 @@ function EachCurriculum() {
 									Lesson {x.lessonNumber}
 								</Typography>
 								<Grid container spacing={1}>
-									{x?.lessonItems.map((x, index) => (
-										<Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-											<Box
-												sx={{
-													display: "flex",
-													flexDirection: "column",
-													justifyContent: "space-between",
-													alignItems: "center",
-													minHeight: "310px",
-													borderRadius: "10px",
-													padding: "10px 20px 20px",
-													position: "relative",
-													m: 1,
-													backgroundColor: "rgba(226, 230, 251, 0.3)",
-													boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
-												}}
-											>
+									{x?.lessonItems
+										.sort((a, b) => {
+											if (a.category === "vocabulary") {
+												return -1
+											} else if (b.category === "vocabulary") {
+												return 1
+											} else if (a.category === "speaking") {
+												return -1
+											} else if (b.category === "speaking") {
+												return 1
+											} else if (a.category === "writing") {
+												return -1
+											} else if (b.category === "writing") {
+												return 1
+											} else {
+												return -1
+											}
+										})
+										.map((x, index) => (
+											<Grid key={index} item xs={12} sm={6} md={4} lg={3}>
 												<Box
 													sx={{
 														display: "flex",
-														alignItems: "center",
 														flexDirection: "column",
+														justifyContent: "space-between",
+														alignItems: "center",
+														minHeight: "310px",
+														borderRadius: "10px",
+														padding: "10px 20px 20px",
+														position: "relative",
+														m: 1,
+														backgroundColor: "rgba(226, 230, 251, 0.3)",
+														boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 													}}
 												>
 													<Box
 														sx={{
-															color: "#c270c8",
-															background: "transparent",
-															border: "1px solid #c270c8",
-															margin: "5px",
-															borderRadius: "0.75rem",
-															fontSize: "10px",
-															position: "absolute",
-															fontWeight: "bold",
-															top: 4,
-															left: 4,
-															p: "5px 10px",
+															display: "flex",
+															alignItems: "center",
+															flexDirection: "column",
 														}}
 													>
-														{x.category}
+														<Box
+															sx={{
+																color: "#c270c8",
+																background: "transparent",
+																border: "1px solid #c270c8",
+																margin: "5px",
+																borderRadius: "0.75rem",
+																fontSize: "10px",
+																position: "absolute",
+																fontWeight: "bold",
+																top: 4,
+																left: 4,
+																p: "5px 10px",
+															}}
+														>
+															{x.category}
+														</Box>
+														<CardMedia
+															component="img"
+															image={
+																x.category == "vocabulary"
+																	? "/vocabulary-image.png"
+																	: x.category == "reading"
+																	? "/e-book.svg"
+																	: x.category == "writing"
+																	? "/pencil_2.png"
+																	: "/holding-speaker.png"
+															}
+															alt="test image"
+															sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
+														/>
+														<Typography
+															sx={{
+																color: "rgb(50, 50, 93)",
+																fontSize: 14,
+																padding: 0,
+															}}
+														>
+															Lesson {x.lesson_number}
+														</Typography>
+														<Typography
+															sx={{
+																color: "rgb(50, 50, 93)",
+																fontWeight: 600,
+																fontSize: 16,
+																padding: 0,
+																textAlign: "center",
+															}}
+														>
+															{capitalizeFirstLetter(x.topic)}
+														</Typography>
 													</Box>
-													<CardMedia
-														component="img"
-														image={
-															x.category == "vocabulary"
-																? "/vocabulary-image.png"
-																: x.category == "reading"
-																? "/e-book.svg"
-																: x.category == "writing"
-																? "/pencil_2.png"
-																: "/holding-speaker.png"
-														}
-														alt="test image"
-														sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
-													/>
-													<Typography
-														sx={{
-															color: "rgb(50, 50, 93)",
-															fontSize: 14,
-															padding: 0,
-														}}
-													>
-														Lesson {x.lesson_number}
-													</Typography>
-													<Typography
-														sx={{
-															color: "rgb(50, 50, 93)",
-															fontWeight: 600,
-															fontSize: 16,
-															padding: 0,
-															textAlign: "center",
-														}}
-													>
-														{capitalizeFirstLetter(x.topic)}
-													</Typography>
-												</Box>
-												<Chip
-													label={setEnglishLevel(x.level)}
-													variant="outlined"
-													style={{
-														color: "rgb(50, 50, 93)",
-														background: "transparent",
-														margin: "5px ",
-														border: "1px solid rgb(50, 50, 93)",
-														borderRadius: "0.75rem",
-														fontSize: 12,
-													}}
-												/>
-												<Link href={`/curriculum/${x.category}/${x.uid}`}>
-													<Button
+													<Chip
+														label={setEnglishLevel(x.level)}
+														variant="outlined"
 														style={{
-															background: "#5f61c4",
-															color: "white",
-															margin: "0px 15px",
-															padding: "5px 30px",
-															textTransform: "none",
-															fontWeight: "bold",
+															color: "rgb(50, 50, 93)",
+															background: "transparent",
+															margin: "5px ",
+															border: "1px solid rgb(50, 50, 93)",
+															borderRadius: "0.75rem",
+															fontSize: 12,
 														}}
-													>
-														View
-													</Button>
-												</Link>
-											</Box>
-										</Grid>
-									))}
+													/>
+													<Link href={`/curriculum/${x.category}/${x.uid}`}>
+														<Button
+															style={{
+																background: "#5f61c4",
+																color: "white",
+																margin: "0px 15px",
+																padding: "5px 30px",
+																textTransform: "none",
+																fontWeight: "bold",
+															}}
+														>
+															View
+														</Button>
+													</Link>
+												</Box>
+											</Grid>
+										))}
 								</Grid>
 							</Box>
 						))}
