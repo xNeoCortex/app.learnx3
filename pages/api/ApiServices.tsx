@@ -100,7 +100,7 @@ function ApiServices() {
 
 	interface ApiRequestParams {
 		collectionName: string
-		uid?: string
+		uid?: string | number
 	}
 
 	async function apiRequest(method: string = "GET", body = null, params: ApiRequestParams) {

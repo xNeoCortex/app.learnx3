@@ -2,26 +2,39 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { auth } from "../../../components/firebaseX"
-import { Box, Button, Chip, Container, CssBaseline, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Chip, Container, CssBaseline, TextField, Tooltip, Typography } from "@mui/material"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import LinearTimer from "@/components/other/LinearTimer"
+import { useStoreUser } from "@/components/zustand"
+import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 
 function WordBuildingTest() {
 	const {
 		query: { id },
+		back,
 	} = useRouter()
-
+	const { userInfo } = useStoreUser()
 	const queryClient = useQueryClient()
 	const [arrayInput, setArrayInput] = useState([])
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [show, setShow] = useState(false)
 	const [score, setScore] = useState(0)
 	const { submitTest } = ApiPostServices()
-	const { fetchOneAssessment } = ApiServices()
+	const { fetchOneAssessment, fetchTestResult } = ApiServices()
+
+	// get assessment result
+	const {
+		data: assessmentResult,
+		isLoading: isLoadingResult,
+		isError: isErrorResult,
+	} = useQuery([`testResult-${id}`], () => fetchTestResult(String(userInfo.uid)))
+
+	console.log("id :>> ", id)
+	console.log("assessmentResult :>> ", assessmentResult)
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -29,16 +42,18 @@ function WordBuildingTest() {
 	})
 
 	// Get assessment data from database
-	const { data: word_building } = useQuery(["word_building"], () =>
-		fetchOneAssessment({ db_collection: "word_building", id: id })
-	)
+	const {
+		data: word_building,
+		isLoading: isLoadingWB,
+		isError: isErrorWB,
+	} = useQuery(["word_building"], () => fetchOneAssessment({ db_collection: "word_building", id: id }))
 
 	// Get correct answers
-	const correctAnswers = word_building?.data.questions.filter((item) => arrayInput.includes(item.answers))
+	const correctAnswers = word_building?.data.questions.filter((item) => arrayInput?.includes(item.answers))
 
 	// Function to handle submit
 	function handleSubmit() {
-		const score = (correctAnswers.length / arrayInput.length) * 100
+		const score = (correctAnswers?.length / arrayInput?.length) * 100
 		setScore(Math.round(score))
 		setShow(true)
 		setButtonDisabled(false)
@@ -55,8 +70,10 @@ function WordBuildingTest() {
 		})
 	}
 
-	if (isLoading) <LoadingPage />
-	if (isError) <ErrorPage />
+	if (isLoading || isLoadingResult || isLoadingWB) <LoadingPage />
+	if (isError || isErrorResult || isErrorWB) <ErrorPage />
+
+	if (assessmentResult?.data.filter((item) => item.assessment_id === id)) return <CompletedAssessment />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
@@ -83,10 +100,12 @@ function WordBuildingTest() {
 						{word_building?.data?.topic}
 					</Typography>
 					<Typography sx={{ margin: "0px 15px 15px" }}>
-						{" "}
 						Please answer the following questions within 15 minutes.{" "}
 					</Typography>
 					<BackButton disabled={buttonDisabled} />
+					<Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 14 }}>
+						Please finish the test and submit before leaving the page to avoid getting 0!
+					</Alert>
 					<LinearTimer minutes={1} handleSubmit={handleSubmit} />
 				</Box>
 				<Box
