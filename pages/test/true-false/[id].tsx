@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { Box, Button, Chip, Container, CssBaseline, Typography } from "@mui/material"
+import { Alert, Box, Button, Chip, Container, CssBaseline, Typography } from "@mui/material"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
@@ -9,18 +9,30 @@ import ApiServices from "@/pages/api/ApiServices"
 import { auth } from "../../../components/firebaseX"
 import LoadingPage from "@/components/LoadingPage"
 import ReadingQuiz from "@/components/assessment/ReadingQuiz"
+import { useStoreUser } from "@/components/zustand"
+import CompletedAssessment from "@/components/assessment/CompletedAssessment"
+import LinearTimer from "@/components/other/LinearTimer"
 
 function TrueFalseQuiz() {
 	const {
 		query: { id },
 	} = useRouter()
 	const queryClient = useQueryClient()
+	const { userInfo } = useStoreUser()
 	const [score, setScore] = useState(0)
 	const [show, setShow] = useState(false)
 	const [answers, setAnswers] = useState([])
+	const [buttonDisabled, setButtonDisabled] = useState(true)
 
 	const { submitTest } = ApiPostServices()
-	const { fetchOneAssessment } = ApiServices()
+	const { fetchOneAssessment, fetchTestResult } = ApiServices()
+
+	// get assessment result
+	const {
+		data: assessmentResult,
+		isLoading: isLoadingResult,
+		isError: isErrorResult,
+	} = useQuery([`testResult-${id}-${userInfo.uid}`], () => fetchTestResult(String(userInfo.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -47,6 +59,7 @@ function TrueFalseQuiz() {
 
 		setShow(true)
 		setScore(score)
+		setButtonDisabled(false)
 		//@ts-ignore
 		mutate({
 			topic: reading_quiz?.data.topic,
@@ -64,8 +77,10 @@ function TrueFalseQuiz() {
 		setAnswers(reading_quiz?.data?.questions)
 	}, [isLoadingQuiz])
 
-	if (isLoading || isLoadingQuiz) <LoadingPage />
-	if (isError || isErrorQuiz) <ErrorPage />
+	if (isLoading || isLoadingQuiz || isLoadingResult) return <LoadingPage />
+	if (isError || isErrorQuiz || isErrorResult) return <ErrorPage />
+
+	if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
@@ -95,7 +110,11 @@ function TrueFalseQuiz() {
 						{" "}
 						Please answer the following questions within 5 minutes.{" "}
 					</Typography>
-					<BackButton />
+					<BackButton disabled={buttonDisabled} />
+					<Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 14 }}>
+						Please finish the test and submit before leaving the page to avoid getting 0!
+					</Alert>
+					<LinearTimer minutes={10} handleSubmit={handleSubmit} />
 				</Box>
 				<Box
 					sx={{

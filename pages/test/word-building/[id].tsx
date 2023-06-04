@@ -15,10 +15,9 @@ import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 function WordBuildingTest() {
 	const {
 		query: { id },
-		back,
 	} = useRouter()
-	const { userInfo } = useStoreUser()
 	const queryClient = useQueryClient()
+	const { userInfo } = useStoreUser()
 	const [arrayInput, setArrayInput] = useState([])
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [show, setShow] = useState(false)
@@ -31,10 +30,7 @@ function WordBuildingTest() {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
 		isError: isErrorResult,
-	} = useQuery([`testResult-${id}`], () => fetchTestResult(String(userInfo.uid)))
-
-	console.log("id :>> ", id)
-	console.log("assessmentResult :>> ", assessmentResult)
+	} = useQuery([`testResult-${id}-${userInfo.uid}`], () => fetchTestResult(String(userInfo.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -70,10 +66,10 @@ function WordBuildingTest() {
 		})
 	}
 
-	if (isLoading || isLoadingResult || isLoadingWB) <LoadingPage />
-	if (isError || isErrorResult || isErrorWB) <ErrorPage />
+	if (isLoading || isLoadingResult || isLoadingWB) return <LoadingPage />
+	if (isError || isErrorResult || isErrorWB) return <ErrorPage />
 
-	if (assessmentResult?.data.filter((item) => item.assessment_id === id)) return <CompletedAssessment />
+	if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
@@ -106,7 +102,7 @@ function WordBuildingTest() {
 					<Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 14 }}>
 						Please finish the test and submit before leaving the page to avoid getting 0!
 					</Alert>
-					<LinearTimer minutes={1} handleSubmit={handleSubmit} />
+					<LinearTimer minutes={20} handleSubmit={handleSubmit} />
 				</Box>
 				<Box
 					sx={{
