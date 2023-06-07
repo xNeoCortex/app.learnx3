@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import { useStoreTemporary } from "../zustand"
+import { useStoreTemporary, useStoreUser } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
@@ -31,6 +31,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		query: { id },
 	} = useRouter()
 	const queryClient = useQueryClient()
+	const { userInfo } = useStoreUser()
 	const { setClassInfo } = useStoreTemporary()
 	const { fetchAllStudents, fetchAllTeachers, apiRequest } = ApiServices()
 	const { addClass, updateClass } = ApiPostServices()
@@ -435,14 +436,16 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 								</Box>
 							)}
 						</Box>
-						<Button
-							variant="contained"
-							color="error"
-							onClick={() => (deleteClass(), handleClose())}
-							sx={{ m: "10px " }}
-						>
-							Delete Class
-						</Button>
+						{userInfo?.role == "admin" && (
+							<Button
+								variant="contained"
+								color="error"
+								onClick={() => (deleteClass(), handleClose())}
+								sx={{ m: "10px " }}
+							>
+								Delete Class
+							</Button>
+						)}
 						<Button
 							disabled={className?.length === 0 || passcode?.length === 0}
 							variant="contained"

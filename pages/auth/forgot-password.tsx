@@ -67,7 +67,7 @@ function ForgotPassword(props) {
 				</Button>
 				<Link href="/auth/login">
 					<Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
-						Go to Loginss
+						Go to login
 					</Button>
 				</Link>
 			</Box>
