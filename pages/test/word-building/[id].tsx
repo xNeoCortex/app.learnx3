@@ -42,10 +42,12 @@ function WordBuildingTest() {
 		data: word_building,
 		isLoading: isLoadingWB,
 		isError: isErrorWB,
-	} = useQuery(["word_building"], () => fetchOneAssessment({ db_collection: "word_building", id: id }))
+	} = useQuery(["wordBuildingAssessment"], () =>
+		fetchOneAssessment({ db_collection: "wordBuildingAssessment", id: id })
+	)
 
 	// Get correct answers
-	const correctAnswers = word_building?.data.questions.filter((item) => arrayInput?.includes(item.answers))
+	const correctAnswers = word_building?.data.questions.filter((item) => arrayInput?.includes(item?.answers?.trim()))
 
 	// Function to handle submit
 	function handleSubmit() {
@@ -69,7 +71,7 @@ function WordBuildingTest() {
 	if (isLoading || isLoadingResult || isLoadingWB) return <LoadingPage />
 	if (isError || isErrorResult || isErrorWB) return <ErrorPage />
 
-	if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
+	// if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
@@ -177,13 +179,13 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 				flex: 1,
 				margin: 1,
 				flexDirection: "column",
-				background: show ? (answerX.trim() === test.answers ? "#d8f3dc" : "#ffccd578") : "white",
+				background: show ? (arrayInput[index]?.trim() === test.answers?.trim() ? "#d8f3dc" : "#ffccd578") : "white",
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
 			<h3>{test.question}</h3>
 			{show &&
-				(answerX.trim() === test.answers ? (
+				(arrayInput[index]?.trim() === test.answers?.trim() ? (
 					<h3 style={{ color: "green" }}>Correct!</h3>
 				) : (
 					<h3 style={{ color: "red" }}>Wrong!</h3>
