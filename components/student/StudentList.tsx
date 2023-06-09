@@ -12,9 +12,11 @@ import { Box } from "@mui/material"
 import Link from "next/link"
 import SnackbarX from "../other/SnackbarX"
 import DeleteComponent from "../helpers/DeleteComponent"
+import { useStoreUser } from "../zustand"
 
 export default function StudentList({ data }) {
 	const [open, setOpen] = React.useState(false)
+	const { userInfo } = useStoreUser()
 
 	return (
 		<Box sx={{ marginTop: "0px" }}>
@@ -52,7 +54,9 @@ export default function StudentList({ data }) {
 							</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Performance</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Profile</TableCell>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
+							{userInfo.role == "adimin" && (
+								<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
+							)}{" "}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -128,14 +132,16 @@ export default function StudentList({ data }) {
 												</Button>
 											</Link>
 										</TableCell>
-										<TableCell>
-											<DeleteComponent
-												collectionName="students"
-												invalidateCache="students"
-												itemId={row?.uid}
-												setOpen={setOpen}
-											/>
-										</TableCell>
+										{userInfo.role == "adimin" && (
+											<TableCell>
+												<DeleteComponent
+													collectionName="students"
+													invalidateCache="students"
+													itemId={row?.uid}
+													setOpen={setOpen}
+												/>
+											</TableCell>
+										)}
 									</TableRow>
 								))}
 					</TableBody>
