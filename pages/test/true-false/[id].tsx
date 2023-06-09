@@ -32,7 +32,7 @@ function TrueFalseQuiz() {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
 		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo.uid}`], () => fetchTestResult(String(userInfo.uid)))
+	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -67,8 +67,8 @@ function TrueFalseQuiz() {
 			lesson_number: reading_quiz?.data.lesson_number,
 			assessment_type: reading_quiz?.data.question_type,
 			result: score,
-			assessment_id: reading_quiz?.data.uid,
-			student_id: auth.currentUser.uid,
+			assessment_id: reading_quiz?.data?.uid,
+			student_id: auth.currentUser?.uid,
 			student_name: auth.currentUser.displayName,
 		})
 	}

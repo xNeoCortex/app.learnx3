@@ -30,7 +30,7 @@ function WordBuildingTest() {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
 		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo.uid}`], () => fetchTestResult(String(userInfo.uid)))
+	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -62,8 +62,8 @@ function WordBuildingTest() {
 			lesson_number: word_building?.data.lesson_number,
 			assessment_type: word_building?.data.question_type,
 			result: score,
-			assessment_id: word_building?.data.uid,
-			student_id: auth.currentUser.uid,
+			assessment_id: word_building?.data?.uid,
+			student_id: auth.currentUser?.uid,
 			student_name: auth.currentUser.displayName,
 		})
 	}
