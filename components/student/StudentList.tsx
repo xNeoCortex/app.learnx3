@@ -6,14 +6,25 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar, Button } from "@mui/material"
+import { Avatar, Button, IconButton } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
+import SnackbarX from "../other/SnackbarX"
+import DeleteComponent from "../helpers/DeleteComponent"
 
 export default function StudentList({ data }) {
+	const [open, setOpen] = React.useState(false)
+
 	return (
 		<Box sx={{ marginTop: "0px" }}>
+			<SnackbarX
+				open={open}
+				setOpen={setOpen}
+				backgroundColor="#32a676"
+				message="Student has been successfully deleted!"
+			/>
+
 			<TableContainer
 				component={Paper}
 				style={{
@@ -41,6 +52,7 @@ export default function StudentList({ data }) {
 							</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Performance</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Profile</TableCell>
+							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -115,6 +127,14 @@ export default function StudentList({ data }) {
 													View
 												</Button>
 											</Link>
+										</TableCell>
+										<TableCell>
+											<DeleteComponent
+												collectionName="students"
+												invalidateCache="students"
+												itemId={row?.uid}
+												setOpen={setOpen}
+											/>
 										</TableCell>
 									</TableRow>
 								))}

@@ -13,10 +13,20 @@ import Switch from "@mui/material/Switch"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../ErrorPage"
 import { useMutation } from "@tanstack/react-query"
+import SnackbarX from "../other/SnackbarX"
+import DeleteComponent from "../helpers/DeleteComponent"
 
 export default function TeacherList({ data }) {
+	const [open, setOpen] = React.useState(false)
+
 	return (
 		<Box sx={{ marginTop: "0px" }}>
+			<SnackbarX
+				open={open}
+				setOpen={setOpen}
+				backgroundColor="#32a676"
+				message="Teacher has been successfully deleted!"
+			/>
 			<TableContainer
 				component={Paper}
 				style={{
@@ -39,6 +49,7 @@ export default function TeacherList({ data }) {
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Teacher Name</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Email</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Permission</TableCell>
+							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -49,7 +60,7 @@ export default function TeacherList({ data }) {
 									if (a.name < b.name) return -1
 									return 0
 								})
-								?.map((teacher, index) => <TableRows key={index} teacher={teacher} />)}
+								?.map((teacher, index) => <TableRows key={index} teacher={teacher} setOpen={setOpen} />)}
 					</TableBody>
 				</Table>
 			</TableContainer>
@@ -57,7 +68,7 @@ export default function TeacherList({ data }) {
 	)
 }
 
-function TableRows({ teacher }) {
+function TableRows({ teacher, setOpen }) {
 	const { updateTeacherInfo } = ApiPostServices()
 	const { mutate, isError } = useMutation((body) => updateTeacherInfo(body, teacher.uid))
 	const [checked, setChecked] = React.useState(true)
@@ -98,6 +109,9 @@ function TableRows({ teacher }) {
 			<TableCell>{teacher.email}</TableCell>
 			<TableCell>
 				<Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} />
+			</TableCell>
+			<TableCell>
+				<DeleteComponent collectionName="teachers" invalidateCache="teachers" itemId={teacher?.uid} setOpen={setOpen} />
 			</TableCell>
 		</TableRow>
 	)

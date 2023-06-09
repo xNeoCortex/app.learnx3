@@ -5,7 +5,6 @@ import { Box, Skeleton } from "@mui/material"
 import ErrorPage from "../ErrorPage"
 import AddClass from "./AddClassDialog"
 import ClassCard from "./ClassCard"
-import LoadingPage from "../LoadingPage"
 import { useStoreTemporary } from "../zustand"
 
 function AddClassPage(props) {

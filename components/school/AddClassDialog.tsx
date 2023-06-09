@@ -425,7 +425,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 							width: "100%",
 						}}
 					>
-						<Box sx={{ background: "grey" }}>
+						<Box>
 							{message && (
 								<Box sx={{ m: "10px 30px" }}>
 									<Alert severity="success">
@@ -441,7 +441,10 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 								variant="contained"
 								color="error"
 								onClick={() => (deleteClass(), handleClose())}
-								sx={{ m: "10px " }}
+								sx={{
+									m: "10px ",
+									background: "rgb(255 92 92)",
+								}}
 							>
 								Delete Class
 							</Button>
