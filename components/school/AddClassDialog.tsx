@@ -82,9 +82,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		isSuccess: isSuccessPut,
 		isError: isErrorPut,
 	} = useMutation((body) => updateClass(body, _class.uid || id), {
-		onSuccess: () => (
-			queryClient.invalidateQueries(["listClasses"]), queryClient.invalidateQueries(["class-students"])
-		),
+		onSuccess: () => (queryClient.invalidateQueries(["listClasses"]), queryClient.invalidateQueries(["my-class"])),
 	})
 
 	const handleClickOpen = () => {

@@ -28,7 +28,7 @@ function StudentCardList() {
 		data: classInfo,
 		isLoading: classIsLoading,
 		isError: classIsError,
-	} = useQuery([`classes-${id}`], () => apiRequest("GET", null, { collectionName: "classes", uid: String(id) }), {
+	} = useQuery([`my-class`], () => apiRequest("GET", null, { collectionName: "classes", uid: String(id) }), {
 		enabled: id?.length > 5,
 	})
 
