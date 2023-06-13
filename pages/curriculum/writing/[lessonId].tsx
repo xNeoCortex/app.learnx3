@@ -113,7 +113,7 @@ function WritingPage() {
 							}}
 						/>
 					</Box>
-					<TestContainer data={lessonState?.data} link={`/test/writing/`} />
+					<TestContainer data={lessonState?.data} link={`/test/writing`} />
 					<BackButton />
 				</Container>
 			</Box>
