@@ -108,7 +108,7 @@ function TrueFalseQuiz() {
 					</Typography>
 					<Typography sx={{ margin: "0px 15px 15px" }}>
 						{" "}
-						Please answer the following questions within 5 minutes.{" "}
+						Please answer the following questions within 10 minutes.{" "}
 					</Typography>
 					<BackButton disabled={buttonDisabled} />
 					<Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 14 }}>

@@ -86,7 +86,7 @@ function Test() {
 				</Typography>
 				<Typography sx={{ margin: "0px 15px 15px" }}>
 					{" "}
-					Please answer the following questions within 5 minutes.{" "}
+					Please answer the following questions within 20 minutes.{" "}
 				</Typography>
 				<BackButton />
 			</Box>
