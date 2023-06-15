@@ -54,7 +54,7 @@ export default function StudentList({ data }) {
 							</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Performance</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Profile</TableCell>
-							{userInfo.role == "adimin" && (
+							{userInfo.role == "admin" && (
 								<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
 							)}{" "}
 						</TableRow>
@@ -132,7 +132,7 @@ export default function StudentList({ data }) {
 												</Button>
 											</Link>
 										</TableCell>
-										{userInfo.role == "adimin" && (
+										{userInfo.role == "admin" && (
 											<TableCell>
 												<DeleteComponent
 													collectionName="students"
