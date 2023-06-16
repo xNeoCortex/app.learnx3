@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Avatar, Box, Button, Typography } from "@mui/material"
 
 function UserType() {
-	const [who, setWho] = React.useState("teacher")
+	const [who, setWho] = React.useState("student")
 	return (
 		<div
 			style={{
