@@ -46,7 +46,9 @@ export default function TeacherList({ data }) {
 								color: "white",
 							}}
 						>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Teacher Name</TableCell>
+							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>
+								Teachers ({data?.length}){" "}
+							</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Email</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Permission</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>

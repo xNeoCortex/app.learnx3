@@ -46,12 +46,7 @@ export default function StudentList({ data }) {
 								color: "white",
 							}}
 						>
-							<TableCell
-								style={{ color: "white", fontWeight: 600, fontSize: 15 }}
-								//
-							>
-								Student Name
-							</TableCell>
+							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Students ({data?.length})</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Performance</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Profile</TableCell>
 							{userInfo.role == "admin" && (
