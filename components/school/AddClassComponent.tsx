@@ -7,11 +7,10 @@ import AddClass from "./AddClassDialog"
 import ClassCard from "./ClassCard"
 import { useStoreTemporary } from "../zustand"
 
-function AddClassPage(props) {
+function AddClassPage({ studentList, teacherList }) {
 	const { sidebarWidth } = useStoreTemporary()
 	const { fetchClasses } = ApiServices()
 	const { data: classList, isLoading, isError } = useQuery(["listClasses"], fetchClasses)
-
 	// if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
@@ -41,7 +40,9 @@ function AddClassPage(props) {
 								if (a.class_name < b.class_name) return -1
 								return 0
 							})
-							.map((item, index) => <ClassCard key={index} item={item} />)}
+							.map((item, index) => (
+								<ClassCard key={index} item={item} studentList={studentList} teacherList={teacherList} />
+							))}
 			</div>
 		</Box>
 	)

@@ -7,7 +7,7 @@ import { useStoreTemporary } from "../zustand"
 import DeleteComponent from "../helpers/DeleteComponent"
 import SnackbarX from "../other/SnackbarX"
 
-function ClassCard({ item }) {
+function ClassCard({ item, studentList, teacherList }) {
 	const { setClassId } = useStoreTemporary()
 	const [open, setOpen] = React.useState(false)
 
@@ -47,8 +47,16 @@ function ClassCard({ item }) {
 						margin: "10px 0px",
 					}}
 				>
-					<p>Students: {item.students.length}</p>
-					<p>Teachers: {item.teachers.length}</p>
+					<p>
+						Students:{" "}
+						{item.students.filter((item) => studentList?.data?.filter((student) => student.id === item))?.length ||
+							"N/A"}
+					</p>
+					<p>
+						Teachers:{" "}
+						{item.teachers.filter((item) => teacherList?.data?.filter((student) => student.id === item))?.length ||
+							"N/A"}
+					</p>
 				</Box>
 				<p>Curriculum: {item.curriculum_topic}</p>
 				<p>Class level: {item.level}</p>
@@ -64,7 +72,7 @@ function ClassCard({ item }) {
 				}}
 			>
 				<AddClass _class={item} buttonName="Edit class" />
-				<DeleteComponent collectionName="classes"  invalidateCache="listClasses" itemId={item.uid} setOpen={setOpen} />
+				<DeleteComponent collectionName="classes" invalidateCache="listClasses" itemId={item.uid} setOpen={setOpen} />
 				<Link href={`classes/[id]`} as={`classes/${item.uid}`}>
 					<Button variant="contained" onClick={() => setClassId(item.uid)}>
 						View

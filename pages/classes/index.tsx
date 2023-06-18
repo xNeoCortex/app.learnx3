@@ -14,8 +14,8 @@ import AppContainer from "@/components/AppContainer"
 
 function SchoolPage() {
 	const { fetchAllStudents, fetchAllTeachers } = ApiServices()
+	
 	const { data: studentList, isLoading, isError } = useQuery(["students"], fetchAllStudents)
-
 	const {
 		data: teacherList,
 		isLoading: isLoadingTeacher,
@@ -31,7 +31,7 @@ function SchoolPage() {
 				<SidebarContainer>
 					<Box style={{ display: "flex", flexDirection: "column" }}>
 						<Navbar />
-						<AddClassPage />
+						<AddClassPage studentList={studentList} teacherList={teacherList}/>
 						<Grid container spacing={4} sx={{ mt: 2 }}>
 							<Grid item xs={12} sm={6}>
 								<TeacherList data={teacherList?.data} />
