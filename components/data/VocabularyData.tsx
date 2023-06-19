@@ -71,9 +71,10 @@ const WordBuilding = {
 }
 
 const Vocabulary_1 = {
-	vocabulary: 1,
+	lesson_number: 1,
 	level: "b1",
 	type: "verb",
+	topic: "General",
 	vocabularies: [
 		{
 			word: "happy",
@@ -144,9 +145,11 @@ const Vocabulary_1 = {
 }
 
 const Vocabulary_2 = {
-	vocabulary: 2,
+	lesson_number: 2,
 	level: "b1",
 	type: "verb",
+	topic: "Family",
+
 	vocabularies: [
 		{
 			word: "love",
@@ -269,4 +272,263 @@ const WordBuilding2 = {
 	],
 }
 
-export { WordBuilding, Vocabulary_1, Vocabulary_2 , WordBuilding2}
+const Vocabulary_3 = {
+	lesson_number: 3,
+	level: "b1",
+	type: "verb",
+	topic: "Adventure",
+	vocabularies: [
+		{
+			word: "adventure",
+			synonyms: ["explore", "venture", "discover"],
+			antonyms: ["avoid", "stay", "shun"],
+			definition: "to engage in exciting and often risky or daring experiences or journeys",
+			example: "They embarked on an exciting adventure to explore the uncharted island.",
+		},
+		{
+			word: "thrill",
+			synonyms: ["excite", "enthral", "exhilarate"],
+			antonyms: ["bore", "disappoint", "depress"],
+			definition: "to cause intense excitement, enjoyment, or exhilaration",
+			example: "The roller coaster ride thrilled and exhilarated the passengers.",
+		},
+		{
+			word: "explore",
+			synonyms: ["discover", "investigate", "traverse"],
+			antonyms: ["ignore", "neglect", "overlook"],
+			definition: "to travel through or investigate new and unfamiliar places",
+			example: "They set out to explore the dense rainforest and discover its hidden treasures.",
+		},
+		{
+			word: "wanderlust",
+			synonyms: ["roam", "adventure", "explore"],
+			antonyms: ["settled", "contentment", "homebody"],
+			definition: "a strong desire to travel and explore the world",
+			example: "Her wanderlust led her on countless adventures to far-off lands.",
+		},
+		{
+			word: "expedition",
+			synonyms: ["trek", "quest", "journey"],
+			antonyms: ["return", "retrace", "retreat"],
+			definition: "a journey or excursion undertaken for a specific purpose, often involving exploration or research",
+			example: "The scientific expedition aimed to explore the unexplored depths of the ocean.",
+		},
+		{
+			word: "courage",
+			synonyms: ["bravery", "fearlessness", "valor"],
+			antonyms: ["fear", "timidity", "cowardice"],
+			definition: "the ability to face and overcome challenges and danger",
+			example: "Their courage allowed them to conquer the treacherous mountain peak.",
+		},
+		{
+			word: "quest",
+			synonyms: ["pursuit", "search", "mission"],
+			antonyms: ["settle", "acceptance", "resignation"],
+			definition: "a journey or mission undertaken in search of something valuable or significant",
+			example: "He embarked on a quest to find the legendary treasure hidden in the ancient ruins.",
+		},
+		{
+			word: "daring",
+			synonyms: ["bold", "courageous", "fearless"],
+			antonyms: ["cautious", "timid", "timid"],
+			definition: "willing to take risks and face challenges",
+			example: "Their daring spirit led them to attempt the dangerous rock-climbing expedition.",
+		},
+		{
+			word: "explorer",
+			synonyms: ["adventurer", "pioneer", "trailblazer"],
+			antonyms: ["homebody", "non-adventurer", "settler"],
+			definition: "a person who travels to new or unknown places in search of adventure or discovery",
+			example: "The famous explorer ventured into uncharted territories and mapped unknown lands.",
+		},
+	],
+}
+
+const WordBuilding3 = {
+	level: "b1",
+	topic: "Word Building 3",
+	lesson_number: 3,
+	question_type: "word_building",
+	questions: [
+		{
+			question: "The American War of is known in the USA as the Revolution.",
+			word: "DEPEND",
+			answers: "independence",
+		},
+		{
+			question: "Medical treatment in the USA depends on your _______ to pay.",
+			word: "ABLE",
+			answers: "ability",
+		},
+		{
+			question: `They said I was _______ to be a school governor, just because I have a criminal record.`,
+			word: "FIT",
+			answers: "unfit",
+		},
+		{
+			question: `He looks hideous, but he has a great _______ .`,
+			word: "PERSON",
+			answers: "personality",
+		},
+		{
+			question: `It was rather _______ of you to leave both your children on the bus.`,
+			word: "CARE",
+			answers: "careless",
+		},
+		{
+			question: `I spent my _______ in a small town where even the cats and dogs were bored.`,
+			word: "CHILD",
+			answers: "childhood",
+		},
+		{
+			question: `This advert was filmed in a ______ old factory.`,
+			word: "USE",
+			answers: "disused",
+		},
+		{
+			question: `Don't accuse me of _______ . You are the
+			hypocrite.`,
+			word: "HYPOCRITE",
+			answers: "hypocrisy",
+		},
+		{
+			question: `These poor chickens are kept in very _______ conditions`,
+			word: "NATURE ",
+			answers: "unnatural",
+		},
+	],
+}
+
+const Vocabulary_4 = {
+	lesson_number: 4,
+	level: "b1",
+	type: "verb",
+	topic: "Food",
+	vocabularies: [
+		{
+			word: "appetite",
+			synonyms: ["hunger", "craving", "desire"],
+			antonyms: ["satiety", "fullness", "lack of appetite"],
+			definition: "A strong desire or craving for food.",
+			example: "After a long day, I had a big appetite and enjoyed a hearty meal.",
+		},
+		{
+			word: "delicious",
+			synonyms: ["tasty", "yummy", "flavorful"],
+			antonyms: ["disgusting", "unappetizing", "unpalatable"],
+			definition: "Having a pleasant taste or flavor that is highly enjoyable.",
+			example: "The pizza was delicious, with a perfect combination of cheese and toppings.",
+		},
+		{
+			word: "menu",
+			synonyms: ["food list", "dining options", "bill of fare"],
+			antonyms: ["limited options", "no menu", "no selection"],
+			definition: "A list of dishes available in a restaurant or a meal selection.",
+			example: "The restaurant offers a diverse menu, featuring both traditional and innovative dishes.",
+		},
+		{
+			word: "reservation",
+			synonyms: ["booking", "appointment", "advance arrangement"],
+			antonyms: ["walk-in", "no reservation", "first-come, first-served"],
+			definition: "The act of reserving a table or seat at a restaurant in advance.",
+			example: "We made a reservation at the restaurant to ensure we would have a table for dinner.",
+		},
+		{
+			word: "waiter",
+			synonyms: ["server", "attendant", "waitstaff"],
+			antonyms: ["customer", "patron", "diner"],
+			definition: "A person who serves customers at a restaurant by taking orders and delivering food and drinks.",
+			example: "The waiter was friendly and provided excellent service throughout the meal.",
+		},
+		{
+			word: "chef",
+			synonyms: ["cook", "culinarian", "kitchen maestro"],
+			antonyms: ["novice cook", "amateur chef", "home cook"],
+			definition: "A professional cook who is skilled in preparing and presenting food.",
+			example: "The chef prepared a gourmet meal using fresh ingredients and innovative techniques.",
+		},
+		{
+			word: "cuisine",
+			synonyms: ["food", "cooking", "culinary style"],
+			antonyms: ["non-culinary", "non-food", "non-cooking"],
+			definition: "A style or type of cooking characterized by specific ingredients, techniques, and flavors.",
+			example: "Italian cuisine is known for its use of fresh ingredients and bold flavors.",
+		},
+		{
+			word: "bill",
+			synonyms: ["check", "invoice", "tab"],
+			antonyms: ["complimentary", "free", "no charge"],
+			definition: "A written statement of the total amount owed for a meal or service at a restaurant.",
+			example: "At the end of the meal, the waiter brought the bill for us to review and pay.",
+		},
+		{
+			word: "takeout",
+			synonyms: ["takeaway", "to-go", "carryout"],
+			antonyms: ["dine-in", "eat-in", "in-house"],
+			definition: "Food ordered from a restaurant to be consumed off the premises.",
+			example: "We decided to get takeout for dinner and enjoyed our meal at home.",
+		},
+	],
+}
+
+const WordBuilding4 = {
+	level: "b1",
+	topic: "Phrasal verbs 1",
+	lesson_number: 4,
+	question_type: "phrasal_verbs",
+	phrasal_verbs: ["go for", "take after"],
+	questions: [
+		{
+			question: `Karen, I'd like you to _____ from a client. It seems quite serious.`,
+			word: "examine",
+			answers: "look into",
+		},
+		{
+			question: "Hey! Just _______ this new MP3 player. The sound quality is great.",
+			word: "try",
+			answers: "check out",
+		},
+		{
+			question: `Yes, I will _______ that.`,
+			word: "accept",
+			answers: "go along with",
+		},
+		{
+			question: `Because of a really heavy downpour, the party in the park had be _______ .`,
+			word: "cancelled",
+			answers: "called off",
+		},
+		{
+			question: `Why don't you _______ the 'Weirdest Hair Competition'? I am sure you would win it.`,
+			word: "enter",
+			answers: "go in for",
+		},
+		{
+			question: `I wonder who first _______ the idea of air-bags in cars?.`,
+			word: "thought of",
+			answers: "came up with",
+		},
+		{
+			question: `I still haven't really ______ the death of my mother.`,
+			word: "recovered from",
+			answers: "got over",
+		},
+		{
+			question: `Because of flooding on the line between Brighton and Victoria,
+			my train was _______ for several hours.`,
+			word: "delayed",
+			answers: "held up",
+		},
+	],
+}
+
+export {
+	WordBuilding,
+	Vocabulary_1,
+	Vocabulary_2,
+	WordBuilding2,
+	Vocabulary_3,
+	WordBuilding3,
+	Vocabulary_4,
+	WordBuilding4,
+}

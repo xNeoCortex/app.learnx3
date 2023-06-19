@@ -297,4 +297,156 @@ const WritingDataTest2 = {
     `,
 }
 
-export { WritingData, writingResult, WritingDataX, WritingDataTest, WritingData2, WritingDataTest2 }
+const WritingData3 = {
+	lesson_number: 3,
+	topic: "Learn how to write an essay",
+	lesson_type: "writing",
+	writing_type: "essay",
+	level: "b1",
+	assessment: [],
+	topic_content: `
+    To write an essay with two body paragraphs, along with an introduction and a conclusion, you can follow this structure:
+
+	Introduction:
+	Start with an interesting sentence to get the reader's attention, like a fun fact or a question.
+	Give a little bit of information about the topic to help the reader understand what you'll be talking about.
+	Clearly state your main point or what you want to prove in your essay. This is called your thesis statement.
+	
+	Body Paragraph 1:
+	Start with a sentence that tells the reader what this paragraph will be about.
+	Give one reason or example to support your main point. Use facts or examples to explain why this reason is important.
+	Talk about the evidence or examples you provided and explain how they support your main point.
+	If you have more examples or details, you can include them to make your argument stronger.
+	
+	Body Paragraph 2:
+	Start with a sentence that tells the reader what this paragraph will be about. It should be related to your main point.
+	Give another reason or example to support your main point. Use facts or examples to explain why this reason is important.
+	Discuss the evidence or examples you provided and explain how they support your main point.
+	If you have more examples or details, include them to make your argument stronger.
+	
+	Conclusion:
+	Restate your main point or thesis statement in a different way.
+	Summarize the main reasons or examples you gave in your body paragraphs.
+    `,
+	topic_example: `
+	Here's an example of an essay with two body paragraphs, an introduction, and a conclusion, written in simple language for children to understand. The topic of the essay is the importance of reading books.
+
+	Introduction:
+	Books are magical! They can take us on incredible adventures and teach us new things. In this essay, we will explore why reading books is so important and how it can help us grow.
+
+	Body Paragraph 1:
+	Reading books is like opening a door to a whole new world. When we read, we can go on exciting journeys without leaving our homes. We can visit faraway places, meet fascinating characters, and imagine ourselves in their shoes. Books can make us dream, laugh, and even cry. They spark our imagination and help us develop a love for stories.
+
+	Body Paragraph 2:
+	Not only are books fun, but they also teach us many things. When we read, we learn about different cultures, animals, and even history. We can discover new ideas and gain knowledge about the world around us. Books can also help us improve our language and vocabulary. The more we read, the better we become at expressing ourselves and understanding others.
+
+	Conclusion:
+	In conclusion, books are our friends. They open up a world of possibilities and make learning enjoyable. By reading books, we can explore new adventures, learn about the world, and expand our minds. So let's grab a book, turn its pages, and let the magic of reading take us on amazing journeys!
+    `,
+}
+
+const WritingDataTest3 = {
+	lesson_number: 3,
+	word_limit: 180,
+	writing_type: "essay",
+	assessment_type: "essay",
+	topic: "My Amazing Travel Adventure",
+	key_words: ["Travel", "Hotel", "Mountain", "City", "Landscape"],
+	task: `
+      Write an essay about your traveling experience 
+
+	  Introduction:
+	  Start by sharing the excitement of traveling and how it can be an incredible experience. Mention that you want to share a special travel adventure that you had.
+	  
+	  Body Paragraph 1:
+	  Describe the destination you traveled to. Talk about the country or city, its unique features, and why you were excited to visit. Share some interesting facts or landmarks you encountered during your trip.
+	  
+	  Body Paragraph 2:
+	  Share your experiences and adventures during your travel. Discuss the activities you did, such as visiting famous sites, trying local food, or participating in fun cultural traditions. Describe the people you met and the new things you learned.
+	  
+	  Conclusion:
+	  Summarize your travel adventure and express how it made a positive impact on you. Talk about the importance of travel in broadening our horizons, learning about different cultures, and appreciating the world around us. Encourage other children to explore and embrace the wonders of travel.    
+  	`,
+	topic_content: `
+	`,
+}
+
+const WritingData4 = {
+	lesson_number: 4,
+	topic: "Learn how to write an essay",
+	lesson_type: "writing",
+	writing_type: "essay",
+	level: "b1",
+	assessment: [],
+	topic_content: `
+    To write an essay with two body paragraphs, along with an introduction and a conclusion, you can follow this structure:
+
+	Introduction:
+	Start with an interesting sentence to get the reader's attention, like a fun fact or a question.
+	Give a little bit of information about the topic to help the reader understand what you'll be talking about.
+	Clearly state your main point or what you want to prove in your essay. This is called your thesis statement.
+	
+	Body Paragraph 1:
+	Start with a sentence that tells the reader what this paragraph will be about.
+	Give one reason or example to support your main point. Use facts or examples to explain why this reason is important.
+	Talk about the evidence or examples you provided and explain how they support your main point.
+	If you have more examples or details, you can include them to make your argument stronger.
+	
+	Body Paragraph 2:
+	Start with a sentence that tells the reader what this paragraph will be about. It should be related to your main point.
+	Give another reason or example to support your main point. Use facts or examples to explain why this reason is important.
+	Discuss the evidence or examples you provided and explain how they support your main point.
+	If you have more examples or details, include them to make your argument stronger.
+	
+	Conclusion:
+	Restate your main point or thesis statement in a different way.
+	Summarize the main reasons or examples you gave in your body paragraphs.
+    `,
+	topic_example: `
+
+	Here's an example of an essay with two body paragraphs, an introduction, and a conclusion, written in simple language for children to understand. The topic of the essay is the importance of reading books.
+
+	Introduction:
+	Do you love books? Books are magical! They can take us on incredible adventures and teach us new things. In this essay, we will explore why reading books is so important and how it can help us grow.
+
+	Body Paragraph 1:
+	Reading books is like opening a door to a whole new world. When we read, we can go on exciting journeys without leaving our homes. We can visit faraway places, meet fascinating characters, and imagine ourselves in their shoes. Books can make us dream, laugh, and even cry. They spark our imagination and help us develop a love for stories.
+
+	Body Paragraph 2:
+	Not only are books fun, but they also teach us many things. When we read, we learn about different cultures, animals, and even history. We can discover new ideas and gain knowledge about the world around us. Books can also help us improve our language and vocabulary. The more we read, the better we become at expressing ourselves and understanding others.
+
+	Conclusion:
+	In conclusion, books are our friends. They open up a world of possibilities and make learning enjoyable. By reading books, we can explore new adventures, learn about the world, and expand our minds. So let's grab a book, turn its pages, and let the magic of reading take us on amazing journeys!
+    `,
+}
+
+const WritingDataTest4 = {
+	lesson_number: 4,
+	word_limit: 180,
+	writing_type: "essay",
+	assessment_type: "essay",
+	topic: "My Favorite Food",
+	key_words: ["Eat", "Enjoy", "Restaurant", "Local", "Italian"],
+	task: `
+      Write an essay about your Favorite Food
+
+	  Why do you like this food? 
+	  What makes it special? 
+	  Would you recommend it to foreigners?
+  	`,
+	topic_content: `
+	`,
+}
+
+export {
+	WritingData,
+	writingResult,
+	WritingDataX,
+	WritingDataTest,
+	WritingData2,
+	WritingDataTest2,
+	WritingData3,
+	WritingDataTest3,
+	WritingData4,
+	WritingDataTest4
+}

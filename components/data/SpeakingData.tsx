@@ -127,4 +127,232 @@ const SpeakingData2 = {
 	],
 }
 
-export { SpeakingData, SpeakingData2 }
+const SpeakingData3 = {
+	lesson_number: 3,
+	topic: "Traveling",
+	lesson_type: "speaking",
+	writing_type: "article",
+	level: "b1",
+	assessment: [],
+
+	topic_content: [
+		{
+			question: "What is your favorite travel destination?",
+			sample_answer:
+				"My favorite travel destination is Paris. The city has such a charming atmosphere, and there are so many iconic landmarks to visit like the Eiffel Tower and the Louvre.",
+			key_words: ["favorite", "travel destination", "Paris", "romantic", "Eiffel Tower", "Louvre"],
+		},
+		{
+			question: "Describe your most memorable travel experience.",
+			sample_answer:
+				"My most memorable travel experience was when I hiked to the top of Machu Picchu in Peru. The breathtaking views and the sense of accomplishment I felt were truly unforgettable.",
+			key_words: ["memorable", "travel experience", "hiked", "Machu Picchu", "Peru", "views", "accomplishment"],
+		},
+		{
+			question: "What is your dream travel destination?",
+			sample_answer:
+				"My dream travel destination is the Maldives. I would love to relax on the pristine white sand beaches, swim in crystal-clear turquoise waters, and experience the luxury and tranquility of the overwater bungalows.",
+			key_words: ["dream", "travel destination", "Maldives", "beaches", "waters", "overwater bungalows"],
+		},
+		{
+			question: "Describe your favorite mode of transportation while traveling.",
+			sample_answer:
+				"My favorite mode of transportation while traveling is by train. I love the scenic routes, the opportunity to meet fellow travelers, and the comfort and convenience it offers.",
+			key_words: [
+				"favorite",
+				"mode of transportation",
+				"train",
+				"scenic routes",
+				"fellow travelers",
+				"comfort",
+				"convenience",
+			],
+		},
+		{
+			question: "What is your most adventurous travel experience?",
+			sample_answer:
+				"My most adventurous travel experience was when I went skydiving in New Zealand. The adrenaline rush and the feeling of soaring through the sky was absolutely exhilarating.",
+			key_words: ["adventurous", "travel experience", "skydiving", "New Zealand", "adrenaline rush", "soaring"],
+		},
+		{
+			question: "Describe your favorite local cuisine you've tried while traveling.",
+			sample_answer:
+				"My favorite local cuisine I've tried while traveling is sushi in Japan. The freshness of the ingredients and the skillful artistry in its preparation make it a truly delightful culinary experience.",
+			key_words: ["favorite", "local cuisine", "sushi", "Japan", "freshness", "artistry", "culinary experience"],
+		},
+		{
+			question: "What is your preferred travel accommodation?",
+			sample_answer:
+				"My preferred travel accommodation is staying in boutique hotels. I enjoy the unique charm, personalized service, and attention to detail that boutique hotels offer.",
+			key_words: [
+				"preferred",
+				"travel accommodation",
+				"boutique hotels",
+				"unique charm",
+				"personalized service",
+				"attention to detail",
+			],
+		},
+		{
+			question: "Describe your favorite travel souvenir or memento.",
+			sample_answer:
+				"My favorite travel souvenir is a handcrafted necklace I bought from a local artisan in Bali. It not only reminds me of the beautiful beaches and vibrant culture of Bali but also supports the local community.",
+			key_words: [
+				"favorite",
+				"travel souvenir",
+				"memento",
+				"handcrafted necklace",
+				"local artisan",
+				"Bali",
+				"beaches",
+				"vibrant culture",
+				"supports local community",
+			],
+		},
+	],
+}
+
+const SpeakingData4 = {
+	lesson_number: 4,
+	topic: "Restaurant",
+	lesson_type: "speaking",
+	writing_type: "article",
+	level: "b1",
+	assessment: [],
+
+	topic_content: [
+		{
+			question: "Describe your favorite type of cuisine.",
+			sample_answer:
+				"My favorite type of cuisine is Italian. I love the rich flavors of pasta, pizza, and traditional Italian dishes. The use of fresh ingredients and aromatic herbs make Italian cuisine incredibly delicious.",
+			key_words: [
+				"favorite",
+				"type of cuisine",
+				"Italian",
+				"pasta",
+				"pizza",
+				"flavors",
+				"fresh ingredients",
+				"aromatic herbs",
+			],
+		},
+		{
+			question: "Describe your most memorable dining experience at a restaurant.",
+			sample_answer:
+				"My most memorable dining experience at a restaurant was when I celebrated my birthday at a fine dining establishment. The exquisite presentation of each dish, the impeccable service, and the luxurious ambiance made it a truly special and unforgettable occasion.",
+			key_words: [
+				"memorable",
+				"dining experience",
+				"restaurant",
+				"birthday",
+				"fine dining",
+				"presentation",
+				"service",
+				"ambiance",
+			],
+		},
+		{
+			question: "What is your favorite restaurant dish?",
+			sample_answer:
+				"My favorite restaurant dish is a perfectly cooked medium-rare steak with a side of garlic mashed potatoes and roasted vegetables. The juicy and tender steak paired with the creamy potatoes and flavorful vegetables is a culinary delight.",
+			key_words: [
+				"favorite",
+				"restaurant dish",
+				"steak",
+				"medium-rare",
+				"garlic mashed potatoes",
+				"roasted vegetables",
+				"juicy",
+				"tender",
+				"flavorful",
+			],
+		},
+		{
+			question: "Describe your preferred dining atmosphere in a restaurant.",
+			sample_answer:
+				"My preferred dining atmosphere in a restaurant is cozy and intimate. I enjoy soft lighting, comfortable seating, and a relaxed ambiance that allows for meaningful conversations and a pleasant dining experience.",
+			key_words: [
+				"preferred",
+				"dining atmosphere",
+				"restaurant",
+				"cozy",
+				"intimate",
+				"soft lighting",
+				"comfortable seating",
+				"relaxed",
+				"meaningful conversations",
+			],
+		},
+		{
+			question: "What is your most adventurous food experience at a restaurant?",
+			sample_answer:
+				"My most adventurous food experience at a restaurant was when I tried exotic dishes from a fusion restaurant. From sushi burritos to kimchi tacos, the bold combinations of flavors and cultural influences took my taste buds on a thrilling journey.",
+			key_words: [
+				"adventurous",
+				"food experience",
+				"restaurant",
+				"exotic dishes",
+				"fusion restaurant",
+				"sushi burritos",
+				"kimchi tacos",
+				"flavors",
+				"cultural influences",
+			],
+		},
+		{
+			question: "Describe your favorite dessert from a restaurant.",
+			sample_answer:
+				"My favorite dessert from a restaurant is a decadent chocolate lava cake with a scoop of vanilla ice cream. The warm, gooey center of the cake combined with the cool and creamy ice cream creates a delightful contrast of textures and flavors.",
+			key_words: [
+				"favorite",
+				"dessert",
+				"restaurant",
+				"chocolate lava cake",
+				"vanilla ice cream",
+				"warm",
+				"gooey",
+				"cool",
+				"creamy",
+				"textures",
+				"flavors",
+			],
+		},
+		{
+			question: "What is your preferred restaurant seating arrangement?",
+			sample_answer:
+				"My preferred restaurant seating arrangement is a booth or a corner table. I enjoy the privacy and comfort it offers, allowing me to have an intimate dining experience with my companions.",
+			key_words: [
+				"preferred",
+				"restaurant seating arrangement",
+				"booth",
+				"corner table",
+				"privacy",
+				"comfort",
+				"intimate",
+				"dining experience",
+				"companions",
+			],
+		},
+		{
+			question: "Describe your ideal restaurant for a romantic date night.",
+			sample_answer:
+				"My ideal restaurant for a romantic date night would be a cozy French bistro with candlelit tables, soft music, and a menu featuring exquisite dishes and fine wines. The intimate setting and romantic ambiance would create a memorable evening for me and my partner.",
+			key_words: [
+				"ideal",
+				"restaurant",
+				"romantic date night",
+				"cozy French bistro",
+				"candlelit tables",
+				"soft music",
+				"exquisite dishes",
+				"fine wines",
+				"intimate setting",
+				"romantic ambiance",
+				"memorable evening",
+				"partner",
+			],
+		},
+	],
+}
+
+export { SpeakingData, SpeakingData2, SpeakingData3, SpeakingData4 }

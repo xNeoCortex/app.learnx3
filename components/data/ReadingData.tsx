@@ -150,6 +150,312 @@ const ReadingDataTest2 = {
 }
 
 const ReadingData3 = {
+	lesson_number: 3,
+	topic: `Have you ever thought about changing your appearance?`,
+	lesson_type: "reading", // ENUM: "file", "video", "audio"
+	level: "b1",
+	type: "article",
+	content: `
+	Have you ever thought about changing your appearance? Most of us have complained about having a bad hair day or looking hideous in a photo. But experts say that becoming too obsessed about our appearance can be bad for our health. Psychologist Sue Johnston explains:
+	
+	‘Of course it’s natural for people to want to change the way they look – have a new haircut, buy something nice to wear to a party or make a good first impression at an interview, and many women don’t like to be seen without their make-up.
+	
+	But the real problems start when people feel that there’s something they can’t change that makes them feel unattractive. It may be sticking-out ears, an unusually-shaped nose, or perhaps they are overweight. In serious cases this small thing can often take over their lives completely, making them feel anxious about going out in public and making them depressed. In 2006 we did a Body Image Survey to learn more about how people gain confidence in themselves. Below are a few suggestions on how to feel good about yourself.
+	
+	1 Think about your skills and talents. For example, focus on success at work, participating in sports, and friendships. Once you realize that you can achieve your goals and have a happy, full life, appearance will seem less important. If you do have negative feelings about your appearance, try to do something positive like buying some new clothes or taking up a new hobby.
+	2 Learn to accept that you are unique. There’s no one else in the world like you and that makes you very special. Love the unusual things about yourself. If you hate your red hair because it’s so different, then teach yourself to think about it as beautiful and exotic!
+	3 Forget about what you can’t control. There’s one simple rule: be realistic, work on improving what you can change, and don’t spend time worrying about anything else.
+	4 Stop buying fashion magazines and comparing yourself to the models. This has a very negative effect. Remember – they don’t look that good without a personal hairstylist, make-up artist and computer generated photography!
+	5 Finally, if you still feel depressed about the way you look, consider getting professional advice.’        `,
+	assessment: [],
+}
+
+const ReadingDataTest3 = {
+	lesson_number: 3,
+	topic: `Have you ever thought about changing your appearance?`,
+	lesson_type: "reading",
+	level: "b1",
+	type: "article",
+	content: `
+	Have you ever thought about changing your appearance? Most of us have complained about having a bad hair day or looking hideous in a photo. But experts say that becoming too obsessed about our appearance can be bad for our health. Psychologist Sue Johnston explains:
+	
+	‘Of course it’s natural for people to want to change the way they look – have a new haircut, buy something nice to wear to a party or make a good first impression at an interview, and many women don’t like to be seen without their make-up.
+	
+	But the real problems start when people feel that there’s something they can’t change that makes them feel unattractive. It may be sticking-out ears, an unusually-shaped nose, or perhaps they are overweight. In serious cases this small thing can often take over their lives completely, making them feel anxious about going out in public and making them depressed. In 2006 we did a Body Image Survey to learn more about how people gain confidence in themselves. Below are a few suggestions on how to feel good about yourself.
+	
+	1 Think about your skills and talents. For example, focus on success at work, participating in sports, and friendships. Once you realize that you can achieve your goals and have a happy, full life, appearance will seem less important. If you do have negative feelings about your appearance, try to do something positive like buying some new clothes or taking up a new hobby.
+	2 Learn to accept that you are unique. There’s no one else in the world like you and that makes you very special. Love the unusual things about yourself. If you hate your red hair because it’s so different, then teach yourself to think about it as beautiful and exotic!
+	3 Forget about what you can’t control. There’s one simple rule: be realistic, work on improving what you can change, and don’t spend time worrying about anything else.
+	4 Stop buying fashion magazines and comparing yourself to the models. This has a very negative effect. Remember – they don’t look that good without a personal hairstylist, make-up artist and computer generated photography!
+	5 Finally, if you still feel depressed about the way you look, consider getting professional advice.’        `,
+
+	questions: [
+		{
+			question: "Almost everyone is sometimes unhappy about the way they look.",
+			answer: "A",
+		},
+		{
+			question: "Sue Johnston used to dislike the way she looked.",
+			answer: "C",
+		},
+		{
+			question: "Wanting to change the way you look is normal.",
+			answer: "A",
+		},
+		{
+			question: "People can become depressed about going out in public.",
+			answer: "B",
+		},
+		{
+			question: "The survey was to find out how people want to change the way they look.",
+			answer: "B",
+		},
+		{
+			question: "Concentrating on the things you’re good at can help you feel positive.",
+			answer: "C",
+		},
+		{
+			question: "If you concentrate on your aims in life, the way you look will seem less important.",
+			answer: "A",
+		},
+		{
+			question: "It’s important to appreciate how you may look different to other people.",
+			answer: "A",
+		},
+		{
+			question: "Some people spend a lot of money changing the way they look.",
+			answer: "C",
+		},
+		{
+			question: "Models aren’t really as good-looking in real life as they appear in magazines.",
+			answer: "A",
+		},
+	],
+}
+
+const ReadingData4 = {
+	lesson_number: 4,
+	topic: `How green is your house?`,
+	lesson_type: "reading",
+	level: "b1",
+	type: "article",
+	content: `
+	As the UK’s cities expand rapidly, problems are being caused for councils who have to meet the demand for housing. In addition to this, energy prices and pollution levels continue to increase.
+
+	A solution has been developed by the Peabody Trust who have worked with environmental experts to build the Beddington Zero Energy housing development (BedZED) in Sutton, England.
+
+	This unique development is an environmentally-friendly community of a hundred homes including gardens, offices, and childcare facilities with plenty of surrounding green areas. BedZED’s designers have created an attractive, affordable, urban village whose unique features benefit instead of harm the local community and environment. BedZED is a ‘zero energy’ development – no fossil fuels (coal and gas) are used and homes do not waste energy. Building materials are mostly natural, renewable or recycled. Houses face the south so that they get plenty of sunlight and their roofs are also fitted with solar panels, which change the sun’s energy into electricity. The windows consist of three layers of glass to stop heat from escaping. The homes are also fitted with the most modern energy-saving appliances. It is estimated that families’ electricity bills could be reduced by up to 60% whilst heating bills could be reduced by as much as 90%.
+
+	Developers hope to achieve a 50% reduction in fossil- fuel use by residents’ cars over the next decade by reducing the need to travel. Some residents will have the opportunity to work within walking distance of their homes. The Peabody Trust also aim to set up Internet shopping so that food can be delivered by local supermarkets.
+
+	As the need for environmentally friendly, low-energy housing increases, BedZED may change from being a unique model, to a model for all future houses.       
+	`,
+	assessment: [],
+}
+const ReadingDataTest4 = {
+	lesson_number: 4,
+	topic: `How green is your house?`,
+	lesson_type: "reading",
+	level: "b1",
+	type: "article",
+	content: `
+	As the UK’s cities expand rapidly, problems are being caused for councils who have to meet the demand for housing. In addition to this, energy prices and pollution levels continue to increase.
+
+	A solution has been developed by the Peabody Trust who have worked with environmental experts to build the Beddington Zero Energy housing development (BedZED) in Sutton, England.
+
+	This unique development is an environmentally-friendly community of a hundred homes including gardens, offices, and childcare facilities with plenty of surrounding green areas. BedZED’s designers have created an attractive, affordable, urban village whose unique features benefit instead of harm the local community and environment. BedZED is a ‘zero energy’ development – no fossil fuels (coal and gas) are used and homes do not waste energy. Building materials are mostly natural, renewable or recycled. Houses face the south so that they get plenty of sunlight and their roofs are also fitted with solar panels, which change the sun’s energy into electricity. The windows consist of three layers of glass to stop heat from escaping. The homes are also fitted with the most modern energy-saving appliances. It is estimated that families’ electricity bills could be reduced by up to 60% whilst heating bills could be reduced by as much as 90%.
+
+	Developers hope to achieve a 50% reduction in fossil- fuel use by residents’ cars over the next decade by reducing the need to travel. Some residents will have the opportunity to work within walking distance of their homes. The Peabody Trust also aim to set up Internet shopping so that food can be delivered by local supermarkets.
+
+	As the need for environmentally friendly, low-energy housing increases, BedZED may change from being a unique model, to a model for all future houses.       
+	`,
+
+	questions: [
+		{
+			question: "It’s difficult for councils to ______.",
+			options: [
+				{
+					option: "build enough houses",
+					correct: true,
+				},
+				{
+					option: "pay their energy bills",
+					correct: false,
+				},
+				{
+					option: "design new houses",
+					correct: false,
+				},
+			],
+		},
+		{
+			question: "A solution to the housing problem ______ found.",
+			options: [
+				{
+					option: "hastobe",
+					correct: false,
+				},
+				{
+					option: "hasbeen",
+					correct: true,
+				},
+				{
+					option: "mayhavebeen",
+					correct: false,
+				},
+			],
+		},
+		{
+			question: "The BedZED development consists of .",
+			options: [
+				{
+					option: "100homes",
+					correct: false,
+				},
+				{
+					option: "houses and public buildings",
+					correct: false,
+				},
+				{
+					option: "houses, public buildings and parks",
+					correct: true,
+				},
+			],
+		},
+		{
+			question: " is used in the homes.",
+			options: [
+				{
+					option: "Fossil fuel",
+					correct: false,
+				},
+				{
+					option: "No energy",
+					correct: false,
+				},
+				{
+					option: "Only the amount of energy that is needed",
+					correct: true,
+				},
+			],
+		},
+		{
+			question: "The buildings are made of materials which ______.",
+			options: [
+				{
+					option: "are man-made",
+					correct: false,
+				},
+				{
+					option: "can’t be re-used",
+					correct: false,
+				},
+				{
+					option: "have been used before",
+					correct: true,
+				},
+			],
+		},
+		{
+			question: "The houses have ______ to produce electricity.",
+			options: [
+				{
+					option: "roofs",
+					correct: false,
+				},
+				{
+					option: "a lot of sunlight",
+					correct: false,
+				},
+				{
+					option: "solar panels",
+					correct: true,
+				},
+			],
+		},
+		{
+			question: "The sun shines into the houses from the ______.",
+			options: [
+				{
+					option: "west",
+					correct: false,
+				},
+				{
+					option: "north",
+					correct: false,
+				},
+				{
+					option: "south",
+					correct: true,
+				},
+			],
+		},
+		{
+			question: "Estimates show that heating bills could be cut by ______.",
+			options: [
+				{
+					option: "over 90%",
+					correct: false,
+				},
+				{
+					option: "up to 90%",
+					correct: true,
+				},
+				{
+					option: "90%",
+					correct: false,
+				},
+			],
+		},
+		{
+			question: "The developers hope that in the future inhabitants will ______.",
+			options: [
+				{
+					option: "set up Internet shopping",
+					correct: false,
+				},
+				{
+					option: "walk to work",
+					correct: true,
+				},
+				{
+					option: "only use their cars to go to work",
+					correct: false,
+				},
+			],
+		},
+		{
+			question: "Developers are hoping that BedZED will ______.",
+			options: [
+				{
+					option: "remain unique",
+					correct: false,
+				},
+				{
+					option: "change",
+					correct: false,
+				},
+				{
+					option: "be a model for future housing development",
+					correct: true,
+				},
+			],
+		},
+	],
+}
+
+export {
+	ReadingData,
+	ReadingTest1,
+	ReadingData2,
+	ReadingDataTest2,
+	ReadingData3,
+	ReadingDataTest3,
+	ReadingData4,
+	ReadingDataTest4,
+}
+
+const SpiderMan = {
 	lesson_number: 1,
 	topic: `The Amazing Spider-Man: A Hero in New York City`,
 	lesson_type: "reading", // ENUM: "file", "video", "audio"
@@ -161,5 +467,3 @@ const ReadingData3 = {
 	assessment: [],
 	content: [],
 }
-
-export { ReadingData, ReadingTest1, ReadingData2, ReadingDataTest2 }
