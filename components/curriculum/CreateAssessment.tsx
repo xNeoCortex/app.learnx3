@@ -17,7 +17,7 @@ import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
 import LoadingPage from "../LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { WordBuilding2 } from "../data/VocabularyData"
+import { WordBuilding4 } from "../data/VocabularyData"
 
 function CreateAssessment({ open, setOpen }) {
 	const { apiRequest } = ApiServices()
@@ -25,11 +25,11 @@ function CreateAssessment({ open, setOpen }) {
 	const [category, setCategory] = useState("")
 	const [lessonNumber, setLessonNumber] = useState("")
 	const [selectedAssessment, setSelectedAssessment] = useState([])
-	const [assessmentType, setAssessmentType] = useState("wordBuildingAssessment")
+	const [assessmentType, setAssessmentType] = useState("readingContent")
 
 	// Add assessment
 	const { mutate, isLoading, isError } = useMutation(() =>
-		apiRequest("POST", WordBuilding2, { collectionName: assessmentType })
+		apiRequest("POST", WordBuilding4, { collectionName: assessmentType })
 	)
 
 	if (isLoading) return <LoadingPage />
@@ -78,8 +78,21 @@ function CreateAssessment({ open, setOpen }) {
 							setSelectedLessons={setSelectedAssessment}
 							assessmentType={assessmentType}
 						/>
-						{["readingAssessment", "writingAssessment", "wordBuildingAssessment"].map((item) => (
-							<Button onClick={() => setAssessmentType(item)}>{item}</Button>
+						{[
+							"readingAssessment",
+							"writingAssessment",
+							"wordBuildingAssessment",
+							"readingContent",
+							"speakingContent",
+							"vocabularyCards",
+							"writingContent",
+						].map((item) => (
+							<Button
+								sx={{ m: 1, border: item === assessmentType ? "1px solid blue" : "" }}
+								onClick={() => setAssessmentType(item)}
+							>
+								{item}
+							</Button>
 						))}
 					</Grid>
 					<Grid item xs={12} sm={6}>
@@ -121,7 +134,7 @@ function CreateAssessment({ open, setOpen }) {
 							mutate(), setOpen(false)
 						)}
 					>
-						Save
+						Save ABC
 					</Button>
 				</Grid>
 			)}

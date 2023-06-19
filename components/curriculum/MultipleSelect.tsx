@@ -48,12 +48,18 @@ export default function MultipleSelect({ selectedLessons, setSelectedLessons }) 
 				renderValue={(selected) => selected.map((item) => item.topic).join(", ")}
 				MenuProps={MenuProps}
 			>
-				{fetchedLessons?.data.map((lesson, index) => (
-					<MenuItem key={index} value={lesson}>
-						<Checkbox checked={selectedLessons.indexOf(lesson) > -1} />
-						<ListItemText primary={lesson.topic} />
-					</MenuItem>
-				))}
+				{fetchedLessons?.data
+					?.sort((a, b) => {
+						if (a.lesson_number > b.lesson_number) return 1
+						if (a.lesson_number < b.lesson_number) return -1
+						return 0
+					})
+					.map((lesson, index) => (
+						<MenuItem key={index} value={lesson}>
+							<Checkbox checked={selectedLessons.indexOf(lesson) > -1} />
+							<ListItemText primary={"Lesson" + lesson.lesson_number + " - " + lesson.topic} />
+						</MenuItem>
+					))}
 			</Select>
 		</FormControl>
 	)

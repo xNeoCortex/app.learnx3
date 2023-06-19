@@ -23,11 +23,13 @@ const MenuProps = {
 	},
 }
 
-export default function MultipleSelectAssessment({ selectedLessons, setSelectedLessons, assessmentType }) {
-	const { fetchAssessment } = ApiServices()
+export default function MultipleSelectContent({ selectedLessons, setSelectedLessons, collectionName }) {
+	const { apiRequest } = ApiServices()
 
 	// Fetching lessons
-	const { data, isLoading, isError } = useQuery([assessmentType], () => fetchAssessment(assessmentType))
+	const { data, isLoading, isError } = useQuery([collectionName], () =>
+		apiRequest("GET", null, { collectionName: collectionName })
+	)
 
 	const handleChange = ({ target: { value } }) => {
 		setSelectedLessons(typeof value === "string" ? value.split(",") : value)
