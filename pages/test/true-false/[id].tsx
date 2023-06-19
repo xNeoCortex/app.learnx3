@@ -80,7 +80,7 @@ function TrueFalseQuiz() {
 	if (isLoading || isLoadingQuiz || isLoadingResult) return <LoadingPage />
 	if (isError || isErrorQuiz || isErrorResult) return <ErrorPage />
 
-	if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
+	if (assessmentResult?.data?.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>

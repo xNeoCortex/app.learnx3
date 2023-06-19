@@ -47,7 +47,7 @@ function WordBuildingTest() {
 	)
 
 	// Get correct answers
-	const correctAnswers = word_building?.data.questions.filter((item) => arrayInput?.includes(item?.answers?.trim()))
+	const correctAnswers = word_building?.data?.questions?.filter((item) => arrayInput?.includes(item?.answers?.trim()))
 
 	// Function to handle submit
 	function handleSubmit() {
