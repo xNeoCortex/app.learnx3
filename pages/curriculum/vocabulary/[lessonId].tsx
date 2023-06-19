@@ -26,7 +26,7 @@ export default function VocabularyPage() {
 
 	const { data: lessonState, isLoading, isError } = useQuery(["lesson"], () => fetchOneLesson(String(lessonId)))
 
-	const Vocabulary_1 = data?.data?.filter((item) => lessonState?.data.vocabulary_cards?.includes(item.uid))[0]
+	const Vocabulary_1 = data?.data?.filter((item) => lessonState?.data.content?.includes(item.uid))[0]
 
 	if (isLoading || isLoadingData) return <LoadingPage />
 	if (isError || isErrorData) return <ErrorPage />
