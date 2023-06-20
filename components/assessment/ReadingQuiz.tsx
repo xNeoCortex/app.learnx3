@@ -2,6 +2,7 @@ import React from "react"
 import { Box, Chip, CssBaseline, Typography } from "@mui/material"
 
 function ReadingQuiz({ test, show, index, handleSelect }) {
+
 	return (
 		<Box
 			key={index}
@@ -14,27 +15,24 @@ function ReadingQuiz({ test, show, index, handleSelect }) {
 				flex: 1,
 				margin: 1,
 				flexDirection: "column",
-				background: show ? (test?.response === test?.answer ? "#d8f3dc" : "#ffccd578") : "white",
+				background: show ? (test?.response?.correct ? "#d8f3dc" : "#ffccd578") : "white",
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
 			<CssBaseline />
 			<h4>{`${index + 1}. ${test.question}`}</h4>
 			<Box>
-				{[
-					{ label: "True", boolean: "A" },
-					{ label: "False", boolean: "B" },
-					{ label: `Doesn't Say`, boolean: "C" },
-				].map((item) => (
+				{test?.options?.map((item, key) => (
 					<Chip
-						onClick={() => handleSelect(item.boolean, index)}
+						key={key}
+						onClick={() => handleSelect(item, index)}
 						sx={{
 							width: "fit-content",
 							margin: "20px 20px 0px 0px",
 							fontWeight: "bolder",
-							background: test?.response === item?.boolean ? "#5d5fc4b5" : "white",
+							background: test?.response?.option == item?.option ? "#5d5fc4b5" : "white",
 						}}
-						label={item.label}
+						label={item?.option}
 						color="secondary"
 						variant="outlined"
 					/>
@@ -51,8 +49,7 @@ function ReadingQuiz({ test, show, index, handleSelect }) {
 						background: "#06d6a021",
 					}}
 				>
-					Correct Answer:{" "}
-					<strong> {test.answer === "A" ? "True" : test.answer === "B" ? "False" : "Doesn't Say"}</strong>
+					Correct Answer: <strong> {test?.options.find((item) => item?.correct)?.option}</strong>
 				</Typography>
 			)}
 		</Box>

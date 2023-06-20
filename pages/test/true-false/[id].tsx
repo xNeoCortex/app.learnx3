@@ -21,18 +21,11 @@ function TrueFalseQuiz() {
 	const { userInfo } = useStoreUser()
 	const [score, setScore] = useState(0)
 	const [show, setShow] = useState(false)
-	const [answers, setAnswers] = useState([])
+	const [quizData, setQuizData] = useState([])
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 
 	const { submitTest } = ApiPostServices()
 	const { fetchOneAssessment, fetchTestResult } = ApiServices()
-
-	// get assessment result
-	const {
-		data: assessmentResult,
-		isLoading: isLoadingResult,
-		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
@@ -44,18 +37,18 @@ function TrueFalseQuiz() {
 		data: reading_quiz,
 		isLoading: isLoadingQuiz,
 		isError: isErrorQuiz,
-	} = useQuery(["readingAssessment"], () => fetchOneAssessment({ db_collection: "readingAssessment", id: id }))
+	} = useQuery([`readingAssessment-${id}`], () => fetchOneAssessment({ db_collection: "readingAssessment", id: id }))
 
 	function handleSelect(response, index) {
-		const newAnswers = [...answers]
-		const answer = newAnswers[index]
+		const quizDataCopy = [...quizData]
+		const answer = quizDataCopy[index]
 		answer.response = response
-		setAnswers(newAnswers)
+		setQuizData(quizDataCopy)
 	}
 
 	function handleSubmit() {
-		const correctAnswers = answers.filter((item) => item.response == item.answer)
-		const score = (correctAnswers?.length / answers?.length) * 100
+		const correctAnswers = quizData.filter((item) => item?.response?.correct === true)
+		const score = (correctAnswers?.length / quizData?.length) * 100
 
 		setShow(true)
 		setScore(score)
@@ -73,8 +66,15 @@ function TrueFalseQuiz() {
 		})
 	}
 
+	// get assessment result
+	const {
+		data: assessmentResult,
+		isLoading: isLoadingResult,
+		isError: isErrorResult,
+	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
+
 	useEffect(() => {
-		setAnswers(reading_quiz?.data?.questions)
+		setQuizData(reading_quiz?.data?.questions)
 	}, [isLoadingQuiz])
 
 	if (isLoading || isLoadingQuiz || isLoadingResult) return <LoadingPage />
@@ -146,7 +146,7 @@ function TrueFalseQuiz() {
 					}}
 				>
 					<h3 style={{ margin: 12 }}>❓ Questions </h3>
-					{answers?.map((test, index) => (
+					{quizData?.map((test, index) => (
 						<ReadingQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
 					))}
 				</Box>

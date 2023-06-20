@@ -79,7 +79,7 @@ function ReadingPage() {
 							}}
 						/>
 					</Box>
-					<TestContainer data={lessonState?.data} link={`/test/true-false/`} />
+					<TestContainer data={lessonState?.data} link={`/test/true-false`} />
 					<BackButton />
 				</Container>
 			</Box>

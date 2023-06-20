@@ -30,43 +30,173 @@ const ReadingTest1 = {
 	questions: [
 		{
 			question: "Curitiba is different from other cities in the world.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Jaime Lerner spent a lot of time playing on the streets when he was a child.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
 			question: "The council allows people to sell things in the pedestrian streets.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "All the kiosks sell local food.",
-			answer: "B",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "The council chose to increase the bus service because it was the least expensive type of transport.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: true,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "The population of the city is about 1.9 million.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
 			question: "Other large Brazilian cities are planning to cut the amount of fuel they use.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
-			question: "The buses are different colors according to what they are used for.",
-			answer: "A",
+			question: "The buses are different colours according to what they are used for.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Passengers buy their tickets as they get on the buses.",
-			answer: "B",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: true,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Mr Lerner enjoys being an expert in developing public transport systems.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 	],
 }
@@ -108,43 +238,173 @@ const ReadingDataTest2 = {
 	questions: [
 		{
 			question: "Maria has a close relationship with her family.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Maria’s grandmother had seven children.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
 			question: "Maria’s grandmother is still alive.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
 			question: "Growing up in a big family made Maria’s grandmother less selfish.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Katie met Rob at work.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
 			question: "Katie knew she and Rob would be good friends because they immediately got on well.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Katie thinks Rob lives his life in a positive way.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Jed’s uncle’s first job was as a chef.",
-			answer: "B",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: true,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Jed thinks people shouldn’t waste any chances in life.",
-			answer: "A",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
 			question: "Jed would like to travel like his uncle did.",
-			answer: "C",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 	],
 }
@@ -191,44 +451,174 @@ const ReadingDataTest3 = {
 
 	questions: [
 		{
-			question: "Almost everyone is sometimes unhappy about the way they look.",
-			answer: "A",
+			question: "Everyone is becoming obsessed with how they look.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "Sue Johnston used to dislike the way she looked.",
-			answer: "C",
+			question: "If you want to make a good first impression, you must think a lot about your appearance.",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
-			question: "Wanting to change the way you look is normal.",
-			answer: "A",
+			question: "Many people change their looks by having plastic surgery.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "People can become depressed about going out in public.",
-			answer: "B",
+			question: "Some people who feel ugly worry about being seen in public.",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: true,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "The survey was to find out how people want to change the way they look.",
-			answer: "B",
+			question: "The survey was to find out how people have solved their confidence problems.",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: true,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "Concentrating on the things you’re good at can help you feel positive.",
-			answer: "C",
+			question: "Taking up a new sport can help you to lose weight.",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
-			question: "If you concentrate on your aims in life, the way you look will seem less important.",
-			answer: "A",
+			question: "You shouldn’t try new activities if you have negative feelings.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "It’s important to appreciate how you may look different to other people.",
-			answer: "A",
+			question: "You should enjoy what makes you look different from others.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 		{
-			question: "Some people spend a lot of money changing the way they look.",
-			answer: "C",
+			question: "Everyone can look good with a personal hairstylist and make-up artist.",
+			options: [
+				{
+					option: "True",
+					correct: false,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: true,
+				},
+			],
 		},
 		{
-			question: "Models aren’t really as good-looking in real life as they appear in magazines.",
-			answer: "A",
+			question: "If you really feel bad, you should get help from an expert.",
+			options: [
+				{
+					option: "True",
+					correct: true,
+				},
+				{
+					option: "False",
+					correct: false,
+				},
+				{
+					option: "Doesn’t say",
+					correct: false,
+				},
+			],
 		},
 	],
 }

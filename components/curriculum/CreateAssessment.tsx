@@ -17,7 +17,7 @@ import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
 import LoadingPage from "../LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { WordBuilding4 } from "../data/VocabularyData"
+import { ReadingTest1, ReadingDataTest2, ReadingDataTest3 } from "../data/ReadingData"
 
 function CreateAssessment({ open, setOpen }) {
 	const { apiRequest } = ApiServices()
@@ -29,7 +29,7 @@ function CreateAssessment({ open, setOpen }) {
 
 	// Add assessment
 	const { mutate, isLoading, isError } = useMutation(() =>
-		apiRequest("POST", WordBuilding4, { collectionName: assessmentType })
+		apiRequest("POST", ReadingDataTest3, { collectionName: assessmentType })
 	)
 
 	if (isLoading) return <LoadingPage />
