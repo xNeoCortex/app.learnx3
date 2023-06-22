@@ -2,6 +2,7 @@ const WordBuilding = {
 	level: "b1",
 	topic: "Word Building 1",
 	lesson_number: 1,
+
 	question_type: "word_building", // ENUM: "file", "video", "audio"
 	questions: [
 		{
@@ -476,7 +477,18 @@ const WordBuilding4 = {
 	topic: "Phrasal verbs 1",
 	lesson_number: 4,
 	question_type: "phrasal_verbs",
-	phrasal_verbs: ["go for", "take after"],
+	task: `
+	Replace the words in brackets with a suitable phrasal verb. Put the verbs in the right form.
+	
+		1. look into
+		2. held up 
+		3. go in for 
+		4. check out 
+		5. get over 
+		6. go along with 
+		7. come up with 
+		8. called off
+	`,
 	questions: [
 		{
 			question: `Karen, I'd like you to _____ from a client. It seems quite serious.`,

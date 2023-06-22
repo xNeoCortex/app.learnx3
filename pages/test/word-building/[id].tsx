@@ -11,6 +11,7 @@ import LoadingPage from "@/components/LoadingPage"
 import LinearTimer from "@/components/other/LinearTimer"
 import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
+import TaskComponent from "@/components/Text"
 
 function WordBuildingTest() {
 	const {
@@ -108,6 +109,18 @@ function WordBuildingTest() {
 				</Box>
 				<Box
 					sx={{
+						border: "5px solid #999bff",
+						background: "white",
+						margin: "15px ",
+						padding: " 20px",
+						borderRadius: 3,
+						position: "relative",
+					}}
+				>
+					<TaskComponent title="Task" text={word_building?.data?.task} />
+				</Box>
+				<Box
+					sx={{
 						display: "flex",
 						flexDirection: "column",
 						margin: 1,
@@ -183,7 +196,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
-			<h3>{test.question}</h3>
+			<h3>{`${index + 1}. ${test.question}`}</h3>
 			{show &&
 				(arrayInput[index]?.trim() === test.answers?.trim() ? (
 					<h3 style={{ color: "green" }}>Correct!</h3>
