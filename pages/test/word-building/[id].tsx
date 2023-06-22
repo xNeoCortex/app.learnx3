@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { auth } from "../../../components/firebaseX"
-import { Alert, Box, Button, Chip, Container, CssBaseline, TextField, Tooltip, Typography } from "@mui/material"
+import { Alert, Box, Button, Chip, Container, CssBaseline, TextField, Typography } from "@mui/material"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../../components/ErrorPage"
@@ -12,6 +12,8 @@ import LinearTimer from "@/components/other/LinearTimer"
 import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import TaskComponent from "@/components/Text"
+import AlertDialog from "@/components/AlertDialog"
+import StandTestResult from "@/components/helpers/StandTestResult"
 
 function WordBuildingTest() {
 	const {
@@ -34,7 +36,7 @@ function WordBuildingTest() {
 	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
 
 	// Submit assessment on database
-	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
+	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
 		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
 	})
 
@@ -47,13 +49,22 @@ function WordBuildingTest() {
 		fetchOneAssessment({ db_collection: "wordBuildingAssessment", id: id })
 	)
 
+	// Dialog
+	const [open, setOpen] = useState(false)
+
+	useEffect(() => {
+		isSuccess && setOpen(true)
+	}, [isLoading])
+
 	// Get correct answers
-	const correctAnswers = word_building?.data?.questions?.filter((item) => arrayInput?.includes(item?.answers?.trim()))
+	const correctAnswers = word_building?.data?.questions.filter(
+		({ answers }, index) => StandTestResult(answers) === StandTestResult(arrayInput[index])
+	)
 
 	// Function to handle submit
 	function handleSubmit() {
-		const score = (correctAnswers?.length / arrayInput?.length) * 100
-		setScore(Math.round(score))
+		const scoreX = (correctAnswers?.length / arrayInput?.length) * 100
+		setScore(Math.round(scoreX))
 		setShow(true)
 		setButtonDisabled(false)
 		//@ts-ignore
@@ -72,11 +83,17 @@ function WordBuildingTest() {
 	if (isLoading || isLoadingResult || isLoadingWB) return <LoadingPage />
 	if (isError || isErrorResult || isErrorWB) return <ErrorPage />
 
-	if (assessmentResult?.data.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
+	const pastScore = assessmentResult?.data.filter((item) => item.assessment_id === id)
+	if (pastScore?.length > 0) return <CompletedAssessment score={pastScore} />
 
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
 			<Container sx={{ padding: "20px 5px" }}>
+				<AlertDialog
+					open={open}
+					setOpen={setOpen}
+					component={<CompletedAssessment score={[{ result: score }]} handleButton={() => setOpen(false)} />}
+				/>
 				<CssBaseline />
 				<Box
 					sx={{
@@ -137,23 +154,7 @@ function WordBuildingTest() {
 						/>
 					))}
 				</Box>
-				{show && (
-					<Typography
-						sx={{
-							flex: 1,
-							margin: "0px 15px",
-							mb: 1,
-							border: "2px solid #3c096c",
-							borderRadius: 3,
-							p: 1,
-							background: "#e0aaff",
-							textAlign: "center",
-							fontWeight: 600,
-						}}
-					>
-						You scored {Math.round(score)}% out of 100%
-					</Typography>
-				)}
+				{show && <CompletedAssessment score={[{ result: score }]} />}
 				{!show && (
 					<Button variant="contained" style={{ margin: 15, background: "rgb(95, 106, 196)" }} onClick={handleSubmit}>
 						Submit
@@ -192,13 +193,17 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 				flex: 1,
 				margin: 1,
 				flexDirection: "column",
-				background: show ? (arrayInput[index]?.trim() === test.answers?.trim() ? "#d8f3dc" : "#ffccd578") : "white",
+				background: show
+					? StandTestResult(arrayInput[index]) === StandTestResult(test.answers)
+						? "#d8f3dc"
+						: "#ffccd578"
+					: "white",
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
 			<h3>{`${index + 1}. ${test.question}`}</h3>
 			{show &&
-				(arrayInput[index]?.trim() === test.answers?.trim() ? (
+				(StandTestResult(arrayInput[index]) === StandTestResult(test.answers) ? (
 					<h3 style={{ color: "green" }}>Correct!</h3>
 				) : (
 					<h3 style={{ color: "red" }}>Wrong!</h3>
@@ -219,6 +224,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 				label="Write your answer here"
 				variant="standard"
 				color="secondary"
+				value={arrayInput[index]}
 				onChange={(e) => setAnswerX(e.target.value)}
 			/>
 			{show && (

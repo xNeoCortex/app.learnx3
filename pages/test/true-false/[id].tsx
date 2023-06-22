@@ -12,6 +12,7 @@ import ReadingQuiz from "@/components/assessment/ReadingQuiz"
 import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import LinearTimer from "@/components/other/LinearTimer"
+import AlertDialog from "@/components/AlertDialog"
 
 function TrueFalseQuiz() {
 	const {
@@ -28,7 +29,7 @@ function TrueFalseQuiz() {
 	const { fetchOneAssessment, fetchTestResult } = ApiServices()
 
 	// Submit assessment on database
-	const { mutate, isLoading, isError } = useMutation((body) => submitTest(body), {
+	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
 		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
 	})
 
@@ -66,6 +67,13 @@ function TrueFalseQuiz() {
 		})
 	}
 
+	// Dialog
+	const [open, setOpen] = useState(false)
+
+	useEffect(() => {
+		isSuccess && setOpen(true)
+	}, [isLoading])
+
 	// get assessment result
 	const {
 		data: assessmentResult,
@@ -80,11 +88,16 @@ function TrueFalseQuiz() {
 	if (isLoading || isLoadingQuiz || isLoadingResult) return <LoadingPage />
 	if (isError || isErrorQuiz || isErrorResult) return <ErrorPage />
 
-	if (assessmentResult?.data?.filter((item) => item.assessment_id === id)?.length > 0) return <CompletedAssessment />
-
+	const pastScore = assessmentResult?.data.filter((item) => item.assessment_id === id)
+	// if (pastScore?.length > 0) return <CompletedAssessment score={pastScore} />
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
 			<Container sx={{ padding: "20px 5px" }}>
+				<AlertDialog
+					open={open}
+					setOpen={setOpen}
+					component={<CompletedAssessment score={[{ result: score }]} handleButton={() => setOpen(false)} />}
+				/>
 				<CssBaseline />
 				<Box
 					sx={{
@@ -150,23 +163,7 @@ function TrueFalseQuiz() {
 						<ReadingQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
 					))}
 				</Box>
-				{show && (
-					<Typography
-						sx={{
-							flex: 1,
-							margin: "0px 15px",
-							mb: 1,
-							border: "2px solid #3c096c",
-							borderRadius: 3,
-							p: 1,
-							background: "#e0aaff",
-							textAlign: "center",
-							fontWeight: 600,
-						}}
-					>
-						You scored {score}% out of 100%
-					</Typography>
-				)}
+				{show && <CompletedAssessment score={[{ result: score }]} />}
 				{!show && (
 					<Button
 						variant="contained"
