@@ -14,20 +14,22 @@ import Box from "@mui/material/Box"
 import LoginIcon from "@mui/icons-material/Login"
 import Typography from "@mui/material/Typography"
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { Alert } from "@mui/material"
+import { Alert, CircularProgress } from "@mui/material"
 import AuthLayout from "@/components/auth/AuthLayout"
 import { auth, db } from "@/components/firebaseX"
 import { useStoreUser } from "@/components/zustand"
 
 export default function Login() {
 	const { push: navigate } = useRouter()
+	const { setUserInfo } = useStoreUser()
 	const [email, setEmail] = React.useState("")
 	const [password, setPassword] = React.useState("")
 	const [error, setError] = React.useState("")
-	const { setUserInfo } = useStoreUser()
+	const [isLoading, setIsLoading] = React.useState(false)
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+		setIsLoading(true)
 		signInWithEmailAndPassword(auth, email.trim(), password.trim())
 			.then(async (userCredential: any) => {
 				// Signed in
@@ -60,8 +62,10 @@ export default function Login() {
 				} else {
 					return setError("Please verify your email")
 				}
+				setIsLoading(false)
 			})
 			.catch((error) => {
+				setIsLoading(false)
 				const errorMessage = error.message
 				if (errorMessage.includes("user-not-found")) {
 					return setError("Please sign up first")
@@ -125,7 +129,7 @@ export default function Login() {
 					{error && <Alert severity="error">{error}</Alert>}
 					<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
 					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-						Sign In
+						{isLoading ? <CircularProgress /> : "Sign In"}
 					</Button>
 					<Grid container style={{ display: "flex", justifyContent: "column" }}>
 						<Grid
