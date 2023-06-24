@@ -1,6 +1,4 @@
 import React from "react"
-import Link from "next/link"
-import { Box, Button, CardMedia, CssBaseline, Grid, Typography } from "@mui/material"
 import { TestData } from "@/components/data/TestData"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"

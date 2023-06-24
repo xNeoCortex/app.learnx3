@@ -2,7 +2,8 @@ import { Box, Grid, Typography, capitalize, CardMedia, Button, Chip } from "@mui
 import Link from "next/link"
 import React from "react"
 import MyTooltip from "../other/MyTooltip"
-import { lessonColors } from "../utils/colors"
+import { lessonColors } from "../utils/lessonColors"
+import { lessonIcons } from "../utils/lessonIcons"
 
 function LessonInsideCur({ data, curriculumData }) {
 	return (
@@ -77,19 +78,11 @@ function SmallLessonCard({ lessonInfo }) {
 								p: "5px 10px",
 							}}
 						>
-							{lessonInfo.category}
+							{lessonInfo?.category}
 						</Box>
 						<CardMedia
 							component="img"
-							image={
-								lessonInfo.category == "vocabulary"
-									? "/vocabulary-image.png"
-									: lessonInfo.category == "reading"
-									? "/e-book.svg"
-									: lessonInfo.category == "writing"
-									? "/pencil_2.png"
-									: "/holding-speaker.png"
-							}
+							image={lessonIcons[lessonInfo?.category]}
 							alt="test image"
 							sx={{ width: 70, mb: 1, height: 70, objectFit: "contain" }}
 						/>
@@ -102,7 +95,7 @@ function SmallLessonCard({ lessonInfo }) {
 								textAlign: "center",
 							}}
 						>
-							{capitalize(lessonInfo.topic)}
+							{capitalize(lessonInfo?.topic)}
 						</Typography>
 					</Box>
 					<Button

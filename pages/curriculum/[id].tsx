@@ -11,7 +11,8 @@ import SidebarContainer from "@/components/SidebarContainer"
 import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 import { capitalizeFirstLetter } from "@/components/helpers/capitalizeFirstLetter"
 import { setEnglishLevel } from "@/components/helpers/setEnglishLevel"
-import { lessonColors } from "@/components/utils/colors"
+import { lessonColors } from "@/components/utils/lessonColors"
+import { lessonIcons } from "@/components/utils/lessonIcons"
 
 function EachCurriculum() {
 	const {
@@ -155,15 +156,7 @@ function EachCurriculum() {
 															</Box>
 															<CardMedia
 																component="img"
-																image={
-																	x.category == "vocabulary"
-																		? "/vocabulary-image.png"
-																		: x.category == "reading"
-																		? "/e-book.svg"
-																		: x.category == "writing"
-																		? "/pencil_2.png"
-																		: "/holding-speaker.png"
-																}
+																image={lessonIcons[x?.category]}
 																alt="test image"
 																sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
 															/>
