@@ -11,7 +11,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
 import SnackbarX from "../other/SnackbarX"
-import DeleteComponent from "../helpers/DeleteComponent"
+import DeleteComponent from "../DeleteComponent"
 import { useStoreUser } from "../zustand"
 
 export default function StudentList({ data }) {

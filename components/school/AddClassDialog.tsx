@@ -104,6 +104,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 					teachers,
 					curriculum_id: curriculumX,
 					level: level,
+					completed_lessons: [],
 					passcode: passcode?.trim(),
 					video_call_link: videoLink?.trim(),
 				})
@@ -115,6 +116,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 					teachers,
 					curriculum_id: curriculumX,
 					level: level,
+					completed_lessons: [],
 					passcode: passcode?.trim(),
 					video_call_link: videoLink?.trim(),
 				})
@@ -125,6 +127,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 				teachers,
 				curriculum_id: curriculumX,
 				level: level,
+				completed_lessons: [],
 				passcode: passcode.trim() || null,
 				video_call_link: videoLink.trim() || "",
 			})

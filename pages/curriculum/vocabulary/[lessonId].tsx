@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 import { Box, Container, Typography } from "@mui/material"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
-import HelperFuncitons from "@/components/helpers/helperFuncitons"
 import LoadingPage from "@/components/LoadingPage"
 import BackButton from "@/components/other/BackButton"
 import { LessonIntro } from "@/components/curriculum/LessonIntro"
@@ -16,7 +15,6 @@ export default function VocabularyPage() {
 		query: { lessonId },
 	} = useRouter()
 	const { fetchOneLesson, fetchAssessment } = ApiServices()
-	const { capitalizeFirstLetter } = HelperFuncitons()
 
 	const {
 		data,
@@ -78,7 +76,7 @@ export default function VocabularyPage() {
 							}}
 						>
 							{Vocabulary_1?.vocabularies?.map((word) => (
-								<VocabularyCard word={word} capitalizeFirstLetter={capitalizeFirstLetter} />
+								<VocabularyCard word={word} />
 							))}
 						</Box>
 					</Box>

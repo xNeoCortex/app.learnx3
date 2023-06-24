@@ -4,19 +4,20 @@ import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 import { Box, Button, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
-import HelperFuncitons from "@/components/helpers/helperFuncitons"
 import BackButton from "@/components/other/BackButton"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import SidebarContainer from "@/components/SidebarContainer"
 import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
+import { capitalizeFirstLetter } from "@/components/helpers/capitalizeFirstLetter"
+import { setEnglishLevel } from "@/components/helpers/setEnglishLevel"
+import { lessonColors } from "@/components/utils/colors"
 
 function EachCurriculum() {
 	const {
-		query: { id },
+		query: { id, lesson },
 	} = useRouter()
 	const { fetchCurriculum, fetchLessons } = ApiServices()
-	const { capitalizeFirstLetter, setEnglishLevel } = HelperFuncitons()
 	const [open, setOpen] = useState(false)
 	const [openLesson, setOpenLesson] = useState(false)
 	const [openTest, setOpenTest] = useState(false)
@@ -69,7 +70,7 @@ function EachCurriculum() {
 				<CssBaseline />
 				<Typography
 					style={{
-						margin: "15px",
+						margin: "15px auto 50px",
 						marginBottom: 20,
 						fontWeight: 600,
 						fontSize: 19,
@@ -90,9 +91,6 @@ function EachCurriculum() {
 					{!open &&
 						lessons?.map((x, index) => (
 							<Box>
-								<Typography sx={{ p: 2, color: "rgb(50, 50, 93)", fontWeight: 600, fontSize: 16 }}>
-									Lesson {x.lessonNumber}
-								</Typography>
 								<Grid container spacing={1}>
 									{x?.lessonItems
 										.sort((a, b) => {
@@ -112,109 +110,108 @@ function EachCurriculum() {
 												return -1
 											}
 										})
+										.filter((item) => item.lesson_number === lesson)
 										.map((x, index) => (
-											<Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-												<Box
-													sx={{
-														display: "flex",
-														flexDirection: "column",
-														justifyContent: "space-between",
-														alignItems: "center",
-														minHeight: "310px",
-														borderRadius: "10px",
-														padding: "10px 20px 20px",
-														position: "relative",
-														m: 1,
-														backgroundColor: "rgba(226, 230, 251, 0.3)",
-														boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
-													}}
-												>
+											<Grid key={index} item xs={12} sm={6}>
+												<Link href={`/curriculum/${x.category}/${x.uid}`}>
 													<Box
 														sx={{
 															display: "flex",
-															alignItems: "center",
 															flexDirection: "column",
+															justifyContent: "space-between",
+															alignItems: "center",
+															minHeight: "310px",
+															borderRadius: "10px",
+															padding: "10px 20px 20px",
+															position: "relative",
+															m: 1,
+															backgroundColor: lessonColors[x.category],
+															boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 														}}
 													>
 														<Box
 															sx={{
-																color: "#c270c8",
-																background: "transparent",
-																border: "1px solid #c270c8",
-																margin: "5px",
-																borderRadius: "0.75rem",
-																fontSize: "10px",
-																position: "absolute",
-																fontWeight: "bold",
-																top: 4,
-																left: 4,
-																p: "5px 10px",
+																display: "flex",
+																alignItems: "center",
+																flexDirection: "column",
 															}}
 														>
-															{x.category}
+															<Box
+																sx={{
+																	color: "#c270c8",
+																	background: "transparent",
+																	border: "1px solid #c270c8",
+																	margin: "5px",
+																	borderRadius: "0.75rem",
+																	fontSize: "10px",
+																	position: "absolute",
+																	fontWeight: "bold",
+																	top: 4,
+																	left: 4,
+																	p: "5px 10px",
+																}}
+															>
+																{x.category}
+															</Box>
+															<CardMedia
+																component="img"
+																image={
+																	x.category == "vocabulary"
+																		? "/vocabulary-image.png"
+																		: x.category == "reading"
+																		? "/e-book.svg"
+																		: x.category == "writing"
+																		? "/pencil_2.png"
+																		: "/holding-speaker.png"
+																}
+																alt="test image"
+																sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
+															/>
+															<Typography
+																sx={{
+																	color: "rgb(50, 50, 93)",
+																	fontSize: 14,
+																	padding: 0,
+																}}
+															>
+																Lesson {x.lesson_number}
+															</Typography>
+															<Typography
+																sx={{
+																	color: "rgb(50, 50, 93)",
+																	fontWeight: 600,
+																	fontSize: 16,
+																	padding: 0,
+																	textAlign: "center",
+																}}
+															>
+																{capitalizeFirstLetter(x.topic)}
+															</Typography>
 														</Box>
-														<CardMedia
-															component="img"
-															image={
-																x.category == "vocabulary"
-																	? "/vocabulary-image.png"
-																	: x.category == "reading"
-																	? "/e-book.svg"
-																	: x.category == "writing"
-																	? "/pencil_2.png"
-																	: "/holding-speaker.png"
-															}
-															alt="test image"
-															sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
+														<Chip
+															label={setEnglishLevel(x.level)}
+															variant="outlined"
+															style={{
+																color: "rgb(50, 50, 93)",
+																background: "transparent",
+																margin: "5px ",
+																border: "1px solid rgb(50, 50, 93)",
+																borderRadius: "0.75rem",
+																fontSize: 12,
+															}}
 														/>
-														<Typography
-															sx={{
-																color: "rgb(50, 50, 93)",
-																fontSize: 14,
-																padding: 0,
-															}}
-														>
-															Lesson {x.lesson_number}
-														</Typography>
-														<Typography
-															sx={{
-																color: "rgb(50, 50, 93)",
-																fontWeight: 600,
-																fontSize: 16,
-																padding: 0,
-																textAlign: "center",
-															}}
-														>
-															{capitalizeFirstLetter(x.topic)}
-														</Typography>
-													</Box>
-													<Chip
-														label={setEnglishLevel(x.level)}
-														variant="outlined"
-														style={{
-															color: "rgb(50, 50, 93)",
-															background: "transparent",
-															margin: "5px ",
-															border: "1px solid rgb(50, 50, 93)",
-															borderRadius: "0.75rem",
-															fontSize: 12,
-														}}
-													/>
-													<Link href={`/curriculum/${x.category}/${x.uid}`}>
 														<Button
 															style={{
-																background: "#5f61c4",
-																color: "white",
+																color: "#5f61c4",
 																margin: "0px 15px",
 																padding: "5px 30px",
 																textTransform: "none",
-																fontWeight: "bold",
 															}}
 														>
 															View
 														</Button>
-													</Link>
-												</Box>
+													</Box>
+												</Link>
 											</Grid>
 										))}
 								</Grid>

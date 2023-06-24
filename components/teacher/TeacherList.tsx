@@ -14,7 +14,7 @@ import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../ErrorPage"
 import { useMutation } from "@tanstack/react-query"
 import SnackbarX from "../other/SnackbarX"
-import DeleteComponent from "../helpers/DeleteComponent"
+import DeleteComponent from "../DeleteComponent"
 
 export default function TeacherList({ data }) {
 	const [open, setOpen] = React.useState(false)

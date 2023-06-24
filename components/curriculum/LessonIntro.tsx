@@ -2,10 +2,10 @@ import { Avatar, Button, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React from "react"
 import VideocamIcon from "@mui/icons-material/Videocam"
-import HelperFuncitons from "@/components/helpers/helperFuncitons"
+import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
+import { setEnglishLevel } from "../helpers/setEnglishLevel"
 
 export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
-	const { capitalizeFirstLetter, setEnglishLevel } = HelperFuncitons()
 
 	return (
 		<Box

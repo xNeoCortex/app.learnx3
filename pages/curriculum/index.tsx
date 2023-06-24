@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
-import { Box, Button, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
+import { Box, Button, capitalize, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "../../components/ErrorPage"
 import BackButton from "../../components/other/BackButton"
@@ -11,10 +11,12 @@ import SidebarContainer from "@/components/SidebarContainer"
 import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 import SnackbarX from "@/components/other/SnackbarX"
 import { useStoreUser, useStoreTemporary } from "@/components/zustand"
-import DeleteComponent from "@/components/helpers/DeleteComponent"
+import DeleteComponent from "@/components/DeleteComponent"
+import { setEnglishLevel } from "@/components/helpers/setEnglishLevel"
+import LessonInsideCur from "@/components/curriculum/LessonInsideCur"
 
 function Curriculum() {
-	const { apiRequest } = ApiServices()
+	const { apiRequest, fetchLessons } = ApiServices()
 	const { userInfo } = useStoreUser()
 	const { classInfo } = useStoreTemporary()
 	const [openX, setOpenX] = useState(false)
@@ -29,8 +31,40 @@ function Curriculum() {
 		isError,
 	} = useQuery(["curriculumList"], () => apiRequest("GET", null, { collectionName: "curriculum" }))
 
-	if (isLoading) return <LoadingPage />
-	if (isError) return <ErrorPage />
+	// Fetching lessons
+	const {
+		data: fetchedLessons,
+		isLoading: isLoadingLesson,
+		isError: isErrorLesson,
+	} = useQuery(["lessons"], fetchLessons)
+
+	// Filtering lessons by number
+	function filterLessonsByNumber(array = []) {
+		const lessons = {}
+		if (array?.length == 0 && array?.length !== undefined) return
+		for (const item of array) {
+			const lessonNumber = item.lesson_number
+
+			if (!lessons.hasOwnProperty(lessonNumber)) {
+				lessons[lessonNumber] = []
+			}
+			lessons[lessonNumber].push(item)
+		}
+
+		return Object.entries(lessons).map(([lessonNumber, lessonItems]) => ({
+			lessonNumber: lessonNumber,
+			lessonItems: lessonItems,
+		}))
+	}
+
+	console.log("fetchedLessons :>> ", fetchedLessons)
+	// useEffect(() => {
+	// 	const filteredLessons = filterLessonsByNumber(curriculumLessons)
+	// 	setLessons(filteredLessons)
+	// }, [isLoading, isLoadingLesson])
+
+	if (isLoading || isLoadingLesson) return <LoadingPage />
+	if (isError || isErrorLesson) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
@@ -95,77 +129,79 @@ function Curriculum() {
 												boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 											}}
 										>
-											<Box sx={{ display: "flex", alignItems: "center" }}>
-												<Box sx={{ width: "60px", marginRight: "15px" }}>
-													<CardMedia component="img" image="/book.svg" alt="test image" />
-												</Box>
-												<Typography
-													sx={{
-														marginRight: 5,
-														color: "black",
-														fontWeight: 600,
-														fontSize: 18,
-														padding: 0,
-														maxWidth: 400,
-													}}
-												>
-													{c.curriculum_name}
-												</Typography>
-											</Box>
-											<Box
-												sx={{
-													display: "flex",
-													alignItems: "center",
-												}}
-											>
-												<Chip
-													label={c.level}
-													variant="outlined"
-													style={{
-														color: "#5f61c4",
-														background: "transparent",
-														margin: "5px 10px 5px 0px",
-														border: "1px solid #5f61c4",
-														borderRadius: "0.75rem",
-														padding: "0px 2px",
-														fontSize: 12,
-													}}
-												/>
-												<Chip
-													label={`60 min`}
-													variant="outlined"
-													style={{
-														color: "#5f61c4",
-														background: "transparent",
-														border: "1px solid #5f61c4",
-														margin: "5px 20px 5px 0px",
-														borderRadius: "0.75rem",
-														padding: "0px 2px",
-														fontSize: 12,
-													}}
-												/>
-												<Link href={`/curriculum/[id]`} as={`/curriculum/${c.uid}`}>
-													<Button
-														style={{
-															background: "#5f61c4",
-															color: "white",
-															margin: "0px 15px",
-															padding: "5px 30px",
-															textTransform: "none",
-															fontWeight: "bold",
+											<Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+												<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+													<Box sx={{ display: "flex", alignItems: "center" }}>
+														<CardMedia
+															component="img"
+															image="/book.svg"
+															alt="test image"
+															sx={{ width: "60px", marginRight: "15px" }}
+														/>
+														<Typography
+															sx={{
+																marginRight: 5,
+																color: "black",
+																fontWeight: 600,
+																fontSize: 18,
+																padding: 0,
+																maxWidth: 400,
+															}}
+														>
+															{c.curriculum_name}
+														</Typography>
+													</Box>
+													<Box
+														sx={{
+															display: "flex",
+															alignItems: "center",
 														}}
 													>
-														View
-													</Button>
-												</Link>
-												{userInfo?.role === "admin" && (
-													<DeleteComponent
-														collectionName="curriculum"
-														invalidateCache="curriculumList"
-														itemId={c.uid}
-														setOpen={setOpen}
-													/>
-												)}
+														<Chip
+															label={setEnglishLevel(c.level)}
+															variant="outlined"
+															style={{
+																color: "#5f61c4",
+																background: "transparent",
+																margin: "5px 10px 5px 0px",
+																border: "1px solid #5f61c4",
+																borderRadius: "0.75rem",
+																padding: "0px 2px",
+																fontSize: 12,
+															}}
+														/>
+														<Chip
+															label={`60 min`}
+															variant="outlined"
+															style={{
+																color: "#5f61c4",
+																background: "transparent",
+																border: "1px solid #5f61c4",
+																margin: "5px 20px 5px 0px",
+																borderRadius: "0.75rem",
+																padding: "0px 2px",
+																fontSize: 12,
+															}}
+														/>
+														{userInfo?.role === "admin" && (
+															<DeleteComponent
+																collectionName="curriculum"
+																invalidateCache="curriculumList"
+																itemId={c.uid}
+																setOpen={setOpen}
+															/>
+														)}
+													</Box>
+												</Box>
+												<Box sx={{ background: "white", p: 2, mt: 2, borderRadius: 2 }}>
+													<Grid container spacing={2}>
+														{filterLessonsByNumber(
+															fetchedLessons?.data?.filter((lesson) => c?.lessons.includes(lesson.uid))
+														).map((l, index) => (
+															<LessonInsideCur key={index} data={l} curriculumData={c} />
+														))}
+													</Grid>
+												</Box>
 											</Box>
 										</Box>
 									))}

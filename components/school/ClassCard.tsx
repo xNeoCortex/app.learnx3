@@ -4,7 +4,7 @@ import { Button } from "@mui/material"
 import { Box } from "@mui/system"
 import AddClass from "./AddClassDialog"
 import { useStoreTemporary } from "../zustand"
-import DeleteComponent from "../helpers/DeleteComponent"
+import DeleteComponent from "../DeleteComponent"
 import SnackbarX from "../other/SnackbarX"
 
 function ClassCard({ item, studentList, teacherList }) {

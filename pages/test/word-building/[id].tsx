@@ -13,7 +13,7 @@ import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import TaskComponent from "@/components/Text"
 import AlertDialog from "@/components/AlertDialog"
-import StandTestResult from "@/components/helpers/StandTestResult"
+import StandTestResult from "@/components/helpers/standTestResult"
 
 function WordBuildingTest() {
 	const {

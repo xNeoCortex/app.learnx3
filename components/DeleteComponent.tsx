@@ -5,8 +5,8 @@ import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
-import LoadingPage from "../LoadingPage"
-import ErrorPage from "../ErrorPage"
+import LoadingPage from "./LoadingPage"
+import ErrorPage from "./ErrorPage"
 
 const DeleteComponent: React.FC<{
 	collectionName: string
