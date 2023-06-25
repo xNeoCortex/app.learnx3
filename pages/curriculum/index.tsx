@@ -193,7 +193,7 @@ function Curriculum() {
 														)}
 													</Box>
 												</Box>
-												<Box sx={{ background: "white", p: 2, mt: 2, borderRadius: 2 }}>
+												<Box sx={{ p: 1, mt: 3, borderRadius: 2 }}>
 													<Grid container spacing={2}>
 														{filterLessonsByNumber(
 															fetchedLessons?.data?.filter((lesson) => c?.lessons.includes(lesson.uid))

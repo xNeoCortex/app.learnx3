@@ -12,7 +12,8 @@ import CreateAllCurriculum from "@/components/curriculum/CreateAllCurriculum"
 import { capitalizeFirstLetter } from "@/components/helpers/capitalizeFirstLetter"
 import { setEnglishLevel } from "@/components/helpers/setEnglishLevel"
 import { lessonColors } from "@/components/utils/lessonColors"
-import { lessonIcons } from "@/components/utils/lessonIcons"
+import { lessonImages } from "@/components/utils/lessonImages"
+import sortByCategory from "@/components/helpers/sortByCategory"
 
 function EachCurriculum() {
 	const {
@@ -91,26 +92,10 @@ function EachCurriculum() {
 				<Box>
 					{!open &&
 						lessons?.map((x, index) => (
-							<Box>
+							<Box key={index}>
 								<Grid container spacing={1}>
 									{x?.lessonItems
-										.sort((a, b) => {
-											if (a.category === "vocabulary") {
-												return -1
-											} else if (b.category === "vocabulary") {
-												return 1
-											} else if (a.category === "speaking") {
-												return -1
-											} else if (b.category === "speaking") {
-												return 1
-											} else if (a.category === "writing") {
-												return -1
-											} else if (b.category === "writing") {
-												return 1
-											} else {
-												return -1
-											}
-										})
+										.sort(sortByCategory)
 										.filter((item) => item.lesson_number === lesson)
 										.map((x, index) => (
 											<Grid key={index} item xs={12} sm={6}>
@@ -156,7 +141,7 @@ function EachCurriculum() {
 															</Box>
 															<CardMedia
 																component="img"
-																image={lessonIcons[x?.category]}
+																image={lessonImages[x?.category]}
 																alt="test image"
 																sx={{ width: 90, mb: 1, height: "100px", objectFit: "contain" }}
 															/>

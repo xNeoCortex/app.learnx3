@@ -1,14 +1,16 @@
-import { Box, Grid, Typography, capitalize, CardMedia, Button, Chip } from "@mui/material"
+import { Box, Grid, Typography, capitalize, CardMedia, Button } from "@mui/material"
 import Link from "next/link"
 import React from "react"
+import sortByCategory from "../helpers/sortByCategory"
 import MyTooltip from "../other/MyTooltip"
 import { lessonColors } from "../utils/lessonColors"
 import { lessonIcons } from "../utils/lessonIcons"
+import { lessonImages } from "../utils/lessonImages"
 
 function LessonInsideCur({ data, curriculumData }) {
 	return (
-		<Grid item xs={3}>
-			<MyTooltip
+		<Grid item xs={4}>
+			{/* <MyTooltip
 				content={
 					<Grid container spacing={2}>
 						{data?.lessonItems?.map((lesson) => (
@@ -16,21 +18,39 @@ function LessonInsideCur({ data, curriculumData }) {
 						))}
 					</Grid>
 				}
-			>
-				<Link href={`/curriculum/${curriculumData.uid}?lesson=${data.lessonNumber}`} style={{ width: "100%" }}>
-					<Box
-						sx={{
-							border: "1px solid black",
-							p: "4px 10px",
-							borderRadius: 2,
-							cursor: "pointer",
-							"&:hover": { backgroundColor: "rgba(95, 106, 196, 0.9)", color: "white" },
-						}}
-					>
-						<Typography>📗 Lesson {data.lessonNumber}</Typography>
+			> */}
+			<Link href={`/curriculum/${curriculumData.uid}?lesson=${data.lessonNumber}`} style={{ width: "100%" }}>
+				<Box
+					sx={{
+						background: "white",
+						border: "1px solid black",
+						p: "10px",
+						borderRadius: 2,
+						cursor: "pointer",
+						"&:hover": {
+							boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.43) 0px 3px 6px;",
+							border: "none",
+							// backgroundColor: "rgba(95, 106, 196, 0.6)",
+							// color: "white",
+						},
+					}}
+				>
+					<Typography sx={{ color: "rgb(50, 50, 93)", fontWeight: 600 }}>📗 Lesson {data.lessonNumber}</Typography>
+					<Box sx={{ mt: 1 }}>
+						{data?.lessonItems?.sort(sortByCategory).map(({ category, topic }, index) => (
+							<Typography
+								key={index}
+								noWrap
+								sx={{ fontSize: 12, mb: 1, p: "3px 10px", borderRadius: 1, background: lessonColors[category] }}
+							>
+								{lessonIcons[category]} {capitalize(category)}: {topic}
+							</Typography>
+						))}
 					</Box>
-				</Link>
-			</MyTooltip>
+				</Box>
+				<Box></Box>
+			</Link>
+			{/* </MyTooltip> */}
 		</Grid>
 	)
 }
@@ -82,7 +102,7 @@ function SmallLessonCard({ lessonInfo }) {
 						</Box>
 						<CardMedia
 							component="img"
-							image={lessonIcons[lessonInfo?.category]}
+							image={lessonImages[lessonInfo?.category]}
 							alt="test image"
 							sx={{ width: 70, mb: 1, height: 70, objectFit: "contain" }}
 						/>
