@@ -113,6 +113,9 @@ function EachCurriculum() {
 															m: 1,
 															backgroundColor: lessonColors[x.category],
 															boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+															"&:hover": {
+																boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.43) 0px 3px 6px;",
+															},
 														}}
 													>
 														<Box
