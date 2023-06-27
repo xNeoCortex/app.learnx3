@@ -21,15 +21,22 @@ function StudentCardList() {
 	const { sidebarWidth } = useStoreTemporary()
 	const [alignment, setAlignment] = React.useState("grid")
 	const { apiRequest } = ApiServices()
-	const { data, isLoading, isError } = useQuery(["students"], () =>
-		apiRequest("GET", null, { collectionName: "students" })
-	)
+
+	// fetch student data
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ["students"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "students" }),
+	})
+
+	// fetch class info
 	const {
 		data: classInfo,
 		isLoading: classIsLoading,
 		isError: classIsError,
-	} = useQuery([`my-class`], () => apiRequest("GET", null, { collectionName: "classes", uid: String(id) }), {
-		enabled: id?.length > 5,
+	} = useQuery({
+		queryKey: ["my-class"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "classes", uid: id as string }),
+		enabled: id == "undefined" ? false : true,
 	})
 
 	const studentList = data?.data.filter((item) => classInfo?.data.students?.includes(item.uid))

@@ -16,9 +16,8 @@ import { setEnglishLevel } from "@/components/helpers/setEnglishLevel"
 import LessonInsideCur from "@/components/curriculum/LessonInsideCur"
 
 function Curriculum() {
-	const { apiRequest, fetchLessons } = ApiServices()
+	const { apiRequest, fetchLessons, fetchClasses } = ApiServices()
 	const { userInfo } = useStoreUser()
-	const { classInfo } = useStoreTemporary()
 	const [openX, setOpenX] = useState(false)
 	const [openLesson, setOpenLesson] = useState(false)
 	const [openTest, setOpenTest] = useState(false)
@@ -37,6 +36,14 @@ function Curriculum() {
 		isLoading: isLoadingLesson,
 		isError: isErrorLesson,
 	} = useQuery(["lessons"], fetchLessons)
+
+	//fetch classes
+	const { data: classList } = useQuery(["classList"], fetchClasses)
+
+	const matchClass =
+		userInfo?.role == "teacher"
+			? classList?.data.find((c) => c?.teachers.includes(userInfo?.uid))
+			: classList?.data.find((c) => c?.students.includes(userInfo?.uid))
 
 	// Filtering lessons by number
 	function filterLessonsByNumber(array = []) {
@@ -57,7 +64,6 @@ function Curriculum() {
 		}))
 	}
 
-	console.log("fetchedLessons :>> ", fetchedLessons)
 	// useEffect(() => {
 	// 	const filteredLessons = filterLessonsByNumber(curriculumLessons)
 	// 	setLessons(filteredLessons)
@@ -113,7 +119,7 @@ function Curriculum() {
 								!openLesson &&
 								!openTest &&
 								curriculumList?.data
-									?.filter((item) => (userInfo.role == "admin" ? item : item.uid === classInfo?.curriculum_id))
+									?.filter((item) => (userInfo.role == "admin" ? item : item.uid === matchClass?.curriculum_id))
 									.map((c, index) => (
 										<Box
 											key={index}

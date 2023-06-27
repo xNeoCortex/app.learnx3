@@ -10,7 +10,7 @@ import { useStoreTemporary } from "../zustand"
 function AddClassPage({ studentList, teacherList }) {
 	const { sidebarWidth } = useStoreTemporary()
 	const { fetchClasses } = ApiServices()
-	const { data: classList, isLoading, isError } = useQuery(["listClasses"], fetchClasses)
+	const { data: classList, isLoading, isError } = useQuery(["classList"], fetchClasses)
 	// if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
