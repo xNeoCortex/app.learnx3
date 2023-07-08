@@ -13,7 +13,10 @@ import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import TaskComponent from "@/components/Text"
 import AlertDialog from "@/components/AlertDialog"
-import StandTestResult from "@/components/helpers/standTestResult"
+
+function StandTestResult(word) {
+	return word?.trim().toLowerCase() || ""
+}
 
 function WordBuildingTest() {
 	const {
