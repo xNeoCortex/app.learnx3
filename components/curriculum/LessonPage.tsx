@@ -16,7 +16,11 @@ function LessonPage(props) {
 		query: { id },
 	} = useRouter()
 	const { fetchLessons } = ApiServices()
-	const { data: lessonState, isLoading, isError } = useQuery(["lessons"], fetchLessons)
+	const {
+		data: lessonState,
+		isLoading,
+		isError,
+	} = useQuery({ queryKey: ["lessons"], queryFn: fetchLessons, refetchOnWindowFocus: false })
 
 	const currentLesson = lessonState?.data.find((item) => item.id === id)
 	const currentTest = TestData?.find((item) => item.topic_id === currentLesson?.topic_id)

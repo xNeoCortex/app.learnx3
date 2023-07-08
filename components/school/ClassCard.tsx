@@ -72,7 +72,7 @@ function ClassCard({ item, studentList, teacherList }) {
 				}}
 			>
 				<AddClass _class={item} buttonName="Edit class" />
-				<DeleteComponent collectionName="classes" invalidateCache="listClasses" itemId={item.uid} setOpen={setOpen} />
+				<DeleteComponent collectionName="classes" invalidateCache="classList" itemId={item.uid} setOpen={setOpen} />
 				<Link href={`classes/[id]`} as={`classes/${item.uid}`}>
 					<Button variant="contained" onClick={() => setClassId(item.uid)}>
 						View

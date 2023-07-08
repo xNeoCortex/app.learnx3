@@ -34,7 +34,7 @@ function ApiServices() {
 		return response
 	}
 
-	async function fetchTestResult(id: string) {
+	async function fetchTestResults(id: string) {
 		const response = await axios.get(`/api/fetchtestresult`, {
 			params: {
 				id: id,
@@ -118,7 +118,7 @@ function ApiServices() {
 		fetchAllTeachers,
 		fetchEssayResults,
 		fetchEssayInfo,
-		fetchTestResult,
+		fetchTestResults,
 		fetchClasses,
 		fetchOneClass,
 		fetchLessons,

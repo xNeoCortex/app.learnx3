@@ -2,11 +2,11 @@ import { auth } from "./firebaseX"
 import { Alert, Box, Button, Grid, Typography } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
-import { useStoreTemporary, useStoreUser } from "./zustand"
+import { useClassInfo, useStoreUser } from "./zustand"
 import AddClass from "./school/AddClassDialog"
 
 const Navbar = () => {
-	const { classInfo } = useStoreTemporary()
+	const { classInfo } = useClassInfo()
 	const { userInfo } = useStoreUser()
 	return (
 		<Grid

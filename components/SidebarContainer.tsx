@@ -1,5 +1,5 @@
 import React from "react"
-import { useStoreTemporary } from "./zustand"
+import { useClassInfo } from "./zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
 //@ts-ignore
@@ -8,7 +8,7 @@ import Sidebar from "./sidebar"
 const theme = createTheme()
 
 function SidebarContainer({ children }) {
-	const { classInfo } = useStoreTemporary()
+	const { classInfo } = useClassInfo()
 
 	return (
 		<Grid sx={{ width: "100%" }}>

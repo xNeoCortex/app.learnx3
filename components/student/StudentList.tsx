@@ -113,7 +113,7 @@ export default function StudentList({ data }) {
 											</p>
 										</TableCell>
 										<TableCell>
-											<Link href={`/student/[id]`} as={`/student/${row.uid}`}>
+											<Link href={`/student/${row.uid}`}>
 												<Button
 													style={{
 														background: "#5f6ac4",

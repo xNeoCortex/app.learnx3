@@ -6,7 +6,6 @@ import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
 import { setEnglishLevel } from "../helpers/setEnglishLevel"
 
 export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
-
 	return (
 		<Box
 			sx={{
@@ -64,8 +63,9 @@ export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
 							alignItems: "center",
 						}}
 					>
-						{["Class A", setEnglishLevel(lessonState?.data?.level), lessonState?.data?.category].map((item) => (
+						{["Class A", setEnglishLevel(lessonState?.data?.level), lessonState?.data?.category].map((item, index) => (
 							<p
+								key={index}
 								style={{
 									fontWeight: 500,
 									padding: "3px 10px",
@@ -83,31 +83,33 @@ export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
 						))}
 					</Box>
 				</Box>
-				<a
-					style={{
-						padding: 0,
-						margin: 0,
-					}}
-					target="_blank"
-					rel="noreferrer"
-					href={`https://meet.google.com/spb-qdmh-sij`}
-				>
-					<Button
-						variant="outlined"
-						sx={{
-							mt: "10px",
-							textTransform: "none",
+				<Box>
+					<a
+						style={{
+							padding: 0,
+							margin: 0,
 						}}
+						target="_blank"
+						rel="noreferrer"
+						href={`https://meet.google.com/spb-qdmh-sij`}
 					>
-						<VideocamIcon
-							style={{
-								marginRight: 6,
-								// color: "#5f61c4"
+						<Button
+							variant="outlined"
+							sx={{
+								mt: "10px",
+								textTransform: "none",
 							}}
-						/>
-						Video Call
-					</Button>
-				</a>
+						>
+							<VideocamIcon
+								style={{
+									marginRight: 6,
+									// color: "#5f61c4"
+								}}
+							/>
+							Video Call
+						</Button>
+					</a>
+				</Box>
 			</Box>
 			<Avatar
 				src={image}

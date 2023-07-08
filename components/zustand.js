@@ -11,15 +11,21 @@ const useStoreTemporary = create((set) => ({
     setClassId: (class_id) => set({
         class_id: class_id
     }),
-    classInfo: null,
-    setClassInfo: (class_) => set({
-        classInfo: class_
-    }),
     sidebarWidth: 300,
     setSidebarWidth: (width) => set({
         sidebarWidth: width
     })
 }))
+
+
+const useClassInfo = create(
+    (set, get) => ({
+        classInfo: null,
+        setClassInfo: (class_) => set({
+            classInfo: class_
+        }),
+    })
+)
 
 
 const useStore = create(
@@ -38,6 +44,7 @@ const useStore = create(
         }
     )
 )
+
 
 
 const useStoreUser = create(
@@ -63,5 +70,6 @@ const useStoreUser = create(
 export {
     useStore,
     useStoreTemporary,
-    useStoreUser
+    useStoreUser,
+    useClassInfo
 }

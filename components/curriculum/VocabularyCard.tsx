@@ -47,9 +47,10 @@ export function VocabularyCard({ word }) {
 				<h3 style={{ height: "fit-content", color: "black" }}>{word.word}</h3>
 			</Box>
 			{["definition", "example"].map(
-				(item) =>
+				(item, index) =>
 					open === item && (
 						<p
+							key={index}
 							style={{
 								background: "white",
 								color: "black",
@@ -64,9 +65,10 @@ export function VocabularyCard({ word }) {
 					)
 			)}
 			{["synonyms", "antonyms"].map(
-				(item) =>
+				(item, index) =>
 					open === item && (
 						<p
+							key={index}
 							style={{
 								background: "white",
 								color: "black",
@@ -76,8 +78,8 @@ export function VocabularyCard({ word }) {
 								padding: 6,
 							}}
 						>
-							{word[item].map((item) => {
-								return <p>{item}</p>
+							{word[item].map((item, index) => {
+								return <p key={index}>{item}</p>
 							})}
 						</p>
 					)
@@ -92,8 +94,9 @@ export function VocabularyCard({ word }) {
 					alignItems: "center",
 				}}
 			>
-				{["definition", "synonyms", "antonyms", "example"].map((item) => (
+				{["definition", "synonyms", "antonyms", "example"].map((item, index) => (
 					<Button
+						key={index}
 						onClick={() => setOpen(item)}
 						sx={{
 							fontSize: 12,

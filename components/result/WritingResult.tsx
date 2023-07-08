@@ -21,7 +21,7 @@ export default function WritingResult({ id }) {
 		data: writingResult,
 		isLoading,
 		isError,
-	} = useQuery(["essayResult"], fetchEssayResults, {
+	} = useQuery([`essayResult-${id}`], fetchEssayResults, {
 		select: (data) => {
 			const filteredEssays = data?.data.filter((item) => item.student_id === id)
 			if (filteredEssays.length > 0) {

@@ -18,13 +18,17 @@ function ReadingPage() {
 		data: article,
 		isLoading: isLoadingData,
 		isError: isLoadingError,
-	} = useQuery(["readingContent"], () => fetchAssessment("readingContent"))
+	} = useQuery({ queryKey: ["readingContent"], queryFn: () => fetchAssessment("readingContent") })
 
 	const {
 		data: lessonState,
 		isLoading,
 		isError,
-	} = useQuery([`lesson-${lessonId}`], () => fetchOneLesson(String(lessonId)))
+	} = useQuery({
+		queryKey: [`lesson-${lessonId}`],
+		queryFn: () => fetchOneLesson(lessonId as string),
+		enabled: lessonId == "undefined" ? false : true,
+	})
 
 	const lessonArticle = article?.data?.filter((item) => lessonState?.data.content?.includes(item.uid))[0]
 
@@ -79,7 +83,7 @@ function ReadingPage() {
 							}}
 						/>
 					</Box>
-					<TestContainer data={lessonState?.data} link={`/test/true-false`} />
+					<TestContainer data={lessonState?.data} link={`/test/true-false/`} />
 					<BackButton />
 				</Container>
 			</Box>

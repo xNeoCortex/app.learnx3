@@ -40,8 +40,9 @@ export const TestContainer = ({ data, link }) => {
 						p: "20px",
 					}}
 				>
-					{data?.assessments?.map((test) => (
+					{data?.assessments?.map((test, index) => (
 						<Box
+							key={index}
 							sx={{
 								width: "100%",
 								borderRadius: "10px",
@@ -111,7 +112,7 @@ export const TestContainer = ({ data, link }) => {
 										{data?.category}
 									</p>
 								</Box>
-								<Link href={link + `/${test}`}>
+								<Link href={link + `${test}`}>
 									<Button
 										variant="contained"
 										size="small"

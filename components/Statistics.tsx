@@ -17,7 +17,11 @@ function Statistics({ displayGraphs }) {
 
 	// find another solution -> no need to fetch all database just to see the length of students array
 	const { fetchAllStudents } = ApiServices()
-	const { data, isLoading, isError } = useQuery(["students"], fetchAllStudents)
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ["students"],
+		queryFn: fetchAllStudents,
+		refetchOnWindowFocus: false,
+	})
 
 	// Data to display
 	const dataSet = [

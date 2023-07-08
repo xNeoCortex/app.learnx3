@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { Box, Button, Grid } from "@mui/material"
+import { Box, Button, Grid, Typography } from "@mui/material"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import TableRowsIcon from "@mui/icons-material/TableRows"
@@ -26,6 +26,7 @@ function StudentCardList() {
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["students"],
 		queryFn: () => apiRequest("GET", null, { collectionName: "students" }),
+		refetchOnWindowFocus: false,
 	})
 
 	// fetch class info
@@ -62,7 +63,7 @@ function StudentCardList() {
 			}}
 		>
 			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
-				<h3
+				<Typography
 					style={{
 						margin: 10,
 						fontWeight: 600,
@@ -83,7 +84,7 @@ function StudentCardList() {
 					>
 						{studentList?.length ?? 0} Students
 					</Button>
-				</h3>
+				</Typography>
 				<ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform">
 					<ToggleButton value="row" style={{ padding: "0px 5px", height: 35 }}>
 						<TableRowsIcon />

@@ -10,7 +10,11 @@ import { useStoreTemporary } from "../zustand"
 function AddClassPage({ studentList, teacherList }) {
 	const { sidebarWidth } = useStoreTemporary()
 	const { fetchClasses } = ApiServices()
-	const { data: classList, isLoading, isError } = useQuery(["classList"], fetchClasses)
+	const {
+		data: classList,
+		isLoading,
+		isError,
+	} = useQuery({ queryKey: ["classList"], queryFn: fetchClasses, refetchOnWindowFocus: false })
 	// if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
@@ -31,7 +35,7 @@ function AddClassPage({ studentList, teacherList }) {
 			>
 				{isLoading
 					? [1, 2, 3, 4, 5].map((item, index) => (
-							<Skeleton variant="rounded" width="320px" height="250px" sx={{ margin: "10px" }} />
+							<Skeleton key={index} variant="rounded" width="320px" height="250px" sx={{ margin: "10px" }} />
 					  ))
 					: classList?.data.length > 0 &&
 					  classList?.data

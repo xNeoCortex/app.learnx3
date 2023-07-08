@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
 import { Box, Button, capitalize, CardMedia, Chip, CssBaseline, Grid, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
@@ -28,17 +27,21 @@ function Curriculum() {
 		data: curriculumList,
 		isLoading,
 		isError,
-	} = useQuery(["curriculumList"], () => apiRequest("GET", null, { collectionName: "curriculum" }))
+	} = useQuery({
+		queryKey: ["curriculumList"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "curriculum" }),
+		refetchOnWindowFocus: false,
+	})
 
 	// Fetching lessons
 	const {
 		data: fetchedLessons,
 		isLoading: isLoadingLesson,
 		isError: isErrorLesson,
-	} = useQuery(["lessons"], fetchLessons)
+	} = useQuery({ queryKey: ["lessons"], queryFn: fetchLessons, refetchOnWindowFocus: false })
 
 	//fetch classes
-	const { data: classList } = useQuery(["classList"], fetchClasses)
+	const { data: classList } = useQuery({ queryKey: ["classList"], queryFn: fetchClasses, refetchOnWindowFocus: false })
 
 	const matchClass =
 		userInfo?.role == "teacher"
@@ -63,11 +66,6 @@ function Curriculum() {
 			lessonItems: lessonItems,
 		}))
 	}
-
-	// useEffect(() => {
-	// 	const filteredLessons = filterLessonsByNumber(curriculumLessons)
-	// 	setLessons(filteredLessons)
-	// }, [isLoading, isLoadingLesson])
 
 	if (isLoading || isLoadingLesson) return <LoadingPage />
 	if (isError || isErrorLesson) return <ErrorPage />
@@ -203,8 +201,8 @@ function Curriculum() {
 													<Grid container spacing={2}>
 														{filterLessonsByNumber(
 															fetchedLessons?.data?.filter((lesson) => c?.lessons.includes(lesson.uid))
-														).map((l, index) => (
-															<LessonInsideCur key={index} data={l} curriculumData={c} />
+														)?.map((l, index) => (
+															<LessonInsideCur key={index} lessonData={l} curriculumData={c} matchClass={matchClass} />
 														))}
 													</Grid>
 												</Box>

@@ -17,17 +17,20 @@ import Paper from "@mui/material/Paper"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
-import { useStoreTemporary, useStoreUser } from "@/components/zustand"
+import { useStoreTemporary, useClassInfo, useStoreUser } from "@/components/zustand"
 import SidebarContainer from "@/components/SidebarContainer"
 
 function GradeWritingList() {
 	const { userInfo } = useStoreUser()
-	const { sidebarWidth, classInfo } = useStoreTemporary()
+	const { sidebarWidth } = useStoreTemporary()
+	const { classInfo } = useClassInfo()
 
 	const { fetchEssayResults } = ApiServices()
-	const { data, isLoading, isError } = useQuery(["essayResult"], fetchEssayResults)
+	const { data, isLoading, isError } = useQuery(["essayResults"], fetchEssayResults)
 
-	const notGraded = data?.data.filter((item) => item.result === null)
+	const notGraded = data?.data
+		.filter((item) => item.result === null)
+		.filter((item) => (userInfo?.role === "teacher" ? classInfo?.students?.includes(item.student_id) : item))
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />

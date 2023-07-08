@@ -26,14 +26,22 @@ function EachCurriculum() {
 	const [lessons, setLessons] = useState([])
 
 	// Fetching curriculum
-	const { data: curriculum, isLoading, isError } = useQuery([`curriuclum-${id}`], () => fetchCurriculum(String(id)))
+	const {
+		data: curriculum,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: [`curriculum-${id}`],
+		queryFn: () => fetchCurriculum(id as string),
+		enabled: id == "undefined" ? false : true,
+	})
 
 	// Fetching lessons
 	const {
 		data: fetchedLessons,
 		isLoading: isLoadingLesson,
 		isError: isErrorLesson,
-	} = useQuery(["lessons"], fetchLessons)
+	} = useQuery({ queryKey: ["lessons"], queryFn: fetchLessons, refetchOnWindowFocus: false })
 
 	// Filtering lessons for this curriculum
 	const curriculumLessons = fetchedLessons?.data?.filter((item) => curriculum?.data?.lessons.includes(item.uid))
@@ -91,8 +99,8 @@ function EachCurriculum() {
 				/>{" "}
 				<Box>
 					{!open &&
-						lessons?.map((x, index) => (
-							<Box key={index}>
+						lessons?.map((x, key) => (
+							<Box key={key}>
 								<Grid container spacing={1}>
 									{x?.lessonItems
 										.sort(sortByCategory)

@@ -64,7 +64,7 @@ const StudentCard = memo<{ studentDetails: any }>(({ studentDetails }) => {
 				</p>
 			</Box>
 			<Box display="flex" alignItems="center" flexDirection="column">
-				<Link href={`/student/[id]`} as={`/student/${studentDetails.uid}`}>
+				<Link href={`/student/${studentDetails.uid}`}>
 					<Button
 						variant="contained"
 						style={{

@@ -13,13 +13,21 @@ function SpeakingPage() {
 		query: { lessonId },
 	} = useRouter()
 	const { fetchOneLesson, fetchAssessment } = ApiServices()
-	const { data: content } = useQuery(["speakingContent"], () => fetchAssessment("speakingContent"))
+
+	const { data: content } = useQuery({
+		queryKey: ["speakingContent"],
+		queryFn: () => fetchAssessment("speakingContent"),
+	})
 
 	const {
 		data: lessonState,
 		isLoading,
 		isError,
-	} = useQuery([`lesson-${lessonId}`], () => fetchOneLesson(String(lessonId)))
+	} = useQuery({
+		queryKey: [`lesson-${lessonId}`],
+		queryFn: () => fetchOneLesson(lessonId as string),
+		enabled: lessonId == "undefined" ? false : true,
+	})
 
 	const lessonContent = content?.data?.filter((item) => lessonState?.data.content.includes(item.uid))[0]
 
@@ -73,6 +81,7 @@ function SpeakingPage() {
 						</Box>
 						{lessonContent?.topic_content?.map((item, index) => (
 							<Box
+								key={index}
 								sx={{
 									mt: 2,
 									padding: "15px",
@@ -87,10 +96,11 @@ function SpeakingPage() {
 									<strong> Sample Answer: </strong>
 									{item.sample_answer}
 								</p>
-								<p style={{ fontWeight: "bolder" }}>
+								<div style={{ fontWeight: "bolder" }}>
 									Keyword:{" "}
-									{item?.key_words?.map((word) => (
+									{item?.key_words?.map((word, index) => (
 										<Chip
+											key={index}
 											label={word}
 											variant="outlined"
 											style={{
@@ -103,7 +113,7 @@ function SpeakingPage() {
 											}}
 										/>
 									))}
-								</p>
+								</div>
 							</Box>
 						))}
 					</Box>

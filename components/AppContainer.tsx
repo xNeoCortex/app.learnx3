@@ -5,7 +5,7 @@ import { Box } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import ErrorPage from "./ErrorPage"
 import ClassAllocation from "./other/ClassAllocation"
-import { useStoreTemporary, useStoreUser } from "./zustand"
+import { useClassInfo, useStoreUser } from "./zustand"
 import LoadingPage from "./LoadingPage"
 
 function AppContainer({ children }: any) {
@@ -15,8 +15,16 @@ function AppContainer({ children }: any) {
 	} = useRouter()
 	const { userInfo } = useStoreUser()
 	const { fetchClasses } = ApiServices()
-	const { data: classList, isLoading, isError } = useQuery(["classList"], fetchClasses)
-	const { setClassInfo } = useStoreTemporary()
+	const {
+		data: classList,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ["classList"],
+		queryFn: fetchClasses,
+		refetchOnWindowFocus: false,
+	})
+	const { setClassInfo } = useClassInfo()
 
 	const matchedTeacherClass = classList?.data.find((c) => c?.teachers.includes(userInfo?.uid))
 	const matchedStudentClass = classList?.data.find((c) => c?.students.includes(userInfo?.uid))

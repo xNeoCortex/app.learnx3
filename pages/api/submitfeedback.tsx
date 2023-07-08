@@ -1,7 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "../../components/firebaseX"
 
-export default async function hundler(req, res) {
+export default async function handler(req, res) {
 	if (req.method === "PATCH") {
 		const { id } = req.query
 		const body = req.body

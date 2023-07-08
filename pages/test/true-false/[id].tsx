@@ -26,7 +26,7 @@ function TrueFalseQuiz() {
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 
 	const { submitTest } = ApiPostServices()
-	const { fetchOneAssessment, fetchTestResult } = ApiServices()
+	const { fetchOneAssessment, fetchTestResults } = ApiServices()
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
@@ -79,7 +79,7 @@ function TrueFalseQuiz() {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
 		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
+	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResults(String(userInfo?.uid)))
 
 	useEffect(() => {
 		setQuizData(reading_quiz?.data?.questions)

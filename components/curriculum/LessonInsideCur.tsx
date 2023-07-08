@@ -1,55 +1,88 @@
-import { Box, Grid, Typography, capitalize, CardMedia, Button } from "@mui/material"
+import { Box, Grid, Typography, capitalize, CardMedia, Button, Divider } from "@mui/material"
 import Link from "next/link"
 import React from "react"
 import sortByCategory from "../helpers/sortByCategory"
+import LessonCompleted from "../LessonCompleted"
 import MyTooltip from "../other/MyTooltip"
 import { lessonColors } from "../utils/lessonColors"
 import { lessonIcons } from "../utils/lessonIcons"
 import { lessonImages } from "../utils/lessonImages"
+import { useStoreUser } from "../zustand"
 
-function LessonInsideCur({ data, curriculumData }) {
+function LessonInsideCur({ lessonData, curriculumData, matchClass }) {
+	const { userInfo } = useStoreUser()
+
 	return (
-		<Grid item xs={4}>
+		<Grid item xs={12} sm={6} lg={4}>
 			{/* <MyTooltip
 				content={
 					<Grid container spacing={2}>
-						{data?.lessonItems?.map((lesson) => (
+						{lessonData?.lessonItems?.map((lesson) => (
 							<SmallLessonCard lessonInfo={lesson} />
 						))}
 					</Grid>
 				}
 			> */}
-			<Link href={`/curriculum/${curriculumData.uid}?lesson=${data.lessonNumber}`} style={{ width: "100%" }}>
-				<Box
-					sx={{
-						background: "white",
-						border: "1px solid black",
-						p: "10px",
-						borderRadius: 2,
-						cursor: "pointer",
-						"&:hover": {
-							boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.43) 0px 3px 6px;",
-							border: "none",
-							// backgroundColor: "rgba(95, 106, 196, 0.6)",
-							// color: "white",
-						},
-					}}
-				>
-					<Typography sx={{ color: "rgb(50, 50, 93)", fontWeight: 600 }}>📗 Lesson {data.lessonNumber}</Typography>
-					<Box sx={{ mt: 1 }}>
-						{data?.lessonItems?.sort(sortByCategory).map(({ category, topic }, index) => (
+			<Box
+				sx={{
+					background: "white",
+					p: "10px",
+					borderRadius: 2,
+					boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+
+					"&:hover": {
+						boxShadow: "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.43) 0px 3px 6px;",
+						border: "none",
+					},
+				}}
+			>
+				<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+					<Typography sx={{ color: "rgb(50, 50, 93)", fontWeight: 600 }}>
+						📗 Lesson {lessonData.lessonNumber}
+					</Typography>
+					<Link
+						href={`/curriculum/${curriculumData.uid}?lesson=${lessonData.lessonNumber}`}
+						style={{ width: "fit-content" }}
+					>
+						<Button
+							sx={{
+								textDecoration: "none",
+								background: "rgb(95, 106, 196)",
+								color: "white",
+								textTransform: "none",
+								m: 1,
+								p: 0,
+								"&:hover": {
+									background: "rgba(95, 106, 196, 0.7)",
+								},
+							}}
+						>
+							View
+						</Button>
+					</Link>
+				</Box>
+				<Divider />
+				<Box sx={{ mt: 1 }}>
+					{lessonData?.lessonItems?.sort(sortByCategory).map(({ category, topic, uid }, index) => (
+						<Box key={index} sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 							<Typography
 								key={index}
 								noWrap
-								sx={{ fontSize: 12, mb: 1, p: "3px 10px", borderRadius: 1, background: lessonColors[category] }}
+								sx={{
+									fontSize: 12,
+									mb: 1,
+									p: "3px 10px",
+									borderRadius: 1,
+									background: lessonColors[category],
+								}}
 							>
 								{lessonIcons[category]} {capitalize(category)}: {topic}
 							</Typography>
-						))}
-					</Box>
+							{userInfo.role == "teacher" && <LessonCompleted uid={uid} classInfo={matchClass} />}
+						</Box>
+					))}
 				</Box>
-				<Box></Box>
-			</Link>
+			</Box>
 			{/* </MyTooltip> */}
 		</Grid>
 	)

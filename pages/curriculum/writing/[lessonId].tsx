@@ -14,12 +14,18 @@ function WritingPage() {
 		query: { lessonId },
 	} = useRouter()
 	const { fetchOneLesson, fetchAssessment } = ApiServices()
-	const { data: content } = useQuery(["writingContent"], () => fetchAssessment("writingContent"))
+
+	const { data: content } = useQuery({ queryKey: ["writingContent"], queryFn: () => fetchAssessment("writingContent") })
+
 	const {
 		data: lessonState,
 		isLoading,
 		isError,
-	} = useQuery([`lesson-${lessonId}`], () => fetchOneLesson(String(lessonId)))
+	} = useQuery({
+		queryKey: [`lesson-${lessonId}`],
+		queryFn: () => fetchOneLesson(lessonId as string),
+		enabled: lessonId == "undefined" ? false : true,
+	})
 	const lessonContent = content?.data?.filter((item) => lessonState?.data.content.includes(item.uid))[0]
 
 	if (isLoading) return <LoadingPage />
@@ -113,7 +119,7 @@ function WritingPage() {
 							}}
 						/>
 					</Box>
-					<TestContainer data={lessonState?.data} link={`/test/writing`} />
+					<TestContainer data={lessonState?.data} link={`/test/writing/`} />
 					<BackButton />
 				</Container>
 			</Box>

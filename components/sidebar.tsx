@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Box } from "@mui/system"
 import HomeIcon from "@mui/icons-material/Home"
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
@@ -17,13 +17,19 @@ import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
 import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import ApiServices from "@/pages/api/ApiServices"
 
 function sidebar({ classId }) {
+	const { push: navigate } = useRouter()
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
 	const [hide, setHide] = useState(true)
 	const [isShown, setIsShown] = useState(false)
 	const { setSidebarWidth, class_id } = useStoreTemporary()
+
+	useEffect(() => {
+		classId === undefined && userInfo.role !== "admin" && navigate("/classes")
+	}, [])
 
 	return (
 		<Box
@@ -184,6 +190,12 @@ const dataTeacher = (classId) => {
 			icon: <PersonIcon />,
 		},
 		{
+			name: "Student Results",
+			href: `/student/results`,
+			link: `/student/results`,
+			icon: <PersonIcon />,
+		},
+		{
 			name: "Class Statistics",
 			href: "/class-statistics",
 			link: "/class-statistics",
@@ -275,6 +287,12 @@ const dataAdmin = (class_id) => {
 			name: "All Students",
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${class_id}/class-students`,
+			icon: <PersonIcon />,
+		},
+		{
+			name: "Student Results",
+			href: `/student/results`,
+			link: `/student/results`,
 			icon: <PersonIcon />,
 		},
 		{

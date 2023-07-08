@@ -13,7 +13,11 @@ function Lessons(props) {
 
 	// fetch upcoming sessions for the current user and add them to session[]
 	const { fetchLessons } = ApiServices()
-	const { data: lessonState, isLoading, isError } = useQuery(["lessons"], fetchLessons)
+	const {
+		data: lessonState,
+		isLoading,
+		isError,
+	} = useQuery({ queryKey: ["lessons"], queryFn: fetchLessons, refetchOnWindowFocus: false })
 
 	if (isError) return <ErrorPage />
 
@@ -38,8 +42,8 @@ function Lessons(props) {
 					}}
 				>
 					{isLoading
-						? [1, 2, 3, 4, 5].map((item, index) => (
-								<Skeleton variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
+						? [1, 2, 3, 4, 5].map((item) => (
+								<Skeleton key={item} variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
 						  ))
 						: lessonState?.data.length > 0 &&
 						  lessonState.data

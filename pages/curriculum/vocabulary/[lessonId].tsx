@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
-import { Box, Container, Typography } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import ErrorPage from "../../../components/ErrorPage"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
@@ -20,9 +20,17 @@ export default function VocabularyPage() {
 		data,
 		isLoading: isLoadingData,
 		isError: isErrorData,
-	} = useQuery(["vocabularyCards"], () => fetchAssessment("vocabularyCards"))
+	} = useQuery({ queryKey: ["vocabularyCards"], queryFn: () => fetchAssessment("vocabularyCards") })
 
-	const { data: lessonState, isLoading, isError } = useQuery(["lesson"], () => fetchOneLesson(String(lessonId)))
+	const {
+		data: lessonState,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: [`lesson-${lessonId}`],
+		queryFn: () => fetchOneLesson(lessonId as string),
+		enabled: lessonId == "undefined" ? false : true,
+	})
 
 	const Vocabulary_1 = data?.data?.filter((item) => lessonState?.data.content?.includes(item.uid))[0]
 
@@ -75,8 +83,8 @@ export default function VocabularyPage() {
 								width: "100%",
 							}}
 						>
-							{Vocabulary_1?.vocabularies?.map((word) => (
-								<VocabularyCard word={word} />
+							{Vocabulary_1?.vocabularies?.map((word, index) => (
+								<VocabularyCard key={index} word={word} />
 							))}
 						</Box>
 					</Box>

@@ -26,7 +26,11 @@ export default function MultipleSelect({ selectedLessons, setSelectedLessons }) 
 	const { fetchLessons } = ApiServices()
 
 	// Fetching lessons
-	const { data: fetchedLessons, isLoading, isError } = useQuery(["lessons"], fetchLessons)
+	const {
+		data: fetchedLessons,
+		isLoading,
+		isError,
+	} = useQuery({ queryKey: ["lessons"], queryFn: fetchLessons, refetchOnWindowFocus: false })
 
 	const handleChange = ({ target: { value } }) => {
 		setSelectedLessons(typeof value === "string" ? value.split(",") : value)

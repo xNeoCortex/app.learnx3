@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import { useStoreTemporary, useStoreUser } from "../zustand"
+import { useClassInfo, useStoreUser } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
@@ -32,7 +32,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 	} = useRouter()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
-	const { setClassInfo } = useStoreTemporary()
+	const { setClassInfo } = useClassInfo()
 	const { fetchAllStudents, fetchAllTeachers, apiRequest } = ApiServices()
 	const { addClass, updateClass } = ApiPostServices()
 	const [open, setOpen] = React.useState(false)
@@ -50,21 +50,29 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		data: curriculum,
 		isLoading: cIsLoading,
 		isError: cIsError,
-	} = useQuery(["curriculumList"], () => apiRequest("GET", null, { collectionName: "curriculum" }), {})
+	} = useQuery({
+		queryKey: ["curriculumList"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "curriculum" }),
+		refetchOnWindowFocus: false,
+	})
 
 	// Student info
 	const {
 		data: fetchedStudents,
 		isLoading: isLoadingStudents,
 		isError: isErrorStudents,
-	} = useQuery(["students"], fetchAllStudents)
+	} = useQuery({ queryKey: ["students"], queryFn: fetchAllStudents, refetchOnWindowFocus: false })
 
 	// Teacher info
-	const { data: fetchedTeachers, isLoading: isLoadingTeachers } = useQuery(["teachers"], fetchAllTeachers)
+	const { data: fetchedTeachers, isLoading: isLoadingTeachers } = useQuery({
+		queryKey: ["teachers"],
+		queryFn: fetchAllTeachers,
+		refetchOnWindowFocus: false,
+	})
 
 	// Add class
 	const { mutate, isSuccess, isError } = useMutation((body) => addClass(body), {
-		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
+		onSuccess: () => queryClient.invalidateQueries(["classList"]),
 	})
 
 	//Delete Class
@@ -73,7 +81,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		isSuccess: deleteIsSuccess,
 		isError: deleteIsError,
 	} = useMutation((body) => apiRequest("DELETE", null, { collectionName: "classes", uid: id || _class?.uid }), {
-		onSuccess: () => queryClient.invalidateQueries(["listClasses"]),
+		onSuccess: () => queryClient.invalidateQueries(["classList"]),
 	})
 
 	// Edit class
@@ -81,8 +89,10 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		mutate: mutatePut,
 		isSuccess: isSuccessPut,
 		isError: isErrorPut,
-	} = useMutation((body) => updateClass(body, _class.uid || id), {
-		onSuccess: () => (queryClient.invalidateQueries(["listClasses"]), queryClient.invalidateQueries(["my-class"])),
+	} = useMutation({
+		mutationFn: (lessonIdArray: any) =>
+			apiRequest("PATCH", lessonIdArray, { collectionName: "classes", uid: _class.uid || id }),
+		onSuccess: () => (queryClient.invalidateQueries(["classList"]), queryClient.invalidateQueries(["my-class"])),
 	})
 
 	const handleClickOpen = () => {
@@ -104,7 +114,6 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 					teachers,
 					curriculum_id: curriculumX,
 					level: level,
-					completed_lessons: [],
 					passcode: passcode?.trim(),
 					video_call_link: videoLink?.trim(),
 				})
@@ -304,8 +313,10 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 												<MenuItem value="">
 													<em>None</em>
 												</MenuItem>
-												{curriculum?.data.map((lesson) => (
-													<MenuItem value={lesson.uid}>{lesson.curriculum_name}</MenuItem>
+												{curriculum?.data.map((lesson, key) => (
+													<MenuItem key={key} value={lesson.uid}>
+														{lesson.curriculum_name}
+													</MenuItem>
 												))}
 											</Select>
 										</FormControl>

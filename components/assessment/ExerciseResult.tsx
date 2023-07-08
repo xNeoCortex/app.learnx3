@@ -15,8 +15,8 @@ import { useQuery } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
 
 export default function ExerciseResult({ id }) {
-	const { fetchTestResult } = ApiServices()
-	const { data: testResult, isLoading, isError } = useQuery(["testResult"], () => fetchTestResult(id))
+	const { fetchTestResults } = ApiServices()
+	const { data: testResult, isLoading, isError } = useQuery([`testResult-${id}`], () => fetchTestResults(id))
 
 	// Titles
 	const title = ["Test", "Topic", "Test Score"]

@@ -26,14 +26,14 @@ function WordBuildingTest() {
 	const [show, setShow] = useState(false)
 	const [score, setScore] = useState(0)
 	const { submitTest } = ApiPostServices()
-	const { fetchOneAssessment, fetchTestResult } = ApiServices()
+	const { fetchOneAssessment, fetchTestResults } = ApiServices()
 
 	// get assessment result
 	const {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
 		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResult(String(userInfo?.uid)))
+	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResults(String(userInfo?.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
