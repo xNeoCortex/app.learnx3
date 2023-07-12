@@ -9,7 +9,7 @@ import { VocabularyCard } from "@/components/curriculum/VocabularyCard"
 import { TestContainer } from "@/components/assessment/TestContainer"
 import SidebarContainer from "@/components/SidebarContainer"
 import ErrorPage from "../error"
-import { SpeakingInfo } from "./SpeakingInfo"
+import SpeakingInfo from "./SpeakingInfo"
 import { SpeakCard } from "@/components/curriculum/SpeakCard"
 
 export default function VocabularyPage() {
