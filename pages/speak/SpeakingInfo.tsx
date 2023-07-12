@@ -3,7 +3,7 @@ import { Box } from "@mui/system"
 import React from "react"
 import VideocamIcon from "@mui/icons-material/Videocam"
 
-export const SpeakingInfo = ({ topic, image, width = "150px" }) => {
+const SpeakingInfo = ({ topic, image, width = "150px" }) => {
 	return (
 		<Box
 			sx={{
@@ -94,3 +94,5 @@ export const SpeakingInfo = ({ topic, image, width = "150px" }) => {
 		</Box>
 	)
 }
+
+export default SpeakingInfo
