@@ -17,7 +17,7 @@ import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"
 import LoadingPage from "../LoadingPage"
 import ApiServices from "@/pages/api/ApiServices"
-import { WordBuilding4 } from "../data/VocabularyData"
+import { School } from "../data/SpeakingNew"
 
 function CreateAssessment({ open, setOpen }) {
 	const { apiRequest } = ApiServices()
@@ -29,7 +29,7 @@ function CreateAssessment({ open, setOpen }) {
 
 	// Add assessment
 	const { mutate, isLoading, isError } = useMutation(() =>
-		apiRequest("POST", WordBuilding4, { collectionName: assessmentType })
+		apiRequest("POST", School, { collectionName: assessmentType })
 	)
 
 	if (isLoading) return <LoadingPage />
@@ -86,6 +86,8 @@ function CreateAssessment({ open, setOpen }) {
 							"speakingContent",
 							"vocabularyCards",
 							"writingContent",
+							"speakEnglish",
+							"speakEnglishAssessment",
 						].map((item) => (
 							<Button
 								sx={{ m: 1, border: item === assessmentType ? "1px solid blue" : "" }}

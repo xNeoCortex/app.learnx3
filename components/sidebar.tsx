@@ -184,6 +184,12 @@ const dataTeacher = (classId) => {
 			icon: <CastForEducationIcon />,
 		},
 		{
+			name: "Speak English",
+			href: "/speak",
+			link: "/speak",
+			icon: <CastForEducationIcon />,
+		},
+		{
 			name: "All Students",
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${classId}/class-students`,
@@ -234,6 +240,12 @@ const dataStudent = (classId) => {
 			name: "Curriculum",
 			href: "/curriculum",
 			link: "/curriculum",
+			icon: <CastForEducationIcon />,
+		},
+		{
+			name: "Speak English",
+			href: "/speak",
+			link: "/speak",
 			icon: <CastForEducationIcon />,
 		},
 		{
@@ -288,6 +300,12 @@ const dataAdmin = (class_id) => {
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${class_id}/class-students`,
 			icon: <PersonIcon />,
+		},
+		{
+			name: "Speak English",
+			href: "/speak",
+			link: "/speak",
+			icon: <CastForEducationIcon />,
 		},
 		{
 			name: "Student Results",

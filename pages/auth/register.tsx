@@ -38,6 +38,7 @@ export default function Register() {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed in
+				console.log("userCredential :>> ", userCredential.user)
 				const user = userCredential.user
 				sendEmailVerification(user).then(() => {
 					// Email verification sent!
