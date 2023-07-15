@@ -25,8 +25,8 @@ function SidebarContainer({ children }) {
 					<Sidebar classId={classInfo?.uid} />
 					<Box
 						style={{
-							background: "#5f6ac40a",
-							padding: "20px",
+							// background: "#5f6ac40a",
+							padding: "10px 20px",
 							borderRadius: 5,
 							maxWidth: "none",
 							minHeight: "calc(100vh - 0px)",

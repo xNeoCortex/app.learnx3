@@ -25,12 +25,12 @@ const Navbar = () => {
 			}}
 		>
 			<Box>
-				<h2 style={{ color: "#32325d", marginLeft: 2 }}>
+				<Typography variant="h6" fontWeight="bold" sx={{ color: "#32325d", marginLeft: "2px" }}>
 					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👨‍🏫" : "Hello"}
-				</h2>
-				<p style={{ color: "#32325d", marginLeft: 2 }}>
+				</Typography>
+				<Typography style={{ color: "#32325d", marginLeft: 2 }}>
 					<span style={{ color: "rgba(50, 50, 93, 0.7)" }}>Class: </span> {classInfo?.class_name}
-				</p>
+				</Typography>
 			</Box>
 			<Box display="flex" alignItems="center">
 				<Box style={{ display: "flex", flexDirection: "row" }}>

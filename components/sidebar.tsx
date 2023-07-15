@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { Box } from "@mui/system"
 import HomeIcon from "@mui/icons-material/Home"
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft"
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
 import BarChartIcon from "@mui/icons-material/BarChart"
-import { IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material"
 import QueryStatsIcon from "@mui/icons-material/QueryStats"
 import SpellcheckIcon from "@mui/icons-material/Spellcheck"
 import QuizIcon from "@mui/icons-material/Quiz"
@@ -17,14 +15,11 @@ import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
 import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import ApiServices from "@/pages/api/ApiServices"
 
 function sidebar({ classId }) {
 	const { push: navigate } = useRouter()
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
-	const [hide, setHide] = useState(true)
-	const [isShown, setIsShown] = useState(false)
 	const { setSidebarWidth, class_id } = useStoreTemporary()
 
 	useEffect(() => {
@@ -35,9 +30,8 @@ function sidebar({ classId }) {
 		<Box
 			style={{
 				background: "white",
-				padding: "16px",
 				maxWidth: "none",
-				width: hide ? 300 : 90,
+				width: 120,
 				transition: "width 0.5s ease-out",
 				display: "flex",
 				flexDirection: "column",
@@ -45,38 +39,28 @@ function sidebar({ classId }) {
 				overflow: "overlay",
 				overflowX: "hidden",
 			}}
-			onMouseEnter={() => setIsShown(true)}
-			onMouseLeave={() => setIsShown(false)}
 		>
 			<Link
 				href={userInfo?.role === "admin" ? "/" : `/classes/${classId}`}
-				style={{ display: "flex", marginLeft: !hide && 10 }}
+				style={{ display: "flex", margin: "20px auto 10px", alignContent: "center" }}
 			>
-				{hide ? (
+				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
+				{/* {hide ? (
 					<img src="/logo.png" alt="logo" style={{ height: "40px", marginLeft: 5 }} />
 				) : (
 					<img src="/logo-mini.png" alt="minilogo" style={{ height: "37px" }} />
-				)}
+				)} */}
 			</Link>
-			<IconButton
-				onClick={() => (setHide(!hide), setIsShown(!isShown), hide ? setSidebarWidth(90) : setSidebarWidth(300))}
-				style={{
-					position: "absolute",
-					top: hide ? 15 : 60,
-					right: hide ? 2 : 22,
-					color: "#BAB9CC",
-					display: isShown ? "flex" : "none",
-				}}
-			>
-				{hide ? <KeyboardDoubleArrowLeftIcon /> : <KeyboardDoubleArrowRightIcon />}
-			</IconButton>
+
 			<Box
-				style={{
-					height: "100%",
+				sx={{
 					display: "flex",
 					justifyContent: "space-between",
 					flexDirection: "column",
-					marginTop: 66,
+					borderRadius: 2,
+					m: 1,
+					p: "1px",
+					marginTop: "40px",
 				}}
 			>
 				<List>
@@ -87,14 +71,19 @@ function sidebar({ classId }) {
 									<ListItemButton
 										className="onHover"
 										style={{
-											background: pathname == item.href ? "#5f6ac4" : "inherit",
 											color: pathname == item.href ? "white" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
+											display: "flex",
+											flexDirection: "column",
+											alignItems: "center",
+											maxWidth: 100,
 										}}
 									>
-										<ListItemIcon style={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-										<ListItemText primary={item.name} />
+										<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
+											{item.icon}
+										</ListItemIcon>
+										<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
 									</ListItemButton>
 								</ListItem>
 							</Link>
@@ -107,14 +96,20 @@ function sidebar({ classId }) {
 										<ListItemButton
 											className="onHover"
 											style={{
-												background: pathname == item.href ? "#5f6ac4" : "inherit",
-												color: pathname == item.href ? "white" : "#BAB9CC",
+												color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
 												borderRadius: 5,
 												marginBottom: 5,
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+												maxWidth: 100,
+												padding: "10px 5px",
 											}}
 										>
-											<ListItemIcon style={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-											<ListItemText primary={item.name} />
+											<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
+												{item.icon}
+											</ListItemIcon>
+											<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
 										</ListItemButton>
 									</ListItem>
 								</Link>
@@ -124,16 +119,19 @@ function sidebar({ classId }) {
 									<ListItemButton
 										className="onHover"
 										style={{
-											background: pathname == `/student/[id]` ? "#5f6ac4" : "inherit",
-											color: pathname == `/student/[id]` ? "white" : "#BAB9CC",
+											color: pathname == `/student/[id]` ? "rgb(4, 7, 24)" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
+											display: "flex",
+											flexDirection: "column",
+											alignItems: "center",
+											maxWidth: 100,
 										}}
 									>
-										<ListItemIcon style={{ color: "inherit" }}>
+										<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
 											<BarChartIcon />
 										</ListItemIcon>
-										<ListItemText primary="My Results" />
+										<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>My Result</Typography>
 									</ListItemButton>
 								</ListItem>
 							</Link>
@@ -145,14 +143,19 @@ function sidebar({ classId }) {
 									<ListItemButton
 										className="onHover"
 										style={{
-											background: pathname == item.href ? "#5f6ac4" : "inherit",
-											color: pathname == item.href ? "white" : "#BAB9CC",
+											color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
+											display: "flex",
+											flexDirection: "column",
+											alignItems: "center",
+											maxWidth: 100,
 										}}
 									>
-										<ListItemIcon style={{ color: "inherit" }}>{item.icon}</ListItemIcon>
-										<ListItemText primary={item.name} />
+										<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
+											{item.icon}
+										</ListItemIcon>{" "}
+										<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
 									</ListItemButton>
 								</ListItem>
 							</Link>
@@ -175,55 +178,55 @@ const dataTeacher = (classId) => {
 			name: "Dashboard",
 			href: "/classes/[id]",
 			link: `/classes/${classId}`,
-			icon: <HomeIcon />,
+			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Curriculum",
 			href: "/curriculum",
 			link: "/curriculum",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${classId}/class-students`,
-			icon: <PersonIcon />,
+			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Student Results",
 			href: `/student/results`,
 			link: `/student/results`,
-			icon: <PersonIcon />,
+			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Class Statistics",
 			href: "/class-statistics",
 			link: "/class-statistics",
-			icon: <QueryStatsIcon />,
+			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Study Resources",
 			href: "/resources",
 			link: "/resources",
-			icon: <FolderSpecialIcon />,
+			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Mark Writing",
 			href: "/grade-writing",
 			link: "/grade-writing",
-			icon: <SpellcheckIcon />,
+			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Teacher Fina",
 			href: "/fina",
 			link: "/fina",
-			icon: <AdbIcon />,
+			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
 		},
 	]
 }
@@ -234,43 +237,43 @@ const dataStudent = (classId) => {
 			name: "Dashboard",
 			href: "/classes/[id]",
 			link: `/classes/${classId}`,
-			icon: <HomeIcon />,
+			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Curriculum",
 			href: "/curriculum",
 			link: "/curriculum",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Study Resources",
 			href: "/resources",
 			link: "/resources",
-			icon: <FolderSpecialIcon />,
+			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
 		// {
 		// 	name: "Tests",
 		// 	href: "/test",
 		// 	link: "/test",
-		// 	icon: <QuizIcon />,
+		// 	icon: <QuizIcon sx={{ width: 30, height: 30 }}/>,
 		// },
 		{
 			name: "Writing",
 			href: "/writing",
 			link: "/writing",
-			icon: <HistoryEduIcon />,
+			icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Teacher Fina",
 			href: "/fina",
 			link: "/fina",
-			icon: <AdbIcon />,
+			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
 		},
 	]
 }
@@ -281,73 +284,73 @@ const dataAdmin = (class_id) => {
 			name: "Dashboard",
 			href: "/classes",
 			link: "/classes",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Class",
 			href: "/classes/[id]",
 			link: "/classes",
-			icon: <HomeIcon />,
+			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Curriculum",
 			href: "/curriculum",
 			link: "/curriculum",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${class_id}/class-students`,
-			icon: <PersonIcon />,
+			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon />,
+			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Student Results",
 			href: `/student/results`,
 			link: `/student/results`,
-			icon: <PersonIcon />,
+			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Class Statistics",
 			href: "/class-statistics",
 			link: "/class-statistics",
-			icon: <QueryStatsIcon />,
+			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Study Resources",
 			href: "/resources",
 			link: "/resources",
-			icon: <FolderSpecialIcon />,
+			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Tests",
 			href: "/test",
 			link: "/test",
-			icon: <QuizIcon />,
+			icon: <QuizIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Writing",
 			href: "/writing",
 			link: "/writing",
-			icon: <HistoryEduIcon />,
+			icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Mark Writing",
 			href: "/grade-writing",
 			link: "/grade-writing",
-			icon: <SpellcheckIcon />,
+			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Teacher Fina",
 			href: "/fina",
 			link: "/fina",
-			icon: <AdbIcon />,
+			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
 		},
 	]
 }
