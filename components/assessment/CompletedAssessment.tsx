@@ -39,7 +39,7 @@ function CompletedAssessment({ score, handleButton = null }) {
 					width: 200,
 					fontWeight: 600,
 					boxShadow: "none",
-					marginRight: 20,
+					marginRight: 10,
 				}}
 			>
 				Back

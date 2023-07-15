@@ -39,7 +39,6 @@ function SchoolPage() {
 			<ProtectedRoute permitArray={["admin"]}>
 				<SidebarContainer>
 					<Box style={{ display: "flex", flexDirection: "column" }}>
-						<Navbar />
 						<AddClassPage studentList={studentList} teacherList={teacherList} />
 						<Grid container spacing={4} sx={{ mt: 2 }}>
 							<Grid item xs={12} sm={6}>

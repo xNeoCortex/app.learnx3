@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Button } from "@mui/material"
+import { Box, Button, Chip, Typography } from "@mui/material"
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
 
 export function SpeakCard({ word, backgroundColor }) {
@@ -11,8 +11,8 @@ export function SpeakCard({ word, backgroundColor }) {
 				background: backgroundColor,
 				"&:hover": {
 					transform: "scale(1.03)",
-					transition: "all 0.3s ease-in-out",
 				},
+				transition: "all 0.3s ease-in-out",
 				borderRadius: 2,
 				m: 1,
 				p: 2,
@@ -40,12 +40,28 @@ export function SpeakCard({ word, backgroundColor }) {
 			<Box
 				sx={{
 					height: "100%",
+					display: "flex",
+					flexDirection: "column",
 					alignItems: "center",
 					justifyContent: "center",
 				}}
 			>
-				<h3 style={{ height: "fit-content", color: "black" }}>{word.word}</h3>
-				<h3 style={{ height: "fit-content", color: "black" }}>{word.type}</h3>
+				<Typography variant="h6" style={{ height: "fit-content", color: "black", fontWeight: "bold" }}>
+					{word.word}
+				</Typography>
+				<Typography
+					sx={{
+						color: "#5f61c4",
+						background: "transparent",
+						margin: "5px ",
+						border: "1px solid #5f61c4",
+						borderRadius: "6px",
+						padding: "2px 8px",
+						fontSize: 12,
+					}}
+				>
+					{word.type}
+				</Typography>
 			</Box>
 			{["definition", "example"].map(
 				(item, index) =>

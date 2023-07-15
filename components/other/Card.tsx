@@ -1,29 +1,38 @@
 import * as React from "react"
 import Card from "@mui/material/Card"
-import CardActions from "@mui/material/CardActions"
 import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
-import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Link from "next/link"
 import { capitalize } from "@mui/material"
 
 export default function ImgMediaCard({ title, link }) {
 	return (
-		<Card sx={{ maxWidth: 300, m: 2 }}>
-			<CardMedia component="img" alt="green iguana" height="140" image="/test_imag.png" />
-			<CardContent>
-				<Typography gutterBottom variant="h6" component="div">
-					Topic: <strong>{capitalize(title)}</strong> 📚
-				</Typography>
-			</CardContent>
-			<CardActions>
-				<Link href={link}>
-					<Button size="small" variant="contained" sx={{ m: "0px 10px 10px ", background: "rgb(95, 106, 196)" }}>
-						View
-					</Button>
-				</Link>
-			</CardActions>
-		</Card>
+		<Link href={link}>
+			<Card
+				sx={{
+					maxWidth: 300,
+					m: 1,
+					p: 1,
+					boxShadow: "none",
+					border: "1px solid rgb(95, 97, 196)",
+					borderRadius: 2,
+					transition: "transform 0.3s ease-in-out",
+					cursor: "pointer",
+					"&:hover": {
+						cursor: "pointer",
+						transform: "scale(1.02)",
+						boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
+					},
+				}}
+			>
+				<CardMedia component="img" alt="green iguana" height="160px" width="100px" image="/mobile-book.svg" />
+				<CardContent sx={{ p: "16px !important", fontWeight: 500 }}>
+					<Typography gutterBottom component="div" sx={{ fontSize: 19, textAlign: "center", m: 0 }}>
+						🤖 {capitalize(title)}
+					</Typography>
+				</CardContent>
+			</Card>
+		</Link>
 	)
 }

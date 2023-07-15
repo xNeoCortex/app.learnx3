@@ -33,7 +33,7 @@ function Lessons(props) {
 			{
 				<Box
 					style={{
-						marginTop: "50px",
+						marginTop: "10px",
 						display: "flex",
 						overflowX: "scroll",
 						overflowY: "hidden",

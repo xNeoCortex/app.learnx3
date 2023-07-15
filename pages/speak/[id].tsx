@@ -43,9 +43,9 @@ export default function SpeakingLessonAi() {
 					width: "100%",
 				}}
 			>
-				<Container
+				<Box
 					sx={{
-						padding: "20px 5px",
+						padding: "10px 5px",
 						color: "white",
 						height: "100%",
 						display: "flex",
@@ -55,7 +55,7 @@ export default function SpeakingLessonAi() {
 						boxSizing: "border-box",
 					}}
 				>
-					<SpeakingInfo topic={lessonByAi?.data?.topic} image="/vocabulary-image.png" />
+					<SpeakingInfo topic={lessonByAi?.data?.topic} image="/mobile-book.svg" />
 					<Box
 						sx={{
 							display: "flex",
@@ -253,8 +253,8 @@ export default function SpeakingLessonAi() {
 						</Box>
 					</Box>
 					{/* <TestContainer data={lessonState?.data} link={`/test/word-building/`} /> */}
-				</Container>
-				<BackButton />
+					<BackButton />
+				</Box>
 			</Box>
 		</SidebarContainer>
 	)

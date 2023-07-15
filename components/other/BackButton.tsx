@@ -5,7 +5,7 @@ function BackButton({ disabled = false }) {
 	const { back } = useRouter()
 
 	return (
-		<Box sx={{ position: "absolute", top: 30, right: 10 }}>
+		<Box sx={{ position: "absolute", top: 40, right: 10 }}>
 			<Button
 				disabled={disabled}
 				onClick={() => back()}
@@ -17,7 +17,8 @@ function BackButton({ disabled = false }) {
 					width: 100,
 					fontWeight: 600,
 					boxShadow: "none",
-					marginRight: 20,
+					marginRight: 10,
+					zIndex: 999,
 				}}
 			>
 				Back

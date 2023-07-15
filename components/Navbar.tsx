@@ -19,7 +19,7 @@ const Navbar = () => {
 				borderRadius: 5,
 				maxWidth: "none",
 				alignItems: "center",
-				marginBottom: 20,
+				marginBottom: 40,
 				display: "flex",
 				justifyContent: "space-between",
 			}}

@@ -1,21 +1,22 @@
-import { Avatar, Button, Typography } from "@mui/material"
+import { Avatar, Button, capitalize, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React from "react"
-import VideocamIcon from "@mui/icons-material/Videocam"
 
-const SpeakingInfo = ({ topic, image, width = "150px" }) => {
+const SpeakingInfo = ({ topic, image }) => {
 	return (
 		<Box
 			sx={{
 				display: "flex",
-				alignItems: "left",
-				justifyContent: "space-between",
+				justifyContent: "center",
+				alignItems: "center",
+				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				width: "100%",
-				background: "rgb(95, 106, 196)",
-				boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
-				borderRadius: 3,
+				margin: "10px",
+				borderRadius: "8px",
+				overflow: "hidden",
+				position: "relative",
 				p: 1,
-				mb: 3,
+				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
 			}}
 		>
 			<Box
@@ -29,66 +30,37 @@ const SpeakingInfo = ({ topic, image, width = "150px" }) => {
 					padding: "20px",
 				}}
 			>
-				<Box>
-					<h4
-						style={{
-							color: "white",
-							fontWeight: 600,
-							fontSize: 28,
-							padding: 0,
-							margin: 0,
-							marginBottom: 10,
-						}}
-					>
-						Topic: {topic} 📚
-					</h4>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "start",
-							alignItems: "center",
-						}}
-					></Box>
-				</Box>
-				<Box>
-					<a
-						style={{
-							padding: 0,
-							margin: 0,
-						}}
-						target="_blank"
-						rel="noreferrer"
-						href={`https://meet.google.com/spb-qdmh-sij`}
-					>
-						<Button
-							variant="outlined"
-							sx={{
-								mt: "10px",
-								textTransform: "none",
-								color: "white",
-								borderColor: "white",
-							}}
-						>
-							<VideocamIcon
-								style={{
-									marginRight: 6,
-									// color: "#5f61c4"
-								}}
-							/>
-							Video Call
-						</Button>
-					</a>
-				</Box>
+				<Typography
+					style={{
+						color: "white",
+						fontWeight: 500,
+						fontSize: 19,
+						padding: 0,
+						margin: 0,
+						marginBottom: 1,
+					}}
+				>
+					Topic
+				</Typography>
+				<Typography
+					style={{
+						color: "white",
+						fontWeight: 600,
+						fontSize: 32,
+						padding: 0,
+						margin: 0,
+						marginBottom: 10,
+					}}
+				>
+					📚 {capitalize(topic)}
+				</Typography>
 			</Box>
 			<Avatar
 				src={image}
 				sx={{
-					width,
+					width: 200,
 					height: "100%",
-					borderRadius: "0px",
-					position: "relative",
-					bottom: 20,
-					right: 120,
+					marginRight: "30px",
 				}}
 			/>
 		</Box>

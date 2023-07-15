@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Box, CssBaseline, Grid } from "@mui/material"
 //@ts-ignore
 import Sidebar from "./sidebar"
+import Navbar from "./Navbar"
 
 const theme = createTheme()
 
@@ -24,10 +25,10 @@ function SidebarContainer({ children }) {
 				>
 					<Sidebar classId={classInfo?.uid} />
 					<Box
-						style={{
+						sx={{
 							// background: "#5f6ac40a",
 							padding: "10px 20px",
-							borderRadius: 5,
+							borderRadius: "5px",
 							maxWidth: "none",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",
@@ -35,6 +36,7 @@ function SidebarContainer({ children }) {
 							overflowX: "hidden",
 						}}
 					>
+						<Navbar />
 						{children}
 					</Box>
 				</Grid>

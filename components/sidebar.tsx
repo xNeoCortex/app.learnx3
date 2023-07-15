@@ -3,13 +3,14 @@ import { Box } from "@mui/system"
 import HomeIcon from "@mui/icons-material/Home"
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
 import BarChartIcon from "@mui/icons-material/BarChart"
-import { IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material"
+import { List, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material"
 import QueryStatsIcon from "@mui/icons-material/QueryStats"
 import SpellcheckIcon from "@mui/icons-material/Spellcheck"
 import QuizIcon from "@mui/icons-material/Quiz"
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu"
 import AdbIcon from "@mui/icons-material/Adb"
 import CastForEducationIcon from "@mui/icons-material/CastForEducation"
+import LightbulbIcon from "@mui/icons-material/Lightbulb"
 import PersonIcon from "@mui/icons-material/Person"
 import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
 import { useStoreTemporary, useStoreUser } from "./zustand"
@@ -45,11 +46,6 @@ function sidebar({ classId }) {
 				style={{ display: "flex", margin: "20px auto 10px", alignContent: "center" }}
 			>
 				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
-				{/* {hide ? (
-					<img src="/logo.png" alt="logo" style={{ height: "40px", marginLeft: 5 }} />
-				) : (
-					<img src="/logo-mini.png" alt="minilogo" style={{ height: "37px" }} />
-				)} */}
 			</Link>
 
 			<Box
@@ -71,7 +67,7 @@ function sidebar({ classId }) {
 									<ListItemButton
 										className="onHover"
 										style={{
-											color: pathname == item.href ? "white" : "#BAB9CC",
+											color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
 											borderRadius: 5,
 											marginBottom: 5,
 											display: "flex",
@@ -180,17 +176,17 @@ const dataTeacher = (classId) => {
 			link: `/classes/${classId}`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Curriculum",
-			href: "/curriculum",
-			link: "/curriculum",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Curriculum",
+		// 	href: "/curriculum",
+		// 	link: "/curriculum",
+		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
+			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
@@ -239,17 +235,17 @@ const dataStudent = (classId) => {
 			link: `/classes/${classId}`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Curriculum",
-			href: "/curriculum",
-			link: "/curriculum",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Curriculum",
+		// 	href: "/curriculum",
+		// 	link: "/curriculum",
+		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
+			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Study Resources",
@@ -263,12 +259,12 @@ const dataStudent = (classId) => {
 		// 	link: "/test",
 		// 	icon: <QuizIcon sx={{ width: 30, height: 30 }}/>,
 		// },
-		{
-			name: "Writing",
-			href: "/writing",
-			link: "/writing",
-			icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Writing",
+		// 	href: "/writing",
+		// 	link: "/writing",
+		// 	icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		{
 			name: "Teacher Fina",
 			href: "/fina",
@@ -308,7 +304,7 @@ const dataAdmin = (class_id) => {
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
+			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Student Results",
@@ -334,12 +330,12 @@ const dataAdmin = (class_id) => {
 			link: "/test",
 			icon: <QuizIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Writing",
-			href: "/writing",
-			link: "/writing",
-			icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Writing",
+		// 	href: "/writing",
+		// 	link: "/writing",
+		// 	icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		{
 			name: "Mark Writing",
 			href: "/grade-writing",
