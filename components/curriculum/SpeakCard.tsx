@@ -45,6 +45,7 @@ export function SpeakCard({ word, backgroundColor }) {
 				}}
 			>
 				<h3 style={{ height: "fit-content", color: "black" }}>{word.word}</h3>
+				<h3 style={{ height: "fit-content", color: "black" }}>{word.type}</h3>
 			</Box>
 			{["definition", "example"].map(
 				(item, index) =>

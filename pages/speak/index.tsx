@@ -6,15 +6,19 @@ import { Box, CssBaseline, Grid, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
 import ImgMediaCard from "@/components/other/Card"
+import CreateAiLesson from "@/components/experiments/CreateAiLesson"
 
 function index(props) {
-	const topics = [
-		{
-			topic: "School",
-			id: "h6iyfL4ULlaqaTBkCqvI",
-			img: "school",
-		},
-	]
+	const { apiRequest } = ApiServices()
+	const {
+		data: topics,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ["lessonByAiTopics"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "lessonByAiTopics" }),
+		refetchOnWindowFocus: false,
+	})
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
@@ -34,10 +38,11 @@ function index(props) {
 					>
 						Speak English
 					</Typography>
+					<CreateAiLesson />
 					<Grid container spacing={2}>
-						{topics.map((x) => (
+						{topics?.data.map((x) => (
 							<Grid item xs={12} sm={6} lg={4}>
-								<ImgMediaCard title={x.topic} link={`/speak/${x.id}`} />
+								<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 							</Grid>
 						))}
 					</Grid>

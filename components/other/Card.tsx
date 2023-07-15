@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Link from "next/link"
+import { capitalize } from "@mui/material"
 
 export default function ImgMediaCard({ title, link }) {
 	return (
@@ -13,7 +14,7 @@ export default function ImgMediaCard({ title, link }) {
 			<CardMedia component="img" alt="green iguana" height="140" image="/test_imag.png" />
 			<CardContent>
 				<Typography gutterBottom variant="h6" component="div">
-					Topic: <strong>{title}</strong> 📚
+					Topic: <strong>{capitalize(title)}</strong> 📚
 				</Typography>
 			</CardContent>
 			<CardActions>

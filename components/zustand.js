@@ -31,12 +31,12 @@ const useClassInfo = create(
 const useStore = create(
     persist(
         (set) => ({
-            lessonState: [],
-            setLessonState: (session) => set((state) => ({
-                lessonState: session
+            lessonState: {},
+            setLessonState: (lesson_gpt) => set((state) => ({
+                lessonState: lesson_gpt
             })),
             removeSessions: () => set({
-                lessonState: []
+                lessonState: {}
             }),
         }), {
             name: 'english-lesson', // unique name

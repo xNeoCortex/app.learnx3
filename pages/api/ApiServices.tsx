@@ -70,7 +70,7 @@ function ApiServices() {
 	async function fetchCurriculum(id: string) {
 		const response = await axios.get(`/api/fetchonecurriculum`, {
 			params: {
-				id: id,
+				id,
 			},
 		})
 		return response
@@ -78,7 +78,15 @@ function ApiServices() {
 	async function fetchOneLesson(id: string) {
 		const response = await axios.get(`/api/fetchonelesson`, {
 			params: {
-				id: id,
+				id,
+			},
+		})
+		return response
+	}
+	async function fetchOneLessonByAi(id: string) {
+		const response = await axios.get(`/api/speak/fetchonelessonbyai`, {
+			params: {
+				id,
 			},
 		})
 		return response
@@ -125,6 +133,7 @@ function ApiServices() {
 		fetchAllCurriculum,
 		fetchCurriculum,
 		fetchOneLesson,
+		fetchOneLessonByAi,
 		fetchAssessment,
 		fetchOneAssessment,
 		apiRequest,

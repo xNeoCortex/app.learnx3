@@ -1,32 +1,36 @@
 import { useQuery } from "@tanstack/react-query"
-import { useRouter } from "next/router"
 import { Box, capitalize, Container, Grid, Typography } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import BackButton from "@/components/other/BackButton"
-import { LessonIntro } from "@/components/curriculum/LessonIntro"
-import { VocabularyCard } from "@/components/curriculum/VocabularyCard"
-import { TestContainer } from "@/components/assessment/TestContainer"
 import SidebarContainer from "@/components/SidebarContainer"
 import ErrorPage from "../error"
 import SpeakingInfo from "./SpeakingInfo"
 import { SpeakCard } from "@/components/curriculum/SpeakCard"
+import { useRouter } from "next/router"
+import sortByWordType from "@/components/helpers/sortByWordType"
 
-export default function VocabularyPage() {
-	const { apiRequest } = ApiServices()
+export default function SpeakingLessonAi() {
+	const { fetchOneLessonByAi } = ApiServices()
 
+	const {
+		query: { id },
+	} = useRouter()
+
+	console.log("id :>> ", id)
 	// Fetch curriculum
-	const { data, isLoading, isError } = useQuery({
-		queryKey: ["speakEnglish"],
-		queryFn: () => apiRequest("GET", null, { collectionName: "speakEnglish" }),
+	const {
+		data: lessonByAi,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: [`lessonByAi-${id}`],
+		queryFn: () => fetchOneLessonByAi(id as string),
 		refetchOnWindowFocus: false,
 	})
 
-	console.log("data :>> ", data)
+	console.log("lessonByAi :>> ", lessonByAi)
 
-	const schoolInfo = data?.data.filter((item) => item.topic === "School")[0]
-
-	console.log("schoolInfo :>> ", schoolInfo)
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
@@ -51,8 +55,7 @@ export default function VocabularyPage() {
 						boxSizing: "border-box",
 					}}
 				>
-					<SpeakingInfo topic={schoolInfo.topic} image="/vocabulary-image.png" />
-
+					<SpeakingInfo topic={lessonByAi?.data?.topic} image="/vocabulary-image.png" />
 					<Box
 						sx={{
 							display: "flex",
@@ -70,20 +73,16 @@ export default function VocabularyPage() {
 							{" "}
 							📒 Words of the day!
 						</Typography>
-						{schoolInfo?.vocabularies?.map((item) => (
-							<Box sx={{ p: 2 }}>
-								<Typography style={{ color: "black", margin: "10px 30px 10px 5px", fontWeight: 500, fontSize: 17 }}>
-									✨ {capitalize(item.type)}
-								</Typography>
-								<Grid spacing={2} container>
-									{item.words.map((x) => (
-										<Grid item xs={12} sm={6} md={3} key={item.id}>
-											<SpeakCard word={x} backgroundColor={lessonColors[item.type]} />
-										</Grid>
-									))}
-								</Grid>
-							</Box>
-						))}
+						<Grid spacing={2} container sx={{ p: 2 }}>
+							{lessonByAi?.data?.vocabularies
+								?.sort(sortByWordType)
+								.reverse()
+								.map((item) => (
+									<Grid item xs={12} sm={6} md={3} key={item.id}>
+										<SpeakCard word={item} backgroundColor={lessonColors[item.type]} />
+									</Grid>
+								))}
+						</Grid>
 					</Box>
 					<Box
 						sx={{
@@ -105,7 +104,7 @@ export default function VocabularyPage() {
 						</Typography>
 						<Box>
 							<Grid spacing={2} container>
-								{schoolInfo?.phrases.map((item, index) => (
+								{lessonByAi?.data?.phrases.map((item, index) => (
 									<Grid item xs={12} key={item.id}>
 										<Box
 											key={index}
@@ -161,7 +160,7 @@ export default function VocabularyPage() {
 						</Typography>
 						<Box>
 							<Grid spacing={2} container>
-								{schoolInfo?.conversation.content.map((item, index) => (
+								{lessonByAi?.data?.conversation.content.map((item, index) => (
 									<Grid item xs={12} key={item.id}>
 										<Box
 											key={index}
@@ -217,7 +216,7 @@ export default function VocabularyPage() {
 						</Typography>
 						<Box>
 							<Grid spacing={2} container>
-								{schoolInfo?.questions.map((item, index) => (
+								{lessonByAi?.data?.questions.map((item, index) => (
 									<Grid item xs={12} key={item.id}>
 										<Box
 											key={index}

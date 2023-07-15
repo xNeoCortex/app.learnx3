@@ -1,5 +1,3 @@
-import React from "react"
-
 function sortByCategory(a, b) {
 	if (a.category === "vocabulary") {
 		return -1
