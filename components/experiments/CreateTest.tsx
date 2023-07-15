@@ -1,7 +1,6 @@
 import { Avatar, Box, CssBaseline, TextareaAutosize, Typography } from "@mui/material"
 import { useState } from "react"
 import { auth } from "../firebaseX"
-import CreateTestAI from "../dashboard/CreateAiLesson"
 
 function CreateTest() {
 	const [question, setQuestion] = useState("create 3 multiple choice question on topic verb  ")
@@ -70,9 +69,7 @@ function CreateTest() {
 					marginBottom: "15px",
 					flexDirection: "column",
 				}}
-			>
-				<CreateTestAI prompt={question} buttonTitle="Explain please" bg="white" />
-			</Box>
+			></Box>
 		</Box>
 	)
 }
