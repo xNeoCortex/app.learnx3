@@ -29,32 +29,28 @@ function Lessons(props) {
 				backgroundColor="#32a676"
 				message="You have successfully cancelled your sessions!"
 			/>
-
-			{
-				<Box
-					style={{
-						marginTop: "10px",
-						display: "flex",
-						overflowX: "scroll",
-						overflowY: "hidden",
-						boxSizing: "border-box",
-						width: `calc(100vw - 150px)`,
-					}}
-				>
-					{isLoading
-						? [1, 2, 3, 4, 5].map((item) => (
-								<Skeleton key={item} variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
-						  ))
-						: lessonState?.data.length > 0 &&
-						  lessonState.data
-								?.sort((a, b) => {
-									if (a.name > b.name) return 1
-									if (a.name < b.name) return -1
-									return 0
-								})
-								.map((lesson, index) => <OneLesson key={index} lesson={lesson} />)}
-				</Box>
-			}
+			<Box
+				style={{
+					display: "flex",
+					overflowX: "scroll",
+					overflowY: "hidden",
+					boxSizing: "border-box",
+					width: `calc(100vw - 150px)`,
+				}}
+			>
+				{isLoading
+					? [1, 2, 3, 4, 5].map((item) => (
+							<Skeleton key={item} variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
+					  ))
+					: lessonState?.data.length > 0 &&
+					  lessonState.data
+							?.sort((a, b) => {
+								if (a.name > b.name) return 1
+								if (a.name < b.name) return -1
+								return 0
+							})
+							.map((lesson, index) => <OneLesson key={index} lesson={lesson} />)}
+			</Box>
 		</>
 	)
 }

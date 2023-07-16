@@ -59,7 +59,7 @@ function Statistics({ displayGraphs }) {
 		<Box>
 			<h3
 				style={{
-					margin: 10,
+					margin: "0px 10px 10px",
 					marginBottom: 20,
 					fontWeight: 600,
 					fontSize: 19,

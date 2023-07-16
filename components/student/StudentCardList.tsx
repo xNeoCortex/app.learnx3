@@ -59,7 +59,7 @@ function StudentCardList() {
 				overflowY: "scroll",
 				overflow: "hidden",
 				width: `calc(100vw - 150px)`,
-				marginTop: "40px",
+				marginTop: "30px",
 			}}
 		>
 			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
