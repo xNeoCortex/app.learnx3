@@ -11,7 +11,7 @@ function OneLesson({ lesson }) {
 				flex: 2,
 				minWidth: "320px",
 				maxWidth: "320px",
-				margin: "10px",
+				margin: "20px 20px 10px 0px",
 				marginTop: "15px",
 				borderRadius: "8px",
 				color: "white",

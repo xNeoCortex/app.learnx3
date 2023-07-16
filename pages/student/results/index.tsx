@@ -54,7 +54,7 @@ export default function StudentsResult() {
 				<Box sx={{ marginTop: "0px" }}>
 					<Typography
 						style={{
-							margin: 10,
+							margin: "10px 10px 10px 0px",
 							fontWeight: 600,
 							fontSize: 19,
 							color: "#5f616a",
@@ -73,7 +73,7 @@ export default function StudentsResult() {
 									border: "1px solid #5f6ac4",
 									boxShadow: "none",
 									padding: "5px 12px ",
-									margin: "8px",
+									margin: "8px 8px 8px 0px",
 									textTransform: "none",
 								}}
 							>
@@ -84,7 +84,7 @@ export default function StudentsResult() {
 					<TableContainer
 						component={Paper}
 						style={{
-							margin: "10px",
+							margin: "10px 10px 10px 0px",
 							width: "calc(100%)",
 							boxShadow: "none",
 						}}

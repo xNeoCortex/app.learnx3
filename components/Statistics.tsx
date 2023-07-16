@@ -59,7 +59,7 @@ function Statistics({ displayGraphs }) {
 		<Box sx={{ mt: "10px" }}>
 			<h3
 				style={{
-					margin: "0px 10px 10px",
+					margin: "0px 10px 10px 0px",
 					marginBottom: 20,
 					fontWeight: 600,
 					fontSize: 19,
@@ -72,7 +72,6 @@ function Statistics({ displayGraphs }) {
 				<Box
 					sx={{
 						display: "flex",
-						marginLeft: "9px",
 						marginBottom: "15px",
 					}}
 				>
@@ -84,48 +83,41 @@ function Statistics({ displayGraphs }) {
 				</Box>
 			)}
 
-			<div
-				style={{
-					display: "flex",
-					width: "calc(100% - 10px)",
-				}}
-			>
+			<Grid container spacing={2}>
 				{dataSet.map((item, index) => (
-					<div
-						key={index}
-						style={{
-							padding: "20px 10px",
-							//   width: 300,
-							flex: 1,
-							marginRight: 20,
-							marginLeft: 10,
-							color: "white",
-							height: 100,
-							display: "flex",
-							justifyContent: "start",
-							alignItems: "center",
-							flexDirection: "row",
-							borderRadius: 10,
-							boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
-							background: item.color,
-						}}
-					>
-						<Box sx={{ marginRight: 2, marginLeft: 1 }}>{item.icon}</Box>
-						<div>
-							<h2
-								style={{
-									fontWeight: 600,
-									fontSize: 22,
-									color: "rgb(50, 51, 49)",
-								}}
-							>
-								{item.number}
-							</h2>
-							<p style={{ fontSize: 15, color: "rgba(50, 51, 49, 0.8)" }}>{item.name}</p>
+					<Grid item xs={12} sm={3} key={index}>
+						<div
+							style={{
+								padding: "20px 10px",
+								flex: 1,
+								color: "white",
+								height: 100,
+								display: "flex",
+								justifyContent: "start",
+								alignItems: "center",
+								flexDirection: "row",
+								borderRadius: 10,
+								boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+								background: item.color,
+							}}
+						>
+							<Box sx={{ marginRight: 2, marginLeft: 1 }}>{item.icon}</Box>
+							<div>
+								<h2
+									style={{
+										fontWeight: 600,
+										fontSize: 22,
+										color: "rgb(50, 51, 49)",
+									}}
+								>
+									{item.number}
+								</h2>
+								<p style={{ fontSize: 15, color: "rgba(50, 51, 49, 0.8)" }}>{item.name}</p>
+							</div>
 						</div>
-					</div>
+					</Grid>
 				))}
-			</div>
+			</Grid>
 			{displayGraphs && (
 				<Grid container>
 					<Grid

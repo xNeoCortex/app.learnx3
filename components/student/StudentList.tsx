@@ -30,8 +30,8 @@ export default function StudentList({ data }) {
 			<TableContainer
 				component={Paper}
 				style={{
-					margin: "10px",
-					width: "calc(100%)",
+					margin: "10px 10px 10px 0px",
+					width: "100%",
 					boxShadow: "none",
 					maxHeight: "600px",
 				}}

@@ -65,7 +65,7 @@ function StudentCardList() {
 			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
 				<Typography
 					style={{
-						margin: 10,
+						margin: "10px 10px 10px 0px",
 						fontWeight: 600,
 						fontSize: 19,
 						color: "#5f616a",
@@ -101,7 +101,6 @@ function StudentCardList() {
 						flexWrap: "nowrap",
 						overflowX: "scroll",
 						marginBottom: "45px",
-						marginLeft: "10px",
 					}}
 				>
 					{studentList?.map((item, index) => (
