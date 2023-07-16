@@ -58,7 +58,7 @@ function StudentCardList() {
 			style={{
 				overflowY: "scroll",
 				overflow: "hidden",
-				width: `calc(100vw - ${sidebarWidth}px)`,
+				width: `calc(100vw - 150px)`,
 				marginTop: "40px",
 			}}
 		>

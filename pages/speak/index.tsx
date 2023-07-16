@@ -6,8 +6,9 @@ import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
 import ImgMediaCard from "@/components/other/Card"
 import CreateAiLesson from "@/components/dashboard/CreateAiLesson"
+import ErrorPage from "../error"
 
-function index(props) {
+function index() {
 	const { apiRequest } = ApiServices()
 	const {
 		data: topics,
@@ -19,6 +20,8 @@ function index(props) {
 		refetchOnWindowFocus: false,
 	})
 
+	if (isError) return <ErrorPage />
+
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
@@ -26,7 +29,7 @@ function index(props) {
 					<CreateAiLesson />
 					<Grid container spacing={2}>
 						{topics?.data.map((x) => (
-							<Grid item xs={12} sm={6} lg={3}>
+							<Grid item xs={12} sm={4} lg={3}>
 								<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 							</Grid>
 						))}
