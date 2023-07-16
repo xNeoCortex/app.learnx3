@@ -11,12 +11,12 @@ const SpeakingInfo = ({ topic = "", image }) => {
 				alignItems: "center",
 				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				width: "100%",
-				margin: "10px",
+				margin: "0px 10px 20px",
 				borderRadius: "8px",
 				overflow: "hidden",
 				position: "relative",
-				p: 1,
 				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+				p: 1,
 			}}
 		>
 			<Box

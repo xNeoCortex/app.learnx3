@@ -12,7 +12,7 @@ function ExploreTopics() {
 					maxWidth: "900px",
 					maxHeight: "300px",
 					width: "100%",
-					margin: "10px",
+					margin: "0px 10px 10px 0px",
 					borderRadius: "8px",
 					cursor: "pointer",
 					transition: "transform 0.3s ease-in-out",

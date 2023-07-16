@@ -45,7 +45,6 @@ export default function SpeakingLessonAi() {
 			>
 				<Box
 					sx={{
-						padding: "10px 5px",
 						color: "white",
 						height: "100%",
 						display: "flex",

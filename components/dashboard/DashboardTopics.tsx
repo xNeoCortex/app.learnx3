@@ -5,6 +5,7 @@ import SnackbarX from "@/components/other/SnackbarX"
 import { Box, Grid, Skeleton, Typography } from "@mui/material"
 import ErrorPage from "../ErrorPage"
 import ImgMediaCard from "../other/Card"
+import dayjs from "dayjs"
 
 function DashboardTopics(props) {
 	const [open, setOpen] = React.useState(false)
@@ -31,7 +32,7 @@ function DashboardTopics(props) {
 			/>
 			<Typography
 				style={{
-					margin: 10,
+					margin: "10px 10px 10px 0px",
 					fontWeight: 600,
 					fontSize: 19,
 					color: "#5f616a",
@@ -47,11 +48,7 @@ function DashboardTopics(props) {
 						  ))
 						: topics?.data.length > 0 &&
 						  topics.data
-								?.sort((a, b) => {
-									if (a.createAt > b.createAt) return 1
-									if (a.createAt < b.createAt) return -1
-									return 0
-								})
+								?.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 								.slice(0, 4)
 								.map((x, index) => (
 									<Grid item xs={12} sm={6} lg={3}>
