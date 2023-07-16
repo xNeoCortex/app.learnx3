@@ -16,6 +16,7 @@ import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
 import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import VerifiedIcon from "@mui/icons-material/Verified"
 
 function sidebar({ classId }) {
 	const { push: navigate } = useRouter()
@@ -198,7 +199,7 @@ const dataTeacher = (classId) => {
 			name: "Student Results",
 			href: `/student/results`,
 			link: `/student/results`,
-			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
+			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Class Statistics",
@@ -310,7 +311,7 @@ const dataAdmin = (class_id) => {
 			name: "Student Results",
 			href: `/student/results`,
 			link: `/student/results`,
-			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
+			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Class Statistics",

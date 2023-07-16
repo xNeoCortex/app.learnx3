@@ -18,24 +18,20 @@ function MyDashboard() {
 		<AppContainer>
 			<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 				<SidebarContainer>
-					<Box style={{ display: "flex", flexDirection: "column" }}>
-						<Box style={{ display: "flex" }}>
-							<Box style={{ display: "flex", flex: 2, flexDirection: "column" }}>
-								{userInfo?.role === "student" ? (
-									<>
-										<ExploreTopics />
-										<WordOfTheDay />
-										<DashboardTopics />
-									</>
-								) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
-									<>
-										<Lessons num={1} />
-										<Statistics displayGraphs={false} />
-										<StudentCardList />
-									</>
-								) : null}
-							</Box>
-						</Box>
+					<Box style={{ display: "flex", flex: 2, flexDirection: "column" }}>
+						{userInfo?.role === "student" ? (
+							<>
+								<ExploreTopics />
+								<WordOfTheDay />
+								<DashboardTopics />
+							</>
+						) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
+							<>
+								<Lessons num={1} />
+								<Statistics displayGraphs={false} />
+								<StudentCardList />
+							</>
+						) : null}
 					</Box>
 				</SidebarContainer>
 			</ProtectedRoute>

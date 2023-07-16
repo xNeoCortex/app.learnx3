@@ -56,7 +56,7 @@ function Statistics({ displayGraphs }) {
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box>
+		<Box sx={{ mt: "10px" }}>
 			<h3
 				style={{
 					margin: "0px 10px 10px",
