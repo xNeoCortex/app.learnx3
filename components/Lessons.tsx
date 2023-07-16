@@ -38,7 +38,7 @@ function Lessons(props) {
 						overflowX: "scroll",
 						overflowY: "hidden",
 						boxSizing: "border-box",
-						width: `calc(100vw - ${sidebarWidth}px)`,
+						width: `calc(100vw - 150px)`,
 					}}
 				>
 					{isLoading
