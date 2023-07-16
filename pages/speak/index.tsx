@@ -7,6 +7,7 @@ import ApiServices from "../api/ApiServices"
 import ImgMediaCard from "@/components/other/Card"
 import CreateAiLesson from "@/components/dashboard/CreateAiLesson"
 import ErrorPage from "../error"
+import dayjs from "dayjs"
 
 function index() {
 	const { apiRequest } = ApiServices()
@@ -20,6 +21,8 @@ function index() {
 		refetchOnWindowFocus: false,
 	})
 
+	console.log("topics :>> ", topics)
+
 	if (isError) return <ErrorPage />
 
 	return (
@@ -28,11 +31,13 @@ function index() {
 				<Box sx={{ marginTop: "20px", width: "100%" }}>
 					<CreateAiLesson />
 					<Grid container spacing={2}>
-						{topics?.data.map((x) => (
-							<Grid item xs={12} sm={4} lg={3}>
-								<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
-							</Grid>
-						))}
+						{topics?.data
+							.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
+							.map((x) => (
+								<Grid item xs={12} sm={3} lg={2}>
+									<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
+								</Grid>
+							))}
 					</Grid>
 				</Box>
 			</SidebarContainer>

@@ -42,6 +42,7 @@ function CreateAiLesson() {
 						content: `{
 							level: "b1",
 							topic: "family",
+							category: "family",
 							assessment: [],
 							vocabularies: [
 								{
@@ -465,11 +466,10 @@ function CreateAiLesson() {
 				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				width: "100%",
 				minHeight: "250px",
-				margin: "10px",
+				margin: "10px auto 20px",
 				borderRadius: "8px",
 				overflow: "hidden",
 				position: "relative",
-				p: 1,
 				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
 				borderBox: "box-sizing",
 			}}
@@ -495,7 +495,7 @@ function CreateAiLesson() {
 				</Search>
 				<Button
 					variant="contained"
-					onClick={() => CreateAiLessonFunc()}
+					onClick={CreateAiLessonFunc}
 					disabled={loading || topic === ""}
 					sx={{
 						background: "rgb(50, 51, 49)",

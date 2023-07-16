@@ -13,13 +13,11 @@ const Navbar = () => {
 			item
 			xs={12}
 			style={{
-				// background: "#5f6ac4",
 				color: "white",
-				padding: "0px 10px",
 				borderRadius: 5,
 				maxWidth: "none",
 				alignItems: "center",
-				marginBottom: 40,
+				marginBottom: 50,
 				display: "flex",
 				justifyContent: "space-between",
 			}}

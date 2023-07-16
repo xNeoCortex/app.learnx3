@@ -12,7 +12,6 @@ export default function ImgMediaCard({ title, link }) {
 			<Card
 				sx={{
 					maxWidth: 300,
-					m: 1,
 					p: 1,
 					boxShadow: "none",
 					border: "1px solid rgb(95, 97, 196)",
