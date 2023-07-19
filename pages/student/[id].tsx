@@ -28,7 +28,6 @@ function StudentProfile() {
 						style={{
 							padding: "20px 10px",
 							flex: 2,
-							margin: 5,
 							borderRadius: 23,
 							color: "white",
 							height: "100%",

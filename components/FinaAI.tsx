@@ -12,7 +12,7 @@ function FinaAI() {
 			<Box
 				sx={{
 					background: "#bdbdbd33",
-					margin: "15px ",
+
 					padding: "5px 10px",
 					borderRadius: 3,
 					display: "flex",
@@ -41,31 +41,28 @@ function FinaAI() {
 				sx={{
 					display: "flex",
 					flexDirection: "column",
-					margin: 1,
+					marginTop: 2,
 				}}
 			>
-				<Box sx={{ margin: 1 }}>
-					<TextareaAutosize
-						onChange={(e) => setQuestion(e.target.value)}
-						aria-label="empty textarea"
-						placeholder="Ask your question here..."
-						value={question}
-						style={{
-							width: "100%",
-							borderRadius: "6px",
-							padding: "10px",
-							minHeight: "60px",
-							border: "1px solid #bdbdbd",
-							background: "white",
-							color: "black",
-						}}
-					/>
-				</Box>
+				<TextareaAutosize
+					onChange={(e) => setQuestion(e.target.value)}
+					aria-label="empty textarea"
+					placeholder="Ask your question here..."
+					value={question}
+					style={{
+						width: "100%",
+						borderRadius: "6px",
+						padding: "10px",
+						minHeight: "60px",
+						border: "1px solid #bdbdbd",
+						background: "white",
+						color: "black",
+					}}
+				/>
 			</Box>
 			<Box
 				sx={{
 					display: "flex",
-					marginX: "15px",
 					marginBottom: "15px",
 					flexDirection: "column",
 				}}

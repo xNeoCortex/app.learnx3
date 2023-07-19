@@ -9,8 +9,10 @@ import ErrorPage from "../ErrorPage"
 import { collection, addDoc } from "firebase/firestore"
 import { Configuration, OpenAIApi } from "openai"
 import { db } from "../firebaseX"
+import { useRouter } from "next/router"
 
 function CreateAiLesson() {
+	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
 	const [topic, setTopic] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -35,7 +37,7 @@ function CreateAiLesson() {
 					},
 					{
 						role: "user",
-						content: `Create english language curriculum topic Family. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. limit answer to 3800 token.`,
+						content: `Create english language curriculum topic Family. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Exercise should be multiple choice questions.`,
 					},
 					{
 						role: "assistant",
@@ -188,61 +190,58 @@ function CreateAiLesson() {
 									example: "During the holidays, we gather with our extended family.",
 								},
 							],
-							conversation: {
-								title: "Conversation",
-								content: [
-									{
-										speaker: "Child",
-										content: "Hi Mom! How was your day?",
-										order: 1,
-									},
-									{
-										speaker: "Parent",
-										content: "Hi sweetheart! It was good. How about yours?",
-										order: 2,
-									},
-									{
-										speaker: "Child",
-										content: "I had a fun day at school. I played with my friends during recess.",
-										order: 3,
-									},
-									{
-										speaker: "Parent",
-										content: "That's great to hear! Did you learn anything interesting in class today?",
-										order: 4,
-									},
-									{
-										speaker: "Child",
-										content: "Yes, we learned about animals and their habitats. It was fascinating!",
-										order: 5,
-									},
-									{
-										speaker: "Parent",
-										content: "Wow! I'm glad you enjoyed your lesson. Is there anything else you'd like to share?",
-										order: 6,
-									},
-									{
-										speaker: "Child",
-										content: "Yes, I need your help with my homework. Can you assist me with math?",
-										order: 7,
-									},
-									{
-										speaker: "Parent",
-										content: "Of course! I'll be happy to help you with your math homework. Let's work on it together.",
-										order: 8,
-									},
-									{
-										speaker: "Child",
-										content: "Thank you, Mom! You're the best.",
-										order: 9,
-									},
-									{
-										speaker: "Parent",
-										content: "You're welcome, sweetheart. I'm always here to support you. Let's get started with the homework.",
-										order: 10,
-									},
-								],
-							},
+							conversation: [
+								{
+									speaker: "Child",
+									content: "Hi Mom! How was your day?",
+									order: 1,
+								},
+								{
+									speaker: "Parent",
+									content: "Hi sweetheart! It was good. How about yours?",
+									order: 2,
+								},
+								{
+									speaker: "Child",
+									content: "I had a fun day at school. I played with my friends during recess.",
+									order: 3,
+								},
+								{
+									speaker: "Parent",
+									content: "That's great to hear! Did you learn anything interesting in class today?",
+									order: 4,
+								},
+								{
+									speaker: "Child",
+									content: "Yes, we learned about animals and their habitats. It was fascinating!",
+									order: 5,
+								},
+								{
+									speaker: "Parent",
+									content: "Wow! I'm glad you enjoyed your lesson. Is there anything else you'd like to share?",
+									order: 6,
+								},
+								{
+									speaker: "Child",
+									content: "Yes, I need your help with my homework. Can you assist me with math?",
+									order: 7,
+								},
+								{
+									speaker: "Parent",
+									content: "Of course! I'll be happy to help you with your math homework. Let's work on it together.",
+									order: 8,
+								},
+								{
+									speaker: "Child",
+									content: "Thank you, Mom! You're the best.",
+									order: 9,
+								},
+								{
+									speaker: "Parent",
+									content: "You're welcome, sweetheart. I'm always here to support you. Let's get started with the homework.",
+									order: 10,
+								},
+							],
 							exercise: {
 								name: "Multiple Choice Questions",
 								topic: "Family",
@@ -374,6 +373,93 @@ function CreateAiLesson() {
 											},
 										],
 									},
+									{
+										question:
+											"What is a person called when they are related to you through your parents but are not your siblings?",
+										options: [
+											{
+												option: "cousin",
+												correct: true,
+											},
+											{
+												option: "uncle",
+												correct: false,
+											},
+											{
+												option: "aunt",
+												correct: false,
+											},
+											{
+												option: "niece",
+												correct: false,
+											},
+										],
+									},
+									{
+										question:
+											"Which word describes a family that includes parents, children, grandparents, aunts, uncles, and cousins?",
+										options: [
+											{
+												option: "nuclear family",
+												correct: false,
+											},
+											{
+												option: "extended family",
+												correct: true,
+											},
+											{
+												option: "blended family",
+												correct: false,
+											},
+											{
+												option: "single-parent family",
+												correct: false,
+											},
+										],
+									},
+									{
+										question:
+											"What is a person called when they are married to one of your parents but are not your biological parent?",
+										options: [
+											{
+												option: "step-parent",
+												correct: true,
+											},
+											{
+												option: "sibling",
+												correct: false,
+											},
+											{
+												option: "grandparent",
+												correct: false,
+											},
+											{
+												option: "cousin",
+												correct: false,
+											},
+										],
+									},
+									{
+										question: "Which word describes the relationship between siblings who were born to the same parents?",
+										options: [
+											{
+												option: "adopted",
+												correct: false,
+											},
+											{
+												option: "biological",
+												correct: true,
+											},
+											{
+												option: "step",
+												correct: false,
+											},
+											{
+												option: "half",
+												correct: false,
+											},
+										],
+									},
 								],
 							},
 							phrases: [
@@ -404,11 +490,11 @@ function CreateAiLesson() {
 					},
 					{
 						role: "user",
-						content: `Create english language curriculum in topic ${topic}. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english.`,
+						content: `Create english language curriculum in topic ${topic}. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Exercise should be multiple choice questions.`,
 					},
 				],
 				temperature: 0.7,
-				max_tokens: 5000,
+				max_tokens: 6000,
 				presence_penalty: 0,
 			})
 			const createdLesson = getObject(response.data.choices[0].message.content)
@@ -430,6 +516,7 @@ function CreateAiLesson() {
 			setLoading(false)
 			setSuccess(true)
 			setTopic("")
+			navigate(`/speak/${lessonDoc.id}`)
 		} catch (error) {
 			console.log("error", error)
 			setLoading(false)

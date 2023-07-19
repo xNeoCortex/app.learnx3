@@ -11,11 +11,12 @@ export default function ImgMediaCard({ title, link }) {
 		<Link href={link}>
 			<Card
 				sx={{
-					maxWidth: 300,
 					p: 1,
+					borderRadius: 2,
+					width: "100%",
+					height: "100%",
 					boxShadow: "none",
 					border: "1px solid rgb(95, 97, 196)",
-					borderRadius: 2,
 					transition: "transform 0.3s ease-in-out",
 					cursor: "pointer",
 					"&:hover": {
@@ -28,7 +29,7 @@ export default function ImgMediaCard({ title, link }) {
 				<CardMedia component="img" alt="green iguana" height="160px" width="100px" image="/mobile-book.svg" />
 				<CardContent sx={{ p: "16px !important", fontWeight: 500 }}>
 					<Typography gutterBottom component="div" sx={{ fontSize: 19, textAlign: "center", m: 0 }}>
-						🤖 {capitalize(title)}
+						{capitalize(title)}
 					</Typography>
 				</CardContent>
 			</Card>

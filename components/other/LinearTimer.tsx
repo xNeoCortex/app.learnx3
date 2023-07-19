@@ -10,14 +10,14 @@ function LinearProgressWithLabel(props) {
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
-				background: "bisque",
+				background: "rgb(95, 106, 196)",
 				p: 2,
 				m: 2,
 				borderRadius: 2,
 			}}
 		>
 			<Box sx={{ width: "100%", mr: 1 }}>
-				<LinearProgress color="error" variant="determinate" {...props} />
+				<LinearProgress color="primary" variant="determinate" {...props} />
 			</Box>
 			<Box display="flex" marginTop={2}>
 				<Typography sx={{ fontSize: 30, mr: 1 }}>⏰</Typography>

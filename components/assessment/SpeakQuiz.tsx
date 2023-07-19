@@ -1,18 +1,18 @@
 import React from "react"
 import { Box, Chip, CssBaseline, Typography } from "@mui/material"
 
-function ReadingQuiz({ test, show, index, handleSelect }) {
+function SpeakQuiz({ test, show, index, handleSelect }) {
+	console.log("test :>> ", test)
 	return (
 		<Box
 			key={index}
 			mb="10px"
-			m={1}
 			p={2}
 			borderRadius="10px"
 			sx={{
 				display: "flex",
 				flex: 1,
-				margin: 1,
+				margin: "10px 2px",
 				flexDirection: "column",
 				background: show ? (test?.response?.correct ? "#d8f3dc" : "#ffccd578") : "white",
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
@@ -26,13 +26,15 @@ function ReadingQuiz({ test, show, index, handleSelect }) {
 						key={key}
 						onClick={() => handleSelect(item, index)}
 						sx={{
+							border: "1px solid rgb(95, 106, 196)",
+							borderRadius: 2,
+							color: "rgb(95, 106, 196)",
 							width: "fit-content",
 							margin: "20px 20px 0px 0px",
 							fontWeight: "bolder",
 							background: test?.response?.option == item?.option ? "#5d5fc4b5" : "white",
 						}}
 						label={item?.option}
-						color="secondary"
 						variant="outlined"
 					/>
 				))}
@@ -55,4 +57,4 @@ function ReadingQuiz({ test, show, index, handleSelect }) {
 	)
 }
 
-export default ReadingQuiz
+export default SpeakQuiz

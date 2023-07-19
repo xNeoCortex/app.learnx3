@@ -1,72 +1,44 @@
 import React, { useState } from "react"
-import { Box, Button, Chip, Typography } from "@mui/material"
+import { Box, Button, capitalize, Chip, Typography } from "@mui/material"
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
 
-export function SpeakCard({ word, backgroundColor }) {
+export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 	const [open, setOpen] = useState(null)
 
 	return (
 		<Box
 			sx={{
-				background: backgroundColor,
-				"&:hover": {
-					transform: "scale(1.03)",
-				},
-				transition: "all 0.3s ease-in-out",
+				background: "#fff",
 				borderRadius: 2,
-				m: 1,
 				p: 2,
-				height: "270px",
-				maxWidth: 300,
+				marginY: "15px",
+				width: "100%",
+				height: "100%",
+				minHeight: "50vh",
 				display: "flex",
-				justifyContent: "space-between",
+				justifyContent: "center",
 				alignItems: "center",
 				flexDirection: "column",
 				boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 			}}
 		>
-			<Box
-				onClick={() => setOpen(null)}
-				style={{
-					position: "relative",
-					top: 0,
-					right: -100,
-					cursor: "pointer",
-					color: "grey",
-				}}
-			>
-				X
-			</Box>
-			<Box
-				sx={{
-					height: "100%",
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "center",
-					justifyContent: "center",
-				}}
-			>
-				<Typography variant="h6" style={{ height: "fit-content", color: "black", fontWeight: "bold" }}>
-					{word.word}
-				</Typography>
-				<Typography
+			{!showDefinition ? (
+				<Box
 					sx={{
-						color: "#5f61c4",
-						background: "transparent",
-						margin: "5px ",
-						border: "1px solid #5f61c4",
-						borderRadius: "6px",
-						padding: "2px 8px",
-						fontSize: 12,
+						height: "100%",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
 					}}
 				>
-					{word.type}
-				</Typography>
-			</Box>
-			{["definition", "example"].map(
-				(item, index) =>
-					open === item && (
-						<p
+					<Typography variant="h4" style={{ height: "fit-content", color: "black", fontWeight: "bold" }}>
+						{word.word}
+					</Typography>
+				</Box>
+			) : (
+				<>
+					{["definition", "example"].map((item, index) => (
+						<Typography
 							key={index}
 							style={{
 								background: "white",
@@ -77,57 +49,44 @@ export function SpeakCard({ word, backgroundColor }) {
 								padding: 6,
 							}}
 						>
-							{word[item]}
-						</p>
-					)
-			)}
-			{["synonyms"].map(
-				(item, index) =>
-					open === item && (
-						<p
-							key={index}
-							style={{
-								background: "white",
-								color: "black",
-								textAlign: "center",
-								marginBottom: 2,
-								borderRadius: 3,
-								padding: 6,
-							}}
-						>
-							{word[item].map((item, index) => {
-								return <p key={index}>{item}</p>
-							})}
-						</p>
-					)
-			)}
-
-			<Box
-				sx={{
-					display: "flex",
-					flexWrap: "wrap",
-					mt: 2,
-					justifyContent: "center",
-					alignItems: "center",
-				}}
-			>
-				{["definition", "synonyms", "example"].map((item, index) => (
-					<Button
-						key={index}
-						onClick={() => setOpen(item)}
+							<b>{capitalize(item)}: </b> {word[item]}
+						</Typography>
+					))}
+					<Box
 						sx={{
-							fontSize: 12,
-							width: "fit-content",
-							margin: "3px",
-							border: open === item && "1px solid white",
-							fontWeight: open === item && "bolder",
-							color: "black",
+							display: "flex",
+							flexWrap: "wrap",
+							mt: 2,
+							justifyContent: "center",
+							alignItems: "center",
+							flexDirection: "row",
 						}}
 					>
-						{capitalizeFirstLetter(item)}
-					</Button>
-				))}
-			</Box>
+						<Typography>
+							<b> Synonyms: </b>
+						</Typography>
+
+						{word?.synonyms.map((item, index) => {
+							return (
+								<Typography
+									key={index}
+									sx={{
+										background: "white",
+										color: "black",
+										textAlign: "center",
+										p: "2px 5px",
+										margin: "2px",
+										borderRadius: "4px",
+										border: "1px solid black",
+									}}
+								>
+									{capitalize(item)}
+								</Typography>
+							)
+						})}
+					</Box>
+				</>
+			)}
 		</Box>
 	)
 }
