@@ -3,14 +3,12 @@ import Image from "next/image"
 import { useRouter } from "next/router"
 import { Alert, Box, Button, Container } from "@mui/material"
 
-function CompletedAssessment({ score, handleButton = null }) {
-	const { back } = useRouter()
-	const handleBack = () => back()
+function CompletedAssessment({ score, handleButton = null, setShowResultPage }) {
 	return (
 		<Box
 			sx={{
 				background: "#bdbdbd33",
-				margin: "15px ",
+				margin: "15px 0px",
 				padding: "0px 0px 20px",
 				borderRadius: 3,
 				display: "flex",
@@ -30,19 +28,17 @@ function CompletedAssessment({ score, handleButton = null }) {
 			</h4>
 			<Image alt="complete image" src="/completed-icon.svg" width={400} height={300} style={{ margin: "auto" }} />
 			<Button
-				onClick={handleButton || handleBack}
+				onClick={() => setShowResultPage(false)}
 				variant="contained"
 				style={{
-					borderRadius: 20,
-					background: "white",
-					color: "black",
-					width: 200,
+					flex: 1,
+					margin: "15px 0px",
+					background: "#9d4edd",
+					color: "white",
 					fontWeight: 600,
-					boxShadow: "none",
-					marginRight: 10,
 				}}
 			>
-				Back
+				Review Answers
 			</Button>
 		</Box>
 	)

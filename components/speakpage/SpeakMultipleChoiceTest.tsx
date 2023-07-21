@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
-import { Alert, Box, Button, capitalize, Container, CssBaseline, Typography } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import ReadingQuiz from "@/components/assessment/ReadingQuiz"
 import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import LinearTimer from "@/components/other/LinearTimer"
-import AlertDialog from "@/components/AlertDialog"
 import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 
-function SpeakMultipleChoiceTest({ lesson }) {
+function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevious }) {
 	const {
 		query: { id },
 	} = useRouter()
@@ -24,6 +22,7 @@ function SpeakMultipleChoiceTest({ lesson }) {
 	const [show, setShow] = useState(false)
 	const [quizData, setQuizData] = useState([])
 	const [buttonDisabled, setButtonDisabled] = useState(true)
+	const [showResultPage, setShowResultPage] = useState(false)
 
 	const { submitTest } = ApiPostServices()
 	const { fetchTestResults } = ApiServices()
@@ -47,6 +46,7 @@ function SpeakMultipleChoiceTest({ lesson }) {
 		setShow(true)
 		setScore(score)
 		setButtonDisabled(false)
+		setShowResultPage(true)
 		//@ts-ignore
 		mutate({
 			topic: lesson.topic,
@@ -82,43 +82,12 @@ function SpeakMultipleChoiceTest({ lesson }) {
 
 	const pastScore = assessmentResult?.data.filter((item) => item.assessment_id === id)
 	// if (pastScore?.length > 0) return <CompletedAssessment score={pastScore} />
+
+	if (show && showResultPage)
+		return <CompletedAssessment score={[{ result: score }]} setShowResultPage={setShowResultPage} />
 	return (
-		<Box sx={{ flexGrow: 1, background: "#161F23" }}>
-			<AlertDialog
-				open={open}
-				setOpen={setOpen}
-				component={<CompletedAssessment score={[{ result: score }]} handleButton={() => setOpen(false)} />}
-			/>
-			<CssBaseline />
-			<Box
-				sx={{
-					background: "#bdbdbd33",
-					margin: "15px 0px",
-					padding: "1px 0px",
-					borderRadius: 3,
-					position: "relative",
-				}}
-			>
-				<Typography
-					sx={{
-						margin: "15px 15px 0px",
-						marginBottom: "10px",
-						fontWeight: 600,
-						fontSize: "19px",
-						color: "white",
-					}}
-				>
-					{capitalize(lesson?.topic)}
-				</Typography>
-				<Typography sx={{ margin: "0px 15px 15px", color: "grey" }}>
-					{" "}
-					Please answer the following questions within 10 minutes.{" "}
-				</Typography>
-				{/* <Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 14 }}>
-					Please finish the test and submit before leaving the page to avoid getting 0!
-				</Alert> */}
-				<LinearTimer minutes={10} handleSubmit={handleSubmit} />
-			</Box>
+		<Box sx={{ flexGrow: 1, background: "inherit" }}>
+			{!show && <LinearTimer minutes={10} handleSubmit={handleSubmit} />}
 			<Box
 				sx={{
 					display: "flex",
@@ -126,24 +95,72 @@ function SpeakMultipleChoiceTest({ lesson }) {
 					mt: 5,
 				}}
 			>
-				{quizData?.map((test, index) => (
-					<SpeakQuiz key={index} show={show} test={test} index={index} handleSelect={handleSelect} />
-				))}
+				<SpeakQuiz show={show} test={quizData[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
 			</Box>
-			{show && <CompletedAssessment score={[{ result: score }]} />}
-			{!show && (
+
+			<Box sx={{ width: "100%", display: "flex" }}>
 				<Button
-					variant="contained"
-					style={{
+					disabled={!quizData[contentIndex - 1]}
+					sx={{
+						flex: 1,
 						margin: "15px 0px",
-						width: "100%",
-						background: "rgb(95, 106, 196)",
+						background: "#9d4edd",
+						color: "white",
+						fontWeight: 600,
+						mr: 1,
+						"&:hover": { backgroundColor: "#d6a3ff" },
 					}}
-					onClick={handleSubmit}
+					onClick={handlePrevious}
 				>
-					Submit
+					{quizData[contentIndex - 1] ? "Back" : "Back"}
 				</Button>
-			)}
+				{!show && !showResultPage ? (
+					<Button
+						variant="contained"
+						sx={{
+							flex: 4,
+							margin: "15px 0px",
+							width: "100%",
+							background: "#9d4edd",
+							fontWeight: 600,
+							"&:hover": { backgroundColor: "#d6a3ff" },
+						}}
+						onClick={handleSubmit}
+					>
+						Submit
+					</Button>
+				) : (
+					<Button
+						variant="contained"
+						sx={{
+							flex: 4,
+							margin: "15px 0px",
+							width: "100%",
+							background: "#9d4edd",
+							fontWeight: 600,
+							"&:hover": { backgroundColor: "#d6a3ff" },
+						}}
+						onClick={() => setShowResultPage(true)}
+					>
+						Show Result
+					</Button>
+				)}
+				<Button
+					disabled={!quizData[contentIndex + 1]}
+					sx={{
+						flex: 1,
+						margin: "15px 0px",
+						background: "#9d4edd",
+						color: "white",
+						fontWeight: 600,
+						ml: 1,
+						"&:hover": { backgroundColor: "#d6a3ff" },
+					}}
+					onClick={handleNext}
+				>
+					{quizData[contentIndex + 1] ? "Next" : "Next"}
+				</Button>
+			</Box>
 		</Box>
 	)
 }

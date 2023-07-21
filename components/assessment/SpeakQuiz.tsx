@@ -1,42 +1,47 @@
 import React from "react"
-import { Box, Chip, CssBaseline, Typography } from "@mui/material"
+import { Box, capitalize, CssBaseline, Typography } from "@mui/material"
 
 function SpeakQuiz({ test, show, index, handleSelect }) {
-	console.log("test :>> ", test)
+	const abc = ["A", "B", "C", "D"]
 	return (
 		<Box
 			key={index}
 			mb="10px"
-			p={2}
 			borderRadius="10px"
 			sx={{
 				display: "flex",
 				flex: 1,
-				margin: "10px 2px",
 				flexDirection: "column",
-				background: show ? (test?.response?.correct ? "#d8f3dc" : "#ffccd578") : "white",
+				background: show ? (test?.response?.correct ? "#06d6a021" : "#ef233c26") : "transparent",
+				border: show ? (test?.response?.correct ? "2px solid #06d6a0" : "2px solid #ef233c") : "transparent",
+				p: show && 1,
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
 			<CssBaseline />
-			<h4>{`${index + 1}. ${test.question}`}</h4>
+			<Typography fontWeight="bolder" sx={{ color: "white", fontSize: 18 }}>{`${index + 1}. ${
+				test?.question
+			}`}</Typography>
 			<Box>
 				{test?.options?.map((item, key) => (
-					<Chip
+					<Typography
 						key={key}
 						onClick={() => handleSelect(item, index)}
 						sx={{
-							border: "1px solid rgb(95, 106, 196)",
+							cursor: "pointer",
+							border: test?.response?.option == item?.option ? "3px solid #90e0ef" : "1px solid #90e0ef",
 							borderRadius: 2,
-							color: "rgb(95, 106, 196)",
-							width: "fit-content",
+							color: "#e1e1e1",
+							width: "100%",
 							margin: "20px 20px 0px 0px",
-							fontWeight: "bolder",
-							background: test?.response?.option == item?.option ? "#5d5fc4b5" : "white",
+							fontSize: 16,
+							p: 2,
+							textAlign: "start",
+							background: test?.response?.option == item?.option ? "rgb(144 224 239 / 30%)" : "transparent",
 						}}
-						label={item?.option}
-						variant="outlined"
-					/>
+					>
+						{abc[key]}. {capitalize(item?.option)}
+					</Typography>
 				))}
 			</Box>
 			{show && (
@@ -47,7 +52,8 @@ function SpeakQuiz({ test, show, index, handleSelect }) {
 						border: "2px solid #06d6a0",
 						borderRadius: 2,
 						p: 1,
-						background: "#06d6a021",
+						background: "#06d6a0",
+						color: "black",
 					}}
 				>
 					Correct Answer: <strong> {test?.options.find((item) => item?.correct)?.option}</strong>

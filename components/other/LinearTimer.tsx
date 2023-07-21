@@ -9,21 +9,27 @@ function LinearProgressWithLabel(props) {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				alignItems: "center",
-				background: "rgb(95, 106, 196)",
-				p: 2,
-				m: 2,
-				borderRadius: 2,
 			}}
 		>
-			<Box sx={{ width: "100%", mr: 1 }}>
-				<LinearProgress color="primary" variant="determinate" {...props} />
-			</Box>
-			<Box display="flex" marginTop={2}>
-				<Typography sx={{ fontSize: 30, mr: 1 }}>⏰</Typography>
-				<Typography variant="body2" color="text.secondary" sx={{ fontSize: 30 }}>{`${Math.floor(
-					(props.minutes * 60 - props.progress) / 60
-				)} min : ${(props.minutes * 60 - props.progress) % 60} seconds`}</Typography>
+			<Typography sx={{ margin: "0px 0px 15px", color: "rgb(95, 106, 196)" }}>
+				Please complete the test within{props.minutes} minutes.{" "}
+			</Typography>
+			<Box
+				sx={{ width: "100%", mr: 1, display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: "center" }}
+			>
+				<Box sx={{ width: "100%", mr: 1 }}>
+					<LinearProgress color="primary" variant="determinate" {...props} />
+				</Box>
+				<Box display="flex" sx={{ width: "fit-content", alignItems: "center" }}>
+					<Typography sx={{ fontSize: 22, mr: 1 }}>⏰</Typography>
+					<Typography
+						variant="body2"
+						color="text.secondary"
+						sx={{ fontSize: 14, fontWeight: "bold", color: "white", width: "max-content" }}
+					>{`${Math.floor((props.minutes * 60 - props.progress) / 60)} min : ${
+						(props.minutes * 60 - props.progress) % 60
+					} seconds`}</Typography>
+				</Box>
 			</Box>
 		</Box>
 	)
