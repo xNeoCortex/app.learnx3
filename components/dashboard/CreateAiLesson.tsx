@@ -475,17 +475,47 @@ function CreateAiLesson() {
 								"I'm always there for my family.",
 							],
 							questions: [
-								"How was your day?",
-								"What did you do today?",
-								"Do you have any siblings?",
-								"Who is your favorite family member?",
-								"What activities do you enjoy doing with your family?",
-								"How often do you visit your grandparents?",
-								"What does family mean to you?",
-								"Who supports you the most in your family?",
-								"Do you have any family traditions?",
-								"What are some things you love about your family?",
-							],
+								{
+								  "question": "How was your day?",
+								  "sample_answer": "My day was great! I went to the park with my family and we had a lot of fun."
+								},
+								{
+								  "question": "What did you do today?",
+								  "sample_answer": "I went to school, then I helped my mom with the dishes. After that, I played video games with my brother."
+								},
+								{
+								  "question": "Do you have any siblings?",
+								  "sample_answer": "Yes, I have one older brother."
+								},
+								{
+								  "question": "Who is your favorite family member?",
+								  "sample_answer": "My favorite family member is my mom. She is always there for me and she makes me feel loved."
+								},
+								{
+								  "question": "What activities do you enjoy doing with your family?",
+								  "sample_answer": "I enjoy going to the park, playing board games, and watching movies with my family."
+								},
+								{
+								  "question": "How often do you visit your grandparents?",
+								  "sample_answer": "I visit my grandparents once a month. We usually go out to eat or just hang out at their house."
+								},
+								{
+								  "question": "What does family mean to you?",
+								  "sample_answer": "Family means the world to me. They are the people who love and support me unconditionally."
+								},
+								{
+								  "question": "Who supports you the most in your family?",
+								  "sample_answer": "My mom supports me the most in my family. She is always there for me when I need her."
+								},
+								{
+								  "question": "Do you have any family traditions?",
+								  "sample_answer": "Yes, we have a few family traditions. We always go to the beach on the Fourth of July and we have a big Christmas Eve dinner every year."
+								},
+								{
+								  "question": "What are some things you love about your family?",
+								  "sample_answer": "I love that my family is always there for me. They are always there to celebrate my successes and help me through my challenges."
+								}
+							  ]
 						}`,
 					},
 					{
@@ -493,11 +523,12 @@ function CreateAiLesson() {
 						content: `Create english language curriculum in topic ${topic}. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Exercise should be multiple choice questions.`,
 					},
 				],
-				temperature: 0.7,
-				max_tokens: 6000,
+				temperature: 0.9,
+				max_tokens: 7000,
 				presence_penalty: 0,
 			})
 			const createdLesson = getObject(response.data.choices[0].message.content)
+
 			const lessonDoc = await addDoc(collection(db, "lessonByAi"), {
 				...createdLesson,
 				createdAt: `${new Date().toISOString()}`,
@@ -510,6 +541,7 @@ function CreateAiLesson() {
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
+				category: createdLesson.category,
 			})
 			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoading(false)
 			setError(false)

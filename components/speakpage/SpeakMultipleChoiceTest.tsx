@@ -116,12 +116,13 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 				</Button>
 				{!show && !showResultPage ? (
 					<Button
-						variant="contained"
+						disabled={quizData[contentIndex + 1]}
 						sx={{
 							flex: 4,
 							margin: "15px 0px",
 							width: "100%",
 							background: "#9d4edd",
+							color: "white",
 							fontWeight: 600,
 							"&:hover": { backgroundColor: "#d6a3ff" },
 						}}

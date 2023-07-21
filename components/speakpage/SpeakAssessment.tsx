@@ -45,7 +45,6 @@ export default function SpeakAssessment({ lesson }) {
 		lesson?.exercise?.questions[contentIndex - 1] ? setContentIndex((prev) => prev - 1) : handleClose()
 	}
 
-	console.log("lesson :>> ", lesson)
 	return (
 		<div>
 			<CardWrapper background="#07002b">
