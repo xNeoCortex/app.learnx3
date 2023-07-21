@@ -82,7 +82,7 @@ export default function AskQuestions({ lesson }) {
 								}}
 							>
 								<Grid spacing={2} container>
-									{lesson?.questions.map((item, index) => (
+									{lesson?.questions?.map((item, index) => (
 										<Grid item xs={12} key={item}>
 											<EachQuestion index={index} item={item} />
 										</Grid>
