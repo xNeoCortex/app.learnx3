@@ -1,9 +1,13 @@
-import React from "react"
+import React, { ReactComponentElement } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { Alert, Box, Button, Container } from "@mui/material"
 
-function CompletedAssessment({ score, handleButton = null, setShowResultPage }) {
+const CompletedAssessment: React.FC<{
+	score: any
+	handleButton?: (value: boolean) => void
+	setShowResultPage?: (value: boolean) => void
+}> = ({ score, handleButton = null, setShowResultPage }) => {
 	return (
 		<Box
 			sx={{
