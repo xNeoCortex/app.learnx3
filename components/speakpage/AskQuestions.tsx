@@ -22,24 +22,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function AskQuestions({ lesson }) {
 	const [open, setOpen] = React.useState(false)
-	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
 
 	const handleClickOpen = () => {
-		setFlashCardIndex(0)
-
 		setOpen(true)
 	}
 	const handleClose = () => {
-		setFlashCardIndex(0)
 		setOpen(false)
-	}
-
-	const handleNext = () => {
-		lesson?.questions[flashCardIndex + 1] ? setFlashCardIndex((prev) => prev + 1) : handleClose()
-	}
-
-	const handlePrevious = () => {
-		lesson?.questions[flashCardIndex - 1] ? setFlashCardIndex((prev) => prev - 1) : handleClose()
 	}
 
 	return (
@@ -58,7 +46,7 @@ export default function AskQuestions({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "white", m: 1, mt: 3, textAlign: "center" }}>
-						Learn by asking and answering Questions
+						Learn through Q&A
 						<Typography>Conversation</Typography>
 					</Typography>
 					<img src={"/question.svg"} alt="question" style={{ width: "55%" }} />
@@ -69,55 +57,72 @@ export default function AskQuestions({ lesson }) {
 					<Grid container>
 						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-								<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}>
-									{" "}
-									Learn with questions
-									<Typography>
-										{flashCardIndex + 1}/{lesson?.questions.length}
-									</Typography>
-								</Typography>
+								<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}> Learn through Q&A</Typography>
 								<IconButton onClick={handleClose}>
 									<CloseIcon sx={{ color: "white" }} />
 								</IconButton>
 							</Box>
 							<Box
 								sx={{
-									p: 2,
-									background: "#fff",
-									borderRadius: 2,
-									color: "black",
-									marginY: "15px",
-									width: "100%",
-									height: "100%",
-									minHeight: "50vh",
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									flexDirection: "column",
-									boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+									p: "20px 0px",
+									// background: "#fff",
+									// borderRadius: 2,
+									// color: "black",
+									// marginY: "15px",
+									// width: "100%",
+									// height: "100%",
+									// minHeight: "60vh",
+									// display: "flex",
+									// justifyContent: "center",
+									// alignItems: "center",
+									// flexDirection: "column",
+									// boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 								}}
 							>
-								<Typography variant="h5">{lesson?.questions[flashCardIndex]}</Typography>
+								<Grid spacing={2} container>
+									{lesson?.questions.map((item, index) => (
+										<Grid item xs={12} key={item}>
+											<Box
+												key={index}
+												sx={{
+													display: "flex",
+													alignItems: "center",
+													m: "5px 0px",
+													padding: "15px",
+													borderRadius: 2,
+													color: "#323331",
+													background: "white",
+													boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+												}}
+											>
+												<Typography
+													sx={{
+														fontSize: 16,
+														padding: "5px 10px",
+														background: "#f48282",
+														borderRadius: 2,
+														width: "fit-content",
+														mr: 2,
+														color: "white",
+														fontWeight: 600,
+														minWidth: "fit-content",
+													}}
+												>
+													{index + 1}
+												</Typography>
+												<Typography sx={{ fontSize: 16, fontWeight: 500 }}> {item}</Typography>
+											</Box>
+										</Grid>
+									))}
+								</Grid>
 							</Box>
 							<Box sx={{ width: "100%", display: "flex", gap: 10 }}>
 								<Button
 									sx={{ flex: 1, background: "#9e94cb !important", color: "#45433B", fontWeight: 600 }}
 									autoFocus
-									onClick={handlePrevious}
+									onClick={handleClose}
 								>
-									{lesson?.questions[flashCardIndex - 1] ? "Back" : "Close"}
-								</Button>
-								<Button
-									sx={{
-										flex: 1,
-										background: "#9e94cb !important",
-										color: "#45433B",
-										fontWeight: 600,
-									}}
-									autoFocus
-									onClick={handleNext}
-								>
-									{lesson?.questions[flashCardIndex + 1] ? "Next" : "Close"}
+									Close
 								</Button>
 							</Box>
 						</Grid>
