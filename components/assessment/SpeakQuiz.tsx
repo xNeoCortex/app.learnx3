@@ -56,7 +56,7 @@ function SpeakQuiz({ test, show, index, handleSelect }) {
 						color: "black",
 					}}
 				>
-					Correct Answer: <strong> {test?.options.find((item) => item?.correct)?.option}</strong>
+					Correct Answer: <strong> {capitalize(test?.options.find((item) => item?.correct)?.option)}</strong>
 				</Typography>
 			)}
 		</Box>

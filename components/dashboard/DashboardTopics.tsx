@@ -30,6 +30,7 @@ function DashboardTopics(props) {
 				backgroundColor="#32a676"
 				message="You have successfully cancelled your sessions!"
 			/>
+
 			<Typography
 				style={{
 					margin: "10px 10px 10px 0px",
@@ -38,7 +39,7 @@ function DashboardTopics(props) {
 					color: "#5f616a",
 				}}
 			>
-				Recent topics
+				{topics?.data.length > 0 ? "Recent topics" : "No recent topics"}
 			</Typography>
 			{
 				<Grid container spacing={2}>
