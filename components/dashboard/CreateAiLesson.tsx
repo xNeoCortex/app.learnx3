@@ -523,8 +523,8 @@ function CreateAiLesson() {
 						content: `Create english language curriculum in topic ${topic}. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Exercise should be multiple choice questions.`,
 					},
 				],
-				temperature: 0.9,
-				max_tokens: 7000,
+				temperature: 0.7,
+				max_tokens: 10000,
 				presence_penalty: 0,
 			})
 			const createdLesson = getObject(response.data.choices[0].message.content)
@@ -541,7 +541,7 @@ function CreateAiLesson() {
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
-				category: createdLesson.category,
+				category: createdLesson.category?.toLowerCase() || "other",
 			})
 			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoading(false)
 			setError(false)

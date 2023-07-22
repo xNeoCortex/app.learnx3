@@ -23,11 +23,10 @@ function index() {
 		refetchOnWindowFocus: false,
 	})
 
-	const topicCategories =
-		topics?.data
-			?.sort((a, b) => a.category?.localeCompare(b.category))
-			?.map(({ category }) => category)
-			?.filter((value, index, self) => self.indexOf(value) === index) || []
+	const topicCategories = topics?.data
+		?.sort((a, b) => a.category?.localeCompare(b.category))
+		?.map(({ category }) => category)
+		?.filter((value, index, self) => self.indexOf(value) === index)
 
 	if (isError) return <ErrorPage />
 	if (isLoading) return <LoadingPage />
@@ -52,7 +51,7 @@ function index() {
 								}}
 							>
 								{" "}
-								{categoryX}
+								{categoryX?.toLowerCase()}
 							</Typography>
 						))}
 					</Box>
