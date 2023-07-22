@@ -61,7 +61,7 @@ export default function SpeakAssessment({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "white", m: 1, mt: 3, textAlign: "center" }}>
-						Assessment
+						Take the Quiz
 						<Typography>Ready for the challenge? Take a test and see how much you have learned</Typography>
 					</Typography>
 					<img src={"/online-exam.svg"} alt="book" style={{ width: "80%", aspectRatio: 1 }} />

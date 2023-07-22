@@ -33,7 +33,7 @@ function DashboardTopics(props) {
 
 			<Typography
 				style={{
-					margin: "10px 10px 10px 0px",
+					margin: "0px 10px 10px 0px",
 					fontWeight: 600,
 					fontSize: 19,
 					color: "#5f616a",

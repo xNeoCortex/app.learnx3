@@ -15,7 +15,12 @@ function StudentProfile() {
 		query: { id },
 	} = useRouter()
 	const { fetchStudentData } = ApiServices()
-	const { data, isLoading, isError } = useQuery(["student", String(id)], () => fetchStudentData(String(id)))
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ["student", String(id)],
+		queryFn: () => fetchStudentData(String(id)),
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+	})
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
@@ -148,17 +153,6 @@ function StudentProfile() {
 								}}
 							>
 								<ExerciseResult id={id} />
-							</Box>
-							<Box
-								sx={{
-									padding: "2px",
-									background: "white",
-									margin: "10px",
-									flex: 1,
-									borderRadius: 2,
-								}}
-							>
-								<WritingResult id={id} />
 							</Box>
 						</Box>
 						{/* <Box

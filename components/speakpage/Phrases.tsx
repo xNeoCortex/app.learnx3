@@ -58,7 +58,7 @@ export default function Phrases({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "#001663", m: 1, textAlign: "center" }}>
-						Learn with Phrases
+						Phrases
 						<Typography>
 							Learn {lesson?.phrases?.length} phrases about <b>{lesson?.topic}</b>
 						</Typography>

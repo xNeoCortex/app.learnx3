@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
 import { Box, Button } from "@mui/material"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import ApiPostServices from "@/pages/api/ApiPostServices"
-import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import { useStoreUser } from "@/components/zustand"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
 import LinearTimer from "@/components/other/LinearTimer"
 import { auth } from "../firebaseX"
@@ -13,19 +10,13 @@ import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 
 function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevious }) {
-	const {
-		query: { id },
-	} = useRouter()
 	const queryClient = useQueryClient()
-	const { userInfo } = useStoreUser()
 	const [score, setScore] = useState(0)
 	const [show, setShow] = useState(false)
 	const [quizData, setQuizData] = useState([])
-	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [showResultPage, setShowResultPage] = useState(false)
 
 	const { submitTest } = ApiPostServices()
-	const { fetchTestResults } = ApiServices()
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
@@ -45,7 +36,6 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 
 		setShow(true)
 		setScore(score)
-		setButtonDisabled(false)
 		setShowResultPage(true)
 		//@ts-ignore
 		mutate({
@@ -66,22 +56,8 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 		isSuccess && setOpen(true)
 	}, [isLoading])
 
-	// get assessment result
-	const {
-		data: assessmentResult,
-		isLoading: isLoadingResult,
-		isError: isErrorResult,
-	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResults(String(userInfo?.uid)))
-
-	useEffect(() => {
-		setQuizData(lesson?.exercise?.questions)
-	}, [])
-
-	if (isLoading || isLoadingResult) return <LoadingPage />
-	if (isError || isErrorResult) return <ErrorPage />
-
-	const pastScore = assessmentResult?.data.filter((item) => item.assessment_id === id)
-	// if (pastScore?.length > 0) return <CompletedAssessment score={pastScore} />
+	if (isLoading) return <LoadingPage />
+	if (isError) return <ErrorPage />
 
 	if (show && showResultPage)
 		return <CompletedAssessment score={[{ result: score }]} setShowResultPage={setShowResultPage} />

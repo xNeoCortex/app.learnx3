@@ -48,8 +48,8 @@ export default function Conversation({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "#001663", m: 1, textAlign: "center" }}>
-						Learn with Practice
-						<Typography>Conversation</Typography>
+						Practice Speaking
+						<Typography>Speak with a friend about {lesson.topic} </Typography>
 					</Typography>
 					<img src={"/conversation.svg"} alt="conversation" style={{ width: "55%" }} />
 				</Box>

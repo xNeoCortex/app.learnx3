@@ -48,8 +48,10 @@ export default function AskQuestions({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "white", m: 1, mt: 3, textAlign: "center" }}>
-						Learn through Q&A
-						<Typography>Conversation</Typography>
+						Answer Questions
+						<Typography>
+							Answer {lesson?.questions?.length} questions about {lesson.topic}{" "}
+						</Typography>
 					</Typography>
 					<img src={"/question.svg"} alt="question" style={{ width: "55%" }} />
 				</Box>

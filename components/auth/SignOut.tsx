@@ -66,8 +66,8 @@ export default function AccountMenu() {
 						<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
 							<Avatar
 								sx={{
-									width: 34,
-									height: 34,
+									width: 28,
+									height: 28,
 									border: "2px solid rgb(95, 106, 196)",
 									background: "rgba(95, 106, 196, 0.05)",
 									color: "rgb(95, 106, 196)",
@@ -84,7 +84,8 @@ export default function AccountMenu() {
 						maxWidth: "50px",
 						marginLeft: "10px",
 						textAlign: "start",
-						fontSize: "12px",
+						fontSize: "11px",
+						lineHeight: "1.4",
 					}}
 				>
 					{userInfo?.role === "teacher" ? "Teacher Account" : userInfo?.role === "student" ? "Student Account" : ""}

@@ -72,7 +72,7 @@ export default function FlashCards({ lesson }) {
 					}}
 				>
 					<Typography variant="h5" fontWeight="bolder" sx={{ color: "black", m: 1, textAlign: "center" }}>
-						Learn with Flashcards
+						Flashcards
 						<Typography>
 							Learn {lesson?.vocabularies?.length} words about <b>{lesson?.topic}</b>
 						</Typography>
@@ -87,7 +87,7 @@ export default function FlashCards({ lesson }) {
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
 								<Typography sx={{ color: "black", fontWeight: 600, fontSize: 22 }}>
 									{" "}
-									Learn word with FlashCards!
+									Learn words with FlashCards!
 									<Typography>
 										{flashCardIndex + 1}/{lesson?.vocabularies.length}
 									</Typography>

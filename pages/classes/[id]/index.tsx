@@ -5,11 +5,12 @@ import { useStoreUser } from "@/components/zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import StudentCardList from "@/components/student/StudentCardList"
-import { Box } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import AppContainer from "@/components/AppContainer"
 import ExploreTopics from "@/components/dashboard/ExploreTopics"
 import WordOfTheDay from "@/components/dashboard/WordOfTheDay"
 import DashboardTopics from "@/components/dashboard/DashboardTopics"
+import StudentRanking from "@/components/dashboard/StudentRanking"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
@@ -18,12 +19,23 @@ function MyDashboard() {
 		<AppContainer>
 			<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 				<SidebarContainer>
-					<Box style={{ display: "flex", flex: 2, flexDirection: "column" }}>
+					<Grid container spacing={3}>
 						{userInfo?.role === "student" ? (
 							<>
-								<ExploreTopics />
-								<WordOfTheDay />
-								<DashboardTopics />
+								<Grid item xs={12} sm={8}>
+									<Grid item xs={12}>
+										<ExploreTopics />
+									</Grid>
+									<Grid item xs={12}>
+										<WordOfTheDay />
+									</Grid>
+								</Grid>
+								<Grid item xs={12} sm={4}>
+									<StudentRanking />
+								</Grid>
+								<Grid item xs={12}>
+									<DashboardTopics />
+								</Grid>
 							</>
 						) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
 							<>
@@ -32,7 +44,7 @@ function MyDashboard() {
 								<StudentCardList />
 							</>
 						) : null}
-					</Box>
+					</Grid>
 				</SidebarContainer>
 			</ProtectedRoute>
 		</AppContainer>

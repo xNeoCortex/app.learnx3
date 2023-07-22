@@ -22,7 +22,7 @@ function sidebar({ classId }) {
 	const { push: navigate } = useRouter()
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
-	const { setSidebarWidth, class_id } = useStoreTemporary()
+	const { class_id } = useStoreTemporary()
 
 	useEffect(() => {
 		classId === undefined && userInfo.role !== "admin" && navigate("/classes")
@@ -44,7 +44,7 @@ function sidebar({ classId }) {
 		>
 			<Link
 				href={userInfo?.role === "admin" ? "/" : `/classes/${classId}`}
-				style={{ display: "flex", margin: "20px auto 10px", alignContent: "center" }}
+				style={{ display: "flex", margin: "10px auto 10px", alignContent: "center" }}
 			>
 				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
 			</Link>
