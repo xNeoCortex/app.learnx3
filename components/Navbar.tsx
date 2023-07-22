@@ -4,10 +4,27 @@ import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
 import { useClassInfo, useStoreUser } from "./zustand"
 import AddClass from "./school/AddClassDialog"
+import { useQuery } from "@tanstack/react-query"
+import ApiServices from "@/pages/api/ApiServices"
 
 const Navbar = () => {
 	const { classInfo } = useClassInfo()
 	const { userInfo } = useStoreUser()
+	const { fetchTestResults } = ApiServices()
+
+	// get assessment result
+	const { data: testResults, isLoading } = useQuery({
+		queryKey: [`testResult-${userInfo?.uid}`],
+		queryFn: () => fetchTestResults(String(userInfo?.uid)),
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+	})
+
+	function getStudentTotalScore() {
+		const totalScore = testResults?.data?.reduce((acc, curr) => acc + curr.result, 0)
+		return Math.round(totalScore) ?? 0
+	}
+
 	return (
 		<Grid
 			item
@@ -22,15 +39,27 @@ const Navbar = () => {
 				justifyContent: "space-between",
 			}}
 		>
-			<Box>
-				<Typography variant="h6" fontWeight="bold" sx={{ color: "#32325d", marginLeft: "2px" }}>
-					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👨‍🏫" : "Hello"}
-				</Typography>
-				<Typography style={{ color: "#32325d", marginLeft: 2 }}>
-					<span style={{ color: "rgba(50, 50, 93, 0.7)" }}>Class: </span> {classInfo?.class_name}
+			<Box display="flex" alignItems="center">
+				<Typography fontWeight="bold" sx={{ color: "#32325d", fontSize: 24 }}>
+					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👋" : "Hello"}
 				</Typography>
 			</Box>
 			<Box display="flex" alignItems="center">
+				<Typography
+					variant="body2"
+					sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
+				>
+					{classInfo?.class_name}
+				</Typography>
+				<Typography
+					variant="body2"
+					sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
+				>
+					Level {Math.floor(getStudentTotalScore() / 400) + 1}
+				</Typography>
+				<Typography variant="body2" sx={{ color: "#32325d", textAlign: "center", width: "80px" }}>
+					⭐️ {getStudentTotalScore()}
+				</Typography>
 				<Box style={{ display: "flex", flexDirection: "row" }}>
 					<a target="_blank" rel="noreferrer" href={classInfo?.video_call_link}>
 						<Button
@@ -40,7 +69,7 @@ const Navbar = () => {
 								background: "#5f61c4",
 								color: "white",
 								fontWeight: "600",
-								padding: "6px 10px",
+								padding: "3px 10px",
 							}}
 						>
 							<VideocamIcon
