@@ -3,7 +3,7 @@ function Error({ statusCode }) {
       <p>
         {statusCode
           ? `An error ${statusCode} occurred on server`
-          : 'An error occurred on client'}
+          : 'An error occurred. Please refresh your browser or try again later.'}
       </p>
     )
   }
