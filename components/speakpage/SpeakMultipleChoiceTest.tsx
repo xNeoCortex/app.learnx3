@@ -56,6 +56,12 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 		isSuccess && setOpen(true)
 	}, [isLoading])
 
+	// Save quiz data to state
+	useEffect(() => {
+		setQuizData(lesson?.exercise?.questions)
+	}, [])
+
+
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
