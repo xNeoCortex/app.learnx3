@@ -25,7 +25,7 @@ function index() {
 
 	const topicCategories =
 		topics?.data
-			?.sort((a, b) => a.category.localeCompare(b.category))
+			?.sort((a, b) => a.category?.localeCompare(b.category))
 			?.map(({ category }) => category)
 			?.filter((value, index, self) => self.indexOf(value) === index) || []
 
@@ -43,9 +43,8 @@ function index() {
 								onClick={() => setCategory(categoryX)}
 								sx={{
 									cursor: "pointer",
-									background: categoryX === category ? "#282828" : "transparent",
+									background: categoryX === category ? "#282828" : "#f2f2f2",
 									color: categoryX === category ? "white" : "#282828",
-									border: categoryX === category ? "1px solid white" : "1px solid #282828",
 									mr: "8px",
 									p: "4px 16px",
 									borderRadius: 2,
