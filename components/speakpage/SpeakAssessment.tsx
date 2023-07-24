@@ -11,7 +11,6 @@ import { Box, capitalize, Grid } from "@mui/material"
 import SpeakMultipleChoiceTest from "./SpeakMultipleChoiceTest"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-	background: "rgb(4 0 21 / 85%)",
 	width: "100%",
 	height: "100%",
 	"& .MuiDialogContent-root": {

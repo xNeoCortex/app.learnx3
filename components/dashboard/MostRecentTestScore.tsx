@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Typography } from "@mui/material"
+import { Box, capitalize, Typography } from "@mui/material"
 import { WordOfTheDayData } from "../data/WordOfTheDayData"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
@@ -23,6 +23,7 @@ function MostRecentTestScore() {
 		testResults?.data?.filter((item) => item.createdAt)?.sort((a, b) => b?.createdAt?.localeCompare(a?.createdAt))[0] ??
 		mostRecentResult
 
+	console.log("mostRecentResultWithDate :>> ", mostRecentResultWithDate)
 	return (
 		<Box
 			sx={{
@@ -50,6 +51,7 @@ function MostRecentTestScore() {
 				/>
 			</Box>
 			<Box>
+				<Typography sx={{ color: "#1d243d" }}>Your most recent test score </Typography>
 				<Typography
 					sx={{
 						fontSize: 36,
@@ -58,9 +60,11 @@ function MostRecentTestScore() {
 					}}
 				>
 					{mostRecentResultWithDate?.result ?? "No Test Result"}
-					<span style={{ fontSize: 15 }}>/100</span>
+					{mostRecentResultWithDate?.result && <span style={{ fontSize: 15 }}>/100</span>}
 				</Typography>
-				<Typography sx={{ color: "#1d243d" }}>Your most recent test score</Typography>
+				<Typography variant="body2" sx={{ color: "#1d243d" }}>
+					Topic: {capitalize(mostRecentResultWithDate?.topic)}
+				</Typography>
 			</Box>
 		</Box>
 	)

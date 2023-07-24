@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import BackButton from "@/components/other/BackButton"
@@ -7,7 +7,6 @@ import SidebarContainer from "@/components/SidebarContainer"
 import ErrorPage from "../error"
 import SpeakingInfo from "./SpeakingInfo"
 import { useRouter } from "next/router"
-import SpeakTest from "@/components/speakpage/SpeakMultipleChoiceTest"
 import FlashCards from "@/components/speakpage/FlashCards"
 import Phrases from "@/components/speakpage/Phrases"
 import AskQuestions from "@/components/speakpage/AskQuestions"
@@ -16,12 +15,10 @@ import SpeakAssessment from "@/components/speakpage/SpeakAssessment"
 
 export default function SpeakingLessonAi() {
 	const { fetchOneLessonByAi } = ApiServices()
-
 	const {
 		query: { id },
 	} = useRouter()
 
-	console.log("id :>> ", id)
 	// Fetch curriculum
 	const {
 		data: lessonByAi,
