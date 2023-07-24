@@ -87,7 +87,7 @@ function StudentProfile() {
 										alignItems: "center",
 									}}
 								>
-									{["Class A", "English Intermediate"].map((item, index) => (
+									{[data?.data?.age + " " + "years old", data?.data?.country, data?.data?.email].map((item, index) => (
 										<p
 											key={index}
 											style={{
