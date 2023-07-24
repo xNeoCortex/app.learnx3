@@ -1,9 +1,12 @@
 import React from "react"
 import { Box, Typography } from "@mui/material"
-import Link from "next/link"
-import Image from "next/image"
+import { WordOfTheDayData } from "../data/WordOfTheDayData"
 
 function WordOfTheDay() {
+	// Example of how to get the word of the day for today's date (24 July 2023):
+	const today = new Date().toLocaleDateString()
+	const wordToday = WordOfTheDayData.find((item) => new Date(item.date).toLocaleDateString() === today)
+	console.log(wordToday)
 	return (
 		<Box
 			sx={{
@@ -19,9 +22,11 @@ function WordOfTheDay() {
 		>
 			<Typography sx={{ color: "white", mb: 2 }}>Word of the Day!</Typography>
 			<Typography variant="h4" fontWeight="bolder" sx={{ color: "white", mb: 1 }}>
-				🇬🇧 cherish
+				🇬🇧 {wordToday.word || "cherish"}
 			</Typography>
-			<Typography sx={{ color: "rgb(219 193 228)", mb: 2 }}>protect and care for (someone) lovingly.</Typography>
+			<Typography sx={{ color: "rgb(219 193 228)", mb: 2 }}>
+				{wordToday.definition || "protect and care for (someone) lovingly."}
+			</Typography>
 		</Box>
 	)
 }
