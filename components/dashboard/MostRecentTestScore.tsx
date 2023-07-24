@@ -23,7 +23,6 @@ function MostRecentTestScore() {
 		testResults?.data?.filter((item) => item.createdAt)?.sort((a, b) => b?.createdAt?.localeCompare(a?.createdAt))[0] ??
 		mostRecentResult
 
-	console.log("mostRecentResultWithDate :>> ", mostRecentResultWithDate)
 	return (
 		<Box
 			sx={{
@@ -62,9 +61,11 @@ function MostRecentTestScore() {
 					{mostRecentResultWithDate?.result ?? "No Test Result"}
 					{mostRecentResultWithDate?.result && <span style={{ fontSize: 15 }}>/100</span>}
 				</Typography>
-				<Typography variant="body2" sx={{ color: "#1d243d" }}>
-					Topic: {capitalize(mostRecentResultWithDate?.topic)}
-				</Typography>
+				{mostRecentResultWithDate?.topic && (
+					<Typography variant="body2" sx={{ color: "#1d243d" }}>
+						Topic: {capitalize(mostRecentResultWithDate?.topic)}
+					</Typography>
+				)}
 			</Box>
 		</Box>
 	)

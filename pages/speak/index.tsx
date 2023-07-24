@@ -36,7 +36,7 @@ function index() {
 			<SidebarContainer>
 				<Box sx={{ marginTop: "20px", width: "100%" }}>
 					<CreateAiLesson />
-					<Box sx={{ width: "100%", display: "flex", mb: 2 }}>
+					<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll" }}>
 						{["All", ...topicCategories]?.map((categoryX) => (
 							<Typography
 								onClick={() => setCategory(categoryX)}
@@ -48,6 +48,7 @@ function index() {
 									p: "4px 16px",
 									borderRadius: 2,
 									width: "fit-content",
+									minWidth: "fit-content",
 								}}
 							>
 								{" "}

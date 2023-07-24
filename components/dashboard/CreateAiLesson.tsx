@@ -37,7 +37,7 @@ function CreateAiLesson() {
 					},
 					{
 						role: "user",
-						content: `Create english language curriculum topic Family. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Exercise should be multiple choice questions.`,
+						content: `Create english language curriculum topic Family. Return it in JSON format. I will use the document on my website to create content for english language platform so children could learn speaking english. Choose one of the following for category Learning, Movies, News, Sport, Travel, Gaming, Lifestyle, Entertainment, Fashion, Technology, Entrepreneurship, History, Geography, Family, other. Exercise should be multiple choice questions.`,
 					},
 					{
 						role: "assistant",
