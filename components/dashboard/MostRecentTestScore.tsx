@@ -41,19 +41,26 @@ function MostRecentTestScore() {
 			}}
 		>
 			<Box sx={{ marginRight: 4, marginLeft: 1 }}>
-				<SchoolRoundedIcon style={{ width: 75, height: 75, color: "#41b6ff" }} />
+				<SchoolRoundedIcon
+					style={{
+						width: 75,
+						height: 75,
+						color: "rgb(128 146 245)",
+					}}
+				/>
 			</Box>
 			<Box>
 				<Typography
 					sx={{
 						fontSize: 36,
 						fontWeight: 600,
-						color: "rgb(50, 51, 49)",
+						color: "#1d243d",
 					}}
 				>
-					{mostRecentResultWithDate?.result ?? "No Test Result"}%
+					{mostRecentResultWithDate?.result ?? "No Test Result"}
+					<span style={{ fontSize: 15 }}>/100</span>
 				</Typography>
-				<Typography sx={{ fontSize: "15px", color: "rgba(50, 51, 49, 0.8)" }}>Your most recent test score</Typography>
+				<Typography sx={{ color: "#1d243d" }}>Your most recent test score</Typography>
 			</Box>
 		</Box>
 	)
