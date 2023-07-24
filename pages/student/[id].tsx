@@ -104,7 +104,7 @@ function StudentProfile() {
 											{data?.data?.age} years old
 										</p>
 									)}
-									{[data?.data?.country, data?.data?.email].map((item, index) => (
+									{[data?.data?.country || "country unknown", data?.data?.email].map((item, index) => (
 										<p
 											key={index}
 											style={{
