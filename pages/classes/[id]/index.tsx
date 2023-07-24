@@ -11,6 +11,7 @@ import ExploreTopics from "@/components/dashboard/ExploreTopics"
 import WordOfTheDay from "@/components/dashboard/WordOfTheDay"
 import DashboardTopics from "@/components/dashboard/DashboardTopics"
 import StudentRanking from "@/components/dashboard/StudentRanking"
+import MostRecentTestScore from "@/components/dashboard/MostRecentTestScore"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
@@ -23,11 +24,16 @@ function MyDashboard() {
 						{userInfo?.role === "student" ? (
 							<>
 								<Grid item xs={12} sm={8}>
-									<Grid item xs={12}>
-										<ExploreTopics />
-									</Grid>
-									<Grid item xs={12} sm={6}>
-										<WordOfTheDay />
+									<Grid container spacing={2}>
+										<Grid item xs={12}>
+											<ExploreTopics />
+										</Grid>
+										<Grid item xs={12} sm={6}>
+											<WordOfTheDay />
+										</Grid>
+										<Grid item xs={12} sm={6}>
+											<MostRecentTestScore />
+										</Grid>
 									</Grid>
 								</Grid>
 								<Grid item xs={12} sm={4}>
