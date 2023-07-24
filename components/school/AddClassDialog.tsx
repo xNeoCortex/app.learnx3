@@ -205,7 +205,14 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 			<Button
 				variant="outlined"
 				onClick={handleClickOpen}
-				sx={{ border: "1px solid rgb(95, 97, 196)", color: "rgb(95, 97, 196)", fontSize: 13, fontWeight: 600 }}
+				sx={{
+					border: "1px solid rgb(95, 97, 196)",
+					color: "rgb(95, 97, 196)",
+					textTransform: "none",
+					fontSize: 13,
+					fontWeight: 600,
+					padding: "2.2px 10px",
+				}}
 			>
 				{buttonName ? buttonName : "Create class"}
 			</Button>

@@ -63,8 +63,8 @@ const Navbar = () => {
 				<Box style={{ display: "flex", flexDirection: "row" }}>
 					<a target="_blank" rel="noreferrer" href={classInfo?.video_call_link}>
 						<Button
-							style={{
-								marginRight: 5,
+							sx={{
+								marginRight: "5px",
 								textTransform: "none",
 								background: "#5f61c4",
 								color: "white",
@@ -73,9 +73,9 @@ const Navbar = () => {
 							}}
 						>
 							<VideocamIcon
-								style={{
+								sx={{
 									color: "white",
-									marginRight: 6,
+									marginRight: "6px",
 								}}
 							/>
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>

@@ -45,9 +45,15 @@ function MyDashboard() {
 							</>
 						) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
 							<>
-								<Lessons num={1} />
-								<Statistics displayGraphs={false} />
-								<StudentCardList />
+								<Grid item xs={12}>
+									<Lessons num={1} />
+								</Grid>
+								<Grid item xs={12}>
+									<Statistics displayGraphs={false} />
+								</Grid>
+								<Grid item xs={12}>
+									<StudentCardList />
+								</Grid>
 							</>
 						) : null}
 					</Grid>
