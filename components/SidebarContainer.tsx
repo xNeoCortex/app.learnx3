@@ -32,7 +32,7 @@ function SidebarContainer({ children }) {
 							maxWidth: "1400px",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",
-							margin: "auto",
+							margin: "none auto",
 							overflowY: "scroll",
 							overflowX: "hidden",
 						}}

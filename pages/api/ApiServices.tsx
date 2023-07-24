@@ -1,6 +1,9 @@
 import axios from "axios"
+import { useStoreUser } from "@/components/zustand"
 
 function ApiServices() {
+	const { userInfo } = useStoreUser()
+
 	async function fetchStudentData(studentId: string) {
 		const response = await axios.get(`/api/fetchstudent`, {
 			params: {
@@ -112,10 +115,16 @@ function ApiServices() {
 	}
 
 	async function apiRequest(method: string = "GET", body = null, params: ApiRequestParams) {
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
 		return await axios({
 			method,
 			url: "/api/apirequest",
-			data: body,
+			data: updatedBody,
 			params,
 		})
 	}

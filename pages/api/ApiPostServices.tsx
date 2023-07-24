@@ -1,23 +1,56 @@
+import { useStoreUser } from "@/components/zustand"
 import axios from "axios"
 
 function ApiPostServices() {
+	const { userInfo } = useStoreUser()
+
 	async function submitEssay(body) {
-		return await axios.post("/api/submitessay", body)
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/submitessay", updatedBody)
 	}
 
 	async function submitTest(body) {
-		return await axios.post("/api/submittest", body)
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/submittest", updatedBody)
 	}
 
 	async function addCurriculum(body) {
-		return await axios.post("/api/addcurriculum", body)
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/addcurriculum", updatedBody)
 	}
 	async function addClass(body) {
-		return await axios.post("/api/addclass", body)
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/addclass", updatedBody)
 	}
 
 	async function addLesson(body) {
-		return await axios.post("/api/addlesson", body)
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/addlesson", updatedBody)
 	}
 
 	async function addLessonByAi(userInfo, topic) {
@@ -29,7 +62,13 @@ function ApiPostServices() {
 	}
 
 	async function addAssessment(body, type) {
-		return await axios.post("/api/assessmentapi", body, {
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.post("/api/assessmentapi", updatedBody, {
 			params: {
 				type,
 			},
@@ -37,7 +76,13 @@ function ApiPostServices() {
 	}
 
 	async function updateClass(body, id) {
-		return await axios.put("/api/updateclass", body, {
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.put("/api/updateclass", updatedBody, {
 			params: {
 				id: id,
 			},
@@ -45,7 +90,13 @@ function ApiPostServices() {
 	}
 
 	async function updateTeacherInfo(body, id) {
-		return await axios.patch("/api/updateteacher", body, {
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		return await axios.patch("/api/updateteacher", updatedBody, {
 			params: {
 				id: id,
 			},
@@ -53,7 +104,13 @@ function ApiPostServices() {
 	}
 
 	async function submitFeedback(body, id) {
-		const response = await axios.patch("/api/submitfeedback", body, {
+		const updatedBody = {
+			...body,
+			createdAt: `${new Date().toISOString()}`,
+			createdById: `${userInfo.uid}`,
+			createdByName: `${userInfo.name}`,
+		}
+		const response = await axios.patch("/api/submitfeedback", updatedBody, {
 			params: {
 				id: id,
 			},
