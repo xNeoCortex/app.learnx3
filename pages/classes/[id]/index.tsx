@@ -26,7 +26,7 @@ function MyDashboard() {
 									<Grid item xs={12}>
 										<ExploreTopics />
 									</Grid>
-									<Grid item xs={12}>
+									<Grid item xs={12} sm={6}>
 										<WordOfTheDay />
 									</Grid>
 								</Grid>

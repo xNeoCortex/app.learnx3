@@ -29,9 +29,10 @@ function SidebarContainer({ children }) {
 							// background: "#5f6ac40a",
 							padding: "10px 20px",
 							borderRadius: "5px",
-							maxWidth: "none",
+							maxWidth: "1400px",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",
+							margin: "auto",
 							overflowY: "scroll",
 							overflowX: "hidden",
 						}}
