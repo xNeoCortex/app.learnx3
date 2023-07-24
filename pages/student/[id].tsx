@@ -87,7 +87,24 @@ function StudentProfile() {
 										alignItems: "center",
 									}}
 								>
-									{[data?.data?.age + " " + "years old", data?.data?.country, data?.data?.email].map((item, index) => (
+									{data?.data?.age && (
+										<p
+											style={{
+												fontWeight: 500,
+												padding: "3px 10px",
+												background: "white",
+												color: "rgb(50, 50, 93)",
+												border: "1px solid rgb(50, 50, 93)",
+												maxWidth: "191px",
+												borderRadius: 12,
+												marginRight: 10,
+												fontSize: 12,
+											}}
+										>
+											{data?.data?.age} years old
+										</p>
+									)}
+									{[data?.data?.country, data?.data?.email].map((item, index) => (
 										<p
 											key={index}
 											style={{
