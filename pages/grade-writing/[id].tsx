@@ -78,7 +78,7 @@ function GradeWritingPage() {
 								marginBottom: 1,
 							}}
 						>
-							<Avatar src="/pupil-avatar.png" sx={{ bgcolor: "grey", width: 100, height: 100 }} />
+							<Avatar src="/pupil-avatar.png" sx={{ bgcolor: "white", width: 100, height: 100 }} />
 							<Box
 								display="flex"
 								alignItems="center"

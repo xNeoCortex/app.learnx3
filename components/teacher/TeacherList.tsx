@@ -98,12 +98,13 @@ function TableRows({ teacher, setOpen }) {
 				}}
 			>
 				<Avatar
-					src="/pupil-avatar.png"
+					src={teacher?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 					sx={{
 						width: 35,
 						height: 35,
 						border: "2px solid rgb(95, 106, 196)",
 						marginRight: 1.5,
+						bgcolor: "white",
 					}}
 				/>
 				<p>{teacher.name}</p>

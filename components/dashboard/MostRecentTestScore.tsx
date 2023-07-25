@@ -50,10 +50,10 @@ function MostRecentTestScore() {
 				/>
 			</Box>
 			<Box>
-				<Typography sx={{ color: "#1d243d" }}>Your most recent test score </Typography>
+				<Typography sx={{ color: "#1d243d", mb: 1 }}>Your most recent test score </Typography>
 				<Typography
 					sx={{
-						fontSize: 40,
+						fontSize: 36,
 						fontWeight: 600,
 						color: "#1d243d",
 					}}

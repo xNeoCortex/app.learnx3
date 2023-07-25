@@ -30,8 +30,6 @@ export default function SpeakingLessonAi() {
 		refetchOnWindowFocus: false,
 	})
 
-	console.log("lessonByAi :>> ", lessonByAi)
-
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 

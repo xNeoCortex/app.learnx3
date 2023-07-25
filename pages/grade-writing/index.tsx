@@ -162,12 +162,13 @@ function GradeWritingList() {
 																}}
 															>
 																<Avatar
-																	src="/pupil-avatar.png"
+																	src={row?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 																	sx={{
 																		width: 35,
 																		height: 35,
 																		border: "2px solid rgb(95, 106, 196)",
 																		marginRight: 1.5,
+																		bgcolor: "white",
 																	}}
 																/>
 																<p>{row.student_name}</p>

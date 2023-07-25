@@ -21,7 +21,10 @@ const StudentCard = memo<{ studentDetails: any }>(({ studentDetails }) => {
 				position: "relative",
 			}}
 		>
-			<Avatar src="/pupil-avatar.png" sx={{ bgcolor: "grey", width: 70, height: 70 }} />
+			<Avatar
+				src={studentDetails?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
+				sx={{ bgcolor: "white", width: 70, height: 70 }}
+			/>
 
 			<Box display="flex" alignItems="center" flexDirection="column">
 				<h5

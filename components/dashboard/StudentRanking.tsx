@@ -105,12 +105,13 @@ function StudentRanking() {
 											{index + 1}
 										</Typography>
 										<Avatar
-											src="/pupil-avatar.png"
+											src={row?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 											sx={{
 												width: 30,
 												height: 30,
 												border: "2px solid rgb(95, 106, 196)",
 												marginRight: 1.5,
+												bgcolor: "white",
 											}}
 										/>
 										<Typography sx={{ mr: 1, fontSize: "15px" }}>{row.name} </Typography>

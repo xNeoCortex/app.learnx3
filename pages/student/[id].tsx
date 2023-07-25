@@ -5,7 +5,6 @@ import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/components/ErrorPage"
 import ExerciseResult from "../../components/assessment/ExerciseResult"
-import WritingResult from "../../components/result/WritingResult"
 import BackButton from "../../components/other/BackButton"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
@@ -16,12 +15,11 @@ function StudentProfile() {
 	} = useRouter()
 	const { fetchStudentData } = ApiServices()
 	const { data, isLoading, isError } = useQuery({
-		queryKey: ["student", String(id)],
+		queryKey: [`student-${id}`, String(id)],
 		queryFn: () => fetchStudentData(String(id)),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
 	})
-
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
@@ -55,7 +53,10 @@ function StudentProfile() {
 								marginBottom: 1,
 							}}
 						>
-							<Avatar src="/pupil-avatar.png" sx={{ bgcolor: "grey", width: 100, height: 100 }} />
+							<Avatar
+								src={data?.data?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
+								sx={{ bgcolor: "white", width: 100, height: 100 }}
+							/>
 							<Box
 								display="flex"
 								alignItems="center"
