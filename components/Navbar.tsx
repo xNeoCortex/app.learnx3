@@ -70,6 +70,7 @@ const Navbar = () => {
 								color: "white",
 								fontWeight: "600",
 								padding: "3px 10px",
+								"&:hover": { background: "#424493" },
 							}}
 						>
 							<VideocamIcon

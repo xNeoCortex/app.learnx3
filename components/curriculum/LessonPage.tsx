@@ -174,11 +174,12 @@ function LessonPage(props) {
 								margin: 1,
 								textTransform: "none",
 								padding: "5px 30px",
+								"&:hover": { background: "#424493" },
 							}}
 						>
 							<VideocamIcon
-								style={{
-									marginRight: 6,
+								sx={{
+									marginRight: "6px",
 									// color: "#5f61c4"
 								}}
 							/>

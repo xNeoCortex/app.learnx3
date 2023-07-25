@@ -43,7 +43,7 @@ function CreateAssessment({ open, setOpen }) {
 					width: "100%",
 					background: "rgb(95, 106, 196)",
 					color: "white",
-					"&:hover": { backgroundColor: "rgba(95, 106, 196, 0.9)" },
+					"&:hover": { background: "#424493" },
 				}}
 				onClick={() => setOpen(!open)}
 			>

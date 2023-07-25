@@ -98,11 +98,12 @@ export const LessonIntro = ({ lessonState, image, width = "250px" }) => {
 							sx={{
 								mt: "10px",
 								textTransform: "none",
+								"&:hover": { background: "#424493" },
 							}}
 						>
 							<VideocamIcon
-								style={{
-									marginRight: 6,
+								sx={{
+									marginRight: "6px",
 									// color: "#5f61c4"
 								}}
 							/>
