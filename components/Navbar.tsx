@@ -14,7 +14,7 @@ const Navbar = () => {
 
 	// get assessment result
 	const { data: testResults, isLoading } = useQuery({
-		queryKey: [`myTestResult}`],
+		queryKey: [`mySumTestResult}`],
 		queryFn: () => fetchTestResults(String(userInfo?.uid)),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,

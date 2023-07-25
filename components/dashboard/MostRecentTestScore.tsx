@@ -12,7 +12,7 @@ function MostRecentTestScore() {
 
 	// get assessment result
 	const { data: testResults, isLoading } = useQuery({
-		queryKey: [`myTestResult`],
+		queryKey: [`myLatestTestResult`],
 		queryFn: () => fetchTestResults(String(userInfo?.uid)),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
