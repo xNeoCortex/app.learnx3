@@ -7,8 +7,9 @@ import IconButton from "@mui/material/IconButton"
 import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
-import { Box, Grid } from "@mui/material"
+import { Box, capitalize, Grid } from "@mui/material"
 import dayjs from "dayjs"
+import TextToSpeechButton from "./TextToSpeechButton"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -124,11 +125,23 @@ export default function Conversation({ lesson }) {
 															>
 																👩‍🎓 {item.speaker}
 															</Typography>
-															<Typography sx={{ fontSize: 16 }}> {item.content}</Typography>
+															<Typography sx={{ fontSize: 16 }}>
+																{" "}
+																{item.content}{" "}
+																<TextToSpeechButton
+																	text={item.content}
+																	buttonSize="25px"
+																	personType={capitalize(item.speaker) === "Child" ? "child" : "male"}
+																/>
+															</Typography>
 														</>
 													) : (
 														<>
-															<Typography sx={{ fontSize: 16 }}> {item.content}</Typography>
+															<Typography sx={{ fontSize: 16 }}>
+																{" "}
+																<TextToSpeechButton text={item.content} buttonSize="25px" personType="female" />
+																{item.content}{" "}
+															</Typography>
 															<Typography
 																sx={{
 																	fontSize: 14,

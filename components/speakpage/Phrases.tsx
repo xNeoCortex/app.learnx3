@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
+import TextToSpeechButton from "./TextToSpeechButton"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -94,13 +95,13 @@ export default function Phrases({ lesson }) {
 									display: "flex",
 									justifyContent: "center",
 									alignItems: "center",
-									flexDirection: "column",
 									boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 								}}
 							>
+								<TextToSpeechButton text={lesson?.phrases[flashCardIndex]} />
 								<Typography variant="h5">{lesson?.phrases[flashCardIndex]}</Typography>
 							</Box>
-							<Box sx={{ width: "100%", display: "flex", gap: 10 }}>
+							<Box sx={{ width: "100%", display: "flex", gap: 2 }}>
 								<Button
 									sx={{ flex: 1, background: "#c3d8fa !important", color: "#45433B", fontWeight: 600 }}
 									autoFocus

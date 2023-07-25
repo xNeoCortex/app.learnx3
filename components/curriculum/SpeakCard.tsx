@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import { Box, Button, capitalize, Chip, Typography } from "@mui/material"
-import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
+import { Box, capitalize, Typography } from "@mui/material"
+import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 
 export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 	const [open, setOpen] = useState(null)
@@ -31,6 +31,7 @@ export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 						justifyContent: "center",
 					}}
 				>
+					<TextToSpeechButton text={word.word} />
 					<Typography variant="h4" style={{ height: "fit-content", color: "black", fontWeight: "bold" }}>
 						{word.word}
 					</Typography>

@@ -10,6 +10,7 @@ import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import TextToSpeechButton from "./TextToSpeechButton"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -154,6 +155,7 @@ const EachQuestion = ({ index, item }) => {
 						{index + 1}
 					</Typography>
 					<Typography sx={{ fontSize: 16, fontWeight: 500 }}> {item.question}</Typography>
+					<TextToSpeechButton text={item.question} buttonSize="25px" />
 				</Box>
 				{!showSampleAnswer ? (
 					<IconButton onClick={() => setShowSampleAnswer(true)}>
@@ -167,6 +169,7 @@ const EachQuestion = ({ index, item }) => {
 			</Box>
 			<Typography sx={{ fontSize: 16, fontWeight: 500, width: "100%", mt: 2 }}>
 				{" "}
+				<TextToSpeechButton personType="male" text={item.sample_answer} buttonSize="25px" />
 				<b> Sample answer:</b> {item.sample_answer}
 			</Typography>
 		</Box>

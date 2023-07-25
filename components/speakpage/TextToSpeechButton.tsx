@@ -7,7 +7,7 @@ const TextToSpeechButton: React.FC<{
 	text: string
 	personType?: "female" | "male" | "child"
 	buttonSize?: string | number
-	color?: "string"
+	color?: string
 }> = ({
 	personType = "female",
 	text = "Hello world, how are you doing? I am ok, actually amazing!",
@@ -83,7 +83,7 @@ const TextToSpeechButton: React.FC<{
 
 	return (
 		<IconButton onClick={handleSpeak}>
-			<VolumeUpIcon sx={{ color: speaking ? color : "grey", fontSize: buttonSize }} />
+			<VolumeUpIcon sx={{ color: speaking ? color : "#BAB9CC", fontSize: buttonSize }} />
 		</IconButton>
 	)
 }
