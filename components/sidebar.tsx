@@ -30,11 +30,11 @@ function sidebar({ classId }) {
 
 	return (
 		<Box
-			style={{
+			sx={{
 				background: "white",
 				maxWidth: "none",
-				width: 120,
-				transition: "width 0.5s ease-out",
+				width: "120px",
+				transition: "width 0.3s ease-out",
 				display: "flex",
 				flexDirection: "column",
 				position: "relative",
@@ -162,7 +162,6 @@ function sidebar({ classId }) {
 					)}
 				</List>
 			</Box>
-			<VirtualTeacherPopup />
 		</Box>
 	)
 }
@@ -219,12 +218,12 @@ const dataTeacher = (classId) => {
 			link: "/grade-writing",
 			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Teacher Fina",
-			href: "/fina",
-			link: "/fina",
-			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Teacher Fina",
+		// 	href: "/fina",
+		// 	link: "/fina",
+		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
+		// },
 	]
 }
 
@@ -266,12 +265,12 @@ const dataStudent = (classId) => {
 		// 	link: "/writing",
 		// 	icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
 		// },
-		{
-			name: "Teacher Fina",
-			href: "/fina",
-			link: "/fina",
-			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Teacher Fina",
+		// 	href: "/fina",
+		// 	link: "/fina",
+		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
+		// },
 	]
 }
 
@@ -343,11 +342,11 @@ const dataAdmin = (class_id) => {
 			link: "/grade-writing",
 			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Teacher Fina",
-			href: "/fina",
-			link: "/fina",
-			icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Teacher Fina",
+		// 	href: "/fina",
+		// 	link: "/fina",
+		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
+		// },
 	]
 }

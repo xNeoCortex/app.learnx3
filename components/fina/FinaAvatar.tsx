@@ -1,0 +1,61 @@
+import * as React from "react"
+import { styled } from "@mui/material/styles"
+import Badge from "@mui/material/Badge"
+import Avatar from "@mui/material/Avatar"
+import Stack from "@mui/material/Stack"
+import { useStoreTemporary } from "../zustand"
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+	"& .MuiBadge-badge": {
+		display: "none",
+		backgroundColor: "#44b700",
+		color: "#44b700",
+		boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+		"&::after": {
+			position: "absolute",
+			top: 0,
+			left: 0,
+			width: "100%",
+			height: "100%",
+			borderRadius: "50%",
+			animation: "ripple 1.2s infinite ease-in-out",
+			border: "1px solid currentColor",
+			content: '""',
+		},
+	},
+	"&:hover": {
+		cursor: "pointer",
+		opacity: 1,
+	},
+	background: "white",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	zIndex: 1000,
+	width: "60px",
+	height: "60px",
+	position: "absolute",
+	bottom: "20px",
+	right: "25px",
+	border: "3px solid #5f61c4",
+	borderRadius: "50%",
+}))
+
+export default function FinaAvatar() {
+	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
+
+	return (
+		<>
+			{botComponentWidth !== 600 && (
+				<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
+					<Avatar
+						sx={{ objectFit: "contain" }}
+						alt="Fina"
+						src="/fina.image.png"
+						onClick={() => setBotComponentWidth(600)}
+					/>
+				</StyledBadge>
+			)}
+		</>
+	)
+}

@@ -1,7 +1,7 @@
 import React from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
-import { Box, Button, CssBaseline, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
 import ImgMediaCard from "@/components/other/Card"
@@ -9,9 +9,11 @@ import CreateAiLesson from "@/components/dashboard/CreateAiLesson"
 import ErrorPage from "../error"
 import dayjs from "dayjs"
 import LoadingPage from "@/components/LoadingPage"
+import { useStoreTemporary } from "@/components/zustand"
 
 function index() {
 	const [category, setCategory] = React.useState("All")
+	const { botComponentWidth } = useStoreTemporary()
 	const { apiRequest } = ApiServices()
 	const {
 		data: topics,
@@ -61,7 +63,7 @@ function index() {
 							.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 							.filter((x) => (category === "All" ? x : x.category === category))
 							.map((x) => (
-								<Grid item xs={12} sm={3} lg={2}>
+								<Grid item xs={12} sm={botComponentWidth === 600 ? 4 : 3} lg={botComponentWidth === 600 ? 4 : 2}>
 									<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 								</Grid>
 							))}

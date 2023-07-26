@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<Hydrate state={pageProps.dehydratedState}>
 				<Component {...pageProps} />
 			</Hydrate>
-			<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+			<ReactQueryDevtools initialIsOpen={false} position="bottom-left" />
 		</QueryClientProvider>
 	)
 }

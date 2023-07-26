@@ -14,6 +14,10 @@ const useStoreTemporary = create((set) => ({
     sidebarWidth: 300,
     setSidebarWidth: (width) => set({
         sidebarWidth: width
+    }),
+    botComponentWidth: 0,
+    setBotComponentWidth: (width) => set({
+        botComponentWidth: width
     })
 }))
 

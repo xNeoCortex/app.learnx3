@@ -1,7 +1,7 @@
 import React from "react"
 import Lessons from "@/components/Lessons"
 import Statistics from "@/components/Statistics"
-import { useStoreUser } from "@/components/zustand"
+import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import StudentCardList from "@/components/student/StudentCardList"
@@ -15,6 +15,7 @@ import MostRecentTestScore from "@/components/dashboard/MostRecentTestScore"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
+	const { botComponentWidth } = useStoreTemporary()
 
 	return (
 		<AppContainer>
@@ -23,7 +24,7 @@ function MyDashboard() {
 					<Grid container spacing={3}>
 						{userInfo?.role === "student" ? (
 							<>
-								<Grid item xs={12} sm={8}>
+								<Grid item xs={12} sm={botComponentWidth === 600 ? 12 : 8}>
 									<Grid container spacing={2}>
 										<Grid item xs={12}>
 											<ExploreTopics />
@@ -36,7 +37,7 @@ function MyDashboard() {
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid item xs={12} sm={4}>
+								<Grid item xs={12} sm={botComponentWidth === 600 ? 12 : 4}>
 									<StudentRanking />
 								</Grid>
 								<Grid item xs={12}>

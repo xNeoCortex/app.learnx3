@@ -5,6 +5,8 @@ import { Box, CssBaseline, Grid } from "@mui/material"
 //@ts-ignore
 import Sidebar from "./sidebar"
 import Navbar from "./Navbar"
+import Fina from "@/pages/fina"
+import FinaAvatar from "./fina/FinaAvatar"
 
 const theme = createTheme()
 
@@ -12,12 +14,10 @@ function SidebarContainer({ children }) {
 	const { classInfo } = useClassInfo()
 
 	return (
-		<Grid sx={{ width: "100%" }}>
-			<CssBaseline />
+		<Box sx={{ width: "100%" }}>
+			<FinaAvatar />
 			<ThemeProvider theme={theme}>
-				<Grid
-					item
-					xs={12}
+				<Box
 					style={{
 						display: "flex",
 						height: "100vh",
@@ -28,7 +28,6 @@ function SidebarContainer({ children }) {
 						sx={{
 							// background: "#5f6ac40a",
 							padding: "10px 20px",
-							borderRadius: "5px",
 							maxWidth: "1400px",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",
@@ -40,9 +39,10 @@ function SidebarContainer({ children }) {
 						<Navbar />
 						{children}
 					</Box>
-				</Grid>
+					<Fina />
+				</Box>
 			</ThemeProvider>
-		</Grid>
+		</Box>
 	)
 }
 
