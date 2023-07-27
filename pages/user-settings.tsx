@@ -17,13 +17,33 @@ import ConfirmationModal from "@/components/other/ConfirmationModal"
 import SnackbarX from "@/components/other/SnackbarX"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
+import ApiServices from "./api/ApiServices"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import LoadingPage from "@/components/LoadingPage"
+import ErrorPage from "./error"
 
 export default function MySettings() {
-	const { userInfo } = useStoreUser((state) => state)
+	const { userInfo, setUserInfo } = useStoreUser((state) => state)
 	const [currentUser, setCurrentUser] = React.useState(null)
 	const [email, setEmail] = React.useState(userInfo?.email || "")
 	const [emailMessage, setEmailMessage] = React.useState("")
-	const user = auth.currentUser // Curent user
+	const user = auth.currentUser // Current user
+	const queryClient = useQueryClient()
+	const { apiRequest } = ApiServices()
+
+	// Fetching lessons
+	const { data, isLoading, isError } = useQuery({
+		queryKey: ["myInfo"],
+		queryFn: () =>
+			apiRequest("GET", null, {
+				collectionName: userInfo.role === "student" ? "students" : "teachers",
+				uid: userInfo?.uid,
+			}),
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+	})
+
+	const fetchedUser = data?.data
 
 	//Snackbar
 	const [open, setOpen] = React.useState(false)
@@ -31,13 +51,8 @@ export default function MySettings() {
 
 	// OnMount set user information
 	React.useEffect(() => {
-		setCurrentUser({
-			...currentUser,
-			name: userInfo.name,
-			age: userInfo.age,
-			gender: userInfo.gender,
-		})
-	}, [])
+		setCurrentUser(fetchedUser)
+	}, [data, isLoading])
 
 	// Reset Password
 	const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false)
@@ -67,6 +82,7 @@ export default function MySettings() {
 			const userAuth = await updateProfile(auth.currentUser, {
 				displayName: currentUser.name,
 			})
+			queryClient.invalidateQueries(["myInfo"])
 			setOpen(true)
 			setMessage("Your information has been updated!")
 		} catch (e) {
@@ -98,6 +114,8 @@ export default function MySettings() {
 		updateData()
 	}
 
+	if (isLoading) return <LoadingPage />
+	if (isError) return <ErrorPage />
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
