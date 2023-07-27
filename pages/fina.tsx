@@ -132,9 +132,9 @@ function Fina() {
 									{item.order % 2 ? (
 										<Box sx={{ display: "flex", alignItems: "center" }}>
 											<Avatar
-												sx={{ width: 35, height: 35, mr: 2, background: "lime", border: "2px solid black" }}
+												sx={{ width: 35, height: 35, mr: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
-												src="/fina.image.png"
+												src="/teacher_green.svg"
 											/>
 											{/* <Typography sx={{ fontSize: 15 }}> {item.content} </Typography> */}
 											<p
@@ -149,7 +149,7 @@ function Fina() {
 											<TextToSpeechButton text={item.content} buttonSize="25px" personType="male" />
 											<Typography sx={{ fontSize: 15 }}> {item.content} </Typography>
 											<Avatar
-												sx={{ width: 30, height: 30, ml: 2, background: "lime", border: "2px solid black" }}
+												sx={{ width: 30, height: 30, ml: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
 												src={userInfo?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 											/>

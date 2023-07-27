@@ -27,7 +27,7 @@ function SidebarContainer({ children }) {
 					<Box
 						sx={{
 							// background: "#5f6ac40a",
-							padding: "10px 20px",
+							padding: "10px 20px 10px 5px",
 							maxWidth: "1400px",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",

@@ -22,7 +22,7 @@ function sidebar({ classId }) {
 	const { push: navigate } = useRouter()
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
-	const { class_id } = useStoreTemporary()
+	const { class_id, botComponentWidth } = useStoreTemporary()
 
 	useEffect(() => {
 		classId === undefined && userInfo.role !== "admin" && navigate("/classes")
@@ -33,7 +33,7 @@ function sidebar({ classId }) {
 			sx={{
 				background: "white",
 				maxWidth: "none",
-				width: "120px",
+				width: botComponentWidth === 600 ? "170px" : "120px",
 				transition: "width 0.3s ease-out",
 				display: "flex",
 				flexDirection: "column",
