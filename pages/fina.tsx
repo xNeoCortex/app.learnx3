@@ -18,13 +18,17 @@ function Fina() {
 	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
 	const [messages, setMessages] = useState([
 		{
-			role: "teacher",
+			role: "assistant",
 			content: ` Hi ${auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂`,
 			order: 1,
 		},
 	])
 
-	const handleMessage = (incomingMessage: { role: "teacher" | "student"; message: string }) => {
+	// message for chatGPT
+	const messagesGPT = [...GPTMessage, ...messages, { role: "user", content: prompt }]
+
+	// handle messages
+	const handleMessage = (incomingMessage: { role: "assistant" | "user"; message: string }) => {
 		setMessages((prevMessages) => [
 			...prevMessages,
 			{
@@ -40,7 +44,7 @@ function Fina() {
 	const handleDelete = () => {
 		setMessages([
 			{
-				role: "teacher",
+				role: "assistant",
 				content: ` Hi ${auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂`,
 				order: 1,
 			},
@@ -167,14 +171,17 @@ function Fina() {
 				</Grid>{" "}
 			</Box>
 
-			<BotFinaAI prompt={prompt} handleMessage={handleMessage} setPrompt={setPrompt} />
+			<BotFinaAI messagesGPT={messagesGPT} prompt={prompt} handleMessage={handleMessage} setPrompt={setPrompt} />
 		</Box>
 	)
 }
 
 export default Fina
 
-const BotFinaAI = ({ prompt, handleMessage, setPrompt }) => {
+const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
+	//delete property order from messagesGPT
+	const messages = messagesGPT.map(({ order, ...rest }) => rest)
+
 	const configuration = new Configuration({
 		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 	})
@@ -186,80 +193,12 @@ const BotFinaAI = ({ prompt, handleMessage, setPrompt }) => {
 		try {
 			const response = await openAI.createChatCompletion({
 				model: "gpt-3.5-turbo",
-				messages: [
-					{
-						role: "system",
-						content:
-							"You are english language teacher, you lead conversation and explain things in simple language so everyone can learn. Answers should be precise and short up to 100 token. You are a teacher, so you should be patient and kind. ",
-					},
-					{
-						role: "user",
-						content: "Good morning, teacher! How are you today?",
-					},
-					{
-						role: "assistant",
-						content: "Good morning! I'm doing well, thank you. How about you? How was your evening?",
-					},
-					{
-						role: "user",
-						content: "I'm doing great, thank you for asking. My evening was good. I spent some time doing my homework.",
-					},
-					{
-						role: "assistant",
-						content: "That's good to hear! I hope you didn't find the homework too challenging.",
-					},
-					{
-						role: "user",
-						content: "No, it was manageable. If I had any questions, I would have asked you in class.",
-					},
-					{
-						role: "assistant",
-						content:
-							"I'm glad to know that you feel comfortable asking questions. Remember, I'm here to help anytime you need it.",
-					},
-					{
-						role: "user",
-						content: "Thank you, teacher. You explain things well, and it makes learning easier.",
-					},
-					{
-						role: "assistant",
-						content: "You're very welcome! I'm happy to hear that you find my explanations helpful.",
-					},
-					{
-						role: "user",
-						content: "Today's lesson on quadratic equations was interesting. I enjoyed solving the problems.",
-					},
-					{
-						role: "assistant",
-						content:
-							"I'm pleased to hear that you found it interesting. Quadratic equations can be quite fascinating indeed!",
-					},
-					{
-						role: "user",
-						content: "Yes, they are. I think I'm getting the hang of it with practice.",
-					},
-					{
-						role: "assistant",
-						content: "That's the spirit! Practice is key to mastering any subject. Keep up the good work!",
-					},
-					{
-						role: "user",
-						content: "Thank you, teacher. I'll keep practicing and asking questions when needed.",
-					},
-					{
-						role: "assistant",
-						content: "That's the way to go. If you keep this up, I'm confident you'll excel in math and beyond.",
-					},
-					{
-						role: "user",
-						content: prompt,
-					},
-				],
+				messages,
 				temperature: 0.9,
 				max_tokens: 200,
 				presence_penalty: 0,
 			})
-			handleMessage({ role: "teacher", message: response.data.choices[0].message.content })
+			handleMessage({ role: "assistant", message: response.data.choices[0].message.content })
 			setLoading(false)
 		} catch (error) {
 			console.error(error)
@@ -286,12 +225,12 @@ const BotFinaAI = ({ prompt, handleMessage, setPrompt }) => {
 					inputProps={{ "aria-label": "search" }}
 					value={prompt}
 					onChange={(e) => setPrompt(e.target.value)}
-					onKeyPress={(e) => e.key === "Enter" && handleClick() && handleMessage({ role: "student", message: prompt })}
+					onKeyPress={(e) => e.key === "Enter" && handleClick() && handleMessage({ role: "user", message: prompt })}
 				/>
 			</Search>
 			<Button
 				variant="contained"
-				onClick={() => (handleClick(), handleMessage({ role: "student", message: prompt }))}
+				onClick={() => (handleClick(), handleMessage({ role: "user", message: prompt }))}
 				disabled={loading || prompt === ""}
 				sx={{
 					width: "100px",
@@ -349,3 +288,68 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		},
 	},
 }))
+
+const GPTMessage = [
+	{
+		role: "system",
+		content:
+			"You are english language teacher, you lead conversation and explain things in simple language so everyone can learn. Answers should be precise and short up to 100 token. You are a teacher, so you should be patient and kind. ",
+	},
+	{
+		role: "user",
+		content: "Good morning, teacher! How are you today?",
+	},
+	{
+		role: "assistant",
+		content: "Good morning! I'm doing well, thank you. How about you? How was your evening?",
+	},
+	{
+		role: "user",
+		content: "I'm doing great, thank you for asking. My evening was good. I spent some time doing my homework.",
+	},
+	{
+		role: "assistant",
+		content: "That's good to hear! I hope you didn't find the homework too challenging.",
+	},
+	{
+		role: "user",
+		content: "No, it was manageable. If I had any questions, I would have asked you in class.",
+	},
+	{
+		role: "assistant",
+		content:
+			"I'm glad to know that you feel comfortable asking questions. Remember, I'm here to help anytime you need it.",
+	},
+	{
+		role: "user",
+		content: "Thank you, teacher. You explain things well, and it makes learning easier.",
+	},
+	{
+		role: "assistant",
+		content: "You're very welcome! I'm happy to hear that you find my explanations helpful.",
+	},
+	{
+		role: "user",
+		content: "Today's lesson on quadratic equations was interesting. I enjoyed solving the problems.",
+	},
+	{
+		role: "assistant",
+		content: "I'm pleased to hear that you found it interesting. Quadratic equations can be quite fascinating indeed!",
+	},
+	{
+		role: "user",
+		content: "Yes, they are. I think I'm getting the hang of it with practice.",
+	},
+	{
+		role: "assistant",
+		content: "That's the spirit! Practice is key to mastering any subject. Keep up the good work!",
+	},
+	{
+		role: "user",
+		content: "Thank you, teacher. I'll keep practicing and asking questions when needed.",
+	},
+	{
+		role: "assistant",
+		content: "That's the way to go. If you keep this up, I'm confident you'll excel in math and beyond.",
+	},
+]

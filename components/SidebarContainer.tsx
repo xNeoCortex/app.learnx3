@@ -1,7 +1,7 @@
 import React from "react"
 import { useClassInfo } from "./zustand"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
-import { Box, CssBaseline, Grid } from "@mui/material"
+import { Box } from "@mui/material"
 //@ts-ignore
 import Sidebar from "./sidebar"
 import Navbar from "./Navbar"
