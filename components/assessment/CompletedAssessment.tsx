@@ -5,9 +5,8 @@ import { Alert, Box, Button, Container } from "@mui/material"
 
 const CompletedAssessment: React.FC<{
 	score: any
-	handleButton?: (value: boolean) => void
 	setShowResultPage?: (value: boolean) => void
-}> = ({ score, handleButton = null, setShowResultPage }) => {
+}> = ({ score, setShowResultPage }) => {
 	return (
 		<Box
 			sx={{

@@ -45,7 +45,7 @@ function Fina() {
 		setMessages([
 			{
 				role: "assistant",
-				content: ` Hi ${auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂`,
+				content: ` Hi ${auth.currentUser?.displayName || ""}! I am teacher Fina. How can I help you? 🙂`,
 				order: 1,
 			},
 		])
@@ -225,7 +225,9 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 					inputProps={{ "aria-label": "search" }}
 					value={prompt}
 					onChange={(e) => setPrompt(e.target.value)}
-					onKeyPress={(e) => e.key === "Enter" && handleClick() && handleMessage({ role: "user", message: prompt })}
+					onKeyPress={(e) =>
+						e.key === "Enter" && prompt?.length > 0 && handleClick() && handleMessage({ role: "user", message: prompt })
+					}
 				/>
 			</Search>
 			<Button
