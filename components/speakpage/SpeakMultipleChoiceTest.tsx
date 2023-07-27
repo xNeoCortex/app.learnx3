@@ -20,7 +20,11 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
-		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
+		onSuccess: () => (
+			queryClient.invalidateQueries(["testResult"]),
+			queryClient.invalidateQueries(["myLatestTestResult"]),
+			queryClient.invalidateQueries(["mySumTestResult"])
+		),
 	})
 
 	function handleSelect(response, index) {
@@ -60,7 +64,6 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 	useEffect(() => {
 		setQuizData(lesson?.exercise?.questions)
 	}, [])
-
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />

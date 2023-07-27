@@ -13,11 +13,13 @@ import Box from "@mui/material/Box"
 // import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginIcon from "@mui/icons-material/Login"
 import Typography from "@mui/material/Typography"
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { Alert, CircularProgress } from "@mui/material"
 import AuthLayout from "@/components/auth/AuthLayout"
 import { auth, db } from "@/components/firebaseX"
 import { useStoreUser } from "@/components/zustand"
+import LoadingPage from "@/components/LoadingPage"
+import GoogleIcon from "@mui/icons-material/Google"
 
 export default function Login() {
 	const { push: navigate } = useRouter()
@@ -79,6 +81,67 @@ export default function Login() {
 			})
 	}
 
+	const provider = new GoogleAuthProvider()
+	const handleSubmitGoogle = () => {
+		setIsLoading(true)
+		signInWithPopup(auth, provider)
+			.then(async (userCredential: any) => {
+				// Signed in
+				const user = userCredential.user
+				if (user.emailVerified) {
+					try {
+						if (user.displayName) {
+							const docRef = doc(db, "teachers", user.uid)
+							const usersData = await getDoc(docRef)
+
+							const docRefStudent = doc(db, "students", user.uid)
+							const usersDataStudent = await getDoc(docRefStudent)
+
+							if (usersData.exists()) {
+								setUserInfo(usersData.data())
+								return navigate("/classes")
+							} else if (usersDataStudent.exists()) {
+								setUserInfo(usersDataStudent.data())
+								return navigate("/classes")
+							} else {
+								setError("No user found")
+								return navigate("/auth/user-type")
+							}
+						} else {
+							return navigate("/auth/user-type")
+						}
+					} catch (error) {
+						console.log("error 57 :>> ", error)
+					}
+				} else {
+					return setError("Please verify your email")
+				}
+				setIsLoading(false)
+			})
+			.catch((error) => {
+				setIsLoading(false)
+				const errorMessage = error.message
+				if (errorMessage.includes("user-not-found")) {
+					return setError("Please sign up first")
+				} else if (errorMessage.includes("auth/wrong-password")) {
+					return setError("Incorrect password")
+				} else if (errorMessage.includes("invalid-email")) {
+					return setError("Please enter a valid email")
+				} else if (errorMessage.includes("auth/popup-closed-by-user")) {
+					return setError("Popup closed by user")
+				} else {
+					return setError(errorMessage)
+				}
+			})
+	}
+
+	if (isLoading)
+		return (
+			<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100vh" }}>
+				<LoadingPage />
+			</Box>
+		)
+
 	return (
 		<AuthLayout>
 			<Box
@@ -101,6 +164,32 @@ export default function Login() {
 				<Typography component="h1" variant="h5">
 					Sign in
 				</Typography>
+				<Button
+					onClick={handleSubmitGoogle}
+					fullWidth
+					variant="contained"
+					sx={{
+						mt: 3,
+						mb: 2,
+						boxShadow: "none",
+						background: "white",
+						color: "black",
+						border: "1px solid black",
+						" &:hover": { background: "white" },
+					}}
+				>
+					<Avatar
+						alt="Google"
+						src="/google.svg"
+						sx={{
+							width: "24px",
+							height: "24px",
+							m: 1,
+						}}
+					/>{" "}
+					Sign in with Google
+				</Button>
+				<p style={{ textAlign: "center", color: "grey", margin: 0 }}>or</p>
 				<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 					<TextField
 						margin="normal"
@@ -127,9 +216,19 @@ export default function Login() {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					{error && <Alert severity="error">{error}</Alert>}
-					<FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-						{isLoading ? <CircularProgress /> : "Sign In"}
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						sx={{
+							mt: 3,
+							mb: 2,
+							background: "rgb(95, 106, 196)",
+							boxShadow: "none",
+							" &:hover": { background: "rgba(95, 106, 196, 0.9)" },
+						}}
+					>
+						{isLoading ? <CircularProgress /> : "Sign in with Email"}
 					</Button>
 					<Grid container style={{ display: "flex", justifyContent: "column" }}>
 						<Grid
@@ -162,12 +261,12 @@ export default function Login() {
 							</Link>
 						</Grid>
 					</Grid>
-					<p style={{ textAlign: "center", color: "grey", margin: 0 }}>or</p>
-					<Link href="/auth/login-phone">
+
+					{/* <Link href="/auth/login-phone">
 						<Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
 							Sign In with Phone
 						</Button>
-					</Link>
+					</Link> */}
 				</Box>
 			</Box>
 		</AuthLayout>

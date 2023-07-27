@@ -34,7 +34,7 @@ function UserType() {
 				}}
 			>
 				<Typography sx={{ fontSize: 28, m: "auto", mb: 4, color: "black" }}>
-					Hello, I am a <span style={{ textDecoration: "underline" }}>{who}</span>!
+					Hello, I am a <span style={{ textDecoration: "underline", fontWeight: "bold" }}>{who}</span>!
 				</Typography>
 				<Box sx={{ display: "flex" }}>
 					<Avatar
@@ -44,6 +44,7 @@ function UserType() {
 						sx={{
 							cursor: "pointer",
 							border: who === "teacher" ? "4px solid black" : "2px solid white",
+							boxShadow: who === "teacher" && "0px 0px 10px 0px rgba(0,0,0,0.75)",
 							width: "180px",
 							height: "180px",
 							m: 1,
@@ -52,6 +53,7 @@ function UserType() {
 					<Avatar
 						sx={{
 							cursor: "pointer",
+							boxShadow: who === "student" && "0px 0px 10px 0px rgba(0,0,0,0.75)",
 							border: who === "student" ? "4px solid black" : "2px solid white",
 							width: "180px",
 							height: "180px",
