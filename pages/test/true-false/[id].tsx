@@ -93,11 +93,7 @@ function TrueFalseQuiz() {
 	return (
 		<Box sx={{ flexGrow: 1, background: "rgba(226, 230, 251, 0.3)" }}>
 			<Container sx={{ padding: "20px 5px" }}>
-				<AlertDialog
-					open={open}
-					setOpen={setOpen}
-					component={<CompletedAssessment score={[{ result: score }]} handleButton={() => setOpen(false)} />}
-				/>
+				<AlertDialog open={open} setOpen={setOpen} component={<CompletedAssessment score={[{ result: score }]} />} />
 				<CssBaseline />
 				<Box
 					sx={{
