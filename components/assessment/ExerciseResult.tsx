@@ -41,10 +41,8 @@ export default function ExerciseResult({ id }) {
 				<TableContainer
 					component={Paper}
 					style={{
-						margin: "10px",
 						width: "calc(100%)",
 						boxShadow: "none",
-						// maxHeight: "600px",
 					}}
 				>
 					<CssBaseline />
@@ -140,8 +138,7 @@ export default function ExerciseResult({ id }) {
 				<Box
 					sx={{
 						padding: "15px",
-						background: "rgba(95, 106, 196, 0.03)",
-						margin: "10px",
+						background: "white",
 						flex: 1,
 						borderRadius: 2,
 					}}

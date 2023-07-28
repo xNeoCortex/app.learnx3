@@ -122,7 +122,7 @@ function StudentRanking() {
 											style={{
 												// fontWeight: 600,
 												color: "#1d243d",
-												padding: "3px 10px",
+												padding: "0px",
 												borderRadius: 12,
 												fontSize: 15,
 												width: "100%",

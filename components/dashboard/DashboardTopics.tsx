@@ -52,7 +52,7 @@ function DashboardTopics(props) {
 								?.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 								.slice(0, 4)
 								.map((x, index) => (
-									<Grid item xs={12} sm={6} lg={3}>
+									<Grid item xs={6} sm={6} lg={3} key={index}>
 										<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 									</Grid>
 								))}

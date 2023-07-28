@@ -51,15 +51,6 @@ function Fina() {
 		])
 	}
 
-	// control width
-	const OpenCloseChatBot = () => {
-		if (botComponentWidth === 900) {
-			setBotComponentWidth(0)
-		} else {
-			setBotComponentWidth(900)
-		}
-	}
-
 	//scroll to bottom
 	const chatsRef = createRef()
 
@@ -97,7 +88,7 @@ function Fina() {
 					padding: "20px 10px 0px",
 				}}
 			>
-				<IconButton sx={{ color: "#BAB9CC" }} onClick={OpenCloseChatBot}>
+				<IconButton sx={{ color: "#BAB9CC" }} onClick={() => setBotComponentWidth(0)}>
 					<KeyboardDoubleArrowRightIcon />
 				</IconButton>
 				<Typography sx={{ width: "100%", textAlign: "center", color: "#BAB9CC" }}>{now}</Typography>

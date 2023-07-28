@@ -2,7 +2,6 @@ import * as React from "react"
 import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import Avatar from "@mui/material/Avatar"
-import Stack from "@mui/material/Stack"
 import { useStoreTemporary } from "../zustand"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -30,7 +29,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	display: "flex",
 	justifyContent: "center",
 	alignItems: "center",
-	zIndex: 1000,
+	zIndex: 10000,
 	width: "60px",
 	height: "60px",
 	position: "absolute",

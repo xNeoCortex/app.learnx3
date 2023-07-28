@@ -35,46 +35,28 @@ export default function SpeakingLessonAi() {
 
 	return (
 		<SidebarContainer>
-			<Box
-				sx={{
-					display: "flex",
-					position: "relative",
-					width: "100%",
-				}}
-			>
-				<Box
-					sx={{
-						color: "white",
-						height: "100%",
-						display: "flex",
-						justifyContent: "start",
-						alignItems: "start",
-						flexDirection: "column",
-						boxSizing: "border-box",
-					}}
-				>
+			<Grid container spacing={2}>
+				<Grid item xs={12}>
 					<SpeakingInfo topic={lessonByAi?.data?.topic} image="/mobile-book.svg" />
-					<Grid container spacing={2}>
-						<Grid item xs={12} sm={4}>
-							<FlashCards lesson={lessonByAi?.data} />
-						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Phrases lesson={lessonByAi?.data} />
-						</Grid>
-						<Grid item xs={12} sm={4}>
-							<Conversation lesson={lessonByAi?.data} />
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<AskQuestions lesson={lessonByAi?.data} />
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<SpeakAssessment lesson={lessonByAi?.data} />
-						</Grid>
-					</Grid>
-					{/* <TestContainer data={lessonState?.data} link={`/test/word-building/`} /> */}
-					<BackButton />
-				</Box>
-			</Box>
+				</Grid>
+				<Grid item xs={12} sm={4}>
+					<FlashCards lesson={lessonByAi?.data} />
+				</Grid>
+				<Grid item xs={12} sm={4}>
+					<Phrases lesson={lessonByAi?.data} />
+				</Grid>
+				<Grid item xs={12} sm={4}>
+					<Conversation lesson={lessonByAi?.data} />
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<AskQuestions lesson={lessonByAi?.data} />
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<SpeakAssessment lesson={lessonByAi?.data} />
+				</Grid>
+			</Grid>
+			{/* <TestContainer data={lessonState?.data} link={`/test/word-building/`} /> */}
+			<BackButton />
 		</SidebarContainer>
 	)
 }

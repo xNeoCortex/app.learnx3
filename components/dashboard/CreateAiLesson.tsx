@@ -593,14 +593,19 @@ function CreateAiLesson() {
 				borderBox: "box-sizing",
 			}}
 		>
-			<Typography variant="h5" fontWeight="bolder" sx={{ color: "#001663", m: 3 }}>
+			<Typography
+				fontWeight="bolder"
+				sx={{ color: "#001663", m: 3, textAlign: "center", fontSize: { xs: 20, sm: 24 } }}
+			>
 				✨ Unleash the Power of AI! Generate Curriculum with a Click!
 			</Typography>
 			<Box
 				sx={{
 					display: "flex",
+					flexDirection: { xs: "column", sm: "row" },
 					width: "100%",
 					p: 1,
+					justifyContent: "center",
 				}}
 			>
 				<Search>
@@ -623,6 +628,8 @@ function CreateAiLesson() {
 						fontWeight: "bold",
 						fontSize: "12px",
 						mr: "30px",
+						margin: "auto",
+						mt: { xs: 2, sm: "2px" },
 					}}
 				>
 					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loading ? "Loading..." : "Generate"}
@@ -631,14 +638,16 @@ function CreateAiLesson() {
 			<Box
 				sx={{
 					display: "flex",
-					p: 1,
 					margin: "10px",
+					p: 1,
 				}}
 			>
 				{loading ? (
 					<Box sx={{ width: "100%" }}>
 						<LinearProgress />
-						<Typography sx={{ m: 1 }}>Get Set for an Epic Journey: Your Custom Curriculum is Underway!</Typography>
+						<Typography sx={{ m: 1, textAlign: "center" }}>
+							Get Set for an Epic Journey: Your Custom Curriculum is Underway!
+						</Typography>
 					</Box>
 				) : success === true ? (
 					<Alert severity="success" sx={{ p: 1, m: 2, paddingY: "0px", width: "fit-content" }}>
@@ -646,7 +655,10 @@ function CreateAiLesson() {
 					</Alert>
 				) : (
 					["Travel", "Book", "History", "Egypt"].map((item) => (
-						<Button onClick={() => setTopic(item)} sx={{ color: "white", border: "1px solid white", m: 1 }}>
+						<Button
+							onClick={() => setTopic(item)}
+							sx={{ color: "white", border: "1px solid white", m: 1, display: { xs: "none", sm: 'flex' } }}
+						>
 							💎 {item}
 						</Button>
 					))

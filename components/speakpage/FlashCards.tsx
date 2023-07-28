@@ -83,9 +83,9 @@ export default function FlashCards({ lesson }) {
 			<BootstrapDialog fullWidth maxWidth="md" open={open}>
 				<DialogContent dividers sx={{ background: "#F3DC65" }}>
 					<Grid container>
-						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
+						<Grid item xs={12} sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "100%" }}>
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-								<Typography sx={{ color: "black", fontWeight: 600, fontSize: 22 }}>
+								<Typography sx={{ color: "black", fontWeight: 600, fontSize: { xs: 19, sm: 22 } }}>
 									{" "}
 									Learn words with FlashCards!
 									<Typography>

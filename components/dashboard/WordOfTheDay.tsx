@@ -19,11 +19,11 @@ function WordOfTheDay() {
 				// "linear-gradient(270.54deg,rgba(6,189,196,.78) 33.14%,rgba(2,214,215,0) 57.93%),linear-gradient(104.19deg,rgba(37,1,83,0) 59.91%,#2f0388 77.15%),#454f9c",
 			}}
 		>
-			<Typography sx={{ color: "white", mb: 2 }}>🇬🇧 Word of the Day!</Typography>
+			<Typography sx={{ color: "white", mb: { xs: 1, sm: 2 } }}>🇬🇧 Word of the Day!</Typography>
 			<Typography
 				variant="h4"
 				fontWeight="bolder"
-				sx={{ color: "white", mb: 1, display: "flex", alignItems: "center" }}
+				sx={{ color: "white", mb: 1, display: "flex", alignItems: "center", fontSize: { xs: 24, sm: "inherit" } }}
 			>
 				<TextToSpeechButton buttonSize="40px" text={wordToday.word || "cherish"} /> {wordToday.word || "cherish"}
 			</Typography>

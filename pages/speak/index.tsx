@@ -63,7 +63,7 @@ function index() {
 							.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 							.filter((x) => (category === "All" ? x : x.category === category))
 							.map((x) => (
-								<Grid item xs={12} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
+								<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
 									<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 								</Grid>
 							))}

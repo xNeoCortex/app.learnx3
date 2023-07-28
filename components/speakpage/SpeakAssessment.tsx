@@ -1,13 +1,13 @@
 import * as React from "react"
 import Button from "@mui/material/Button"
-import { styled } from "@mui/material/styles"
+import { styled, useTheme } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import IconButton from "@mui/material/IconButton"
 import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
-import { Box, capitalize, Grid } from "@mui/material"
+import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import SpeakMultipleChoiceTest from "./SpeakMultipleChoiceTest"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -23,6 +23,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function SpeakAssessment({ lesson }) {
 	const [open, setOpen] = React.useState(false)
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [showDefinition, setShowDefinition] = React.useState(false)
 	const [contentIndex, setContentIndex] = React.useState(0)
 
@@ -66,26 +68,24 @@ export default function SpeakAssessment({ lesson }) {
 					<img src={"/online-exam.svg"} alt="book" style={{ width: "80%", aspectRatio: 1 }} />
 				</Box>
 			</CardWrapper>
-			<BootstrapDialog fullWidth maxWidth="md" open={open}>
+			<BootstrapDialog fullWidth fullScreen={isSmallScreen} maxWidth="md" open={open}>
 				<DialogContent dividers sx={{ background: "rgb(4 0 21 / 100%)" }}>
-					<Grid container>
-						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
-							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-								<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}>
-									{capitalize(lesson?.topic)} [{contentIndex + 1}/{lesson?.exercise?.questions.length}]
-								</Typography>
-								<IconButton onClick={handleClose}>
-									<CloseIcon sx={{ color: "white" }} />
-								</IconButton>
-							</Box>
-							<SpeakMultipleChoiceTest
-								lesson={lesson}
-								contentIndex={contentIndex}
-								handleNext={handleNext}
-								handlePrevious={handlePrevious}
-							/>
-						</Grid>
-					</Grid>
+					<Box sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "90%" }}>
+						<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+							<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}>
+								{capitalize(lesson?.topic)} [{contentIndex + 1}/{lesson?.exercise?.questions.length}]
+							</Typography>
+							<IconButton onClick={handleClose}>
+								<CloseIcon sx={{ color: "white" }} />
+							</IconButton>
+						</Box>
+						<SpeakMultipleChoiceTest
+							lesson={lesson}
+							contentIndex={contentIndex}
+							handleNext={handleNext}
+							handlePrevious={handlePrevious}
+						/>
+					</Box>
 				</DialogContent>
 			</BootstrapDialog>
 		</div>

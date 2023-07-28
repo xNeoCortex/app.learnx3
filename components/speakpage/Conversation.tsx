@@ -1,13 +1,13 @@
 import * as React from "react"
 import Button from "@mui/material/Button"
-import { styled } from "@mui/material/styles"
+import { styled, useTheme } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import IconButton from "@mui/material/IconButton"
 import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
-import { Box, capitalize, Grid } from "@mui/material"
+import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import dayjs from "dayjs"
 import TextToSpeechButton from "./TextToSpeechButton"
 
@@ -23,6 +23,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }))
 
 export default function Conversation({ lesson }) {
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [open, setOpen] = React.useState(false)
 	const now = dayjs().format("MMM D, YYYY")
 
@@ -55,10 +57,10 @@ export default function Conversation({ lesson }) {
 					<img src={"/conversation.svg"} alt="conversation" style={{ width: "55%" }} />
 				</Box>
 			</CardWrapper>
-			<BootstrapDialog fullWidth maxWidth="md" open={open}>
+			<BootstrapDialog fullWidth fullScreen={isSmallScreen} maxWidth="md" open={open}>
 				<DialogContent dividers sx={{ background: "#5e548e" }}>
 					<Grid container>
-						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
+						<Grid item xs={12} sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "100%" }}>
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
 								<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}> Learn with Practice 📣</Typography>
 								<IconButton onClick={handleClose}>
@@ -101,7 +103,7 @@ export default function Conversation({ lesson }) {
 													sx={{
 														display: "flex",
 														width: "fit-content ",
-														m: "5px 10px",
+														maxWidth: "90%",
 														padding: "10px",
 														alignItems: "center",
 														borderRadius: 2,
@@ -110,53 +112,77 @@ export default function Conversation({ lesson }) {
 													}}
 												>
 													{item.order % 2 ? (
-														<>
-															<Typography
+														<Box
+															sx={{
+																display: "flex",
+																alignItems: { sm: "center" },
+																flexDirection: { xs: "column", sm: "row" },
+															}}
+														>
+															<Box
 																sx={{
-																	fontSize: 14,
-																	padding: "5px 10px",
-																	background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
-																	borderRadius: 2,
-																	width: "fit-content",
-																	mr: 2,
-																	color: "white",
-																	minWidth: "fit-content",
+																	display: "flex",
+																	flexDirection: "row",
+																	alignItems: "center",
 																}}
 															>
-																👩‍🎓 {item.speaker}
-															</Typography>
-															<Typography sx={{ fontSize: 16 }}>
-																{" "}
-																{item.content}{" "}
+																<Typography
+																	sx={{
+																		fontSize: 14,
+																		padding: "5px 10px",
+																		background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
+																		borderRadius: 2,
+																		width: "fit-content",
+																		color: "white",
+																		minWidth: "fit-content",
+																		height: "fit-content",
+																	}}
+																>
+																	👩‍🎓 {item.speaker}
+																</Typography>
 																<TextToSpeechButton
 																	text={item.content}
 																	buttonSize="25px"
 																	personType={capitalize(item.speaker) === "Child" ? "child" : "male"}
-																/>
-															</Typography>
-														</>
+																/>{" "}
+															</Box>
+															<Typography sx={{ fontSize: 16 }}> {item.content} </Typography>
+														</Box>
 													) : (
-														<>
-															<Typography sx={{ fontSize: 16 }}>
-																{" "}
-																<TextToSpeechButton text={item.content} buttonSize="25px" personType="female" />
-																{item.content}{" "}
-															</Typography>
-															<Typography
+														<Box
+															sx={{
+																display: "flex",
+																alignItems: { sm: "center" },
+																flexDirection: { xs: "column", sm: "row" },
+																width: "content-fit",
+															}}
+														>
+															<Box
 																sx={{
-																	fontSize: 14,
-																	padding: "5px 10px",
-																	background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
-																	borderRadius: 2,
-																	width: "fit-content",
-																	ml: 2,
-																	color: "white",
-																	minWidth: "fit-content",
+																	display: "flex",
+																	flexDirection: "row",
+																	alignItems: "center",
+																	justifyContent: "flex-end",
+																	width: "content-fit",
 																}}
 															>
-																👨‍🏫 {item.speaker}
-															</Typography>
-														</>
+																<Typography
+																	sx={{
+																		fontSize: 14,
+																		padding: "5px 10px",
+																		background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
+																		borderRadius: 2,
+																		width: "fit-content",
+																		color: "white",
+																		minWidth: "fit-content",
+																	}}
+																>
+																	👨‍🏫 {item.speaker}
+																</Typography>
+																<TextToSpeechButton text={item.content} buttonSize="25px" personType="female" />
+															</Box>
+															<Typography sx={{ fontSize: 16, textAlign: "end" }}> {item.content} </Typography>
+														</Box>
 													)}
 												</Box>
 											</Box>

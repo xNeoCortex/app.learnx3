@@ -35,7 +35,7 @@ function sidebar({ classId }) {
 				maxWidth: "none",
 				width: botComponentWidth === 900 ? "170px" : "120px",
 				transition: "width 0.3s ease-out",
-				display: "flex",
+				display: { xs: "none", sm: "flex" },
 				flexDirection: "column",
 				position: "relative",
 				overflow: "overlay",

@@ -9,6 +9,7 @@ function LinearProgressWithLabel(props) {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
+				mt: 1,
 			}}
 		>
 			<Typography sx={{ margin: "0px 0px 15px", color: "rgb(95, 106, 196)" }}>
@@ -17,10 +18,10 @@ function LinearProgressWithLabel(props) {
 			<Box
 				sx={{ width: "100%", mr: 1, display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: "center" }}
 			>
-				<Box sx={{ width: "100%", mr: 1 }}>
+				<Box sx={{ width: "100%", mr: { xs: 0, sm: 1 } }}>
 					<LinearProgress color="primary" variant="determinate" {...props} />
 				</Box>
-				<Box display="flex" sx={{ width: "fit-content", alignItems: "center" }}>
+				<Box display="flex" sx={{ width: "fit-content", alignItems: "center", mt: { xs: 1, sm: 0 } }}>
 					<Typography sx={{ fontSize: 22, mr: 1 }}>⏰</Typography>
 					<Typography
 						variant="body2"

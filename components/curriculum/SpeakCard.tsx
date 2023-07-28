@@ -29,10 +29,20 @@ export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
+						flexDirection: { xs: "column", sm: "row" },
 					}}
 				>
 					<TextToSpeechButton text={word.word} />
-					<Typography variant="h4" style={{ height: "fit-content", color: "black", fontWeight: "bold" }}>
+					<Typography
+						variant="h4"
+						sx={{
+							height: "fit-content",
+							color: "black",
+							fontWeight: "bold",
+							overflow: "hidden",
+							maxWidth: { xs: "250px", sm: "none" },
+						}}
+					>
 						{word.word}
 					</Typography>
 				</Box>

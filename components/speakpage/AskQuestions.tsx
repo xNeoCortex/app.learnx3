@@ -1,13 +1,13 @@
 import * as React from "react"
 import Button from "@mui/material/Button"
-import { styled } from "@mui/material/styles"
+import { styled, useTheme } from "@mui/material/styles"
 import Dialog from "@mui/material/Dialog"
 import DialogContent from "@mui/material/DialogContent"
 import IconButton from "@mui/material/IconButton"
 import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, useMediaQuery } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import TextToSpeechButton from "./TextToSpeechButton"
@@ -24,6 +24,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }))
 
 export default function AskQuestions({ lesson }) {
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [open, setOpen] = React.useState(false)
 
 	const handleClickOpen = () => {
@@ -57,10 +59,10 @@ export default function AskQuestions({ lesson }) {
 					<img src={"/question.svg"} alt="question" style={{ width: "55%" }} />
 				</Box>
 			</CardWrapper>
-			<BootstrapDialog fullWidth maxWidth="md" open={open}>
+			<BootstrapDialog fullWidth fullScreen={isSmallScreen} maxWidth="md" open={open}>
 				<DialogContent dividers sx={{ background: "#443b73" }}>
 					<Grid container>
-						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
+						<Grid item xs={12} sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "100%" }}>
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
 								<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}> Learn through Q&A</Typography>
 								<IconButton onClick={handleClose}>
@@ -70,18 +72,6 @@ export default function AskQuestions({ lesson }) {
 							<Box
 								sx={{
 									p: "20px 0px",
-									// background: "#fff",
-									// borderRadius: 2,
-									// color: "black",
-									// marginY: "15px",
-									// width: "100%",
-									// height: "100%",
-									// minHeight: "60vh",
-									// display: "flex",
-									// justifyContent: "center",
-									// alignItems: "center",
-									// flexDirection: "column",
-									// boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 								}}
 							>
 								<Grid spacing={2} container>

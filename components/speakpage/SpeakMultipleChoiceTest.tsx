@@ -71,7 +71,15 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 	if (show && showResultPage)
 		return <CompletedAssessment score={[{ result: score }]} setShowResultPage={setShowResultPage} />
 	return (
-		<Box sx={{ flexGrow: 1, background: "inherit" }}>
+		<Box
+			sx={{
+				background: "inherit",
+				display: "flex",
+				height: "100%",
+				flexDirection: "column",
+				justifyContent: "space-between",
+			}}
+		>
 			{!show && <LinearTimer minutes={10} handleSubmit={handleSubmit} />}
 			<Box
 				sx={{

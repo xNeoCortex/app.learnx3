@@ -70,7 +70,7 @@ export default function Phrases({ lesson }) {
 			<BootstrapDialog fullWidth maxWidth="md" open={open}>
 				<DialogContent dividers sx={{ background: "#6ea4fe" }}>
 					<Grid container>
-						<Grid item xs={12} sx={{ p: "5px 40px 10px", height: "100%" }}>
+						<Grid item xs={12} sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "100%" }}>
 							<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "start" }}>
 								<Typography sx={{ color: "black", fontWeight: 600, fontSize: 22 }}>
 									{" "}
@@ -93,13 +93,16 @@ export default function Phrases({ lesson }) {
 									height: "100%",
 									minHeight: "50vh",
 									display: "flex",
+									flexDirection: { xs: "column", sm: "row" },
 									justifyContent: "center",
 									alignItems: "center",
 									boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 								}}
 							>
 								<TextToSpeechButton text={lesson?.phrases[flashCardIndex]} />
-								<Typography variant="h5">{lesson?.phrases[flashCardIndex]}</Typography>
+								<Typography variant="h5" sx={{ textAlign: "center" }}>
+									{lesson?.phrases[flashCardIndex]}
+								</Typography>
 							</Box>
 							<Box sx={{ width: "100%", display: "flex", gap: 2 }}>
 								<Button

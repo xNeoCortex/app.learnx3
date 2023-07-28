@@ -26,16 +26,14 @@ const Navbar = () => {
 	}
 
 	return (
-		<Grid
-			item
-			xs={12}
-			style={{
+		<Box
+			sx={{
 				color: "white",
-				borderRadius: 5,
 				maxWidth: "none",
 				alignItems: "center",
-				marginBottom: 50,
-				display: "flex",
+				marginBottom: 5,
+				display: { xs: "none", sm: "flex" },
+				flexDirection: { xs: "column", sm: "row" },
 				justifyContent: "space-between",
 			}}
 		>
@@ -94,7 +92,7 @@ const Navbar = () => {
 
 				<AccountMenu />
 			</Box>
-		</Grid>
+		</Box>
 	)
 }
 

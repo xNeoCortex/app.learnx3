@@ -11,7 +11,6 @@ const SpeakingInfo = ({ topic = "", image }) => {
 				alignItems: "center",
 				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				width: "100%",
-				margin: "0px 10px 20px 0px",
 				borderRadius: "8px",
 				overflow: "hidden",
 				position: "relative",
@@ -40,7 +39,7 @@ const SpeakingInfo = ({ topic = "", image }) => {
 						marginBottom: 1,
 					}}
 				>
-					Topic
+					Topic 📚
 				</Typography>
 				<Typography
 					style={{
@@ -52,7 +51,7 @@ const SpeakingInfo = ({ topic = "", image }) => {
 						marginBottom: 10,
 					}}
 				>
-					📚 {capitalize(topic)}
+					{capitalize(topic)}
 				</Typography>
 			</Box>
 			<Avatar
