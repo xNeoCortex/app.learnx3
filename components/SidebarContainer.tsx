@@ -18,9 +18,10 @@ function SidebarContainer({ children }) {
 			<FinaAvatar />
 			<ThemeProvider theme={theme}>
 				<Box
-					style={{
+					sx={{
 						display: "flex",
 						height: "100vh",
+						boxSizing: "border-box",
 					}}
 				>
 					<Sidebar classId={classInfo?.uid} />

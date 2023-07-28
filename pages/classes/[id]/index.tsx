@@ -24,7 +24,7 @@ function MyDashboard() {
 					<Grid container spacing={3}>
 						{userInfo?.role === "student" ? (
 							<>
-								<Grid item xs={12} sm={botComponentWidth === 600 ? 12 : 8}>
+								<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 8}>
 									<Grid container spacing={2}>
 										<Grid item xs={12}>
 											<ExploreTopics />
@@ -37,7 +37,7 @@ function MyDashboard() {
 										</Grid>
 									</Grid>
 								</Grid>
-								<Grid item xs={12} sm={botComponentWidth === 600 ? 12 : 4}>
+								<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 4}>
 									<StudentRanking />
 								</Grid>
 								<Grid item xs={12}>

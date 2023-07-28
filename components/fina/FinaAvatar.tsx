@@ -7,7 +7,6 @@ import { useStoreTemporary } from "../zustand"
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	"& .MuiBadge-badge": {
-
 		backgroundColor: "#44b700",
 		color: "#44b700",
 		boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -46,13 +45,13 @@ export default function FinaAvatar() {
 
 	return (
 		<>
-			{botComponentWidth !== 600 && (
+			{botComponentWidth !== 900 && (
 				<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
 					<Avatar
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
 						alt="Fina"
 						src="/teacher_green.svg"
-						onClick={() => setBotComponentWidth(600)}
+						onClick={() => setBotComponentWidth(900)}
 					/>
 				</StyledBadge>
 			)}

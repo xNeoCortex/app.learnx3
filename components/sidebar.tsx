@@ -33,7 +33,7 @@ function sidebar({ classId }) {
 			sx={{
 				background: "white",
 				maxWidth: "none",
-				width: botComponentWidth === 600 ? "170px" : "120px",
+				width: botComponentWidth === 900 ? "170px" : "120px",
 				transition: "width 0.3s ease-out",
 				display: "flex",
 				flexDirection: "column",

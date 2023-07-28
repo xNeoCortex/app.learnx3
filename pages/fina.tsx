@@ -53,10 +53,10 @@ function Fina() {
 
 	// control width
 	const OpenCloseChatBot = () => {
-		if (botComponentWidth === 600) {
+		if (botComponentWidth === 900) {
 			setBotComponentWidth(0)
 		} else {
-			setBotComponentWidth(600)
+			setBotComponentWidth(900)
 		}
 	}
 
@@ -85,7 +85,7 @@ function Fina() {
 				flexDirection: "column",
 				background: "#271f4d",
 				boxSizing: "border-box",
-				position: "relative",
+				overflow: "hidden",
 			}}
 		>
 			<Box
