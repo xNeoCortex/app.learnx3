@@ -34,8 +34,8 @@ const SpeakingInfo = ({ topic = "", image }) => {
 						color: "white",
 						fontWeight: 500,
 						fontSize: 19,
-						padding: 0,
-						margin: 0,
+						padding: 1,
+						margin: 1,
 						marginBottom: 1,
 					}}
 				>
@@ -46,8 +46,8 @@ const SpeakingInfo = ({ topic = "", image }) => {
 						color: "white",
 						fontWeight: 600,
 						fontSize: 32,
-						padding: 0,
-						margin: 0,
+						padding: 1,
+						margin: 1,
 						marginBottom: 10,
 					}}
 				>
