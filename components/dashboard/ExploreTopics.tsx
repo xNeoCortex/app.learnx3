@@ -12,7 +12,7 @@ function ExploreTopics() {
 				sx={{
 					boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 					maxHeight: { xs: "90vh", sm: "280px" },
-					height: { xs: "55vh", sm: "280px" },
+					height: { xs: "60vh", sm: "280px" },
 					width: "100%",
 					borderRadius: "8px",
 					cursor: "pointer",
@@ -31,7 +31,7 @@ function ExploreTopics() {
 					<img
 						src={"/online-courses.svg"}
 						alt="book"
-						style={{ position: "absolute", width: "120%", height: "100%", top: -70, left: -35 }}
+						style={{ position: "absolute", width: "120%", height: "100%", top: -85, left: -35 }}
 					/>
 				) : (
 					<img

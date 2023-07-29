@@ -37,7 +37,7 @@ function MobileBottomBar({ classId }) {
 				display: { xs: "flex", sm: "none" },
 				justifyContent: "space-around",
 				alignItems: "center",
-				position: "absolute",
+				position: "fixed",
 				overflow: "overlay",
 				overflowX: "hidden",
 				bottom: 0,
