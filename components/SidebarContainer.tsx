@@ -16,7 +16,7 @@ function SidebarContainer({ children }) {
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
 	return (
-		<Box sx={{ width: "100%" }}>
+		<Box sx={{ width: "100%", paddingBottom: { xs: "100px", sm: "10px" } }}>
 			{isSmallScreen ? <FinaAvatarMobile /> : <FinaAvatar />}
 			<ThemeProvider theme={theme}>
 				<Box

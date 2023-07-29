@@ -23,7 +23,7 @@ function DashboardTopics(props) {
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box sx={{ paddingBottom: { xs: "100px", sm: "10px" } }}>
+		<Box>
 			<SnackbarX
 				open={open}
 				setOpen={setOpen}
