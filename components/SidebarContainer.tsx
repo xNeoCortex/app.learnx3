@@ -10,8 +10,6 @@ import FinaAvatar from "./fina/FinaAvatar"
 import MobileBottomBar from "./MobileBottomBar"
 import FinaAvatarMobile from "./fina/FinaAvatarMobile"
 
-const theme = createTheme()
-
 function SidebarContainer({ children }) {
 	const { classInfo } = useClassInfo()
 	const theme = useTheme()
@@ -32,7 +30,7 @@ function SidebarContainer({ children }) {
 					<Box
 						sx={{
 							// background: "#5f6ac40a",
-							padding: { xs: "10px 10px 100px", sm: "10px 20px 10px 5px" },
+							padding: { xs: "10px 10px 0px", sm: "10px 20px 10px 5px" },
 							maxWidth: "1400px",
 							minHeight: "calc(100vh - 0px)",
 							width: "100%",
