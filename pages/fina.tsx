@@ -209,7 +209,7 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 				flexDirection: "row",
 				paddingTop: "12px",
 				marginTop: 1,
-				marginBottom: "10px",
+				marginBottom: { xs: "100px", sm: "10px" },
 				paddingLeft: { xs: "15px", sm: 0 },
 				width: "100%",
 				// borderTop: "1px solid grey",
