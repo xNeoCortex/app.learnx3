@@ -24,7 +24,7 @@ function Resources() {
 
 					<Grid container spacing={3}>
 						{ResourcesData.map((item, index) => (
-							<Grid item xs={12} sm={6} md={3}>
+							<Grid item xs={6} md={3} key={index}>
 								<a href={item.link} target="_blank">
 									<CardWrapper>
 										<CardMedia
