@@ -14,6 +14,7 @@ import TextToSpeechButton from "./TextToSpeechButton"
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
 	height: "100%",
+	zIndex: 9999,
 	"& .MuiDialogContent-root": {
 		padding: theme.spacing(2),
 	},
