@@ -1,5 +1,5 @@
 import { auth } from "./firebaseX"
-import { Alert, Box, Button, Grid, Typography } from "@mui/material"
+import { Alert, Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
 import { useClassInfo, useStoreUser } from "./zustand"
@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 
 const Navbar = () => {
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const { classInfo } = useClassInfo()
 	const { userInfo } = useStoreUser()
 	const { fetchTestResults } = ApiServices()
@@ -31,33 +33,41 @@ const Navbar = () => {
 				color: "white",
 				maxWidth: "none",
 				alignItems: "center",
-				marginBottom: 5,
-				display: { xs: "none", sm: "flex" },
-				flexDirection: { xs: "column", sm: "row" },
+				marginBottom: { xs: 3, sm: 5 },
+				display: { xs: "flex", sm: "flex" },
+				flexDirection: { xs: "row", sm: "row" },
 				justifyContent: "space-between",
 			}}
 		>
 			<Box display="flex" alignItems="center">
-				<Typography fontWeight="bold" sx={{ color: "#32325d", fontSize: 24 }}>
+				<Typography
+					fontWeight="bold"
+					noWrap
+					sx={{ margin: "0px 5px", color: "#32325d", fontSize: { xs: 20, sm: 24 }, maxWidth: { xs: 200, sm: 400 } }}
+				>
 					{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👋" : "Hello"}
 				</Typography>
 			</Box>
 			<Box display="flex" alignItems="center">
-				<Typography
-					variant="body2"
-					sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
-				>
-					{classInfo?.class_name}
-				</Typography>
-				<Typography
-					variant="body2"
-					sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
-				>
-					Level {Math.floor(getStudentTotalScore() / 400) + 1}
-				</Typography>
-				<Typography variant="body2" sx={{ color: "#32325d", textAlign: "center", width: "80px" }}>
-					⭐️ {getStudentTotalScore()}
-				</Typography>
+				{!isSmallScreen && (
+					<>
+						<Typography
+							variant="body2"
+							sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
+						>
+							{classInfo?.class_name}
+						</Typography>
+						<Typography
+							variant="body2"
+							sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
+						>
+							Level {Math.floor(getStudentTotalScore() / 400) + 1}
+						</Typography>
+						<Typography variant="body2" sx={{ color: "#32325d", textAlign: "center", width: "80px" }}>
+							⭐️ {getStudentTotalScore()}
+						</Typography>
+					</>
+				)}
 				<Box style={{ display: "flex", flexDirection: "row" }}>
 					<a target="_blank" rel="noreferrer" href={classInfo?.video_call_link}>
 						<Button
@@ -90,7 +100,7 @@ const Navbar = () => {
 					)}
 				</Box>
 
-				<AccountMenu />
+				<AccountMenu isSmallScreen={isSmallScreen} />
 			</Box>
 		</Box>
 	)

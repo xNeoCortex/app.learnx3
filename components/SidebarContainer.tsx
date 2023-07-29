@@ -38,7 +38,6 @@ function SidebarContainer({ children }) {
 							width: "100%",
 							margin: "none auto",
 							overflowY: "scroll",
-							overflowX: "hidden",
 						}}
 					>
 						<Navbar />

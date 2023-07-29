@@ -22,7 +22,7 @@ function ExploreTopics() {
 					background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
 					"&:hover": {
 						cursor: "pointer",
-						transform: "scale(1.02)",
+						transform: "scale(1.01)",
 					},
 					display: "flex",
 				}}

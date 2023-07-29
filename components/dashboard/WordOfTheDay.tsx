@@ -27,7 +27,7 @@ function WordOfTheDay() {
 			>
 				<TextToSpeechButton buttonSize="40px" text={wordToday.word || "cherish"} /> {wordToday.word || "cherish"}
 			</Typography>
-			<Typography sx={{ color: "rgb(219 193 228)", mb: 2 }}>
+			<Typography sx={{ color: "rgb(219 193 228)", mb: "5px" }}>
 				{wordToday.definition || "protect and care for (someone) lovingly."}
 			</Typography>
 		</Box>

@@ -19,7 +19,7 @@ import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
 import { auth } from "../firebaseX"
 
-export default function AccountMenu() {
+export default function AccountMenu({ isSmallScreen }) {
 	const { push: navigate } = useRouter()
 	const { userInfo, setUserInfo } = useStoreUser((state) => state)
 
@@ -80,6 +80,7 @@ export default function AccountMenu() {
 				</Tooltip>
 				<Typography
 					sx={{
+						display: isSmallScreen ? "none" : "flex",
 						color: "rgb(50, 50, 93)",
 						maxWidth: "50px",
 						marginLeft: "10px",
