@@ -104,8 +104,8 @@ const Navbar = () => {
 					<AccountMenu isSmallScreen={isSmallScreen} />
 				</Box>
 			</Box>
-			<Box display="flex" alignItems="center" justifyContent="start" width="100%">
-				{isSmallScreen && (
+			{isSmallScreen && (
+				<Box display="flex" alignItems="center" justifyContent="start" width="100%">
 					<>
 						<Typography
 							variant="body2"
@@ -153,8 +153,8 @@ const Navbar = () => {
 							⭐️ {getStudentTotalScore()}
 						</Typography>
 					</>
-				)}
-			</Box>
+				</Box>
+			)}
 		</Box>
 	)
 }

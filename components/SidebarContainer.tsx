@@ -9,15 +9,18 @@ import Fina from "@/pages/fina"
 import FinaAvatar from "./fina/FinaAvatar"
 import MobileBottomBar from "./MobileBottomBar"
 import FinaAvatarMobile from "./fina/FinaAvatarMobile"
+import FinaAvatarMobilePopup from "./fina/FinaAvatarMobilePopup"
 
 function SidebarContainer({ children }) {
 	const { classInfo } = useClassInfo()
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
+	const [open, setOpen] = React.useState(false)
 
 	return (
-		<Box sx={{ width: "100%", paddingBottom: { xs: "100px", sm: "10px" } }}>
-			{isSmallScreen ? <FinaAvatarMobile /> : <FinaAvatar />}
+		<Box sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}>
+			{isSmallScreen ? <FinaAvatarMobile setOpen={setOpen} /> : <FinaAvatar />}
+			<FinaAvatarMobilePopup open={open} setOpen={setOpen} />
 			<ThemeProvider theme={theme}>
 				<Box
 					sx={{
@@ -41,7 +44,7 @@ function SidebarContainer({ children }) {
 						<Navbar />
 						{children}
 					</Box>
-					<Fina />
+					{!isSmallScreen && <Fina />}
 				</Box>
 				<MobileBottomBar classId={classInfo?.uid} />
 			</ThemeProvider>

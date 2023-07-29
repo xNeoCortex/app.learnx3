@@ -1,8 +1,8 @@
 import { createRef, useEffect, useState } from "react"
 import { Configuration, OpenAIApi } from "openai"
 import { auth } from "@/components/firebaseX"
-import { styled, alpha } from "@mui/material/styles"
-import { Avatar, Box, Button, Grid, IconButton, Typography } from "@mui/material"
+import { styled, alpha, useTheme } from "@mui/material/styles"
+import { Avatar, Box, Button, Grid, IconButton, Typography, useMediaQuery } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import InputBase from "@mui/material/InputBase"
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
@@ -11,7 +11,9 @@ import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import DeleteIcon from "@mui/icons-material/Delete"
 
-function Fina() {
+const Fina: React.FC<{ setOpen?: any }> = ({ setOpen }) => {
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const { userInfo } = useStoreUser()
 	const [prompt, setPrompt] = useState("")
 	const now = dayjs().format("MMM D, YYYY")
@@ -66,9 +68,9 @@ function Fina() {
 	return (
 		<Box
 			sx={{
-				width: botComponentWidth,
-				color: "white",
+				width: isSmallScreen ? "100vw" : botComponentWidth,
 				height: "100vh",
+				color: "white",
 				transition: "all 0.3s ease-in-out",
 				display: "flex",
 				justifyContent: "space-between",
@@ -88,7 +90,10 @@ function Fina() {
 					padding: "20px 10px 0px",
 				}}
 			>
-				<IconButton sx={{ color: "#BAB9CC" }} onClick={() => setBotComponentWidth(0)}>
+				<IconButton
+					sx={{ color: "#BAB9CC" }}
+					onClick={() => (isSmallScreen ? setOpen(false) : setBotComponentWidth(0))}
+				>
 					<KeyboardDoubleArrowRightIcon />
 				</IconButton>
 				<Typography sx={{ width: "100%", textAlign: "center", color: "#BAB9CC" }}>{now}</Typography>
@@ -205,6 +210,7 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 				paddingTop: "12px",
 				marginTop: 1,
 				marginBottom: "10px",
+				paddingLeft: { xs: "15px", sm: 0 },
 				width: "100%",
 				// borderTop: "1px solid grey",
 			}}
@@ -277,7 +283,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		transition: theme.transitions.create("width"),
 		width: "100%",
 		[theme.breakpoints.up("md")]: {
-			width: "35ch",
+			width: { xs: "10ch", sm: "35ch" },
 		},
 	},
 }))

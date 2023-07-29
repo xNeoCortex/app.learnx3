@@ -39,7 +39,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	borderRadius: "50%",
 }))
 
-export default function FinaAvatarMobile() {
+export default function FinaAvatarMobile({ setOpen }) {
 	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
 
 	return (
@@ -50,7 +50,7 @@ export default function FinaAvatarMobile() {
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
 						alt="Fina"
 						src="/teacher_green.svg"
-						onClick={() => setBotComponentWidth(900)}
+						onClick={() => setOpen(true)}
 					/>
 				</StyledBadge>
 			)}
