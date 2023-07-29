@@ -31,16 +31,16 @@ function MobileBottomBar({ classId }) {
 	return (
 		<Box
 			sx={{
+				position: "fixed",
+				bottom: 0,
+				right: 0,
+				left: 0,
 				background: "white",
-				maxWidth: "none",
+				padding: "0 10px",
 				width: "100vw",
 				display: { xs: "flex", sm: "none" },
-				justifyContent: "space-around",
+				justifyContent: "space-between",
 				alignItems: "center",
-				position: "fixed",
-				overflow: "overlay",
-				overflowX: "hidden",
-				bottom: 0,
 				height: "65px",
 				backgroundColor: "white",
 				zIndex: 9000,
@@ -108,6 +108,7 @@ function MobileBottomBar({ classId }) {
 									flexDirection: "column",
 									alignItems: "center",
 									maxWidth: 100,
+									padding: "10px 5px",
 								}}
 							>
 								<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
