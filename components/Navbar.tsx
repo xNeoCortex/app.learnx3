@@ -110,6 +110,7 @@ const Navbar = () => {
 						<Typography
 							variant="body2"
 							sx={{
+								fontSize: 12,
 								color: "#32325d",
 								textAlign: "center",
 								border: "1px solid #32325d",
@@ -124,6 +125,7 @@ const Navbar = () => {
 						<Typography
 							variant="body2"
 							sx={{
+								fontSize: 12,
 								color: "#32325d",
 								textAlign: "center",
 								border: "1px solid #32325d",
@@ -138,6 +140,7 @@ const Navbar = () => {
 						<Typography
 							variant="body2"
 							sx={{
+								fontSize: 12,
 								color: "#32325d",
 								textAlign: "center",
 								border: "1px solid #32325d",
