@@ -21,7 +21,7 @@ function MyDashboard() {
 		<AppContainer>
 			<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 				<SidebarContainer>
-					<Grid container spacing={2} sx={{ marginBottom: { xs: "100px", sm: "10px" } }}>
+					<Grid container spacing={2}>
 						{userInfo?.role === "student" ? (
 							<>
 								<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 8}>
