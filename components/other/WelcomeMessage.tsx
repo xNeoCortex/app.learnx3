@@ -1,14 +1,16 @@
+import { Box } from "@mui/material"
 import React from "react"
 
 function WelcomeMessage(props) {
 	return (
-		<div
-			style={{
+		<Box
+			sx={{
+				display: { xs: "none", sm: "flex" },
 				background: "#5f6ac4",
 				padding: "20px 30px 30px",
 				flex: 1,
-				margin: 10,
-				borderRadius: 8,
+				margin: "10px",
+				borderRadius: "8px",
 				color: "white",
 				maxWidth: "450px",
 			}}
@@ -23,7 +25,7 @@ function WelcomeMessage(props) {
 			<br />
 			<p>Good luck!</p>
 			<img src="/welcomeImage.svg" style={{ width: 400, margin: "auto" }} alt="" />
-		</div>
+		</Box>
 	)
 }
 
