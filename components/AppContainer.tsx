@@ -47,7 +47,12 @@ function AppContainer({ children }: any) {
 	}, [isLoading, userInfo])
 
 	if (isError) return <ErrorPage />
-	if (isLoading) return <LoadingPage />
+	if (isLoading)
+		return (
+			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
+				<LoadingPage />
+			</Box>
+		)
 
 	if (
 		(userInfo?.role === "teacher" && !matchedTeacherClass) ||
