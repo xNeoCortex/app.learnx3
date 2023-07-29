@@ -41,7 +41,7 @@ function MobileBottomBar({ classId }) {
 				overflow: "overlay",
 				overflowX: "hidden",
 				bottom: 0,
-				height: "85px",
+				height: "65px",
 				backgroundColor: "white",
 				zIndex: 9000,
 			}}

@@ -32,7 +32,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	zIndex: 10000,
 	width: "60px",
 	height: "60px",
-	position: "absolute",
+	position: "fixed",
 	bottom: "100px",
 	right: "25px",
 	border: "3px solid #5f61c4",
