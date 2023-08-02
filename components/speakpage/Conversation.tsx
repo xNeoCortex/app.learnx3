@@ -193,7 +193,13 @@ export default function Conversation({ lesson }) {
 							</Box>
 							<Box sx={{ width: "100%", display: "flex", gap: 10 }}>
 								<Button
-									sx={{ flex: 1, background: "#9e94cb !important", color: "#45433B", fontWeight: 600 }}
+									sx={{
+										flex: 1,
+										background: "#9e94cb !important",
+										color: "#45433B",
+										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
+									}}
 									autoFocus
 									onClick={handleClose}
 								>

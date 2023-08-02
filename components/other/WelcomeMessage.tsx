@@ -5,7 +5,8 @@ function WelcomeMessage(props) {
 	return (
 		<Box
 			sx={{
-				display: { xs: "none", sm: "flex" },
+				display: { xs: "none", lg: "flex" },
+				flexDirection: "column",
 				background: "#5f6ac4",
 				padding: "20px 30px 30px",
 				flex: 1,
@@ -15,7 +16,7 @@ function WelcomeMessage(props) {
 				maxWidth: "450px",
 			}}
 		>
-			<h3 style={{ marginBottom: 20, fontWeight: 600, fontSize: 22 }}>Hello! 🙂</h3>
+			<h3 style={{ marginBottom: 20, fontWeight: 600, fontSize: 22 }}>Hello! 👋</h3>
 			<p>
 				Welcome to our English language platform! We're excited to help you improve your English skills and reach your
 				language learning goals. With our user-friendly platform, experienced instructors, and engaging learning

@@ -107,7 +107,13 @@ export default function Phrases({ lesson }) {
 							</Box>
 							<Box sx={{ width: "100%", display: "flex", gap: 2 }}>
 								<Button
-									sx={{ flex: 1, background: "#c3d8fa !important", color: "#45433B", fontWeight: 600 }}
+									sx={{
+										flex: 1,
+										background: "#c3d8fa !important",
+										color: "#45433B",
+										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
+									}}
 									autoFocus
 									onClick={handlePrevious}
 								>
@@ -119,6 +125,7 @@ export default function Phrases({ lesson }) {
 										background: "#c3d8fa !important",
 										color: "#45433B",
 										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
 									}}
 									autoFocus
 									onClick={handleNext}

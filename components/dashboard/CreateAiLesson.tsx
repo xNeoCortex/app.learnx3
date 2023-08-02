@@ -646,7 +646,7 @@ function CreateAiLesson() {
 					<Box sx={{ width: "100%" }}>
 						<LinearProgress />
 						<Typography sx={{ m: 1, textAlign: "center" }}>
-							Get Set for an Epic Journey: Your Custom Curriculum is Underway!
+							Your Custom Curriculum is Underway! It takes around <b>1 minute</b> to create your curriculum.
 						</Typography>
 					</Box>
 				) : success === true ? (
@@ -657,7 +657,7 @@ function CreateAiLesson() {
 					["Travel", "Book", "History", "Egypt"].map((item) => (
 						<Button
 							onClick={() => setTopic(item)}
-							sx={{ color: "white", border: "1px solid white", m: 1, display: { xs: "none", sm: 'flex' } }}
+							sx={{ color: "white", border: "1px solid white", m: 1, display: { xs: "none", sm: "flex" } }}
 						>
 							💎 {item}
 						</Button>

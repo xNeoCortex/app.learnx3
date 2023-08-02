@@ -104,21 +104,38 @@ export default function FlashCards({ lesson }) {
 							/>
 							<Box sx={{ width: "100%", display: "flex" }}>
 								<Button
-									sx={{ background: "#FDF2C3", color: "#45433B", fontWeight: 600 }}
+									sx={{
+										background: "#FDF2C3",
+										color: "#45433B",
+										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
+									}}
 									autoFocus
 									onClick={handlePrevious}
 								>
 									{lesson?.vocabularies[flashCardIndex - 1] ? "Back" : "Close"}
 								</Button>
 								<Button
-									sx={{ marginX: 1, flex: 2, background: "#FDF2C3", color: "#45433B", fontWeight: 600 }}
+									sx={{
+										marginX: 1,
+										flex: 2,
+										background: "#FDF2C3",
+										color: "#45433B",
+										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
+									}}
 									autoFocus
 									onClick={() => setShowDefinition(!showDefinition)}
 								>
 									{showDefinition ? "Hide definition" : "Show definition"}
 								</Button>
 								<Button
-									sx={{ background: "#FDF2C3", color: "#45433B", fontWeight: 600 }}
+									sx={{
+										background: "#FDF2C3",
+										color: "#45433B",
+										fontWeight: 600,
+										"&:hover": { color: "#45433B", border: "1px solid #45433B" },
+									}}
 									autoFocus
 									onClick={handleNext}
 								>
