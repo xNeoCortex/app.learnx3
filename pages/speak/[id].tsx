@@ -30,7 +30,12 @@ export default function SpeakingLessonAi() {
 		refetchOnWindowFocus: false,
 	})
 
-	if (isLoading) return <LoadingPage />
+	if (isLoading)
+		return (
+			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
+				<LoadingPage />
+			</Box>
+		)
 	if (isError) return <ErrorPage />
 
 	return (
