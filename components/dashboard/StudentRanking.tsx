@@ -43,8 +43,6 @@ function StudentRanking() {
 		return Math.round(totalScore)
 	}
 
-	console.log("students :>> ", students)
-
 	function sortStudentsByPerformance(students) {
 		const sortedStudents = students?.sort((a, b) => {
 			if (getStudentTotalScore(a.uid) > getStudentTotalScore(b.uid)) return -1

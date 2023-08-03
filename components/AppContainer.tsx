@@ -7,6 +7,7 @@ import ErrorPage from "./ErrorPage"
 import ClassAllocation from "./other/ClassAllocation"
 import { useClassInfo, useStoreUser } from "./zustand"
 import LoadingPage from "./LoadingPage"
+import { GridLoader } from "react-spinners"
 
 function AppContainer({ children }: any) {
 	const {

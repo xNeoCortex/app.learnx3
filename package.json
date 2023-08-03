@@ -37,6 +37,7 @@
     "react-dom": "18.2.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.10.0",
+    "react-spinners": "^0.13.8",
     "speak-tts": "^2.0.8",
     "typescript": "5.0.4",
     "util": "^0.12.5",

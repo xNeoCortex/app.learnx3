@@ -1,5 +1,6 @@
 import React from "react"
-import { Box, CircularProgress } from "@mui/material"
+import { Box } from "@mui/material"
+import { GridLoader } from "react-spinners"
 
 function LoadingPage() {
 	return (
@@ -12,7 +13,7 @@ function LoadingPage() {
 				alignItems: "center",
 			}}
 		>
-			<CircularProgress />
+			<GridLoader color="#5f61c4" />
 		</Box>
 	)
 }

@@ -31,7 +31,12 @@ function SchoolPage() {
 		isError: isErrorTeacher,
 	} = useQuery({ queryKey: ["teachers"], queryFn: fetchAllTeachers, refetchOnWindowFocus: false })
 
-	if (isLoading || isLoadingTeacher) return <LoadingPage />
+	if (isLoading || isLoadingTeacher)
+		return (
+			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
+				<LoadingPage />
+			</Box>
+		)
 	if (isError || isErrorTeacher) return <ErrorPage />
 
 	return (
