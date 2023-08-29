@@ -29,12 +29,12 @@ function DashboardLessonTimetable(props) {
 				?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
 				?.slice(0, 3)
 				?.map((x, index) => (
-					<Grid item xs={12} sm={3}>
+					<Grid item xs={12} sm={6} lg={3}>
 						<LessonTimetableCard index={index} x={x} />
 					</Grid>
 				))}
-			<Grid item xs={3} sx={{ display: { xs: "none", sm: "grid" } }}>
-				<Link href={`/lessons`}>
+			<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
+				<Link href={`/lessons`} style={{ width: "100%" }}>
 					<Box
 						sx={{
 							cursor: "pointer",
