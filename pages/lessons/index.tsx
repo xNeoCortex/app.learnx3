@@ -56,7 +56,9 @@ function index() {
 					</Grid>
 					<Grid container spacing={3}>
 						{convertToWeeklyObject(lessonTimetableList?.data)
+							//@ts-ignore
 							?.filter((item) => !isDateBeforeToday(item?.date_to))
+							//@ts-ignore
 							.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
 							?.map((input, index) => (
 								<>
@@ -71,11 +73,13 @@ function index() {
 										>
 											<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
 												<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
+													{/* @ts-ignore */}
 													{dayjs(input?.date_from).format("D MMMM")} - {dayjs(input?.date_to).format("D MMMM")}
 												</Typography>
 											</Box>
 										</Box>
 									</Grid>
+									{/* @ts-ignore */}
 									{input?.lessons
 										.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
 										.map((x, index) => (
@@ -107,7 +111,6 @@ function convertToWeeklyObject(input) {
 	const weeklyData = {}
 
 	input?.forEach((lesson) => {
-		console.log("lesson.lesson_date :>> ", lesson.lesson_date)
 		const lessonDate = new Date(lesson.lesson_date)
 		const weekRange = getWeekRange(lessonDate)
 
