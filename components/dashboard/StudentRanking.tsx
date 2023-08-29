@@ -114,7 +114,7 @@ function StudentRanking() {
 												bgcolor: "white",
 											}}
 										/>
-										<Typography sx={{ mr: 1, fontSize: "15px" }}>{row.name} </Typography>
+										<Typography sx={{ mr: 1, fontSize: "14px" }}>{row.name} </Typography>
 										{index === 0 && <span> 👑</span>}
 									</TableCell>
 									<TableCell sx={{ borderBottom: "none" }}>

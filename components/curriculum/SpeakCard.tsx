@@ -32,7 +32,7 @@ export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 						flexDirection: { xs: "column", sm: "row" },
 					}}
 				>
-					<TextToSpeechButton text={word.word} />
+					<TextToSpeechButton text={word?.word} />
 					<Typography
 						variant="h4"
 						sx={{
@@ -43,7 +43,7 @@ export function SpeakCard({ word, showDefinition, setShowDefinition }) {
 							maxWidth: { xs: "250px", sm: "none" },
 						}}
 					>
-						{word.word}
+						{word?.word}
 					</Typography>
 				</Box>
 			) : (

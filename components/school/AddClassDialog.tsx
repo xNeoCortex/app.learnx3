@@ -168,7 +168,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 		}
 	}
 
-	const hnadleCurriculum = (event) => {
+	const handleCurriculum = (event) => {
 		setCurriculumX(event.target.value)
 	}
 
@@ -243,7 +243,6 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 						>
 							{buttonName ? buttonName : "Create class"}
 						</p>
-						<p>Change your account info</p>
 
 						<IconButton
 							aria-label="close"
@@ -315,7 +314,7 @@ const AddClass = React.memo<any>(({ buttonName, _class = null }) => {
 												id="demo-select-small"
 												value={curriculumX}
 												label="Curriculum"
-												onChange={hnadleCurriculum}
+												onChange={handleCurriculum}
 											>
 												<MenuItem value="">
 													<em>None</em>

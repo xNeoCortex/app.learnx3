@@ -5,13 +5,14 @@ import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import StudentCardList from "@/components/student/StudentCardList"
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import AppContainer from "@/components/AppContainer"
 import ExploreTopics from "@/components/dashboard/ExploreTopics"
 import WordOfTheDay from "@/components/dashboard/WordOfTheDay"
 import DashboardTopics from "@/components/dashboard/DashboardTopics"
 import StudentRanking from "@/components/dashboard/StudentRanking"
 import MostRecentTestScore from "@/components/dashboard/MostRecentTestScore"
+import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTimetable"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
@@ -24,6 +25,19 @@ function MyDashboard() {
 					<Grid container spacing={2}>
 						{userInfo?.role === "student" ? (
 							<>
+								<Grid item xs={12}>
+									<Typography
+										style={{
+											margin: "0px 10px 10px 0px",
+											fontWeight: 600,
+											fontSize: 19,
+											color: "#5f616a",
+										}}
+									>
+										Upcoming lessons
+									</Typography>
+									<DashboardLessonTimetable />
+								</Grid>
 								<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 8}>
 									<Grid container spacing={2}>
 										<Grid item xs={12}>

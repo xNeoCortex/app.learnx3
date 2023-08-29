@@ -25,10 +25,10 @@ function WordOfTheDay() {
 				fontWeight="bolder"
 				sx={{ color: "white", mb: 1, display: "flex", alignItems: "center", fontSize: { xs: 24, sm: "inherit" } }}
 			>
-				<TextToSpeechButton buttonSize="40px" text={wordToday.word || "cherish"} /> {wordToday.word || "cherish"}
+				<TextToSpeechButton buttonSize="40px" text={wordToday?.word || "cherish"} /> {wordToday?.word || "cherish"}
 			</Typography>
 			<Typography sx={{ color: "rgb(219 193 228)", mb: "5px" }}>
-				{wordToday.definition || "protect and care for (someone) lovingly."}
+				{wordToday?.definition || "protect and care for (someone) lovingly."}
 			</Typography>
 		</Box>
 	)

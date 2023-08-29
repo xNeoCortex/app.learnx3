@@ -30,7 +30,7 @@ function AddClassPage({ studentList, teacherList }) {
 					overflowX: "scroll",
 					overflowY: "hidden",
 					boxSizing: "border-box",
-					width: `calc(100vw - ${sidebarWidth}px)`,
+					width: `100px)`,
 				}}
 			>
 				{isLoading

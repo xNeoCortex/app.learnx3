@@ -17,6 +17,7 @@ import { useStoreTemporary, useStoreUser } from "./zustand"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import VerifiedIcon from "@mui/icons-material/Verified"
+import AppsIcon from "@mui/icons-material/Apps"
 
 function sidebar({ classId }) {
 	const { push: navigate } = useRouter()
@@ -189,6 +190,12 @@ const dataTeacher = (classId) => {
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
 			name: "All Students",
 			href: `/classes/[id]/class-students`,
 			link: `/classes/${classId}/class-students`,
@@ -242,6 +249,12 @@ const dataStudent = (classId) => {
 		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		// },
 		{
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
 			name: "Speak English",
 			href: "/speak",
 			link: "/speak",
@@ -287,6 +300,12 @@ const dataAdmin = (class_id) => {
 			href: "/classes/[id]",
 			link: "/classes",
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Curriculum",
