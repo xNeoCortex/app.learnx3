@@ -13,6 +13,7 @@ import DashboardTopics from "@/components/dashboard/DashboardTopics"
 import StudentRanking from "@/components/dashboard/StudentRanking"
 import MostRecentTestScore from "@/components/dashboard/MostRecentTestScore"
 import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTimetable"
+import DashboardLessonTimetableMobile from "@/components/dashboard/DashboardLessonTimetableMobile"
 
 function MyDashboard() {
 	const { userInfo } = useStoreUser()
@@ -37,6 +38,7 @@ function MyDashboard() {
 										Upcoming lessons
 									</Typography>
 									<DashboardLessonTimetable />
+									<DashboardLessonTimetableMobile />
 								</Grid>
 								<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 8}>
 									<Grid container spacing={2}>

@@ -1,4 +1,6 @@
 import React, { useEffect } from "react"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import { Box } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
@@ -14,9 +16,8 @@ import LightbulbIcon from "@mui/icons-material/Lightbulb"
 import PersonIcon from "@mui/icons-material/Person"
 import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
 import { useStoreTemporary, useStoreUser } from "./zustand"
-import { useRouter } from "next/router"
-import Link from "next/link"
 import VerifiedIcon from "@mui/icons-material/Verified"
+import AppsIcon from "@mui/icons-material/Apps"
 
 function MobileBottomBar({ classId }) {
 	const { push: navigate } = useRouter()
@@ -219,12 +220,12 @@ const dataStudent = (classId) => {
 			link: `/classes/${classId}`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
-		// {
-		// 	name: "Curriculum",
-		// 	href: "/curriculum",
-		// 	link: "/curriculum",
-		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
-		// },
+		{
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
 		{
 			name: "Speak English",
 			href: "/speak",
@@ -237,24 +238,6 @@ const dataStudent = (classId) => {
 			link: "/resources",
 			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
-		// {
-		// 	name: "Tests",
-		// 	href: "/test",
-		// 	link: "/test",
-		// 	icon: <QuizIcon sx={{ width: 30, height: 30 }}/>,
-		// },
-		// {
-		// 	name: "Writing",
-		// 	href: "/writing",
-		// 	link: "/writing",
-		// 	icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
-		// },
-		// {
-		// 	name: "Teacher Fina",
-		// 	href: "/fina",
-		// 	link: "/fina",
-		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
-		// },
 	]
 }
 

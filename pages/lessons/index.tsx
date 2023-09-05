@@ -62,7 +62,7 @@ function index() {
 							.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
 							?.map((input, index) => (
 								<>
-									<Grid item xs={12} sm={12} key={index} sx={{ marginTop: "20px" }}>
+									<Grid item xs={12} key={index} sx={{ marginTop: "20px" }}>
 										<Box
 											sx={{
 												display: "flex",

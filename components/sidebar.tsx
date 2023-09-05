@@ -184,16 +184,16 @@ const dataTeacher = (classId) => {
 		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		// },
 		{
-			name: "Speak English",
-			href: "/speak",
-			link: "/speak",
-			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
 			name: "Lessons",
 			href: "/lessons",
 			link: "/lessons",
 			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
+			name: "Speak English",
+			href: "/speak",
+			link: "/speak",
+			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",

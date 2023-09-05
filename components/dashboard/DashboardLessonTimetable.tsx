@@ -25,11 +25,11 @@ function DashboardLessonTimetable(props) {
 	return (
 		<Grid container spacing={2}>
 			{lessonTimetableList?.data
-				?.filter((item) => !isDateBeforeToday(item?.date_to))
+				?.filter((item) => !isDateBeforeToday(item?.lesson_date))
 				?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
 				?.slice(0, 3)
 				?.map((x, index) => (
-					<Grid item xs={12} sm={6} lg={3}>
+					<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
 						<LessonTimetableCard index={index} x={x} />
 					</Grid>
 				))}
