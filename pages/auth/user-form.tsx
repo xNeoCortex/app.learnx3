@@ -38,7 +38,7 @@ export default function UserForm() {
 				university: university,
 				country: "UK",
 				role: "teacher",
-				permit: true,
+				permit: false,
 			})
 
 			setUserInfo({
@@ -51,7 +51,7 @@ export default function UserForm() {
 				university: university,
 				country: "UK",
 				role: "teacher",
-				permit: true,
+				permit: false,
 			})
 		} catch (e) {
 			console.error("Error adding document: ", e)
