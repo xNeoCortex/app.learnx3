@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { Box, Container } from "@mui/material"
-import ErrorPage from "../../../components/ErrorPage"
+import ErrorPage from "../../errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"

@@ -2,7 +2,7 @@ import React from "react"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 import { Box, Grid } from "@mui/material"
-import ErrorPage from "@/components/ErrorPage"
+import ErrorPage from "@/pages/errorpage"
 import Navbar from "@/components/Navbar"
 import StudentList from "@/components/student/StudentList"
 import AddClassPage from "@/components/school/AddClassComponent"
@@ -40,23 +40,21 @@ function SchoolPage() {
 	if (isError || isErrorTeacher) return <ErrorPage />
 
 	return (
-		<AppContainer>
-			<ProtectedRoute permitArray={["admin"]}>
-				<SidebarContainer>
-					<Box style={{ display: "flex", flexDirection: "column" }}>
-						<AddClassPage studentList={studentList} teacherList={teacherList} />
-						<Grid container spacing={4} sx={{ mt: 2 }}>
-							<Grid item xs={12} sm={6}>
-								<TeacherList data={teacherList?.data} />
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<StudentList data={studentList?.data} />
-							</Grid>
+		<ProtectedRoute permitArray={["admin"]}>
+			<SidebarContainer>
+				<Box style={{ display: "flex", flexDirection: "column" }}>
+					<AddClassPage studentList={studentList} teacherList={teacherList} />
+					<Grid container spacing={4} sx={{ mt: 2 }}>
+						<Grid item xs={12} sm={6}>
+							<TeacherList data={teacherList?.data} />
 						</Grid>
-					</Box>
-				</SidebarContainer>
-			</ProtectedRoute>
-		</AppContainer>
+						<Grid item xs={12} sm={6}>
+							<StudentList data={studentList?.data} />
+						</Grid>
+					</Grid>
+				</Box>
+			</SidebarContainer>
+		</ProtectedRoute>
 	)
 }
 export default SchoolPage

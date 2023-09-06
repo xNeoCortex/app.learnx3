@@ -16,7 +16,7 @@ import {
 } from "@mui/material"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import MultipleSelectAssessment from "@/components/curriculum/MultipleSelectAssessment"
 import { useStoreUser } from "../zustand"
 import MultipleSelectContent from "./MultipleSelectContent"

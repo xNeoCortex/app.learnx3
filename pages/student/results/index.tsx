@@ -13,13 +13,12 @@ import Link from "next/link"
 import { useClassInfo, useStoreUser } from "@/components/zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import ErrorPage from "@/components/ErrorPage"
+import ErrorPage from "@/pages/errorpage"
 import { useQuery } from "@tanstack/react-query"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 
 export default function StudentsResult() {
-	const { classInfo } = useClassInfo()
 	const { apiRequest } = ApiServices()
 	const [selectedLesson, setSelectedLesson] = React.useState(1)
 
@@ -43,7 +42,7 @@ export default function StudentsResult() {
 		refetchOnMount: false,
 	})
 
-	const studentList = data?.data.filter(({ uid }) => classInfo?.students?.includes(uid))
+	const studentList = data?.data
 
 	if (isLoading || isLoadingT) return <LoadingPage />
 	if (isError || isErrorT) return <ErrorPage />
@@ -62,25 +61,6 @@ export default function StudentsResult() {
 					>
 						Students Results
 					</Typography>
-					<Box>
-						{[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-							<Button
-								key={item}
-								onClick={() => setSelectedLesson(item)}
-								style={{
-									background: selectedLesson === item ? "#5f6ac4" : "white",
-									color: selectedLesson !== item ? "#5f6ac4" : "white",
-									border: "1px solid #5f6ac4",
-									boxShadow: "none",
-									padding: "5px 12px ",
-									margin: "8px 8px 8px 0px",
-									textTransform: "none",
-								}}
-							>
-								Lesson {item}
-							</Button>
-						))}
-					</Box>
 					<TableContainer
 						component={Paper}
 						style={{
@@ -103,10 +83,13 @@ export default function StudentsResult() {
 										Students ({studentList?.length})
 									</TableCell>
 									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										Vocabulary
+										# of Tests
 									</TableCell>
 									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										Reading
+										Average grade
+									</TableCell>
+									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
+										Points
 									</TableCell>
 									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
 										Profile
@@ -147,7 +130,7 @@ export default function StudentsResult() {
 													<StudentResult
 														testResults={testResult?.data}
 														studentId={row.uid}
-														assessmentType="vocabulary"
+														assessmentType="numOfTests"
 														selectedLesson={selectedLesson}
 													/>
 												</TableCell>
@@ -155,7 +138,15 @@ export default function StudentsResult() {
 													<StudentResult
 														testResults={testResult?.data}
 														studentId={row.uid}
-														assessmentType="reading"
+														assessmentType="averageGrade"
+														selectedLesson={selectedLesson}
+													/>
+												</TableCell>
+												<TableCell>
+													<StudentResult
+														testResults={testResult?.data}
+														studentId={row.uid}
+														assessmentType="points"
 														selectedLesson={selectedLesson}
 													/>
 												</TableCell>
@@ -185,39 +176,21 @@ export default function StudentsResult() {
 	)
 }
 
-const StudentResult = React.memo(({ testResults, studentId, assessmentType, selectedLesson }: any) => {
-	const testIds = {
-		vocabulary: [
-			"sQTFslvLMFV8AjkuJyYf",
-			"Jn8ZRLWo876UrqsjKhLh",
-			"C5ecvF6oa1VL89OD5SQr",
-			"R0oi6K3UA0aaGb5SATMO",
-			"yPxzGGTXKqQvmP5SnI5p",
-		],
-		reading: [
-			"L5mRhi3DfjyRh2H8zFeh",
-			"rvOHfoEiaR7hEDAgbzGw",
-			"CZZZ32RIugyTxcxPD4pN",
-			"hqdGxafPOGaKaLIgPUaR",
-			"ULfB3AIxDFESajsH86v2",
-		],
-	}
+const StudentResult = React.memo(({ testResults, studentId, assessmentType }: any) => {
+	const testResultArray = testResults?.filter(({ student_id }) => student_id === studentId)?.map(({ result }) => result)
 
-	const gradeResult = testResults
-		.filter(({ student_id }) => student_id === studentId)
-		.filter(({ lesson_number }) => lesson_number === selectedLesson)
-		.find(({ assessment_id }) => testIds[assessmentType].includes(assessment_id))?.result
+	const sumResult = testResultArray?.reduce((acc, curr) => acc + curr, 0)
+	const averageGrade = sumResult / testResultArray?.length
 
-	console.log("gradeResult :>> ", typeof gradeResult)
 	return (
 		<Typography
 			sx={{
 				background:
-					Number(gradeResult) >= 70
+					Number(assessmentType === "averageGrade" ? averageGrade : sumResult) >= 70
 						? "rgb(87, 204, 153)"
-						: Number(gradeResult) >= 40
+						: Number(assessmentType === "averageGrade" ? averageGrade : sumResult) >= 40
 						? "#ffff3f"
-						: Number(gradeResult) >= 0
+						: Number(assessmentType === "averageGrade" ? averageGrade : sumResult) >= 0
 						? "#ff595e"
 						: "rgb(222, 226, 230)",
 				p: 1,
@@ -227,7 +200,9 @@ const StudentResult = React.memo(({ testResults, studentId, assessmentType, sele
 				fontSize: 14,
 			}}
 		>
-			{typeof gradeResult === "number" || typeof gradeResult === "string" ? Math.round(+gradeResult) : "-"}
+			{assessmentType === "averageGrade" && (averageGrade ? Math.round(+averageGrade) + " / 100" : "-")}
+			{assessmentType === "points" && (sumResult ? Math.round(+sumResult) : "-")}
+			{assessmentType === "numOfTests" && (testResultArray ? testResultArray?.length : "0")}
 		</Typography>
 	)
 })

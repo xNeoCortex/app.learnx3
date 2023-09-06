@@ -8,7 +8,7 @@ import Select from "@mui/material/Select"
 import Checkbox from "@mui/material/Checkbox"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { Box, Typography } from "@mui/material"
 import LoadingPage from "../LoadingPage"
 

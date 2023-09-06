@@ -7,7 +7,7 @@ import { WritingData } from "@/components/data/WritingData"
 import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { WritingContainer } from "../other/WritingContainer"
 import BackButton from "../other/BackButton"
 

@@ -19,15 +19,10 @@ import Link from "next/link"
 import VerifiedIcon from "@mui/icons-material/Verified"
 import AppsIcon from "@mui/icons-material/Apps"
 
-function sidebar({ classId }) {
-	const { push: navigate } = useRouter()
+function sidebar() {
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
-	const { class_id, botComponentWidth } = useStoreTemporary()
-
-	useEffect(() => {
-		classId === undefined && userInfo.role !== "admin" && navigate("/classes")
-	}, [])
+	const { botComponentWidth } = useStoreTemporary()
 
 	return (
 		<Box
@@ -44,7 +39,7 @@ function sidebar({ classId }) {
 			}}
 		>
 			<Link
-				href={userInfo?.role === "admin" ? "/" : `/classes/${classId}`}
+				href={userInfo?.role === "admin" ? "/" : userInfo?.role === "teacher" ? `/home/teacher` : `/home`}
 				style={{ display: "flex", margin: "10px auto 10px", alignContent: "center" }}
 			>
 				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
@@ -63,7 +58,7 @@ function sidebar({ classId }) {
 			>
 				<List>
 					{userInfo?.role === "teacher" ? (
-						dataTeacher(classId)?.map((item, index) => (
+						dataTeacher()?.map((item, index) => (
 							<Link key={index} href={item?.link}>
 								<ListItem disablePadding>
 									<ListItemButton
@@ -88,7 +83,7 @@ function sidebar({ classId }) {
 						))
 					) : userInfo?.role === "student" ? (
 						<>
-							{dataStudent(classId)?.map((item, index) => (
+							{dataStudent()?.map((item, index) => (
 								<Link key={index} href={item?.link}>
 									<ListItem disablePadding>
 										<ListItemButton
@@ -135,7 +130,7 @@ function sidebar({ classId }) {
 							</Link>
 						</>
 					) : userInfo?.role === "admin" ? (
-						dataAdmin(class_id).map((item, index) => (
+						dataAdmin().map((item, index) => (
 							<Link key={index} href={item?.link}>
 								<ListItem disablePadding>
 									<ListItemButton
@@ -169,12 +164,12 @@ function sidebar({ classId }) {
 
 export default sidebar
 
-const dataTeacher = (classId) => {
+const dataTeacher = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes/[id]",
-			link: `/classes/${classId}`,
+			href: "/home/teacher",
+			link: `/home/teacher`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		// {
@@ -190,15 +185,15 @@ const dataTeacher = (classId) => {
 			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
-			href: `/classes/[id]/class-students`,
-			link: `/classes/${classId}/class-students`,
+			href: `/home/class-students`,
+			link: `/home/class-students`,
 			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -207,24 +202,24 @@ const dataTeacher = (classId) => {
 			link: `/student/results`,
 			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Class Statistics",
-			href: "/class-statistics",
-			link: "/class-statistics",
-			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Mark Writing",
-			href: "/grade-writing",
-			link: "/grade-writing",
-			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Class Statistics",
+		// 	href: "/class-statistics",
+		// 	link: "/class-statistics",
+		// 	icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
+		// },
+		// {
+		// 	name: "Study Resources",
+		// 	href: "/resources",
+		// 	link: "/resources",
+		// 	icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
+		// },
+		// {
+		// 	name: "Mark Writing",
+		// 	href: "/grade-writing",
+		// 	link: "/grade-writing",
+		// 	icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		// {
 		// 	name: "Teacher Fina",
 		// 	href: "/fina",
@@ -234,12 +229,12 @@ const dataTeacher = (classId) => {
 	]
 }
 
-const dataStudent = (classId) => {
+const dataStudent = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes/[id]",
-			link: `/classes/${classId}`,
+			href: "/home",
+			link: `/home`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		// {
@@ -249,23 +244,23 @@ const dataStudent = (classId) => {
 		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		// },
 		{
-			name: "Lessons",
-			href: "/lessons",
-			link: "/lessons",
-			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
 		},
+		// {
+		// 	name: "Study Resources",
+		// 	href: "/resources",
+		// 	link: "/resources",
+		// 	icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		// {
 		// 	name: "Tests",
 		// 	href: "/test",
@@ -287,18 +282,24 @@ const dataStudent = (classId) => {
 	]
 }
 
-const dataAdmin = (class_id) => {
+const dataAdmin = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes",
-			link: "/classes",
+			href: "/home/admin",
+			link: "/home/admin",
 			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Class",
-			href: "/classes/[id]",
-			link: "/classes",
+			name: "Home Teacher",
+			href: "/home/teacher",
+			link: "/home/teacher",
+			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
+			name: "Home Student",
+			href: "/home",
+			link: "/home",
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -315,12 +316,12 @@ const dataAdmin = (class_id) => {
 		},
 		{
 			name: "All Students",
-			href: `/classes/[id]/class-students`,
-			link: `/classes/${class_id}/class-students`,
+			href: `/home/class-students`,
+			link: `/home/class-students`,
 			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
@@ -332,17 +333,17 @@ const dataAdmin = (class_id) => {
 			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Class Statistics",
+			name: "Student Statistics",
 			href: "/class-statistics",
 			link: "/class-statistics",
 			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
-		},
+		// {
+		// 	name: "Study Resources",
+		// 	href: "/resources",
+		// 	link: "/resources",
+		// 	icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
+		// },
 		{
 			name: "Tests",
 			href: "/test",

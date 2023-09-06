@@ -47,10 +47,10 @@ export default function Login() {
 
 							if (usersData.exists()) {
 								setUserInfo(usersData.data())
-								return navigate("/classes")
+								return navigate("/home/teacher")
 							} else if (usersDataStudent.exists()) {
 								setUserInfo(usersDataStudent.data())
-								return navigate("/classes")
+								return navigate("/home")
 							} else {
 								console.log(" :>> no user")
 								setError("No user found")
@@ -99,10 +99,10 @@ export default function Login() {
 
 							if (usersData.exists()) {
 								setUserInfo(usersData.data())
-								return navigate("/classes")
+								return navigate("/home/teacher")
 							} else if (usersDataStudent.exists()) {
 								setUserInfo(usersDataStudent.data())
-								return navigate("/classes")
+								return navigate("/home")
 							} else {
 								setError("No user found")
 								return navigate("/auth/user-type")

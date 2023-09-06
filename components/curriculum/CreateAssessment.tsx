@@ -11,7 +11,7 @@ import {
 	TextField,
 	Typography,
 } from "@mui/material"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import MultipleSelectAssessment from "./MultipleSelectAssessment"

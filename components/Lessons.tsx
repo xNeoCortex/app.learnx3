@@ -1,6 +1,6 @@
 import React from "react"
 import OneLesson from "./other/OneLesson"
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../pages/errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
 import SnackbarX from "@/components/other/SnackbarX"

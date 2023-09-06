@@ -4,7 +4,7 @@ import { Alert, Box, Button, Container, CssBaseline, Typography } from "@mui/mat
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import BackButton from "../../../components/other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
-import ErrorPage from "../../../components/ErrorPage"
+import ErrorPage from "../../errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { auth } from "../../../components/firebaseX"
 import LoadingPage from "@/components/LoadingPage"

@@ -6,7 +6,7 @@ import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "./LoadingPage"
-import ErrorPage from "./ErrorPage"
+import ErrorPage from "../pages/errorpage"
 import { useClassInfo } from "./zustand"
 
 interface Type {

@@ -3,7 +3,7 @@ import Link from "next/link"
 import { useStoreUser } from "../zustand"
 
 function ClassAllocation() {
-
+	const { setUserInfo } = useStoreUser()
 	return (
 		<Box
 			style={{
@@ -50,11 +50,11 @@ function ClassAllocation() {
 						</Typography>
 					</Box>
 				</Box>
-				{/* <Link href="/auth/login">
+				<Link href="/auth/login">
 					<Button variant="contained" onClick={() => setUserInfo(null)}>
 						Login
 					</Button>
-				</Link> */}
+				</Link>
 			</Box>
 		</Box>
 	)

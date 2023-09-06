@@ -8,19 +8,14 @@ import TableRowsIcon from "@mui/icons-material/TableRows"
 import ViewModuleIcon from "@mui/icons-material/ViewModule"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import ErrorPage from "@/components/ErrorPage"
+import ErrorPage from "@/pages/errorpage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
-import { useStoreTemporary } from "@/components/zustand"
 
 function StudentCardList() {
-	const {
-		query: { id },
-		pathname,
-	} = useRouter()
-	const { sidebarWidth } = useStoreTemporary()
-	const [alignment, setAlignment] = React.useState("grid")
 	const { apiRequest } = ApiServices()
+	const { pathname } = useRouter()
+	const [alignment, setAlignment] = React.useState("grid")
 
 	// fetch student data
 	const { data, isLoading, isError } = useQuery({
@@ -28,19 +23,6 @@ function StudentCardList() {
 		queryFn: () => apiRequest("GET", null, { collectionName: "students" }),
 		refetchOnWindowFocus: false,
 	})
-
-	// fetch class info
-	const {
-		data: classInfo,
-		isLoading: classIsLoading,
-		isError: classIsError,
-	} = useQuery({
-		queryKey: ["my-class"],
-		queryFn: () => apiRequest("GET", null, { collectionName: "classes", uid: id as string }),
-		enabled: id == "undefined" ? false : true,
-	})
-
-	const studentList = data?.data.filter((item) => classInfo?.data.students?.includes(item.uid))
 
 	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
 		setAlignment(newAlignment)
@@ -50,15 +32,15 @@ function StudentCardList() {
 		pathname.includes("class-students") ? setAlignment("row") : setAlignment("grid")
 	}, [])
 
-	if (isLoading || classIsLoading) return <LoadingPage />
-	if (isError || classIsError) return <ErrorPage />
+	if (isLoading) return <LoadingPage />
+	if (isError) return <ErrorPage />
 
 	return (
 		<Box
 			style={{
 				overflowY: "scroll",
 				overflow: "hidden",
-				width: `calc(100vw - 150px)`,
+				width: `100%`,
 				marginTop: "30px",
 			}}
 		>
@@ -71,7 +53,7 @@ function StudentCardList() {
 						color: "#5f616a",
 					}}
 				>
-					Class Students
+					All Students
 					<Button
 						style={{
 							background: "#5f6ac4",
@@ -82,7 +64,7 @@ function StudentCardList() {
 							fontWeight: 600,
 						}}
 					>
-						{studentList?.length ?? 0} Students
+						{data?.data?.length ?? 0} Students
 					</Button>
 				</Typography>
 				<ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform">
@@ -103,7 +85,7 @@ function StudentCardList() {
 						marginBottom: "45px",
 					}}
 				>
-					{studentList?.map((item, index) => (
+					{data?.data?.map((item, index) => (
 						<Box key={index}>
 							<StudentCard studentDetails={item} />
 						</Box>
@@ -113,7 +95,7 @@ function StudentCardList() {
 				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Grid container>
 						<Grid item xs={12}>
-							<StudentList data={studentList} />
+							<StudentList data={data?.data} />
 						</Grid>
 					</Grid>
 				</Box>

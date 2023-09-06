@@ -50,63 +50,7 @@ const Navbar = () => {
 					</Typography>
 				</Box>
 				<Box display="flex" alignItems="center">
-					{!isSmallScreen && (
-						<>
-							<Typography
-								variant="body2"
-								sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
-							>
-								{classInfo?.class_name}
-							</Typography>
-							<Typography
-								variant="body2"
-								sx={{ color: "#32325d", textAlign: "center", width: "80px", borderRight: "1px solid #32325d" }}
-							>
-								Level {Math.floor(getStudentTotalScore() / 400) + 1}
-							</Typography>
-							<Typography variant="body2" sx={{ color: "#32325d", textAlign: "center", width: "80px" }}>
-								⭐️ {getStudentTotalScore()}
-							</Typography>
-						</>
-					)}
-					<Box style={{ display: "flex", flexDirection: "row" }}>
-						<a target="_blank" rel="noreferrer" href={classInfo?.video_call_link}>
-							<Button
-								sx={{
-									marginRight: "5px",
-									textTransform: "none",
-									background: "#5f61c4",
-									color: "white",
-									fontWeight: "600",
-									padding: "3px 10px",
-									"&:hover": { background: "#424493" },
-								}}
-							>
-								<VideocamIcon
-									sx={{
-										color: "white",
-										marginRight: "6px",
-									}}
-								/>
-								<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
-							</Button>
-						</a>
-						{(userInfo?.role === "teacher" || userInfo?.role === "admin") && (
-							<AddClass _class={classInfo} buttonName="Edit Class" />
-						)}
-						{!classInfo?.video_call_link && (
-							<Alert severity="error" sx={{ p: 1, paddingY: "0px", fontSize: 14, marginLeft: "5px" }}>
-								Please add video link
-							</Alert>
-						)}
-					</Box>
-
-					<AccountMenu isSmallScreen={isSmallScreen} />
-				</Box>
-			</Box>
-			{isSmallScreen && (
-				<Box display="flex" alignItems="center" justifyContent="start" width="100%">
-					<>
+					<Box display="flex" alignItems="center" justifyContent="start" width="100%">
 						<Typography
 							variant="body2"
 							sx={{
@@ -117,22 +61,7 @@ const Navbar = () => {
 								borderRadius: "12px",
 								padding: "1px 12px",
 								width: "fit-content",
-								margin: "5px 4px 0px 2px",
-							}}
-						>
-							{classInfo?.class_name}
-						</Typography>
-						<Typography
-							variant="body2"
-							sx={{
-								fontSize: 12,
-								color: "#32325d",
-								textAlign: "center",
-								border: "1px solid #32325d",
-								borderRadius: "12px",
-								padding: "1px 12px",
-								width: "fit-content",
-								margin: "5px 4px 0px 2px",
+								margin: "5px 4px 5px 2px",
 							}}
 						>
 							Level {Math.floor(getStudentTotalScore() / 400) + 1}
@@ -147,14 +76,16 @@ const Navbar = () => {
 								borderRadius: "12px",
 								padding: "1px 12px",
 								width: "fit-content",
-								margin: "5px 4px 0px 2px",
+								margin: "5px 4px 5px 2px",
 							}}
 						>
 							⭐️ {getStudentTotalScore()}
 						</Typography>
-					</>
+					</Box>
+
+					<AccountMenu isSmallScreen={isSmallScreen} />
 				</Box>
-			)}
+			</Box>
 		</Box>
 	)
 }

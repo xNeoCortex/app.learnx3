@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { useClassInfo, useStoreUser } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "../LoadingPage"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
 import {
 	Alert,
@@ -48,6 +48,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 			lesson_target_skills,
 			teacher_id,
 			teacher_name,
+			cancelled,
 		},
 		setLessonInfo,
 	] = React.useState({
@@ -64,6 +65,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 		platform: "Google Meet",
 		teacher_id: userInfo?.uid,
 		teacher_name: userInfo?.name,
+		cancelled: false,
 	})
 
 	// console.log("level :>> ", level)
@@ -128,6 +130,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					lesson_target_skills,
 					teacher_id,
 					teacher_name,
+					cancelled,
 				})
 			} else {
 				//@ts-ignore
@@ -145,6 +148,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					lesson_target_skills,
 					teacher_id,
 					teacher_name,
+					cancelled,
 				})
 			}
 		}

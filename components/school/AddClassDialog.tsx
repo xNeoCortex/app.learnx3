@@ -4,7 +4,7 @@ import { useClassInfo, useStoreUser } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "../LoadingPage"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
 import {
 	Alert,

@@ -16,7 +16,7 @@ import {
 import Paper from "@mui/material/Paper"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import ErrorPage from "@/components/ErrorPage"
+import ErrorPage from "@/pages/errorpage"
 import { useStoreTemporary, useClassInfo, useStoreUser } from "@/components/zustand"
 import SidebarContainer from "@/components/SidebarContainer"
 

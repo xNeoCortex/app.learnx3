@@ -1,33 +1,23 @@
-import React, { useEffect } from "react"
+import React from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { Box } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
-import FolderSpecialIcon from "@mui/icons-material/FolderSpecial"
 import BarChartIcon from "@mui/icons-material/BarChart"
-import { List, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material"
+import { ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material"
 import QueryStatsIcon from "@mui/icons-material/QueryStats"
 import SpellcheckIcon from "@mui/icons-material/Spellcheck"
 import QuizIcon from "@mui/icons-material/Quiz"
-import HistoryEduIcon from "@mui/icons-material/HistoryEdu"
-import AdbIcon from "@mui/icons-material/Adb"
 import CastForEducationIcon from "@mui/icons-material/CastForEducation"
 import LightbulbIcon from "@mui/icons-material/Lightbulb"
 import PersonIcon from "@mui/icons-material/Person"
-import VirtualTeacherPopup from "./other/VirtualTeacherPopup"
-import { useStoreTemporary, useStoreUser } from "./zustand"
+import { useStoreUser } from "./zustand"
 import VerifiedIcon from "@mui/icons-material/Verified"
 import AppsIcon from "@mui/icons-material/Apps"
 
-function MobileBottomBar({ classId }) {
-	const { push: navigate } = useRouter()
+function MobileBottomBar() {
 	const { pathname } = useRouter()
 	const { userInfo } = useStoreUser()
-	const { class_id, botComponentWidth } = useStoreTemporary()
-
-	useEffect(() => {
-		classId === undefined && userInfo.role !== "admin" && navigate("/classes")
-	}, [])
 
 	return (
 		<Box
@@ -48,7 +38,7 @@ function MobileBottomBar({ classId }) {
 			}}
 		>
 			{userInfo?.role === "teacher" ? (
-				dataTeacher(classId)?.map((item, index) => (
+				dataTeacher()?.map((item, index) => (
 					<Link key={index} href={item?.link}>
 						<ListItem disablePadding>
 							<ListItemButton
@@ -73,7 +63,7 @@ function MobileBottomBar({ classId }) {
 				))
 			) : userInfo?.role === "student" ? (
 				<>
-					{dataStudent(classId)?.map((item, index) => (
+					{dataStudent()?.map((item, index) => (
 						<Link key={index} href={item?.link}>
 							<ListItem disablePadding>
 								<ListItemButton
@@ -121,7 +111,7 @@ function MobileBottomBar({ classId }) {
 					</Link>
 				</>
 			) : userInfo?.role === "admin" ? (
-				dataAdmin(class_id).map((item, index) => (
+				dataAdmin().map((item, index) => (
 					<Link key={index} href={item?.link}>
 						<ListItem disablePadding>
 							<ListItemButton
@@ -153,12 +143,12 @@ function MobileBottomBar({ classId }) {
 
 export default MobileBottomBar
 
-const dataTeacher = (classId) => {
+const dataTeacher = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes/[id]",
-			link: `/classes/${classId}`,
+			href: "/home/teacher",
+			link: `/home/teacher`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		// {
@@ -168,15 +158,15 @@ const dataTeacher = (classId) => {
 		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		// },
 		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
-			href: `/classes/[id]/class-students`,
-			link: `/classes/${classId}/class-students`,
+			href: `/home/class-students`,
+			link: `/home/class-students`,
 			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -190,12 +180,6 @@ const dataTeacher = (classId) => {
 			href: "/class-statistics",
 			link: "/class-statistics",
 			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Mark Writing",
@@ -212,12 +196,12 @@ const dataTeacher = (classId) => {
 	]
 }
 
-const dataStudent = (classId) => {
+const dataStudent = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes/[id]",
-			link: `/classes/${classId}`,
+			href: "/home",
+			link: `/home`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -227,32 +211,26 @@ const dataStudent = (classId) => {
 			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
-		},
 	]
 }
 
-const dataAdmin = (class_id) => {
+const dataAdmin = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/classes",
-			link: "/classes",
+			href: "/home/admin",
+			link: "/home/admin",
 			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Class",
-			href: "/classes/[id]",
-			link: "/classes",
+			name: "Home teacher",
+			href: "/home/teacher",
+			link: "/home/teacher",
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -263,12 +241,12 @@ const dataAdmin = (class_id) => {
 		},
 		{
 			name: "All Students",
-			href: `/classes/[id]/class-students`,
-			link: `/classes/${class_id}/class-students`,
+			href: `/home/class-students`,
+			link: `/home/class-students`,
 			icon: <PersonIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
-			name: "Speak English",
+			name: "Topics",
 			href: "/speak",
 			link: "/speak",
 			icon: <LightbulbIcon sx={{ width: 30, height: 30 }} />,
@@ -284,12 +262,6 @@ const dataAdmin = (class_id) => {
 			href: "/class-statistics",
 			link: "/class-statistics",
 			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Study Resources",
-			href: "/resources",
-			link: "/resources",
-			icon: <FolderSpecialIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Tests",

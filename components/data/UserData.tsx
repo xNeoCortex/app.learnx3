@@ -53,6 +53,7 @@ export const lesson = [
 		teacher_id: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
 		teacher_name: "John Doe",
 		students: ["584vjNvLNTfAsOzEMGF2YezHZWx2mmm"],
+		cancelled: false,
 	},
 	{
 		uid: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
@@ -69,6 +70,7 @@ export const lesson = [
 		teacher_id: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
 		teacher_name: "John Doe",
 		students: ["584vjNvLNTfAsOzEMGF2YezHZWx2mmm"],
+		cancelled: false,
 	},
 	{
 		uid: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
@@ -85,6 +87,7 @@ export const lesson = [
 		teacher_id: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
 		teacher_name: "John Doe",
 		students: ["584vjNvLNTfAsOzEMGF2YezHZWx2mmm"],
+		cancelled: false,
 	},
 	{
 		uid: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
@@ -101,6 +104,7 @@ export const lesson = [
 		teacher_id: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
 		teacher_name: "John Doe",
 		students: ["584vjNvLNTfAsOzEMGF2YezHZWx2mmm"],
+		cancelled: false,
 	},
 	{
 		uid: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
@@ -117,5 +121,6 @@ export const lesson = [
 		teacher_id: "6E7TjU8LYIOAILifSQNKbfBFKNp2",
 		teacher_name: "John Doe",
 		students: ["584vjNvLNTfAsOzEMGF2YezHZWx2mmm"],
+		cancelled: false,
 	},
 ]

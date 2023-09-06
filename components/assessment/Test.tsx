@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl"
 import { useState } from "react"
 import BackButton from "../other/BackButton"
 import ApiPostServices from "@/pages/api/ApiPostServices"
-import ErrorPage from "../ErrorPage"
+import ErrorPage from "../../pages/errorpage"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 

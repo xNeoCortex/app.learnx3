@@ -58,7 +58,7 @@ function MostRecentTestScore() {
 						color: "#1d243d",
 					}}
 				>
-					{mostRecentResultWithDate?.result ?? "No Test Result"}
+					{mostRecentResultWithDate?.result ? mostRecentResultWithDate?.result : "No Test Result"}
 					{mostRecentResultWithDate?.result && <span style={{ fontSize: 15 }}>/100</span>}
 				</Typography>
 				{mostRecentResultWithDate?.topic && (

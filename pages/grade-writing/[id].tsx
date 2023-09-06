@@ -5,7 +5,7 @@ import { Avatar, Box, Button, TextField, TextareaAutosize, Typography } from "@m
 import ApiServices from "@/pages/api/ApiServices"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "@/components/LoadingPage"
-import ErrorPage from "@/components/ErrorPage"
+import ErrorPage from "@/pages/errorpage"
 import ExplainAI from "@/components/ExplainAI"
 import BackButton from "../../components/other/BackButton"
 import { useStoreUser } from "@/components/zustand"
