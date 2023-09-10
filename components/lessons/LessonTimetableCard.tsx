@@ -31,12 +31,12 @@ export default function LessonTimetableCard({ index, x }) {
 				width: { xs: "300px", sm: "100%" },
 				marginRight: { xs: "20px", sm: "0px" },
 				minWidth: "290px",
-				border: x?.lesson_type === "speaking_club" ? "1px solid #45b701" : "1px solid #272e68",
+				border: x?.lesson_type === "speaking_club" ? "0.5px solid #ebfff6" : "0.5px solid #eeebff",
 				background:
 					x?.lesson_type === "speaking_club"
 						? "linear-gradient(45deg, #D9F0E1, #FAFDE9)"
 						: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
-				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
+				boxShadow: "0 2px 17px rgba(0,0,0,.08)",
 			}}
 		>
 			{/* <img
