@@ -37,8 +37,8 @@ export default function LessonTimetableCard({ index, x }) {
 				border: x?.lesson_type === "speaking_club" ? "0.5px solid #ebfff6" : "0.5px solid #eeebff",
 				background:
 					x?.lesson_type === "speaking_club"
-						? "linear-gradient(45deg, #D9F0E1, #FAFDE9)"
-						: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
+						? "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))"
+						: "linear-gradient(45deg, #D9F0E1, #FAFDE9)",
 				boxShadow: "0 2px 17px rgba(0,0,0,.08)",
 			}}
 		>
@@ -136,7 +136,7 @@ export default function LessonTimetableCard({ index, x }) {
 					</Box>
 				</Box>
 				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-					<a target="_blank" rel="noreferrer" href={x?.video_call_link}>
+					{/* <a target="_blank" rel="noreferrer" href={x?.video_call_link}>
 						<Button
 							sx={{
 								marginRight: "5px",
@@ -156,7 +156,7 @@ export default function LessonTimetableCard({ index, x }) {
 							/>
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 						</Button>
-					</a>
+					</a> */}
 					<Link href={`/lessons/${x.uid}`} style={{ textDecoration: "none" }}>
 						<Button
 							sx={{

@@ -102,8 +102,8 @@ function Lesson() {
 								: "0.5px solid #eeebff",
 						background:
 							lessonTimetableList?.data?.lesson_type === "speaking_club"
-								? "linear-gradient(45deg, #D9F0E1, #FAFDE9)"
-								: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
+								? "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))"
+								: "linear-gradient(45deg, #D9F0E1, #FAFDE9)",
 					}}
 				>
 					<Grid container spacing={2}>
