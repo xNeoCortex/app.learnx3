@@ -49,6 +49,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 			teacher_id,
 			teacher_name,
 			cancelled,
+			teaching_material,
 		},
 		setLessonInfo,
 	] = React.useState({
@@ -66,6 +67,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 		teacher_id: userInfo?.uid,
 		teacher_name: userInfo?.name,
 		cancelled: false,
+		teaching_material: "",
 	})
 
 	// console.log("level :>> ", level)
@@ -131,6 +133,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					teacher_id,
 					teacher_name,
 					cancelled,
+					teaching_material,
 				})
 			} else {
 				//@ts-ignore
@@ -149,6 +152,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					teacher_id,
 					teacher_name,
 					cancelled,
+					teaching_material,
 				})
 			}
 		}

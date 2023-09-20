@@ -10,6 +10,7 @@ import ErrorPage from "../error"
 import { useStoreUser } from "@/components/zustand"
 import LessonTimetableCard from "@/components/lessons/LessonTimetableCard"
 import isDateBeforeToday from "@/components/helpers/isDateBeforeToday"
+import LoadingPage from "@/components/LoadingPage"
 
 function index() {
 	const { apiRequest } = ApiServices()
@@ -84,7 +85,7 @@ function index() {
 										.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
 										.map((x, index) => (
 											<Grid key={index} item xs={12} sm={3}>
-												<LessonTimetableCard index={index} x={x} />
+												{cIsLoading ? <LoadingPage /> : <LessonTimetableCard index={index} x={x} />}
 											</Grid>
 										))}
 								</>

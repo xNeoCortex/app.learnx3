@@ -10,7 +10,10 @@ import EventIcon from "@mui/icons-material/Event"
 import AssessmentIcon from "@mui/icons-material/Assessment"
 import VideocamIcon from "@mui/icons-material/Videocam"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
+import VisibilityIcon from "@mui/icons-material/Visibility"
+
 import { useStoreUser } from "../zustand"
+import Link from "next/link"
 
 export default function LessonTimetableCard({ index, x }) {
 	const { userInfo } = useStoreUser()
@@ -45,7 +48,6 @@ export default function LessonTimetableCard({ index, x }) {
 				alt="teacher"
 			/> */}
 
-			{/* <Link href={`/curriculum/${x.uid}`}> */}
 			<Box
 				sx={{
 					display: "flex",
@@ -155,10 +157,30 @@ export default function LessonTimetableCard({ index, x }) {
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 						</Button>
 					</a>
+					<Link href={`/lessons/${x.uid}`} style={{ textDecoration: "none" }}>
+						<Button
+							sx={{
+								marginRight: "5px",
+								textTransform: "none",
+								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+								color: "white",
+								fontWeight: "600",
+								padding: "3px 10px",
+								"&:hover": { background: "#424493" },
+							}}
+						>
+							<VisibilityIcon
+								sx={{
+									color: "white",
+									marginRight: "6px",
+								}}
+							/>
+							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>View</Typography>
+						</Button>
+					</Link>
 					{userInfo.role == "admin" && <AddLesson _lesson={x} buttonName="Edit lesson" />}
 				</Box>
 			</Box>
-			{/* </Link> */}
 		</Box>
 	)
 }

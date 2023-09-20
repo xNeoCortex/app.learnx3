@@ -7,6 +7,7 @@ import ErrorPage from "../../pages/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
 import LessonTimetableCard from "../lessons/LessonTimetableCard"
 import Link from "next/link"
+import LoadingPage from "../LoadingPage"
 
 function DashboardLessonTimetable(props) {
 	const { apiRequest } = ApiServices()
@@ -22,10 +23,13 @@ function DashboardLessonTimetable(props) {
 	})
 
 	if (cIsError) return <ErrorPage />
+	if (cIsLoading) return <LoadingPage />
+
 	return (
 		<Grid container spacing={2}>
 			{lessonTimetableList?.data
-				?.filter((item) => !isDateBeforeToday(item?.lesson_date))
+				// @ts-ignore
+				?.filter(({ lesson_date }) => !isDateBeforeToday(lesson_date))
 				?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
 				?.slice(0, 3)
 				?.map((x, index) => (
