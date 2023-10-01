@@ -30,6 +30,8 @@ function WaitingPage() {
 						display: "flex",
 						alignItems: "center",
 						justifyContent: "center",
+						flexDirection: { xs: "column", sm: "row" },
+						gap: "20px",
 					}}
 				>
 					<Avatar
@@ -42,18 +44,20 @@ function WaitingPage() {
 							m: 1,
 						}}
 					/>
-					<Box>
+					<Box sx={{ textAlign: { xs: "center", sm: "start" } }}>
 						<Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
 							Kindly wait for the administrator to grant you access!
 						</Typography>
 						<Typography sx={{ fontSize: 14, m: "auto", marginLeft: "10px", mt: 1 }}>
-							Please contact us via <strong>nekruz.avgani@gmail.com</strong> if you have not received authorization
-							within 24 hours of completing the registration.
+							Please contact us via <strong>team@learnx3.co.uk</strong> if you do not receive authorization within 24
+							hours.
 						</Typography>
 					</Box>
 				</Box>
-				<Link href="/auth/login" style={{ marginTop: 10 }}>
-					<Button variant="contained">Login</Button>
+				<Link href="/auth/login" style={{ marginTop: 20 }}>
+					<Button variant="contained" sx={{ background: "rgb(95, 106, 196)" }}>
+						Login
+					</Button>
 				</Link>
 			</Box>
 		</div>

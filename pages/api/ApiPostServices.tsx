@@ -21,7 +21,7 @@ function ApiPostServices() {
 			createdById: `${userInfo.uid}`,
 			createdByName: `${userInfo.name}`,
 		}
-		return await axios.post("/api/submittest", updatedBody)
+		return await axios.post("api/submittest", updatedBody)
 	}
 
 	async function addCurriculum(body) {

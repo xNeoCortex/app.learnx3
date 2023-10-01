@@ -38,12 +38,12 @@ export default function Register() {
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				// Signed in
-				console.log("userCredential :>> ", userCredential.user)
 				const user = userCredential.user
 				sendEmailVerification(user).then(() => {
 					// Email verification sent!
-					setMessage("Email verification sent! Please check your email. After verified your account, you can log in.")
-					// navigate("/auth/login");
+					setMessage(
+						"Verification email sent! Please check your inbox, including your spam folder. Once verified, you can log in."
+					)
 				})
 			})
 			.catch((error) => {
@@ -65,19 +65,21 @@ export default function Register() {
 					flexDirection: "column",
 					alignItems: "center",
 					maxWidth: "450px",
-					background: "#5f6ac40f",
 					borderRadius: "8px",
-					padding: 5,
+					padding: { xs: 3, sm: 5 },
 					paddingTop: "30px",
 					margin: "10px",
+					boxShadow: "0 2px 17px rgba(0,0,0,.08)",
+					border: ".4px solid #ebeeff",
+					background: "white",
 				}}
 			>
 				<CssBaseline />
-				<Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-					<LockOpenIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Sign up
+				<Typography component="h1" variant="h6" fontWeight={"bolder"} marginY="10px">
+					Register 🇬🇧
+				</Typography>
+				<Typography align="center" marginBottom="10px">
+					Practice English with AI and fellow learners!
 				</Typography>
 				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container spacing={2}>
@@ -124,8 +126,19 @@ export default function Register() {
 							{message && <Alert severity="success">{message}</Alert>}
 						</Grid>
 					</Grid>
-					<Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-						Sign Up
+					<Button
+						type="submit"
+						fullWidth
+						variant="contained"
+						sx={{
+							mt: 3,
+							mb: 2,
+							background: "linear-gradient(45deg, rgb(139, 88, 254), rgb(95, 222, 231))",
+							boxShadow: "none",
+							" &:hover": { background: "rgba(95, 106, 196, 0.9)" },
+						}}
+					>
+						🚀 Register
 					</Button>
 					<Grid container justifyContent="center">
 						<Grid item>

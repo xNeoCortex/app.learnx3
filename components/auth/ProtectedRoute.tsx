@@ -8,8 +8,6 @@ function ProtectedRoute({ children, permitArray = [] }): any {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
 
-	console.log("userInfo :>> ", userInfo)
-
 	useEffect(() => {
 		!userInfo && navigate("/auth/login")
 	}, [userInfo, permitArray])

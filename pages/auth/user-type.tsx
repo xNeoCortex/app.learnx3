@@ -5,7 +5,7 @@ import { Avatar, Box, Button, Typography } from "@mui/material"
 function UserType() {
 	const [who, setWho] = React.useState("student")
 	return (
-		<div
+		<Box
 			style={{
 				width: "100vw",
 				height: "100vh",
@@ -70,7 +70,7 @@ function UserType() {
 					</Button>
 				</Link>
 			</Box>
-		</div>
+		</Box>
 	)
 }
 

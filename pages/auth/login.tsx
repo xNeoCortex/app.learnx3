@@ -6,11 +6,8 @@ import Avatar from "@mui/material/Avatar"
 import Button from "@mui/material/Button"
 import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
-import FormControlLabel from "@mui/material/FormControlLabel"
-import Checkbox from "@mui/material/Checkbox"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
-// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginIcon from "@mui/icons-material/Login"
 import Typography from "@mui/material/Typography"
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
@@ -19,7 +16,6 @@ import AuthLayout from "@/components/auth/AuthLayout"
 import { auth, db } from "@/components/firebaseX"
 import { useStoreUser } from "@/components/zustand"
 import LoadingPage from "@/components/LoadingPage"
-import GoogleIcon from "@mui/icons-material/Google"
 
 export default function Login() {
 	const { push: navigate } = useRouter()
@@ -29,6 +25,7 @@ export default function Login() {
 	const [error, setError] = React.useState("")
 	const [isLoading, setIsLoading] = React.useState(false)
 
+	// Handle login
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		setIsLoading(true)
@@ -54,14 +51,17 @@ export default function Login() {
 							} else {
 								console.log(" :>> no user")
 								setError("No user found")
+								setIsLoading(false)
 							}
 						} else {
-							return navigate("/auth/user-type")
+							return navigate("/auth/student-form")
 						}
 					} catch (error) {
 						console.log("error 57 :>> ", error)
+						setIsLoading(false)
 					}
 				} else {
+					setIsLoading(false)
 					return setError("Please verify your email")
 				}
 				setIsLoading(false)
@@ -70,7 +70,7 @@ export default function Login() {
 				setIsLoading(false)
 				const errorMessage = error.message
 				if (errorMessage.includes("user-not-found")) {
-					return setError("Please sign up first")
+					return setError("Please register first")
 				} else if (errorMessage.includes("auth/wrong-password")) {
 					return setError("Incorrect password")
 				} else if (errorMessage.includes("invalid-email")) {
@@ -81,6 +81,7 @@ export default function Login() {
 			})
 	}
 
+	// Google login
 	const provider = new GoogleAuthProvider()
 	const handleSubmitGoogle = () => {
 		setIsLoading(true)
@@ -122,7 +123,7 @@ export default function Login() {
 				setIsLoading(false)
 				const errorMessage = error.message
 				if (errorMessage.includes("user-not-found")) {
-					return setError("Please sign up first")
+					return setError("Please register first")
 				} else if (errorMessage.includes("auth/wrong-password")) {
 					return setError("Incorrect password")
 				} else if (errorMessage.includes("invalid-email")) {
@@ -150,46 +151,23 @@ export default function Login() {
 					flexDirection: "column",
 					alignItems: "center",
 					maxWidth: "450px",
-					background: "#5f6ac40f",
 					borderRadius: "8px",
-					padding: 5,
+					padding: { xs: 3, sm: 5 },
 					paddingTop: "30px",
 					margin: "10px",
+					boxShadow: "0 2px 17px rgba(0,0,0,.08)",
+					border: ".4px solid #ebeeff",
+					background: "white",
 				}}
 			>
 				<CssBaseline />
-				<Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-					<LoginIcon />
-				</Avatar>
-				<Typography component="h1" variant="h5">
-					Sign in
+				<Typography component="h1" variant="h6" fontWeight={"bolder"} marginY="10px">
+					Welcome to LearnX3 🇬🇧
 				</Typography>
-				<Button
-					onClick={handleSubmitGoogle}
-					fullWidth
-					variant="contained"
-					sx={{
-						mt: 3,
-						mb: 2,
-						boxShadow: "none",
-						background: "white",
-						color: "black",
-						border: "1px solid black",
-						" &:hover": { background: "white" },
-					}}
-				>
-					<Avatar
-						alt="Google"
-						src="/google.svg"
-						sx={{
-							width: "24px",
-							height: "24px",
-							m: 1,
-						}}
-					/>{" "}
-					Sign in with Google
-				</Button>
-				<p style={{ textAlign: "center", color: "grey", margin: 0 }}>or</p>
+				<Typography align="center" marginBottom="10px">
+					Practice English with AI and fellow learners!
+				</Typography>
+
 				<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
 					<TextField
 						margin="normal"
@@ -223,12 +201,12 @@ export default function Login() {
 						sx={{
 							mt: 3,
 							mb: 2,
-							background: "rgb(95, 106, 196)",
+							background: "linear-gradient(45deg, rgb(139, 88, 254), rgb(95, 222, 231))",
 							boxShadow: "none",
 							" &:hover": { background: "rgba(95, 106, 196, 0.9)" },
 						}}
 					>
-						{isLoading ? <CircularProgress /> : "Sign in with Email"}
+						{isLoading ? <CircularProgress /> : "🚀 Login"}
 					</Button>
 					<Grid container style={{ display: "flex", justifyContent: "column" }}>
 						<Grid
@@ -257,17 +235,43 @@ export default function Login() {
 							}}
 						>
 							<Link href="/auth/register">
-								Don't have an account? <span style={{ textDecoration: "underline", color: "#1976d2" }}>Sign Up</span>
+								Don't have an account? <span style={{ textDecoration: "underline", color: "#1976d2" }}>Register</span>
 							</Link>
 						</Grid>
 					</Grid>
 
 					{/* <Link href="/auth/login-phone">
 						<Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
-							Sign In with Phone
+							Log in with Phone
 						</Button>
 					</Link> */}
 				</Box>
+				<p style={{ textAlign: "center", color: "grey", margin: 0 }}>or</p>
+				<Button
+					onClick={handleSubmitGoogle}
+					fullWidth
+					variant="contained"
+					sx={{
+						mt: 3,
+						mb: 2,
+						boxShadow: "none",
+						background: "white",
+						color: "black",
+						border: "0.5px solid grey",
+						" &:hover": { background: "white" },
+					}}
+				>
+					<Avatar
+						alt="Google"
+						src="/google.svg"
+						sx={{
+							width: "24px",
+							height: "24px",
+							m: 1,
+						}}
+					/>{" "}
+					Log in with Google
+				</Button>
 			</Box>
 		</AuthLayout>
 	)

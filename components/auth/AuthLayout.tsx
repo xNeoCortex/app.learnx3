@@ -10,15 +10,15 @@ function AuthLayout({ children }: any) {
 			sx={{
 				width: "100vw",
 				height: "100vh",
-				background: "white",
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
+				background: "#0e1237",
 			}}
 		>
 			<ThemeProvider theme={theme}>
 				<Box sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
-					<WelcomeMessage />
+					{/* <WelcomeMessage /> */}
 					{children}
 				</Box>
 			</ThemeProvider>
