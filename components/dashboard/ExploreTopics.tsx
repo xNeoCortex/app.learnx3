@@ -17,7 +17,7 @@ function ExploreTopics() {
 					borderRadius: "8px",
 					cursor: "pointer",
 					transition: "transform 0.3s ease-in-out",
-					overflow: "hidden",
+					overflow: "hidden !important",
 					position: "relative",
 					background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
 					"&:hover": {
