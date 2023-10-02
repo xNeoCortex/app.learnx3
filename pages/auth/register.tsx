@@ -144,7 +144,7 @@ export default function Register() {
 					<Grid container justifyContent="center">
 						<Grid item>
 							<Link href="/auth/login">
-								Already have an account? <span style={{ textDecoration: "underline", color: "#1976d2" }}>Sign in</span>
+								Already have an account? <span style={{ textDecoration: "underline", color: "#1976d2" }}>Login</span>
 							</Link>
 						</Grid>
 					</Grid>
