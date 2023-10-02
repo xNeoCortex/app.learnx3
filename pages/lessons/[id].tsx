@@ -83,8 +83,8 @@ function Lesson() {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				<Box
-					style={{
-						padding: "25px 40px",
+					sx={{
+						padding: { xs: "20px", sm: "25px 40px" },
 						borderRadius: "23px",
 						color: "white",
 						height: "100%",
@@ -119,11 +119,13 @@ function Lesson() {
 									minWidth: "290px",
 								}}
 							>
-								<img
-									style={{ position: "absolute", top: 30, right: 30, width: 330 }}
-									src="/teacher-online-presentation.svg"
-									alt="teacher"
-								/>
+								<Box sx={{ display: { xs: "none", sm: "flex" } }}>
+									<img
+										style={{ position: "absolute", top: 30, right: 30, width: 330 }}
+										src="/teacher-online-presentation.svg"
+										alt="teacher"
+									/>
+								</Box>
 								<Box
 									sx={{
 										display: "flex",
@@ -273,7 +275,7 @@ function Lesson() {
 												</Button>
 											</a>
 										)}
-										<Button
+										{/* <Button
 											sx={{
 												marginRight: "5px",
 												textTransform: "none",
@@ -291,7 +293,7 @@ function Lesson() {
 												}}
 											/>
 											<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Download materials</Typography>
-										</Button>
+										</Button> */}
 										{userInfo?.role == "admin" && (
 											<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
 										)}
@@ -300,7 +302,10 @@ function Lesson() {
 							</Box>
 						</Grid>
 						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
-							<Typography variant="h6"> Lesson description</Typography>
+							<Typography fontSize="18px" fontWeight={500}>
+								{" "}
+								Lesson description
+							</Typography>
 							<Box
 								sx={{
 									display: "flex",
@@ -320,13 +325,16 @@ function Lesson() {
 							</Box>
 						</Grid>
 						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
-							<Typography variant="h6"> Students joining the class</Typography>
+							<Typography fontSize="18px" fontWeight={500}>
+								{" "}
+								Students joining the class
+							</Typography>
 							<Box
 								sx={{
 									display: "flex",
 									flexWrap: "nowrap",
 									overflowX: "scroll",
-									marginBottom: "45px",
+									marginBottom: "25px",
 									mt: 1,
 								}}
 							>

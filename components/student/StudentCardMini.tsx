@@ -1,4 +1,4 @@
-import { Avatar, Box, Button } from "@mui/material"
+import { Avatar, Box, Button, Typography } from "@mui/material"
 import Link from "next/link"
 import { memo } from "react"
 
@@ -6,12 +6,11 @@ const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
 	return (
 		<Box
 			style={{
-				padding: "20px 10px",
-				width: "185px",
+				padding: "15px 10px",
+				width: "135px",
 				marginRight: "20px",
 				borderRadius: "23px",
 				color: "white",
-				height: "200px",
 				display: "flex",
 				justifyContent: "space-between",
 				alignItems: "center",
@@ -27,7 +26,8 @@ const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
 			/>
 
 			<Box display="flex" alignItems="center" flexDirection="column">
-				<h5
+				<Typography
+					noWrap
 					style={{
 						color: "#323331",
 						fontWeight: 600,
@@ -37,10 +37,11 @@ const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
 						marginTop: 8,
 						marginBottom: 8,
 						textAlign: "center",
+						maxWidth: 100,
 					}}
 				>
 					{studentDetails.name}
-				</h5>
+				</Typography>
 				<p
 					style={{
 						color:
@@ -49,18 +50,17 @@ const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
 								: studentDetails.performance == "Doing Great"
 								? "#5fc497"
 								: "#41b6ff",
-						fontWeight: 600,
+						fontWeight: 500,
 						padding: "3px 10px",
 						background: "white",
 						border:
 							studentDetails.performance == "Struggling"
-								? "2px solid rgb(226, 109, 128)"
+								? "1px solid rgb(226, 109, 128)"
 								: studentDetails.performance == "Doing Great"
-								? "2px solid #5fc497"
-								: "2px solid #41b6ff",
+								? "1px solid #5fc497"
+								: "1px solid #41b6ff",
 						borderRadius: 12,
-						marginBottom: 15,
-						fontSize: "13px",
+						fontSize: "12px",
 					}}
 				>
 					{studentDetails.level || "intermediate"}
