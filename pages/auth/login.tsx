@@ -195,6 +195,7 @@ export default function Login() {
 					/>
 					{error && <Alert severity="error">{error}</Alert>}
 					<Button
+						disabled={!email || !password}
 						type="submit"
 						fullWidth
 						variant="contained"

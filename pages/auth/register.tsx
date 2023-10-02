@@ -127,6 +127,7 @@ export default function Register() {
 						</Grid>
 					</Grid>
 					<Button
+						disabled={!email || !password || !confirmPassword || confirmPassword !== password}
 						type="submit"
 						fullWidth
 						variant="contained"
