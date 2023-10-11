@@ -96,14 +96,8 @@ function Lesson() {
 						width: "100%",
 						overflow: "auto",
 						position: "relative",
-						border:
-							lessonTimetableList?.data?.lesson_type === "speaking_club"
-								? "0.5px solid #ebfff6"
-								: "0.5px solid #eeebff",
-						background:
-							lessonTimetableList?.data?.lesson_type === "speaking_club"
-								? "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))"
-								: "linear-gradient(45deg, #D9F0E1, #FAFDE9)",
+						border: "0.5px solid #ebfff6",
+						background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
 					}}
 				>
 					<Grid container spacing={2}>
