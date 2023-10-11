@@ -1,10 +1,9 @@
 import * as React from "react"
 import { useRouter } from "next/router"
-import { useClassInfo, useStoreUser } from "../zustand"
+import { useStoreUser } from "../zustand"
 import ApiServices from "@/pages/api/ApiServices"
-import LoadingPage from "../LoadingPage"
 import ErrorPage from "../../pages/errorpage"
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
+import { useQueryClient, useMutation } from "@tanstack/react-query"
 import {
 	Alert,
 	Button,
@@ -29,7 +28,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 	} = useRouter()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
-	const { apiRequest, fetchAllStudents } = ApiServices()
+	const { apiRequest } = ApiServices()
 	const [open, setOpen] = React.useState(false)
 	const [message, setMessage] = React.useState(false)
 	const [
@@ -49,6 +48,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 			teacher_name,
 			cancelled,
 			teaching_material,
+			for_everyone,
 		},
 		setLessonInfo,
 	] = React.useState({
@@ -67,11 +67,8 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 		teacher_name: userInfo?.name,
 		cancelled: false,
 		teaching_material: "",
+		for_everyone: true,
 	})
-
-	// console.log("level :>> ", level)
-	console.log("lesson_type :>> ", lesson_type)
-	// Student info
 
 	// Add lesson
 	const { mutate, isSuccess, isError } = useMutation(
@@ -133,6 +130,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					teacher_name,
 					cancelled,
 					teaching_material,
+					for_everyone,
 				})
 			} else {
 				//@ts-ignore
@@ -152,26 +150,11 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 					teacher_name,
 					cancelled,
 					teaching_material,
+					for_everyone,
 				})
 			}
 		}
 	}
-
-	// const {
-	// 	data: fetchedStudents,
-	// 	isLoading: isLoadingStudents,
-	// 	isError: isErrorStudents,
-	// } = useQuery({ queryKey: ["students"], queryFn: fetchAllStudents, refetchOnWindowFocus: false })
-
-	// // handle students
-	// const handleStudents = (student) => {
-	// 	if (students.includes(student)) {
-	// 		const newStudentsList = students.filter((item) => item !== student)
-	// 		return setLessonInfo((prev) => ({ ...prev, students: newStudentsList }))
-	// 	} else {
-	// 		setLessonInfo((prev) => ({ ...prev, students: [...prev.students, student] }))
-	// 	}
-	// }
 
 	// Clean inputs after api requests
 	React.useEffect(() => {
@@ -353,44 +336,6 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 											))}
 										</Box>
 									</Grid>
-									{/* <Grid item xs={12}>
-										<Box
-											sx={{
-												display: "flex",
-												flexDirection: "column",
-												border: "1px solid #e5e7eb",
-												padding: "3px",
-												borderRadius: "5px",
-											}}
-										>
-											<h4 style={{ padding: "10px" }}>Add Students</h4>
-											{fetchedStudents?.data
-												?.filter((item) => students.includes(item.uid))
-												.map((item, index) => (
-													<Box
-														key={index}
-														sx={{
-															m: 1,
-															background: "rgb(95 106 196 / 3%)",
-															display: "flex",
-															justifyContent: "space-between",
-															alignItems: "center",
-															p: 1,
-															borderRadius: "5px",
-														}}
-													>
-														<h4>{item?.name}</h4>
-														<Button
-															onClick={() => handleStudents(item.uid)}
-															variant="outlined"
-															color={students?.includes(item.uid) ? "error" : "primary"}
-														>
-															{students?.includes(item.uid) ? "Remove" : "Add"}
-														</Button>
-													</Box>
-												))}
-										</Box>
-									</Grid> */}
 								</Grid>
 							</Box>
 						</Box>

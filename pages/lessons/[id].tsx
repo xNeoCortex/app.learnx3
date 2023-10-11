@@ -54,8 +54,6 @@ function Lesson() {
 		}
 	)
 
-	console.log("lessonTimetableList.data :>> ", lessonTimetableList?.data)
-
 	// fetch student data
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["students"],
