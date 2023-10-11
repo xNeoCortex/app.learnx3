@@ -1,9 +1,7 @@
 import { auth } from "./firebaseX"
 import { Alert, Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material"
-import VideocamIcon from "@mui/icons-material/Videocam"
 import AccountMenu from "./auth/SignOut"
 import { useClassInfo, useStoreUser } from "./zustand"
-import AddClass from "./school/AddClassDialog"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
 

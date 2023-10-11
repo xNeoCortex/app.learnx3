@@ -32,7 +32,6 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 	const { apiRequest, fetchAllStudents } = ApiServices()
 	const [open, setOpen] = React.useState(false)
 	const [message, setMessage] = React.useState(false)
-	const [curriculumX, setCurriculumX] = React.useState("")
 	const [
 		{
 			topic,
@@ -59,7 +58,7 @@ const AddLesson = React.memo<any>(({ buttonName, _lesson = null }) => {
 		students: [],
 		passcode: "",
 		lesson_date: "",
-		lesson_type: "general_english",
+		lesson_type: "speaking_club",
 		description: null,
 		lesson_duration_minutes: 60,
 		lesson_target_skills: ["speaking", "listening"],

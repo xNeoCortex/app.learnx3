@@ -34,11 +34,8 @@ export default function LessonTimetableCard({ index, x }) {
 				width: { xs: "300px", sm: "100%" },
 				marginRight: { xs: "20px", sm: "0px" },
 				minWidth: "290px",
-				border: x?.lesson_type === "speaking_club" ? "0.5px solid #ebfff6" : "0.5px solid #eeebff",
-				background:
-					x?.lesson_type === "speaking_club"
-						? "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))"
-						: "linear-gradient(45deg, #D9F0E1, #FAFDE9)",
+				border: "0.5px solid #ebfff6",
+				background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
 				boxShadow: "0 2px 17px rgba(0,0,0,.08)",
 			}}
 		>

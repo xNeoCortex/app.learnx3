@@ -229,7 +229,10 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 			</Search>
 			<Button
 				variant="contained"
-				onClick={() => (handleClick(), handleMessage({ role: "user", message: prompt }))}
+				onClick={() => {
+					handleClick()
+					handleMessage({ role: "user", message: prompt })
+				}}
 				disabled={loading || prompt === ""}
 				sx={{
 					width: "100px",
