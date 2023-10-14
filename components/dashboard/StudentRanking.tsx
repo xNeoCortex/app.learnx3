@@ -65,7 +65,7 @@ function StudentRanking() {
 			sx={{
 				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
 				maxHeight: { xs: "245px", sm: "450px" },
-				height: "100%",
+				// height: "100%",
 				width: "100%",
 				margin: "0px 10px 10px 0px",
 				borderRadius: "8px",

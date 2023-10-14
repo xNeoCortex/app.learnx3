@@ -14,25 +14,17 @@ import StudentRanking from "@/components/dashboard/StudentRanking"
 import MostRecentTestScore from "@/components/dashboard/MostRecentTestScore"
 import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTimetable"
 import DashboardLessonTimetableMobile from "@/components/dashboard/DashboardLessonTimetableMobile"
+import { auth } from "@/components/firebaseX"
 
 function MyDashboard() {
 	const { botComponentWidth } = useStoreTemporary()
+	console.log("auth.currentUser :>> ", auth.currentUser)
 
 	return (
 		<ProtectedRoute permitArray={["admin", "student"]}>
 			<SidebarContainer>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
-						<Typography
-							style={{
-								margin: "0px 10px 10px 0px",
-								fontWeight: 600,
-								fontSize: 19,
-								color: "#5f616a",
-							}}
-						>
-							Upcoming lessons
-						</Typography>
 						<DashboardLessonTimetable />
 						<DashboardLessonTimetableMobile />
 					</Grid>
