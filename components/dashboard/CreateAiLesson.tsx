@@ -1,7 +1,7 @@
 import { Alert, Box, Button, LinearProgress, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh"
-import { useStoreUser } from "../zustand"
+import { useStoreUser, useStoreTemporary } from "../zustand"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import InputBase from "@mui/material/InputBase"
 import { styled, alpha } from "@mui/material/styles"
@@ -14,8 +14,8 @@ import { useRouter } from "next/router"
 function CreateAiLesson() {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
+	const { loadingGenContentAI, setLoadingGenContentAI } = useStoreTemporary()
 	const [topic, setTopic] = useState("")
-	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(false)
 	const [success, setSuccess] = useState(false)
 	const queryClient = useQueryClient()
@@ -26,7 +26,7 @@ function CreateAiLesson() {
 	const openAI = new OpenAIApi(configuration)
 
 	async function CreateAiLessonFunc() {
-		setLoading(true)
+		setLoadingGenContentAI(true)
 		try {
 			const response = await openAI.createChatCompletion({
 				model: "gpt-3.5-turbo-16k-0613",
@@ -543,15 +543,15 @@ function CreateAiLesson() {
 				createdByName: `${userInfo.name}`,
 				category: createdLesson.category?.toLowerCase() || "other",
 			})
-			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoading(false)
+			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoadingGenContentAI(false)
 			setError(false)
-			setLoading(false)
+			setLoadingGenContentAI(false)
 			setSuccess(true)
 			setTopic("")
 			navigate(`/speak/${lessonDoc.id}`)
 		} catch (error) {
 			console.log("error", error)
-			setLoading(false)
+			setLoadingGenContentAI(false)
 			setError(true)
 		}
 	}
@@ -621,7 +621,7 @@ function CreateAiLesson() {
 				<Button
 					variant="contained"
 					onClick={CreateAiLessonFunc}
-					disabled={loading || topic === ""}
+					disabled={loadingGenContentAI || topic === ""}
 					sx={{
 						background: "rgb(50, 51, 49)",
 						color: "white",
@@ -632,7 +632,7 @@ function CreateAiLesson() {
 						mt: { xs: 2, sm: "2px" },
 					}}
 				>
-					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loading ? "Loading..." : "Generate"}
+					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loadingGenContentAI ? "Loading..." : "Generate"}
 				</Button>
 			</Box>
 			<Box
@@ -642,7 +642,7 @@ function CreateAiLesson() {
 					p: 1,
 				}}
 			>
-				{loading ? (
+				{loadingGenContentAI ? (
 					<Box sx={{ width: "100%" }}>
 						<LinearProgress />
 						<Typography sx={{ m: 1, textAlign: "center" }}>
