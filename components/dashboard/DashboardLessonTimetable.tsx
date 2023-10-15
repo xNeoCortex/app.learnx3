@@ -26,7 +26,7 @@ function DashboardLessonTimetable(props) {
 	if (cIsLoading) return <LoadingPage />
 
 	return (
-		<Box sx={{ display: { xs: "none", sm: "flex" } }}>
+		<Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column" }}>
 			{lessonTimetableList?.data.length > 0 && (
 				<Typography
 					style={{

@@ -20,13 +20,11 @@ function DashboardLessonTimetableMobile(props) {
 		refetchOnWindowFocus: false,
 	})
 
-	console.log("lessonTimetableList?.data :>> ", lessonTimetableList?.data)
-
 	if (cIsError) return <ErrorPage />
 	if (cIsLoading) return <LoadingPage />
 
 	return (
-		<Box sx={{ display: { xs: "flex", sm: "none" } }}>
+		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
 			<Typography
 				style={{
 					margin: "0px 10px 10px 0px",
