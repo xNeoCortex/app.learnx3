@@ -9,7 +9,7 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.post("/api/submitessay", updatedBody)
 	}
@@ -19,9 +19,9 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
-		return await axios.post("api/submittest", updatedBody)
+		return await axios.post("/api/submittest", updatedBody)
 	}
 
 	async function addCurriculum(body) {
@@ -29,7 +29,7 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.post("/api/addcurriculum", updatedBody)
 	}
@@ -38,7 +38,7 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.post("/api/addclass", updatedBody)
 	}
@@ -48,7 +48,7 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.post("/api/addlesson", updatedBody)
 	}
@@ -56,8 +56,8 @@ function ApiPostServices() {
 	async function addLessonByAi(userInfo, topic) {
 		return await axios.post("/api/speak/addlessonbyai", userInfo, {
 			params: {
-				topic,
-			},
+				topic
+			}
 		})
 	}
 
@@ -66,12 +66,12 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.post("/api/assessmentapi", updatedBody, {
 			params: {
-				type,
-			},
+				type
+			}
 		})
 	}
 
@@ -80,12 +80,12 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.put("/api/updateclass", updatedBody, {
 			params: {
-				id: id,
-			},
+				id: id
+			}
 		})
 	}
 
@@ -94,12 +94,12 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		return await axios.patch("/api/updateteacher", updatedBody, {
 			params: {
-				id: id,
-			},
+				id: id
+			}
 		})
 	}
 
@@ -108,12 +108,12 @@ function ApiPostServices() {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
 			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
+			createdByName: `${userInfo.name}`
 		}
 		const response = await axios.patch("/api/submitfeedback", updatedBody, {
 			params: {
-				id: id,
-			},
+				id: id
+			}
 		})
 		return response
 	}
@@ -128,7 +128,7 @@ function ApiPostServices() {
 		updateClass,
 		updateTeacherInfo,
 		submitFeedback,
-		addLessonByAi,
+		addLessonByAi
 	}
 }
 
