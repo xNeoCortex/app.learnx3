@@ -20,30 +20,40 @@ function DashboardLessonTimetableMobile(props) {
 		refetchOnWindowFocus: false,
 	})
 
-	console.log("lessonTimetableList?.data :>> ", lessonTimetableList?.data)
-
 	if (cIsError) return <ErrorPage />
 	if (cIsLoading) return <LoadingPage />
 
 	return (
-		<Box
-			sx={{
-				display: { xs: "flex", sm: "none" },
-				overflowX: "scroll",
-				overflowY: "hidden",
-				boxSizing: "border-box",
-				width: `calc(100vw-20px)`,
-				marginTop: "20px",
-			}}
-		>
-			{lessonTimetableList?.data
-				// @ts-ignore
-				?.filter(({ lesson_date }) => !isDateBeforeToday(lesson_date))
-				?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
-				?.slice(0, 3)
-				?.map((x, index) => (
-					<LessonTimetableCard index={index} x={x} />
-				))}
+		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
+			<Typography
+				style={{
+					margin: "0px 10px 10px 0px",
+					fontWeight: 600,
+					fontSize: 19,
+					color: "#5f616a",
+				}}
+			>
+				Upcoming lessons
+			</Typography>
+			<Box
+				sx={{
+					display: { xs: "flex", sm: "none" },
+					overflowX: "scroll",
+					overflowY: "hidden",
+					boxSizing: "border-box",
+					width: `calc(100vw-20px)`,
+					marginTop: "20px",
+				}}
+			>
+				{lessonTimetableList?.data
+					// @ts-ignore
+					?.filter(({ lesson_date }) => !isDateBeforeToday(lesson_date))
+					?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
+					?.slice(0, 3)
+					?.map((x, index) => (
+						<LessonTimetableCard index={index} x={x} />
+					))}
+			</Box>
 		</Box>
 	)
 }

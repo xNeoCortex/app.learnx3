@@ -38,7 +38,7 @@ function ForgotPassword(props) {
 					justifyContent: "center",
 					maxWidth: "100%",
 					minWidth: "400px",
-					background: "#5f6ac40f",
+					background: "white",
 					borderRadius: "8px",
 					padding: 5,
 					paddingTop: "30px",
@@ -61,7 +61,11 @@ function ForgotPassword(props) {
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 				/>
-				{message && <Alert severity="success">{message}</Alert>}
+				{message && (
+					<Alert sx={{ width: "100%" }} severity="success">
+						{message}
+					</Alert>
+				)}
 				<Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
 					Reset password
 				</Button>
