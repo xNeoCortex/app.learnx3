@@ -18,23 +18,23 @@ function StudentRanking() {
 	const {
 		data: testResults,
 		isLoading,
-		isError,
+		isError
 	} = useQuery({
 		queryKey: ["testResult"],
 		queryFn: () => apiRequest("GET", null, { collectionName: "testResult" }),
 		refetchOnWindowFocus: false,
-		refetchOnMount: false,
+		refetchOnMount: false
 	})
 
 	const {
 		data: students,
 		isLoading: isLoadingStudents,
-		isError: isErrorStudents,
+		isError: isErrorStudents
 	} = useQuery({
 		queryKey: ["students"],
 		queryFn: () => apiRequest("GET", null, { collectionName: "students" }),
 		refetchOnWindowFocus: false,
-		refetchOnMount: false,
+		refetchOnMount: false
 	})
 
 	function getStudentTotalScore(studentId) {
@@ -52,7 +52,7 @@ function StudentRanking() {
 		return sortedStudents.map((student) => {
 			return {
 				...student,
-				score: getStudentTotalScore(student.uid),
+				score: getStudentTotalScore(student.uid)
 			}
 		})
 	}
@@ -71,7 +71,7 @@ function StudentRanking() {
 				borderRadius: "8px",
 				overflow: "scroll",
 				position: "relative",
-				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+				background: "linear-gradient(45deg, #8b58fe, #5fdee7)"
 			}}
 		>
 			<TableContainer component={Paper}>
@@ -81,10 +81,12 @@ function StudentRanking() {
 							style={{
 								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
 								borderRadius: 12,
-								color: "white",
+								color: "white"
 							}}
 						>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 16 }}>Student Leaderboard</TableCell>
+							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 16 }}>
+								Student Leaderboard ({students?.data?.length})
+							</TableCell>
 							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 16 }}>🏆 Points</TableCell>
 						</TableRow>
 					</TableHead>
@@ -98,7 +100,7 @@ function StudentRanking() {
 										style={{
 											display: "flex",
 											alignItems: "center",
-											borderBottom: "none",
+											borderBottom: "none"
 										}}
 									>
 										<Typography sx={{ mr: 1 }} variant="body2">
@@ -111,7 +113,7 @@ function StudentRanking() {
 												height: 30,
 												border: "2px solid rgb(95, 106, 196)",
 												marginRight: 1.5,
-												bgcolor: "white",
+												bgcolor: "white"
 											}}
 										/>
 										<Typography sx={{ mr: 1, fontSize: "14px" }}>{row.name} </Typography>
@@ -127,7 +129,7 @@ function StudentRanking() {
 												fontSize: 15,
 												width: "100%",
 												maxWidth: "130px",
-												textAlign: "start",
+												textAlign: "start"
 											}}
 										>
 											⭐️ {row.score}
