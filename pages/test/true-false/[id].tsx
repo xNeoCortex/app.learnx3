@@ -16,7 +16,7 @@ import AlertDialog from "@/components/AlertDialog"
 
 function TrueFalseQuiz() {
 	const {
-		query: { id },
+		query: { id }
 	} = useRouter()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
@@ -30,14 +30,14 @@ function TrueFalseQuiz() {
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
-		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
+		onSuccess: () => queryClient.invalidateQueries(["testResult"])
 	})
 
 	// Get assessment data from database
 	const {
 		data: reading_quiz,
 		isLoading: isLoadingQuiz,
-		isError: isErrorQuiz,
+		isError: isErrorQuiz
 	} = useQuery([`readingAssessment-${id}`], () => fetchOneAssessment({ db_collection: "readingAssessment", id: id }))
 
 	function handleSelect(response, index) {
@@ -63,7 +63,7 @@ function TrueFalseQuiz() {
 			result: score,
 			assessment_id: reading_quiz?.data?.uid,
 			student_id: auth.currentUser?.uid,
-			student_name: auth.currentUser.displayName,
+			student_name: auth.currentUser?.displayName
 		})
 	}
 
@@ -78,7 +78,7 @@ function TrueFalseQuiz() {
 	const {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
-		isError: isErrorResult,
+		isError: isErrorResult
 	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResults(String(userInfo?.uid)))
 
 	useEffect(() => {
@@ -101,7 +101,7 @@ function TrueFalseQuiz() {
 						margin: "15px ",
 						padding: "1px 0px",
 						borderRadius: 3,
-						position: "relative",
+						position: "relative"
 					}}
 				>
 					<Typography
@@ -110,7 +110,7 @@ function TrueFalseQuiz() {
 							marginBottom: "10px",
 							fontWeight: 600,
 							fontSize: "19px",
-							color: "rgb(50, 50, 93)",
+							color: "rgb(50, 50, 93)"
 						}}
 					>
 						{reading_quiz?.data?.topic}
@@ -133,7 +133,7 @@ function TrueFalseQuiz() {
 						padding: 4,
 						background: "#f4eee3",
 						color: "#404040",
-						borderRadius: 3,
+						borderRadius: 3
 					}}
 				>
 					<h3>📝 {reading_quiz?.data?.topic} </h3>
@@ -142,7 +142,7 @@ function TrueFalseQuiz() {
 						dangerouslySetInnerHTML={{
 							__html: reading_quiz?.data?.content
 								?.replace(/\n/g, "<br /> <br />")
-								.replace(/\*([^*]+)\*/g, "<strong>$1</strong>"),
+								.replace(/\*([^*]+)\*/g, "<strong>$1</strong>")
 						}}
 					/>
 				</Box>
@@ -151,7 +151,7 @@ function TrueFalseQuiz() {
 						display: "flex",
 						flexDirection: "column",
 						margin: 1,
-						mt: 5,
+						mt: 5
 					}}
 				>
 					<h3 style={{ margin: 12 }}>❓ Questions </h3>
@@ -166,7 +166,7 @@ function TrueFalseQuiz() {
 						style={{
 							margin: 15,
 							minWidth: 200,
-							background: "rgb(95, 106, 196)",
+							background: "rgb(95, 106, 196)"
 						}}
 						onClick={handleSubmit}
 					>

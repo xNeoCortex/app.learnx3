@@ -20,7 +20,7 @@ function StandTestResult(word) {
 
 function WordBuildingTest() {
 	const {
-		query: { id },
+		query: { id }
 	} = useRouter()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
@@ -35,19 +35,19 @@ function WordBuildingTest() {
 	const {
 		data: assessmentResult,
 		isLoading: isLoadingResult,
-		isError: isErrorResult,
+		isError: isErrorResult
 	} = useQuery([`testResult-${id}-${userInfo?.uid}`], () => fetchTestResults(String(userInfo?.uid)))
 
 	// Submit assessment on database
 	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
-		onSuccess: () => queryClient.invalidateQueries(["testResult"]),
+		onSuccess: () => queryClient.invalidateQueries(["testResult"])
 	})
 
 	// Get assessment data from database
 	const {
 		data: word_building,
 		isLoading: isLoadingWB,
-		isError: isErrorWB,
+		isError: isErrorWB
 	} = useQuery(["wordBuildingAssessment"], () =>
 		fetchOneAssessment({ db_collection: "wordBuildingAssessment", id: id })
 	)
@@ -79,7 +79,7 @@ function WordBuildingTest() {
 			result: score,
 			assessment_id: word_building?.data?.uid,
 			student_id: auth.currentUser?.uid,
-			student_name: auth.currentUser.displayName,
+			student_name: auth.currentUser?.displayName
 		})
 	}
 
@@ -100,7 +100,7 @@ function WordBuildingTest() {
 						margin: "15px ",
 						padding: "1px 0px",
 						borderRadius: 3,
-						position: "relative",
+						position: "relative"
 					}}
 				>
 					<Typography
@@ -109,7 +109,7 @@ function WordBuildingTest() {
 							marginBottom: "10px",
 							fontWeight: 600,
 							fontSize: "19px",
-							color: "rgb(50, 50, 93)",
+							color: "rgb(50, 50, 93)"
 						}}
 					>
 						{word_building?.data?.topic}
@@ -130,7 +130,7 @@ function WordBuildingTest() {
 						margin: "15px ",
 						padding: " 20px",
 						borderRadius: 3,
-						position: "relative",
+						position: "relative"
 					}}
 				>
 					<TaskComponent title="Task" text={word_building?.data?.task} />
@@ -139,7 +139,7 @@ function WordBuildingTest() {
 					sx={{
 						display: "flex",
 						flexDirection: "column",
-						margin: 1,
+						margin: 1
 					}}
 				>
 					{word_building?.data?.questions.map((test, index) => (
@@ -197,7 +197,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 						? "#d8f3dc"
 						: "#ffccd578"
 					: "white",
-				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px"
 			}}
 		>
 			<h3>{`${index + 1}. ${test.question}`}</h3>
@@ -211,7 +211,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 				sx={{
 					width: "fit-content",
 					margin: "20px 0px 0px",
-					fontWeight: "bolder",
+					fontWeight: "bolder"
 				}}
 				label={test.word}
 				color="secondary"
@@ -234,7 +234,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 						border: "2px solid #06d6a0",
 						borderRadius: 2,
 						p: 1,
-						background: "#06d6a021",
+						background: "#06d6a021"
 					}}
 				>
 					Correct Answer: <strong> {test.answers}</strong>
@@ -247,7 +247,7 @@ const EachQuestion = ({ test, index, arrayInput, show, setArrayInput }) => {
 						border: "2px solid #ffee32",
 						borderRadius: 2,
 						p: 1,
-						background: "#ffee325e",
+						background: "#ffee325e"
 					}}
 				>
 					{" "}
