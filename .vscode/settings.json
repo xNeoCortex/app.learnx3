@@ -1,0 +1,25 @@
+{
+     "editor.formatOnSave": true,
+     "editor.tabSize": 2,
+    "diffEditor.ignoreTrimWhitespace": true,
+     "workbench.colorCustomizations": {
+         "activityBar.activeBackground": "#924ae5",
+         "activityBar.activeBorder": "#0094b2",
+         "activityBar.background": "#a74ae5",
+         "activityBar.foreground": "#15202b",
+         "activityBar.inactiveForeground": "#15202b99",
+         "activityBarBadge.background": "#0094b2",
+         "activityBarBadge.foreground": "#e7e7e7",
+         "sash.hoverBorder": "#a44ae5",
+         "statusBar.background": "#a44ae5",
+         "statusBar.foreground": "#15202b",
+         "statusBarItem.hoverBackground": "#a44ae5",
+         "statusBarItem.remoteBackground": "#a44ae5",
+         "statusBarItem.remoteForeground": "#15202b",
+         "titleBar.activeBackground": "#a44ae5",
+         "titleBar.activeForeground": "#15202b",
+         "titleBar.inactiveBackground": "#a44ae5",
+         "titleBar.inactiveForeground": "#15202b99",
+         "commandCenter.border": "#15202b99"
+       },
+}
