@@ -654,7 +654,7 @@ function CreateAiLesson() {
 						Your curriculum has been successfully created!
 					</Alert>
 				) : (
-					["Travel", "Book", "History", "Egypt"].map((item) => (
+					["Travel", "Book", "History", "Sport"].map((item) => (
 						<Button
 							onClick={() => setTopic(item)}
 							sx={{ color: "white", border: "1px solid white", m: 1, display: { xs: "none", sm: "flex" } }}
