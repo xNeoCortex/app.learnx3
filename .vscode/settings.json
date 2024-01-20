@@ -2,6 +2,7 @@
      "editor.formatOnSave": true,
      "editor.tabSize": 2,
     "diffEditor.ignoreTrimWhitespace": true,
+    "prettier.trailingComma": "es5",
      "workbench.colorCustomizations": {
          "activityBar.activeBackground": "#924ae5",
          "activityBar.activeBorder": "#0094b2",
