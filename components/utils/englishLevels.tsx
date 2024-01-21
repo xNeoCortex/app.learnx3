@@ -1,4 +1,4 @@
-export const englishLevels = {
+export const englishLevels: { [key: string]: string } = {
 	A0: "Beginner",
 	A1: "Elementary",
 	A2: "Pre-Intermediate",

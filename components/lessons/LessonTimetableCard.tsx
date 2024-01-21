@@ -8,14 +8,14 @@ import { lessonTypeColors } from "../utils/lessonTypeColors"
 import AddLesson from "./AddLesson"
 import EventIcon from "@mui/icons-material/Event"
 import AssessmentIcon from "@mui/icons-material/Assessment"
-import VideocamIcon from "@mui/icons-material/Videocam"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import VisibilityIcon from "@mui/icons-material/Visibility"
 
 import { useStoreUser } from "../zustand"
 import Link from "next/link"
+import { lessonTimetableType } from "@/types/types"
 
-export default function LessonTimetableCard({ index, x }) {
+export default function LessonTimetableCard({ lesson }: { lesson: lessonTimetableType }) {
 	const { userInfo } = useStoreUser()
 
 	return (
@@ -66,11 +66,14 @@ export default function LessonTimetableCard({ index, x }) {
 						}}
 					/>
 					<Typography noWrap sx={{ maxWidth: 140 }}>
-						{x.teacher_name}
+						{lesson?.teacher_name}
 					</Typography>
 				</Box>
 				<Box sx={{ display: "flex" }}>
-					<ChipX color={lessonTypeColors[x.lesson_type]} text={capitalize(x.lesson_type.split("_").join(" "))} />
+					<ChipX
+						color={lessonTypeColors[lesson?.lesson_type]}
+						text={capitalize(lesson?.lesson_type.split("_").join(" "))}
+					/>
 				</Box>
 			</Box>
 			<Box
@@ -89,7 +92,7 @@ export default function LessonTimetableCard({ index, x }) {
 						padding: 0,
 					}}
 				>
-					{capitalizeFirstLetter(x.topic)}
+					{capitalizeFirstLetter(lesson.topic)}
 				</Typography>
 			</Box>
 
@@ -118,22 +121,22 @@ export default function LessonTimetableCard({ index, x }) {
 					<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
 						<EventIcon sx={{ mr: 1 }} />
 						<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
-							{dayjs(localTime(x.lesson_date)).format("dddd, MMM D")}
+							{dayjs(localTime(lesson.lesson_date)).format("dddd, MMM D")}
 						</Typography>
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
 						<AccessTimeIcon sx={{ mr: 1 }} />
 						<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
-							{dayjs(localTime(x.lesson_date)).format(" HH:mm")} ({x.lesson_duration_minutes} min)
+							{dayjs(localTime(lesson.lesson_date)).format(" HH:mm")} ({lesson.lesson_duration_minutes} min)
 						</Typography>
 					</Box>
 					<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
 						<AssessmentIcon sx={{ mr: 1 }} />
-						<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>{englishLevels[x.level]}</Typography>
+						<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>{englishLevels[lesson.level]}</Typography>
 					</Box>
 				</Box>
 				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-					{/* <a target="_blank" rel="noreferrer" href={x?.video_call_link}>
+					{/* <a target="_blank" rel="noreferrer" href={lesson?.video_call_link}>
 						<Button
 							sx={{
 								marginRight: "5px",
@@ -154,7 +157,7 @@ export default function LessonTimetableCard({ index, x }) {
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 						</Button>
 					</a> */}
-					<Link href={`/lessons/${x.uid}`} style={{ textDecoration: "none" }}>
+					<Link href={`/lessons/${lesson.uid}`} style={{ textDecoration: "none" }}>
 						<Button
 							sx={{
 								marginRight: "5px",
@@ -175,7 +178,7 @@ export default function LessonTimetableCard({ index, x }) {
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>View</Typography>
 						</Button>
 					</Link>
-					{userInfo.role == "admin" && <AddLesson _lesson={x} buttonName="Edit lesson" />}
+					{userInfo.role == "admin" && <AddLesson _lesson={lesson} buttonName="Edit lesson" />}
 				</Box>
 			</Box>
 		</Box>

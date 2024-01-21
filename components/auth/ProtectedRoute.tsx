@@ -1,10 +1,16 @@
-import { useEffect } from "react"
+import { ReactNode, useEffect } from "react"
 import { useRouter } from "next/router"
 import ErrorPage from "../../pages/errorpage"
 import WaitingPage from "../other/WaitingPage"
 import { useStoreUser } from "../zustand"
 
-function ProtectedRoute({ children, permitArray = [] }): any {
+type PermitType = "admin" | "teacher" | "student"
+
+interface ProtectedRouteProps {
+	children: ReactNode
+	permitArray: PermitType[]
+}
+const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
 
@@ -21,6 +27,7 @@ function ProtectedRoute({ children, permitArray = [] }): any {
 	if (userInfo && permitArray.includes(userInfo?.role)) {
 		return <>{children}</>
 	}
+	return <ErrorPage message="Something went wrong, please try again later!" />
 }
 
 export default ProtectedRoute

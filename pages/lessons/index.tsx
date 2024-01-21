@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Box, Grid, Typography } from "@mui/material"
@@ -11,6 +11,13 @@ import { useStoreUser } from "@/components/zustand"
 import LessonTimetableCard from "@/components/lessons/LessonTimetableCard"
 import isDateBeforeToday from "@/components/helpers/isDateBeforeToday"
 import LoadingPage from "@/components/LoadingPage"
+import { convertToWeeklyObjectType, lessonTimetableType } from "@/types/types"
+
+type PermitType = "admin" | "teacher" | "student"
+interface ProtectedRouteProps {
+	children: ReactNode
+	permitArray: PermitType[]
+}
 
 function index() {
 	const { apiRequest } = ApiServices()
@@ -57,39 +64,51 @@ function index() {
 					</Grid>
 					<Grid container spacing={3}>
 						{convertToWeeklyObject(lessonTimetableList?.data)
-							//@ts-ignore
 							?.filter((item) => !isDateBeforeToday(item?.date_to))
-							//@ts-ignore
 							.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
-							?.map((input, index) => (
-								<>
-									<Grid item xs={12} key={index} sx={{ marginTop: "20px" }}>
-										<Box
-											sx={{
-												display: "flex",
-												alignItems: "center",
-												justifyContent: "space-between",
-												width: "100%",
-											}}
-										>
-											<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-												<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
-													{/* @ts-ignore */}
-													{dayjs(input?.date_from).format("D MMMM")} - {dayjs(input?.date_to).format("D MMMM")}
-												</Typography>
+							?.map(
+								(
+									{
+										date_from,
+										date_to,
+										lessons,
+									}: {
+										date_from: string
+										date_to: string
+										lessons: lessonTimetableType[]
+									},
+									index
+								) => (
+									<React.Fragment key={index}>
+										<Grid item xs={12} key={index} sx={{ marginTop: "20px" }}>
+											<Box
+												sx={{
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "space-between",
+													width: "100%",
+												}}
+											>
+												<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
+													<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
+														{/* @ts-ignore */}
+														{dayjs(date_from).format("D MMMM")} - {dayjs(date_to).format("D MMMM")}
+													</Typography>
+												</Box>
 											</Box>
-										</Box>
-									</Grid>
-									{/* @ts-ignore */}
-									{input?.lessons
-										.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
-										.map((x, index) => (
-											<Grid key={index} item xs={12} sm={3}>
-												{cIsLoading ? <LoadingPage /> : <LessonTimetableCard index={index} x={x} />}
-											</Grid>
-										))}
-								</>
-							))}
+										</Grid>
+										{lessons
+											.sort((a: lessonTimetableType, b: lessonTimetableType) =>
+												a.lesson_date > b.lesson_date ? 1 : -1
+											)
+											.map((lesson: lessonTimetableType, index: number) => (
+												<Grid key={index} item xs={12} sm={3}>
+													{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
+												</Grid>
+											))}
+									</React.Fragment>
+								)
+							)}
 					</Grid>
 				</Box>
 			</SidebarContainer>
@@ -99,7 +118,7 @@ function index() {
 
 export default index
 
-function getWeekRange(date) {
+function getWeekRange(date: string | Date) {
 	const currentDate = dayjs(date)
 	const dayOfWeek = currentDate.day()
 	const diff = currentDate.date() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) // Adjust for Sunday
@@ -108,12 +127,15 @@ function getWeekRange(date) {
 	return { start: startOfWeek.format("YYYY-MM-DD"), end: endOfWeek.format("YYYY-MM-DD") }
 }
 
-function convertToWeeklyObject(input) {
-	const weeklyData = {}
+function convertToWeeklyObject(input: lessonTimetableType[]): convertToWeeklyObjectType[] {
+	const weeklyData: any = {}
 
 	input?.forEach((lesson) => {
 		const lessonDate = new Date(lesson.lesson_date)
-		const weekRange = getWeekRange(lessonDate)
+		const weekRange: {
+			start: string
+			end: string
+		} = getWeekRange(lessonDate)
 
 		if (!weeklyData[weekRange.start]) {
 			weeklyData[weekRange.start] = {

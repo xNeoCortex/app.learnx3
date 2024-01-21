@@ -11,7 +11,7 @@ import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import DeleteIcon from "@mui/icons-material/Delete"
 
-const Fina: React.FC<{ setOpen?: any }> = ({ setOpen }) => {
+const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setOpen }) => {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const { userInfo } = useStoreUser()
@@ -174,9 +174,21 @@ const Fina: React.FC<{ setOpen?: any }> = ({ setOpen }) => {
 
 export default Fina
 
-const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
+const BotFinaAI = ({
+	messagesGPT,
+	prompt,
+	handleMessage,
+	setPrompt,
+}: {
+	messagesGPT: any
+	prompt: string
+	handleMessage: (incomingMessage: { role: "assistant" | "user"; message: string }) => void
+	setPrompt: React.Dispatch<React.SetStateAction<string>>
+}) => {
 	//delete property order from messagesGPT
-	const messages = messagesGPT.map(({ order, ...rest }) => rest)
+	const messages = messagesGPT.map(
+		({ order, ...rest }: { role: "assistant" | "user"; content: string; order: number }) => rest
+	)
 
 	const configuration = new Configuration({
 		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
@@ -194,7 +206,17 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 				max_tokens: 200,
 				presence_penalty: 0,
 			})
-			handleMessage({ role: "assistant", message: response.data.choices[0].message.content })
+			if (response.data.choices[0].message) {
+				handleMessage({
+					role: "assistant",
+					message: response.data.choices[0].message.content,
+				})
+			} else {
+				handleMessage({
+					role: "assistant",
+					message: "Sorry, something went wrong. Please try again later.",
+				})
+			}
 			setLoading(false)
 		} catch (error) {
 			console.error(error)
@@ -223,7 +245,7 @@ const BotFinaAI = ({ messagesGPT, prompt, handleMessage, setPrompt }) => {
 					value={prompt}
 					onChange={(e) => setPrompt(e.target.value)}
 					onKeyPress={(e) =>
-						e.key === "Enter" && prompt?.length > 0 && handleClick() && handleMessage({ role: "user", message: prompt })
+						e.key === "Enter" && prompt?.length > 0 && handleMessage({ role: "user", message: prompt })
 					}
 				/>
 			</Search>
@@ -316,42 +338,5 @@ const GPTMessage = [
 	{
 		role: "user",
 		content: "No, it was manageable. If I had any questions, I would have asked you in class.",
-	},
-	{
-		role: "assistant",
-		content:
-			"I'm glad to know that you feel comfortable asking questions. Remember, I'm here to help anytime you need it.",
-	},
-	{
-		role: "user",
-		content: "Thank you, teacher. You explain things well, and it makes learning easier.",
-	},
-	{
-		role: "assistant",
-		content: "You're very welcome! I'm happy to hear that you find my explanations helpful.",
-	},
-	{
-		role: "user",
-		content: "Today's lesson on quadratic equations was interesting. I enjoyed solving the problems.",
-	},
-	{
-		role: "assistant",
-		content: "I'm pleased to hear that you found it interesting. Quadratic equations can be quite fascinating indeed!",
-	},
-	{
-		role: "user",
-		content: "Yes, they are. I think I'm getting the hang of it with practice.",
-	},
-	{
-		role: "assistant",
-		content: "That's the spirit! Practice is key to mastering any subject. Keep up the good work!",
-	},
-	{
-		role: "user",
-		content: "Thank you, teacher. I'll keep practicing and asking questions when needed.",
-	},
-	{
-		role: "assistant",
-		content: "That's the way to go. If you keep this up, I'm confident you'll excel in math and beyond.",
 	},
 ]

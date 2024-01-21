@@ -1,4 +1,4 @@
-export const lessonTypeColors = {
+export const lessonTypeColors: { [key: string]: string } = {
 	speaking_club: "#5f61c4",
 	general_english: "#00b385",
 	business_english: "#5f61c4",

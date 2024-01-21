@@ -2,14 +2,14 @@ import React from "react"
 import ApiServices from "@/pages/api/ApiServices"
 import { Box, Grid, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
-import AppsIcon from "@mui/icons-material/Apps"
 import ErrorPage from "../../pages/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
 import LessonTimetableCard from "../lessons/LessonTimetableCard"
 import Link from "next/link"
 import LoadingPage from "../LoadingPage"
+import { lessonTimetableType } from "@/types/types"
 
-function DashboardLessonTimetable(props) {
+function DashboardLessonTimetable() {
 	const { apiRequest } = ApiServices()
 
 	const {
@@ -43,13 +43,12 @@ function DashboardLessonTimetable(props) {
 
 			<Grid container spacing={2}>
 				{lessonTimetableList?.data
-					// @ts-ignore
-					?.filter(({ lesson_date }) => !isDateBeforeToday(lesson_date))
-					?.sort((a, b) => (a.lesson_date > b.lesson_date ? 1 : -1))
+					?.filter(({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date))
+					?.sort((a: lessonTimetableType, b: lessonTimetableType) => (a.lesson_date > b.lesson_date ? 1 : -1))
 					?.slice(0, 3)
-					?.map((x, index) => (
+					?.map((lesson: lessonTimetableType, index: number) => (
 						<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
-							<LessonTimetableCard index={index} x={x} />
+							<LessonTimetableCard key={index} lesson={lesson} />
 						</Grid>
 					))}
 				{lessonTimetableList?.data.length > 3 && (

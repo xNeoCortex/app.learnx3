@@ -1,6 +1,5 @@
 import React from "react"
-import { useClassInfo } from "./zustand"
-import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles"
+import { ThemeProvider, useTheme } from "@mui/material/styles"
 import { Box, useMediaQuery } from "@mui/material"
 //@ts-ignore
 import Sidebar from "./sidebar"
@@ -9,13 +8,12 @@ import Fina from "@/pages/fina"
 import FinaAvatar from "./fina/FinaAvatar"
 import MobileBottomBar from "./MobileBottomBar"
 import FinaAvatarMobile from "./fina/FinaAvatarMobile"
-import FinaAvatarMobilePopup from "./fina/FinaAvatarMobilePopup"
+import { FinaAvatarMobilePopup } from "./fina/FinaAvatarMobilePopup"
 
-function SidebarContainer({ children }) {
+function SidebarContainer({ children }: { children: React.ReactNode }) {
 	const theme = useTheme()
-	const { classInfo } = useClassInfo()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
-	const [open, setOpen] = React.useState(false)
+	const [open, setOpen] = React.useState<boolean>(false)
 
 	return (
 		<Box sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}>
@@ -44,7 +42,7 @@ function SidebarContainer({ children }) {
 						<Navbar />
 						{children}
 					</Box>
-					{!isSmallScreen && <Fina />}
+					{!isSmallScreen && <Fina setOpen={setOpen} />}
 				</Box>
 				<MobileBottomBar />
 			</ThemeProvider>
