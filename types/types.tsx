@@ -1,4 +1,4 @@
-export interface topicType {
+export interface TopicType {
 	category: string
 	createdAt: string
 	createdById: string
@@ -7,11 +7,11 @@ export interface topicType {
 	topic: string
 }
 
-export interface lessonTimetableType {
+export interface LessonTimetableType {
 	cancelled: boolean
-	createdAt: string
-	createdById: string
-	createdByName: string
+	createdAt?: string
+	createdById?: string
+	createdByName?: string
 	description: string | null
 	for_everyone: boolean
 	lesson_date: string
@@ -26,11 +26,11 @@ export interface lessonTimetableType {
 	teacher_name: string
 	teaching_material: string
 	topic: string
-	uid: string
+	uid?: string
 	video_call_link: string
 }
 
-export interface testResultType {
+export interface TestResultType {
 	assessment_type: string
 	createdAt: string
 	createdById: string
@@ -43,7 +43,7 @@ export interface testResultType {
 	uid: string
 }
 
-export interface allTestResultType {
+export interface AllTestResultType {
 	assessment_id: string
 	lesson_number: number
 	level: string
@@ -54,7 +54,7 @@ export interface allTestResultType {
 	uid: string
 }
 
-export interface studentsType {
+export interface StudentsType {
 	age: string
 	country: string
 	discount: string
@@ -79,8 +79,8 @@ export interface studentsType {
 	uid: string
 }
 
-export interface convertToWeeklyObjectType {
+export interface ConvertToWeeklyObjectType {
 	date_from: string
 	date_to: string
-	lessons: lessonTimetableType[]
+	lessons: LessonTimetableType[]
 }

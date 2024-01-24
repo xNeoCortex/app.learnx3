@@ -13,9 +13,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility"
 
 import { useStoreUser } from "../zustand"
 import Link from "next/link"
-import { lessonTimetableType } from "@/types/types"
+import { LessonTimetableType } from "@/types/types"
 
-export default function LessonTimetableCard({ lesson }: { lesson: lessonTimetableType }) {
+export default function LessonTimetableCard({ lesson }: { lesson: LessonTimetableType }) {
 	const { userInfo } = useStoreUser()
 
 	return (
@@ -39,12 +39,6 @@ export default function LessonTimetableCard({ lesson }: { lesson: lessonTimetabl
 				boxShadow: "0 2px 17px rgba(0,0,0,.08)",
 			}}
 		>
-			{/* <img
-				style={{ position: "absolute", bottom: 10, right: -30, width: 170 }}
-				src="/teacher-online-presentation.svg"
-				alt="teacher"
-			/> */}
-
 			<Box
 				sx={{
 					display: "flex",
@@ -136,27 +130,6 @@ export default function LessonTimetableCard({ lesson }: { lesson: lessonTimetabl
 					</Box>
 				</Box>
 				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-					{/* <a target="_blank" rel="noreferrer" href={lesson?.video_call_link}>
-						<Button
-							sx={{
-								marginRight: "5px",
-								textTransform: "none",
-								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-								color: "white",
-								fontWeight: "600",
-								padding: "3px 10px",
-								"&:hover": { background: "#424493" },
-							}}
-						>
-							<VideocamIcon
-								sx={{
-									color: "white",
-									marginRight: "6px",
-								}}
-							/>
-							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
-						</Button>
-					</a> */}
 					<Link href={`/lessons/${lesson.uid}`} style={{ textDecoration: "none" }}>
 						<Button
 							sx={{

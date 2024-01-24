@@ -3,7 +3,7 @@ import Link from "next/link"
 import React from "react"
 import { TestData } from "./data/TestData"
 
-function EnglishTest(props) {
+function EnglishTest() {
 	const uniqueTests = TestData.filter(
 		(obj, index) => TestData.findIndex((item) => item.topic_id === obj.topic_id) === index
 	)

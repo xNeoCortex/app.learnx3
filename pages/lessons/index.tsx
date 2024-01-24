@@ -1,8 +1,8 @@
 import React, { ReactNode } from "react"
+import dayjs from "dayjs"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Box, Grid, Typography } from "@mui/material"
-import dayjs from "dayjs"
 import AddLesson from "@/components/lessons/AddLesson"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
@@ -11,13 +11,8 @@ import { useStoreUser } from "@/components/zustand"
 import LessonTimetableCard from "@/components/lessons/LessonTimetableCard"
 import isDateBeforeToday from "@/components/helpers/isDateBeforeToday"
 import LoadingPage from "@/components/LoadingPage"
-import { convertToWeeklyObjectType, lessonTimetableType } from "@/types/types"
-
-type PermitType = "admin" | "teacher" | "student"
-interface ProtectedRouteProps {
-	children: ReactNode
-	permitArray: PermitType[]
-}
+import { LessonTimetableType } from "@/types/types"
+import groupLessonsByWeek from "@/components/helpers/getWeekRange"
 
 function index() {
 	const { apiRequest } = ApiServices()
@@ -63,7 +58,7 @@ function index() {
 						</Box>
 					</Grid>
 					<Grid container spacing={3}>
-						{convertToWeeklyObject(lessonTimetableList?.data)
+						{groupLessonsByWeek(lessonTimetableList?.data)
 							?.filter((item) => !isDateBeforeToday(item?.date_to))
 							.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
 							?.map(
@@ -75,7 +70,7 @@ function index() {
 									}: {
 										date_from: string
 										date_to: string
-										lessons: lessonTimetableType[]
+										lessons: LessonTimetableType[]
 									},
 									index
 								) => (
@@ -91,17 +86,16 @@ function index() {
 											>
 												<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
 													<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
-														{/* @ts-ignore */}
 														{dayjs(date_from).format("D MMMM")} - {dayjs(date_to).format("D MMMM")}
 													</Typography>
 												</Box>
 											</Box>
 										</Grid>
 										{lessons
-											.sort((a: lessonTimetableType, b: lessonTimetableType) =>
+											.sort((a: LessonTimetableType, b: LessonTimetableType) =>
 												a.lesson_date > b.lesson_date ? 1 : -1
 											)
-											.map((lesson: lessonTimetableType, index: number) => (
+											.map((lesson: LessonTimetableType, index: number) => (
 												<Grid key={index} item xs={12} sm={3}>
 													{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
 												</Grid>
@@ -117,36 +111,3 @@ function index() {
 }
 
 export default index
-
-function getWeekRange(date: string | Date) {
-	const currentDate = dayjs(date)
-	const dayOfWeek = currentDate.day()
-	const diff = currentDate.date() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1) // Adjust for Sunday
-	const startOfWeek = currentDate.date(diff)
-	const endOfWeek = currentDate.date(diff + 6)
-	return { start: startOfWeek.format("YYYY-MM-DD"), end: endOfWeek.format("YYYY-MM-DD") }
-}
-
-function convertToWeeklyObject(input: lessonTimetableType[]): convertToWeeklyObjectType[] {
-	const weeklyData: any = {}
-
-	input?.forEach((lesson) => {
-		const lessonDate = new Date(lesson.lesson_date)
-		const weekRange: {
-			start: string
-			end: string
-		} = getWeekRange(lessonDate)
-
-		if (!weeklyData[weekRange.start]) {
-			weeklyData[weekRange.start] = {
-				date_from: weekRange.start,
-				date_to: weekRange.end,
-				lessons: [],
-			}
-		}
-
-		weeklyData[weekRange.start].lessons.push(lesson)
-	})
-
-	return Object.values(weeklyData)
-}

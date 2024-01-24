@@ -29,7 +29,8 @@ interface Exercise {
 	questions: MultipleChoiceQuestion[]
 }
 
-export interface lessonType {
+export interface LessonType {
+	uid: string
 	level: string
 	topic: string
 	category: string

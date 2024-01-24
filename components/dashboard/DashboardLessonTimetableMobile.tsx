@@ -6,7 +6,7 @@ import ErrorPage from "../../pages/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
 import LessonTimetableCard from "../lessons/LessonTimetableCard"
 import LoadingPage from "../LoadingPage"
-import { lessonTimetableType } from "@/types/types"
+import { LessonTimetableType } from "@/types/types"
 
 function DashboardLessonTimetableMobile() {
 	const { apiRequest } = ApiServices()
@@ -48,9 +48,9 @@ function DashboardLessonTimetableMobile() {
 			>
 				{lessonTimetableList?.data
 					?.filter(({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date))
-					?.sort((a: lessonTimetableType, b: lessonTimetableType) => (a.lesson_date > b.lesson_date ? 1 : -1))
+					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date > b.lesson_date ? 1 : -1))
 					?.slice(0, 3)
-					?.map((lesson: lessonTimetableType, index: number) => (
+					?.map((lesson: LessonTimetableType, index: number) => (
 						<LessonTimetableCard key={index} lesson={lesson} />
 					))}
 			</Box>
