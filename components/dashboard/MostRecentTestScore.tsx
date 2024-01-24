@@ -1,27 +1,29 @@
 import React from "react"
 import { Box, capitalize, Typography } from "@mui/material"
-import { WordOfTheDayData } from "../data/WordOfTheDayData"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
 import { useStoreUser } from "../zustand"
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded"
+import { TestResultType } from "@/types/types"
 
 function MostRecentTestScore() {
 	const { userInfo } = useStoreUser()
 	const { fetchTestResults } = ApiServices()
 
 	// get assessment result
-	const { data: testResults, isLoading } = useQuery({
+	const { data: testResults } = useQuery({
 		queryKey: [`myLatestTestResult`],
 		queryFn: () => fetchTestResults(String(userInfo?.uid)),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
 	})
 
-	const mostRecentResult = testResults?.data?.find((item) => item?.createdAt ?? item)
-	const mostRecentResultWithDate =
-		testResults?.data?.filter((item) => item.createdAt)?.sort((a, b) => b?.createdAt?.localeCompare(a?.createdAt))[0] ??
-		mostRecentResult
+	const mostRecentTestResult = React.useMemo(() => {
+		const sortedResults = (testResults?.data || []).sort(
+			(a: TestResultType, b: TestResultType) => b.createdAt.localeCompare(a.createdAt) || 0
+		)
+		return sortedResults[0] || null
+	}, [testResults?.data])
 
 	return (
 		<Box
@@ -58,12 +60,12 @@ function MostRecentTestScore() {
 						color: "#1d243d",
 					}}
 				>
-					{mostRecentResultWithDate?.result ? mostRecentResultWithDate?.result : "No Test Result"}
-					{mostRecentResultWithDate?.result && <span style={{ fontSize: 15 }}>/100</span>}
+					{mostRecentTestResult?.result ?? "No Test Result"}
+					{mostRecentTestResult?.result !== null && <span style={{ fontSize: 15 }}>/100</span>}
 				</Typography>
-				{mostRecentResultWithDate?.topic && (
+				{mostRecentTestResult?.topic && (
 					<Typography variant="body2" sx={{ color: "#1d243d" }}>
-						Topic: {capitalize(mostRecentResultWithDate?.topic)}
+						Topic: {capitalize(mostRecentTestResult?.topic)}
 					</Typography>
 				)}
 			</Box>

@@ -51,7 +51,7 @@ function ApiServices() {
 		return response
 	}
 
-	async function fetchOneClass(id) {
+	async function fetchOneClass(id: string) {
 		const response = await axios.get(`/api/fetchoneclass`, {
 			params: {
 				id: id,
@@ -95,7 +95,7 @@ function ApiServices() {
 		return response
 	}
 
-	async function fetchAssessment(type) {
+	async function fetchAssessment(type: string | number) {
 		return await axios.get("/api/assessmentapi", {
 			params: {
 				type,
@@ -103,7 +103,7 @@ function ApiServices() {
 		})
 	}
 
-	async function fetchOneAssessment(params) {
+	async function fetchOneAssessment(params: string | number) {
 		return await axios.get("/api/getoneassessment", {
 			params: params,
 		})
@@ -114,7 +114,7 @@ function ApiServices() {
 		uid?: string | number
 	}
 
-	async function apiRequest(method: string = "GET", body = null, params: ApiRequestParams) {
+	async function apiRequest(method: string = "GET", body: any = null, params: ApiRequestParams) {
 		const updatedBody = {
 			...body,
 			createdAt: `${new Date().toISOString()}`,
