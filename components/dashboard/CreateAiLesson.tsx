@@ -7,10 +7,10 @@ import InputBase from "@mui/material/InputBase"
 import { styled, alpha } from "@mui/material/styles"
 import ErrorPage from "../../pages/errorpage"
 import { collection, addDoc } from "firebase/firestore"
-import { Configuration, OpenAIApi } from "openai"
 import { db } from "../firebaseX"
 import { useRouter } from "next/router"
 import { AiLessonStructure } from "../data/AiLessonStructure"
+import OpenAiFina from "../utils/OpenAiFina"
 
 function CreateAiLesson() {
 	const { push: navigate } = useRouter()
@@ -21,15 +21,10 @@ function CreateAiLesson() {
 	const [success, setSuccess] = useState(false)
 	const queryClient = useQueryClient()
 
-	const configuration = new Configuration({
-		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-	})
-	const openAI = new OpenAIApi(configuration)
-
 	async function CreateAiLessonFunc() {
 		setLoadingGenContentAI(true)
 		try {
-			const response = await openAI.createChatCompletion({
+			const response = await OpenAiFina({
 				model: "gpt-3.5-turbo-16k-0613",
 				messages: [
 					{
@@ -53,7 +48,7 @@ function CreateAiLesson() {
 				max_tokens: 10000,
 				presence_penalty: 0,
 			})
-			const createdLesson = response.data.choices[0].message && getObject(response.data.choices[0].message.content)
+			const createdLesson = response.choices[0].message.content && getObject(response.choices[0].message.content)
 
 			const lessonDoc = await addDoc(collection(db, "lessonByAi"), {
 				...createdLesson,
@@ -61,7 +56,7 @@ function CreateAiLesson() {
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
 			})
-			const topicDoc = await addDoc(collection(db, "lessonByAiTopics"), {
+			await addDoc(collection(db, "lessonByAiTopics"), {
 				topic: createdLesson.topic,
 				lessonId: lessonDoc.id,
 				createdAt: `${new Date().toISOString()}`,

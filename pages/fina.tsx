@@ -1,5 +1,4 @@
 import { createRef, useEffect, useState } from "react"
-import { Configuration, OpenAIApi } from "openai"
 import { auth } from "@/components/firebaseX"
 import { styled, alpha, useTheme } from "@mui/material/styles"
 import { Avatar, Box, Button, Grid, IconButton, Typography, useMediaQuery } from "@mui/material"
@@ -10,7 +9,13 @@ import dayjs from "dayjs"
 import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import DeleteIcon from "@mui/icons-material/Delete"
+import OpenAiFina from "@/components/utils/OpenAiFina"
 
+interface Message {
+	role: "assistant" | "user" | "system"
+	content: string
+	order?: number
+}
 const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setOpen }) => {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
@@ -18,7 +23,7 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 	const [prompt, setPrompt] = useState("")
 	const now = dayjs().format("MMM D, YYYY")
 	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
-	const [messages, setMessages] = useState([
+	const [messages, setMessages] = useState<Message[]>([
 		{
 			role: "assistant",
 			content: ` Hi ${auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂`,
@@ -26,16 +31,13 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 		},
 	])
 
-	// message for chatGPT
-	const messagesGPT = [...GPTMessage, ...messages, { role: "user", content: prompt }]
-
 	// handle messages
-	const handleMessage = (incomingMessage: { role: "assistant" | "user"; message: string }) => {
+	const handleMessage = (incomingMessage: Message) => {
 		setMessages((prevMessages) => [
 			...prevMessages,
 			{
 				role: incomingMessage.role,
-				content: incomingMessage.message,
+				content: incomingMessage.content,
 				order: prevMessages.length + 1,
 			},
 		])
@@ -51,6 +53,34 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 				order: 1,
 			},
 		])
+	}
+
+	const [loading, setLoading] = useState(false)
+	const combinedMessages = [...GPTMessage, ...messages, { role: "user", content: prompt }]
+
+	const messagesArray: Message[] = combinedMessages.map(({ order, ...rest }: Message & any) => rest) || []
+
+	const handleClick = async (prompt: string) => {
+		handleMessage({ role: "user", content: prompt })
+		setLoading(true)
+		try {
+			const response = await OpenAiFina({
+				model: "gpt-3.5-turbo",
+				messages: messagesArray,
+				temperature: 0.9,
+				max_tokens: 200,
+				presence_penalty: 0,
+			})
+			handleMessage({
+				role: "assistant",
+				content: response.choices[0].message.content || "Sorry, something went wrong. Please try again later.",
+			})
+
+			setLoading(false)
+		} catch (error) {
+			console.error(error)
+			setLoading(false)
+		}
 	}
 
 	//scroll to bottom
@@ -111,7 +141,7 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 									display: "flex",
 									width: "100%",
 									color: "#323331",
-									justifyContent: item.order % 2 ? "start" : "end",
+									justifyContent: (item.order && (item.order % 2 ? "start" : "end")) || "start",
 								}}
 							>
 								<Box
@@ -124,19 +154,17 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 										alignItems: "center",
 										borderRadius: 2,
 										maxWidth: "80%",
-										// background: "#ffadad0a",
 										background: "white",
 										boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 									}}
 								>
-									{item.order % 2 ? (
+									{item.order && item.order % 2 ? (
 										<Box sx={{ display: "flex", alignItems: "center" }}>
 											<Avatar
 												sx={{ width: 35, height: 35, mr: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
 												src="/teacher_green.svg"
 											/>
-											{/* <Typography sx={{ fontSize: 15 }}> {item.content} </Typography> */}
 											<p
 												dangerouslySetInnerHTML={{
 													__html: item.content.replace(/\n/g, "<br />"),
@@ -167,7 +195,7 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 				</Grid>{" "}
 			</Box>
 
-			<BotFinaAI messagesGPT={messagesGPT} prompt={prompt} handleMessage={handleMessage} setPrompt={setPrompt} />
+			<BotFinaAI prompt={prompt} loading={loading} handleClick={handleClick} setPrompt={setPrompt} />
 		</Box>
 	)
 }
@@ -175,55 +203,16 @@ const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }>
 export default Fina
 
 const BotFinaAI = ({
-	messagesGPT,
+	loading,
 	prompt,
-	handleMessage,
+	handleClick,
 	setPrompt,
 }: {
-	messagesGPT: any
+	loading: boolean
 	prompt: string
-	handleMessage: (incomingMessage: { role: "assistant" | "user"; message: string }) => void
+	handleClick: (text: string) => void
 	setPrompt: React.Dispatch<React.SetStateAction<string>>
 }) => {
-	//delete property order from messagesGPT
-	const messages = messagesGPT.map(
-		({ order, ...rest }: { role: "assistant" | "user"; content: string; order: number }) => rest
-	)
-
-	const configuration = new Configuration({
-		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-	})
-	const openAI = new OpenAIApi(configuration)
-	const [loading, setLoading] = useState(false)
-
-	const handleClick = async () => {
-		setLoading(true)
-		try {
-			const response = await openAI.createChatCompletion({
-				model: "gpt-3.5-turbo",
-				messages,
-				temperature: 0.9,
-				max_tokens: 200,
-				presence_penalty: 0,
-			})
-			if (response.data.choices[0].message) {
-				handleMessage({
-					role: "assistant",
-					message: response.data.choices[0].message.content,
-				})
-			} else {
-				handleMessage({
-					role: "assistant",
-					message: "Sorry, something went wrong. Please try again later.",
-				})
-			}
-			setLoading(false)
-		} catch (error) {
-			console.error(error)
-			setLoading(false)
-		}
-	}
-
 	return (
 		<Box
 			sx={{
@@ -234,26 +223,23 @@ const BotFinaAI = ({
 				marginBottom: { xs: "130px", sm: "10px" },
 				paddingLeft: { xs: "15px", sm: 0 },
 				width: "100%",
-				// borderTop: "1px solid grey",
 			}}
 		>
 			<Search>
 				<SearchIconWrapper>🤖</SearchIconWrapper>
 				<StyledInputBase
+					autoFocus
 					placeholder="Ask your question here..."
 					inputProps={{ "aria-label": "search" }}
 					value={prompt}
 					onChange={(e) => setPrompt(e.target.value)}
-					onKeyPress={(e) =>
-						e.key === "Enter" && prompt?.length > 0 && handleMessage({ role: "user", message: prompt })
-					}
+					onKeyPress={(e) => e.key === "Enter" && prompt?.length > 0 && handleClick(prompt)}
 				/>
 			</Search>
 			<Button
 				variant="contained"
 				onClick={() => {
-					handleClick()
-					handleMessage({ role: "user", message: prompt })
+					handleClick(prompt)
 				}}
 				disabled={loading || prompt === ""}
 				sx={{

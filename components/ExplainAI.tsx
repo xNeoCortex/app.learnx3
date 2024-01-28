@@ -1,16 +1,10 @@
 import { Box, Button, IconButton } from "@mui/material"
 import { useState } from "react"
-import { Configuration, OpenAIApi } from "openai"
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh"
 import ClearIcon from "@mui/icons-material/Clear"
+import OpenAiFina from "./utils/OpenAiFina"
 
-function ExplainAI({ prompt, buttonTitle, bg }) {
-	const configuration = new Configuration({
-		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
-	})
-
-	const openAI = new OpenAIApi(configuration)
-
+function ExplainAI({ prompt, buttonTitle, bg }: { prompt: string; buttonTitle: string; bg?: string }) {
 	// const [prompt, setPrompt] = useState("");
 	const [result, setResult] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -18,7 +12,7 @@ function ExplainAI({ prompt, buttonTitle, bg }) {
 	const handleClick = async () => {
 		setLoading(true)
 		try {
-			const response = await openAI.createChatCompletion({
+			const response = await OpenAiFina({
 				model: "gpt-3.5-turbo",
 				messages: [
 					{
@@ -42,7 +36,7 @@ function ExplainAI({ prompt, buttonTitle, bg }) {
 				max_tokens: 800,
 				presence_penalty: 0,
 			})
-			setResult(response.data.choices[0].message.content)
+			setResult(response.choices[0].message.content ?? "Sorry, something went wrong. Please try again later.")
 			setLoading(false)
 		} catch (error) {
 			console.error(error)
