@@ -13,74 +13,70 @@ import { useStoreUser } from "@/components/zustand"
 import { auth, db } from "@/components/firebaseX"
 import { Alert, Divider, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import Link from "next/link"
+import { UserType } from "@/types/types"
+
+type UserForm = Pick<UserType, "name" | "age" | "phone" | "country" | "eng_level_form" | "gender">
 
 export default function StudentForm() {
-	const { push: navigate, back } = useRouter()
+	const { push: navigate } = useRouter()
+	const {
+		setUserInfo,
+	}: {
+		setUserInfo: (userInfo: UserType) => void
+	} = useStoreUser()
 	const [error, setError] = React.useState("")
-	const [name, setName] = React.useState("")
-	const [age, setAge] = React.useState(null)
-	const [gender, setGender] = React.useState(null)
-	const [phone, setPhone] = React.useState(null)
-	const [country, setCountry] = React.useState(null)
-	const [engLevel, setEngLevel] = React.useState("")
-	const { setUserInfo } = useStoreUser()
-
-	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-		setGender(newAlignment)
+	const [{ name, age, phone, country, eng_level_form, gender }, setUserInformation] = React.useState<UserForm>({
+		name: "",
+		age: null,
+		phone: null,
+		country: "",
+		eng_level_form: "",
+		gender: "",
+	})
+	const handleInput = (
+		{ target: { value, name } }: React.ChangeEvent<HTMLInputElement>,
+		option?: "eng_level_form" | "male" | "female"
+	) => {
+		console.log("option :>> ", option)
+		setUserInformation((prev) => ({
+			...prev,
+			[name]: value,
+			...(option && { [option]: value }),
+			...((option === "male" || option === "female") && { gender: option }),
+		}))
 	}
+	console.log({ name, age, phone, country, eng_level_form, gender })
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
 	async function addUser(id: string, name: string, email: string) {
+		const currentUserInfo = {
+			uid: id,
+			name: name,
+			email: email,
+			age: age,
+			gender: gender,
+			phone: phone,
+			country: country,
+			role: "student",
+			permit: true,
+			performance: "Doing ok",
+			eng_level_form: eng_level_form,
+			eng_level_test: "",
+			subscription_type: null,
+			paid: false,
+			subscription_start_date: "",
+			subscription_end_date: "",
+			num_of_lessons: 0,
+			num_of_lessons_left: 0,
+			num_of_ai_topics_created: 0,
+			num_of_messages_with_fina_ai: 0,
+			discount: "",
+			photo: "",
+			createdAt: new Date(),
+		}
 		try {
-			const user = await setDoc(doc(db, "students", id), {
-				uid: id,
-				name: name,
-				email: email,
-				age: age,
-				gender: gender,
-				phone: phone,
-				country: country,
-				role: "student",
-				permit: true,
-				performance: "Doing ok",
-				eng_level_form: engLevel, // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
-				eng_level_test: "", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
-				subscription_type: null, // free = 1, premium = 2, charity = 3
-				paid: false,
-				subscription_start_date: "",
-				subscription_end_date: "",
-				num_of_lessons: 0,
-				num_of_lessons_left: 0,
-				num_of_ai_topics_created: 0,
-				num_of_messages_with_fina_ai: 0,
-				discount: "", // 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%, 100%
-				photo: "",
-			})
-
-			setUserInfo({
-				uid: id,
-				name: name,
-				email: email,
-				age: age,
-				gender: gender,
-				phone: phone,
-				country: country,
-				role: "student",
-				permit: true,
-				performance: "Doing ok",
-				eng_level_form: "", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
-				eng_level_test: "", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
-				subscription_type: null, // free = 1, premium = 2, charity = 3
-				paid: false,
-				subscription_start_date: "",
-				subscription_end_date: "",
-				num_of_lessons: 0,
-				num_of_lessons_left: 0,
-				num_of_ai_topics_created: 0,
-				num_of_messages_with_fina_ai: 0,
-				discount: "", // 10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90%, 100%
-				photo: "",
-			})
+			const user = await setDoc(doc(db, "students", id), { ...currentUserInfo })
+			setUserInfo({ ...currentUserInfo } as UserType)
 		} catch (e) {
 			console.error("Error adding document: ", e)
 		}
@@ -91,12 +87,14 @@ export default function StudentForm() {
 		event.preventDefault()
 
 		if (name.length) {
-			updateProfile(auth.currentUser, {
+			updateProfile(auth.currentUser as any, {
 				displayName: name,
 			})
-				.then((user) => {
-					addUser(auth.currentUser.uid, auth.currentUser.displayName, auth.currentUser.email)
-					navigate("/home")
+				.then(() => {
+					if (auth.currentUser) {
+						addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
+						navigate("/home")
+					}
 				})
 				.catch((error) => {
 					const errorCode = error.code
@@ -161,44 +159,48 @@ export default function StudentForm() {
 						<Grid item xs={12}>
 							<TextField
 								size="small"
-								name="firstName"
+								name="name"
 								required
 								fullWidth
 								id="firstName"
 								label="Full Name"
 								autoFocus
 								value={name}
-								onChange={(e) => setName(e.target.value)}
+								onChange={handleInput}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
 								size="small"
 								type="number"
+								name="age"
 								required
 								fullWidth
 								label="Age"
 								value={age}
-								onChange={(e) => setAge(e.target.value)}
+								onChange={handleInput}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
 								size="small"
 								type="number"
+								name="phone"
 								fullWidth
 								label="Phone Number"
 								value={phone}
-								onChange={(e) => setPhone(e.target.value)}
+								onChange={handleInput}
 							/>
 						</Grid>
 						<Grid item xs={12}>
 							<ToggleButtonGroup
 								size="small"
 								color="primary"
+								name="gender"
 								value={gender}
 								exclusive
-								onChange={handleChange}
+								//@ts-ignore
+								onChange={handleInput}
 								aria-label="Platform"
 								style={{ borderColor: "#e5e7eb", height: 56, width: "100%" }}
 							>
@@ -233,7 +235,7 @@ export default function StudentForm() {
 								id="country"
 								label="Country"
 								value={country}
-								onChange={(e) => setCountry(e.target.value)}
+								onChange={handleInput}
 							/>
 						</Grid>
 
@@ -243,24 +245,24 @@ export default function StudentForm() {
 								<Select
 									labelId="demo-simple-select-label"
 									id="demo-simple-select"
-									value={engLevel}
+									value={eng_level_form}
 									label="English Level"
-									onChange={(e) => setEngLevel(e.target.value)}
+									name="eng_level_form"
+									//@ts-ignore
+									onChange={handleInput}
 								>
-									<MenuItem value={"A0"}>Beginner</MenuItem>
-									<MenuItem value={"A1"}>Elementary</MenuItem>
-									<MenuItem value={"A2"}>Pre-Intermediate</MenuItem>
-									<MenuItem value={"B1"}>Intermediate</MenuItem>
-									<MenuItem value={"B2"}>Upper-Intermediate</MenuItem>
-									<MenuItem value={"C1"}>Advanced</MenuItem>
-									<MenuItem value={"C2"}>Proficiency</MenuItem>
+									{engLevel.map((option) => (
+										<MenuItem key={option.value} value={option.value}>
+											{option.label}
+										</MenuItem>
+									))}
 								</Select>
 							</FormControl>
 						</Grid>
 					</Grid>
 					<Box sx={{ display: "flex" }}>
 						<Button
-							disabled={!name || !age || !engLevel || !country}
+							disabled={!name || !age || !eng_level_form || !country}
 							type="submit"
 							fullWidth
 							variant="contained"
@@ -298,3 +300,34 @@ export default function StudentForm() {
 		</Box>
 	)
 }
+
+const engLevel = [
+	{
+		value: "A0",
+		label: "Beginner",
+	},
+	{
+		value: "A1",
+		label: "Elementary",
+	},
+	{
+		value: "A2",
+		label: "Pre-Intermediate",
+	},
+	{
+		value: "B1",
+		label: "Intermediate",
+	},
+	{
+		value: "B2",
+		label: "Upper-Intermediate",
+	},
+	{
+		value: "C1",
+		label: "Advanced",
+	},
+	{
+		value: "C2",
+		label: "Proficiency",
+	},
+]
