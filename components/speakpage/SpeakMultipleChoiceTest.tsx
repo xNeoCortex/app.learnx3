@@ -8,8 +8,19 @@ import LinearTimer from "@/components/other/LinearTimer"
 import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
+import { LessonType } from "@/types/allLessonType"
 
-function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevious }) {
+function SpeakMultipleChoiceTest({
+	lesson,
+	contentIndex,
+	handleNext,
+	handlePrevious,
+}: {
+	lesson: LessonType
+	contentIndex: number
+	handleNext: () => void
+	handlePrevious: () => void
+}) {
 	const queryClient = useQueryClient()
 	const [score, setScore] = useState(0)
 	const [show, setShow] = useState(false)
@@ -24,7 +35,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 			queryClient.invalidateQueries(["testResult"]),
 			queryClient.invalidateQueries(["myLatestTestResult"]),
 			queryClient.invalidateQueries(["mySumTestResult"])
-		)
+		),
 	})
 
 	function handleSelect(response, index) {
@@ -49,7 +60,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 			result: score,
 			assessment_id: lesson?.uid,
 			student_id: auth.currentUser?.uid,
-			student_name: auth.currentUser?.displayName
+			student_name: auth.currentUser?.displayName,
 		})
 	}
 
@@ -77,7 +88,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 				display: "flex",
 				height: "100%",
 				flexDirection: "column",
-				justifyContent: "space-between"
+				justifyContent: "space-between",
 			}}
 		>
 			{!show && <LinearTimer minutes={10} handleSubmit={handleSubmit} />}
@@ -85,12 +96,11 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 				sx={{
 					display: "flex",
 					flexDirection: "column",
-					mt: 5
+					mt: 5,
 				}}
 			>
 				<SpeakQuiz show={show} test={quizData[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
 			</Box>
-
 			<Box sx={{ width: "100%", display: "flex" }}>
 				<Button
 					disabled={!quizData[contentIndex - 1]}
@@ -101,7 +111,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 						color: "white",
 						fontWeight: 600,
 						mr: 1,
-						"&:hover": { backgroundColor: "#d6a3ff" }
+						"&:hover": { backgroundColor: "#d6a3ff" },
 					}}
 					onClick={handlePrevious}
 				>
@@ -117,7 +127,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 							background: "#9d4edd",
 							color: "white",
 							fontWeight: 600,
-							"&:hover": { backgroundColor: "#d6a3ff" }
+							"&:hover": { backgroundColor: "#d6a3ff" },
 						}}
 						onClick={handleSubmit}
 					>
@@ -132,7 +142,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 							width: "100%",
 							background: "#9d4edd",
 							fontWeight: 600,
-							"&:hover": { backgroundColor: "#d6a3ff" }
+							"&:hover": { backgroundColor: "#d6a3ff" },
 						}}
 						onClick={() => setShowResultPage(true)}
 					>
@@ -148,7 +158,7 @@ function SpeakMultipleChoiceTest({ lesson, contentIndex, handleNext, handlePrevi
 						color: "white",
 						fontWeight: 600,
 						ml: 1,
-						"&:hover": { backgroundColor: "#d6a3ff" }
+						"&:hover": { backgroundColor: "#d6a3ff" },
 					}}
 					onClick={handleNext}
 				>
