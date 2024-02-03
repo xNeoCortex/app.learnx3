@@ -37,7 +37,6 @@ export default function StudentForm() {
 		{ target: { value, name } }: React.ChangeEvent<HTMLInputElement>,
 		option?: "eng_level_form" | "male" | "female"
 	) => {
-		console.log("option :>> ", option)
 		setUserInformation((prev) => ({
 			...prev,
 			[name]: value,
@@ -45,7 +44,6 @@ export default function StudentForm() {
 			...((option === "male" || option === "female") && { gender: option }),
 		}))
 	}
-	console.log({ name, age, phone, country, eng_level_form, gender })
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
 	async function addUser(id: string, name: string, email: string) {

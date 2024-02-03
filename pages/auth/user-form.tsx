@@ -13,57 +13,56 @@ import { useStoreUser } from "@/components/zustand"
 import { auth, db } from "@/components/firebaseX"
 import { Alert, Divider } from "@mui/material"
 import Link from "next/link"
+import { UserType } from "@/types/types"
+
+type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender">
 
 export default function UserForm() {
 	const { push: navigate, back } = useRouter()
-	const [error, setError] = React.useState("")
-	const [name, setName] = React.useState("")
-	const [age, setAge] = React.useState(null)
-	const [gender, setGender] = React.useState(null)
-	const [phone, setPhone] = React.useState(null)
-	const [qualification, setQualification] = React.useState("")
 	const { setUserInfo } = useStoreUser()
+	const [error, setError] = React.useState("")
 
-	const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-		setGender(newAlignment)
+	const [{ name, age, gender, phone, qualification }, setUserInformation] = React.useState<TeacherForm>({
+		name: "",
+		age: null,
+		phone: null,
+		country: "",
+		qualification: "",
+		gender: "",
+	})
+	const handleChange = (
+		{ target: { name, value } }: React.ChangeEvent<HTMLInputElement>,
+		option?: "male" | "female"
+	) => {
+		setUserInformation((prev) => ({
+			...prev,
+			[name]: value,
+			...(option && { gender: option }),
+		}))
 	}
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
 	async function addUser(id: string, name: string, email: string) {
-		try {
-			const user = await setDoc(doc(db, "teachers", id), {
-				uid: id,
-				name: name,
-				email: email,
-				age: age,
-				gender: gender,
-				phone: phone,
-				country: "UK",
-				role: "teacher",
-				permit: false,
-				bio: "Experienced English teacher with a passion for helping students improve their language skills.",
-				qualification: ["Teaching English as a Foreign Language (TEFL)"],
-				specializations: ["Speaking", "Pronunciation"],
-				reviews: [],
-				photo: "",
-			})
+		const currentUserInfo = {
+			uid: id,
+			name: name,
+			email: email,
+			age: age,
+			gender: gender,
+			phone: phone,
+			country: "UK",
+			role: "teacher",
+			permit: false,
+			bio: "Experienced English teacher with a passion for helping students improve their language skills.",
+			qualification: ["Teaching English as a Foreign Language (TEFL)"],
+			specializations: ["Speaking", "Pronunciation"],
+			reviews: [],
+			photo: "",
+		}
 
-			setUserInfo({
-				uid: id,
-				name: name,
-				email: email,
-				age: age,
-				gender: gender,
-				phone: phone,
-				country: "UK",
-				role: "teacher",
-				permit: false,
-				bio: "Experienced English teacher with a passion for helping students improve their language skills.",
-				qualification: qualification, //["Teaching English as a Foreign Language (TEFL)"],
-				specializations: ["Speaking", "Pronunciation"],
-				reviews: [],
-				photo: "",
-			})
+		try {
+			const user = await setDoc(doc(db, "teachers", id), { ...currentUserInfo })
+			setUserInfo({ ...currentUserInfo })
 		} catch (e) {
 			console.error("Error adding document: ", e)
 		}
@@ -74,12 +73,14 @@ export default function UserForm() {
 		event.preventDefault()
 
 		if (name.length) {
-			updateProfile(auth.currentUser, {
+			updateProfile(auth.currentUser as any, {
 				displayName: name,
 			})
-				.then((user) => {
-					addUser(auth.currentUser.uid, auth.currentUser.displayName, auth.currentUser.email)
-					navigate("/")
+				.then(() => {
+					if (auth.currentUser) {
+						addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
+						navigate("/")
+					}
 				})
 				.catch((error) => {
 					const errorCode = error.code
@@ -143,14 +144,14 @@ export default function UserForm() {
 						<Grid item xs={12}>
 							<TextField
 								size="small"
-								name="firstName"
+								name="name"
 								required
 								fullWidth
 								id="firstName"
 								label="Full Name"
 								autoFocus
 								value={name}
-								onChange={(e) => setName(e.target.value)}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -159,8 +160,9 @@ export default function UserForm() {
 								type="number"
 								fullWidth
 								label="Age"
+								name="age"
 								value={age}
-								onChange={(e) => setAge(e.target.value)}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
@@ -169,8 +171,9 @@ export default function UserForm() {
 								type="number"
 								fullWidth
 								label="Phone Number"
+								name="phone"
 								value={phone}
-								onChange={(e) => setPhone(e.target.value)}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -182,7 +185,7 @@ export default function UserForm() {
 								id="qualification"
 								label="Qualification / Certifications"
 								value={qualification}
-								onChange={(e) => setQualification(e.target.value)}
+								onChange={handleChange}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -191,6 +194,7 @@ export default function UserForm() {
 								color="primary"
 								value={gender}
 								exclusive
+								// @ts-ignore
 								onChange={handleChange}
 								aria-label="Platform"
 								sx={{ borderColor: "#e5e7eb", height: 56, width: "100%" }}

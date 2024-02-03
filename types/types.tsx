@@ -108,5 +108,6 @@ export interface UserType {
 	num_of_messages_with_fina_ai: number
 	discount: "10%" | "20%" | "30%" | "40%" | "50%" | "60%" | "70%" | "80%" | "90%" | "100%" | ""
 	photo: string
+	qualification: string
 	createdAt: Date
 }
