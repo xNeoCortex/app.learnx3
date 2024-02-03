@@ -58,6 +58,7 @@ export default function UserForm() {
 			specializations: ["Speaking", "Pronunciation"],
 			reviews: [],
 			photo: "",
+			createdAt: new Date(),
 		}
 
 		try {
