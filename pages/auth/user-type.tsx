@@ -44,7 +44,7 @@ function UserType() {
 						sx={{
 							cursor: "pointer",
 							border: who === "teacher" ? "4px solid black" : "2px solid white",
-							boxShadow: who === "teacher" && "0px 0px 10px 0px rgba(0,0,0,0.75)",
+							boxShadow: who === "teacher" ? "0px 0px 10px 0px rgba(0,0,0,0.75)" : "none",
 							width: "180px",
 							height: "180px",
 							m: 1,
@@ -53,7 +53,7 @@ function UserType() {
 					<Avatar
 						sx={{
 							cursor: "pointer",
-							boxShadow: who === "student" && "0px 0px 10px 0px rgba(0,0,0,0.75)",
+							boxShadow: who === "student" ? "0px 0px 10px 0px rgba(0,0,0,0.75)" : "none",
 							border: who === "student" ? "4px solid black" : "2px solid white",
 							width: "180px",
 							height: "180px",

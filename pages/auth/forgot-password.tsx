@@ -7,11 +7,11 @@ import AuthLayout from "@/components/auth/AuthLayout"
 import Link from "next/link"
 import { auth } from "@/components/firebaseX"
 
-function ForgotPassword(props) {
+function ForgotPassword() {
 	const [email, setEmail] = React.useState("")
 	const [message, setMessage] = React.useState("")
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
 		sendPasswordResetEmail(auth, email)

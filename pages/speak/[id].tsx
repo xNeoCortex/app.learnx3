@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import { Box, Grid } from "@mui/material"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
-import BackButton from "@/components/other/BackButton"
 import SidebarContainer from "@/components/SidebarContainer"
 import ErrorPage from "../error"
 import SpeakingInfo from "./SpeakingInfo"
@@ -60,8 +59,6 @@ export default function SpeakingLessonAi() {
 					<SpeakAssessment lesson={lessonByAi?.data} />
 				</Grid>
 			</Grid>
-			{/* <TestContainer data={lessonState?.data} link={`/test/word-building/`} /> */}
-			{/* <BackButton /> */}
 		</SidebarContainer>
 	)
 }

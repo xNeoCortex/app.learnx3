@@ -5,7 +5,6 @@ import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/pages/errorpage"
 import ExerciseResult from "../../components/assessment/ExerciseResult"
-import BackButton from "../../components/other/BackButton"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 
