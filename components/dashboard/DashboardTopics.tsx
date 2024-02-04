@@ -6,8 +6,9 @@ import { Box, Grid, Skeleton, Typography } from "@mui/material"
 import ErrorPage from "../../pages/errorpage"
 import ImgMediaCard from "../other/Card"
 import dayjs from "dayjs"
+import { TopicType } from "@/types/types"
 
-function DashboardTopics(props) {
+function DashboardTopics() {
 	const [open, setOpen] = React.useState(false)
 
 	const { apiRequest } = ApiServices()
@@ -22,6 +23,7 @@ function DashboardTopics(props) {
 	})
 	if (isError) return <ErrorPage />
 
+	console.log("topics.data :>> ", topics?.data)
 	return (
 		<Box>
 			<SnackbarX
@@ -49,11 +51,11 @@ function DashboardTopics(props) {
 						  ))
 						: topics?.data.length > 0 &&
 						  topics.data
-								?.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
+								?.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 								.slice(0, 4)
-								.map((x, index) => (
+								.map((topicObject: TopicType, index: number) => (
 									<Grid item xs={6} sm={6} lg={3} key={index}>
-										<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
+										<ImgMediaCard title={topicObject.topic} link={`/speak/${topicObject.lessonId}`} />
 									</Grid>
 								))}
 				</Grid>
