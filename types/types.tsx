@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs"
+
 export interface TopicType {
 	category: string
 	createdAt: string
@@ -14,7 +16,7 @@ export interface LessonTimetableType {
 	createdByName?: string
 	description: string | null
 	for_everyone: boolean
-	lesson_date: string
+	lesson_date: Dayjs | null
 	lesson_duration_minutes: number
 	lesson_target_skills: ("speaking" | "listening")[]
 	lesson_type: string

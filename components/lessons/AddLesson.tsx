@@ -59,7 +59,7 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 			video_call_link: "",
 			students: [],
 			passcode: "",
-			lesson_date: "",
+			lesson_date: null,
 			lesson_type: "speaking_club",
 			description: null,
 			lesson_duration_minutes: 60,
@@ -380,7 +380,7 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 									topic?.length === 0 ||
 									level?.length === 0 ||
 									lesson_type?.length === 0 ||
-									lesson_date?.length === 0 ||
+									lesson_date === null ||
 									video_call_link?.length === 0
 								}
 								variant="contained"
