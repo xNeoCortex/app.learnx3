@@ -47,4 +47,5 @@ export interface TopicContentType {
 		question: string
 	}[]
 	conversation: Conversation[]
+	vocabularies: VocabularyType[]
 }

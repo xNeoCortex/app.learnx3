@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import Link from "next/link"
 import { capitalize } from "@mui/material"
 
-export default function ImgMediaCard({ title, link }) {
+export default function ImgMediaCard({ title, link }: { title: string; link: string }) {
 	return (
 		<Link href={link}>
 			<Card

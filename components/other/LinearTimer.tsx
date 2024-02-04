@@ -3,7 +3,7 @@ import LinearProgress, { LinearProgressProps } from "@mui/material/LinearProgres
 import Typography from "@mui/material/Typography"
 import Box from "@mui/material/Box"
 
-function LinearProgressWithLabel(props) {
+function LinearProgressWithLabel(props: LinearProgressProps & { progress: number; minutes: number }) {
 	return (
 		<Box
 			sx={{
@@ -36,14 +36,14 @@ function LinearProgressWithLabel(props) {
 	)
 }
 
-export default function LinearTimer({ minutes = 10, handleSubmit }) {
+export default function LinearTimer({ minutes = 10, handleSubmit }: { minutes: number; handleSubmit: () => void }) {
 	const [progress, setProgress] = React.useState(0)
 	const linearN = (100 / (minutes * 60)) * progress
 
 	React.useEffect(() => {
 		const timer = setInterval(() => {
 			if (progress !== minutes * 60) {
-				setProgress(progress < minutes * 60 && progress + 1)
+				progress < minutes * 60 && setProgress(progress + 1)
 			}
 		}, 1000)
 		progress === minutes * 60 && handleSubmit()

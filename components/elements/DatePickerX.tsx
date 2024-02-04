@@ -13,7 +13,7 @@ export default function DatePickerX({
 	calendarValue,
 	setCalendarValue,
 }: {
-	calendarValue: Dayjs | null
+	calendarValue: Dayjs | null | string
 	setCalendarValue: React.Dispatch<React.SetStateAction<LessonTimetableType>>
 }) {
 	return (

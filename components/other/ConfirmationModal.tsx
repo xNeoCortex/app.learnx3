@@ -50,7 +50,19 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
 	)
 }
 
-export default function ConfirmationModal({ openConfirm, setOpenConfirm, action, message, topic }) {
+export default function ConfirmationModal({
+	openConfirm,
+	setOpenConfirm,
+	action,
+	message,
+	topic,
+}: {
+	openConfirm: boolean
+	setOpenConfirm: React.Dispatch<React.SetStateAction<boolean>>
+	action: () => void
+	message: string
+	topic: string
+}) {
 	const handleNo = () => {
 		setOpenConfirm(false)
 	}

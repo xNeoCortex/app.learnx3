@@ -1,8 +1,9 @@
 import React from "react"
 import { Box, Typography } from "@mui/material"
 import CardWrapper from "../elements/CardWrapper"
+import { TopicContentType } from "@/types/GeneratedLessonType"
 
-function FlashCardsBanner({ lesson }) {
+function FlashCardsBanner({ lesson }: { lesson: TopicContentType }) {
 	return (
 		<CardWrapper background="#fff6c9">
 			<Box

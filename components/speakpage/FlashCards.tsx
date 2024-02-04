@@ -9,7 +9,9 @@ import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
 import sortByWordType from "@/components/helpers/sortByWordType"
-import { SpeakCard } from "../curriculum/SpeakCard"
+import { SpeakCard } from "../lessons/SpeakCard"
+import { LessonType } from "@/types/allLessonType"
+import { TopicContentType } from "@/types/GeneratedLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -29,7 +31,7 @@ interface DialogTitleProps {
 	onClose: () => void
 }
 
-export default function FlashCards({ lesson }) {
+export default function FlashCards({ lesson }: { lesson: TopicContentType }) {
 	const [open, setOpen] = React.useState(false)
 	const [showDefinition, setShowDefinition] = React.useState(false)
 	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
@@ -97,11 +99,7 @@ export default function FlashCards({ lesson }) {
 									<CloseIcon />
 								</IconButton>
 							</Box>
-							<SpeakCard
-								word={currentFlashCard}
-								showDefinition={showDefinition}
-								setShowDefinition={setShowDefinition}
-							/>
+							<SpeakCard word={currentFlashCard} showDefinition={showDefinition} />
 							<Box sx={{ width: "100%", display: "flex" }}>
 								<Button
 									sx={{

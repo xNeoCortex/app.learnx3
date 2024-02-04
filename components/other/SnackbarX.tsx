@@ -7,7 +7,17 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 })
 
-export default function SnackbarX({ open, setOpen, message, backgroundColor }) {
+export default function SnackbarX({
+	open,
+	setOpen,
+	message,
+	backgroundColor,
+}: {
+	open: boolean
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
+	message: string
+	backgroundColor: string
+}) {
 	return (
 		<Stack spacing={2} sx={{ width: "100%" }}>
 			<Snackbar

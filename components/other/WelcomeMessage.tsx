@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import React from "react"
 
-function WelcomeMessage(props) {
+function WelcomeMessage() {
 	return (
 		<Box
 			sx={{

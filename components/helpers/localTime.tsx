@@ -7,7 +7,7 @@ import timezone from "dayjs/plugin/timezone" // Import the timezone plugin
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-function localTime(time: Dayjs | null) {
+function localTime(time: Dayjs | null | string) {
 	// Get the current UTC time
 	const utcTime = dayjs(time).utc()
 
