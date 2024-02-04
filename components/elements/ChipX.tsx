@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import React from "react"
 
-function ChipX({ text, color = "#5f61c4" }) {
+function ChipX({ text, color = "#5f61c4" }: { text: string; color?: string }) {
 	return (
 		<Box
 			sx={{

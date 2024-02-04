@@ -3,9 +3,10 @@ import React from "react"
 
 function CardWrapper({
 	children,
-	maxWidth = 400,
-	maxHeight = 400,
 	background = "linear-gradient(45deg, #8b58fe, #5fdee7)",
+}: {
+	children: React.ReactNode
+	background?: string
 }) {
 	return (
 		<Box
