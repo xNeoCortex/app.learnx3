@@ -23,7 +23,6 @@ function DashboardTopics() {
 	})
 	if (isError) return <ErrorPage />
 
-	console.log("topics.data :>> ", topics?.data)
 	return (
 		<Box>
 			<SnackbarX
