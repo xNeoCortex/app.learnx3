@@ -10,6 +10,7 @@ import ErrorPage from "../error"
 import dayjs from "dayjs"
 import LoadingPage from "@/components/LoadingPage"
 import { useStoreTemporary } from "@/components/zustand"
+import { TopicType } from "@/types/types"
 
 function index() {
 	const [category, setCategory] = React.useState("All")
@@ -25,10 +26,10 @@ function index() {
 		refetchOnWindowFocus: false,
 	})
 
-	const topicCategories = topics?.data
-		?.sort((a, b) => a.category?.localeCompare(b.category))
-		?.map(({ category }) => category)
-		?.filter((value, index, self) => self.indexOf(value) === index)
+	const topicCategories: string[] = topics?.data
+		?.sort((a: TopicType, b: TopicType) => a.category?.localeCompare(b.category))
+		?.map(({ category }: { category: string }) => category)
+		?.filter((value: string, index: number, self: string) => self.indexOf(value) === index)
 
 	if (isError) return <ErrorPage />
 	if (isLoading) return <LoadingPage />
@@ -60,9 +61,9 @@ function index() {
 					</Box>
 					<Grid container spacing={2}>
 						{topics?.data
-							.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
-							.filter((x) => (category === "All" ? x : x.category === category))
-							.map((x) => (
+							.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
+							.filter((x: TopicType) => (category === "All" ? x : x.category === category))
+							.map((x: TopicType) => (
 								<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
 									<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
 								</Grid>

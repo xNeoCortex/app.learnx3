@@ -2,7 +2,7 @@ import { Avatar, Button, capitalize, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React from "react"
 
-const SpeakingInfo = ({ topic = "", image }) => {
+const SpeakingInfo = ({ topic = "", image }: { topic: string; image: string }) => {
 	return (
 		<Box
 			sx={{
