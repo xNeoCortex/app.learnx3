@@ -6,7 +6,6 @@ const CompletedAssessment: React.FC<{
 	score: { result: number }[]
 	setShowResultPage: (value: boolean) => void
 }> = ({ score, setShowResultPage }) => {
-	console.log("score :>> ", score)
 	return (
 		<Box
 			sx={{

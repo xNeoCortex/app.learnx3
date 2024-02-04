@@ -1,6 +1,5 @@
 import { Box } from "@mui/system"
-import { createTheme, ThemeProvider } from "@mui/material/styles"
-import WelcomeMessage from "../other/WelcomeMessage"
+import { createTheme } from "@mui/material/styles"
 
 const theme = createTheme()
 

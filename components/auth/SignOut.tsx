@@ -19,7 +19,7 @@ import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
 import { auth } from "../firebaseX"
 
-export default function AccountMenu({ isSmallScreen }) {
+export default function AccountMenu({ isSmallScreen }: { isSmallScreen: boolean }) {
 	const { push: navigate } = useRouter()
 	const { userInfo, setUserInfo } = useStoreUser((state) => state)
 
