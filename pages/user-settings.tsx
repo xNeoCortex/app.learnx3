@@ -23,13 +23,17 @@ import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "./error"
 
 export default function MySettings() {
-	const { userInfo, setUserInfo } = useStoreUser((state) => state)
-	const [currentUser, setCurrentUser] = React.useState(null)
-	const [email, setEmail] = React.useState(userInfo?.email || "")
-	const [emailMessage, setEmailMessage] = React.useState("")
+	const { userInfo } = useStoreUser((state) => state)
 	const user = auth.currentUser // Current user
 	const queryClient = useQueryClient()
 	const { apiRequest } = ApiServices()
+	const [currentUser, setCurrentUser] = React.useState({
+		name: "",
+		age: 0,
+		gender: "",
+	})
+	const [email, setEmail] = React.useState(userInfo?.email || "")
+	const [emailMessage, setEmailMessage] = React.useState("")
 
 	// Fetching lessons
 	const { data, isLoading, isError } = useQuery({
@@ -68,8 +72,13 @@ export default function MySettings() {
 	}
 
 	// set gender
-	const handleChange = (event: React.MouseEvent<HTMLElement>, gender: string) => {
-		setCurrentUser({ ...currentUser, gender: gender })
+	const handleChange = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>, option?: string) => {
+		setCurrentUser((prev) => ({
+			...prev,
+			[name]: value,
+			...(option && { [option]: value }),
+			...((option === "male" || option === "female") && { gender: option }),
+		}))
 	}
 
 	// Update user data
@@ -78,9 +87,10 @@ export default function MySettings() {
 		const userDoc =
 			userInfo.role === "student" ? doc(db, "students", userInfo?.uid) : doc(db, "teachers", userInfo?.uid)
 		try {
-			const user = await updateDoc(userDoc, currentUser)
-			const userAuth = await updateProfile(auth.currentUser, {
-				displayName: currentUser.name,
+			if (!currentUser) return setMessage("Please fill in the form!")
+			await updateDoc(userDoc, currentUser as any)
+			await updateProfile(auth.currentUser as any, {
+				displayName: currentUser?.name || "",
 			})
 			queryClient.invalidateQueries(["myInfo"])
 			setOpen(true)
@@ -93,19 +103,19 @@ export default function MySettings() {
 
 	// Delete user data
 	const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false)
-	async function deleteUserAccount() {
-		const userDoc = doc(db, "users", userInfo?.uid)
-		await deleteDoc(userDoc)
 
-		deleteUser(user)
-			.then(() => {
-				setMessage("Your account has been deleted")
-				setOpen(true)
-			})
-			.catch((error) => {
-				setMessage("Something went wrong")
-				setOpen(true)
-			})
+	async function deleteUserAccount() {
+		try {
+			const userDoc = doc(db, "users", userInfo?.uid)
+			await deleteDoc(userDoc)
+
+			await deleteUser(user as any)
+			setMessage("Your account has been deleted")
+			setOpen(true)
+		} catch (error) {
+			setMessage("Something went wrong")
+			setOpen(true)
+		}
 	}
 
 	// Handle Submit button
@@ -179,14 +189,14 @@ export default function MySettings() {
 								<Grid container spacing={4}>
 									<Grid item xs={12}>
 										<TextField
-											name="firstName"
+											name="name"
 											required
 											fullWidth
 											id="firstName"
 											label="Name"
 											autoFocus
 											value={currentUser?.name}
-											onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
+											onChange={handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12} sm={6}>
@@ -195,40 +205,42 @@ export default function MySettings() {
 											type="number"
 											fullWidth
 											label="Age"
+											name="age"
 											value={currentUser?.age}
-											onChange={(e) => setCurrentUser({ ...currentUser, age: e.target.value })}
+											onChange={handleChange}
 										/>
 									</Grid>
 									<Grid item xs={6}>
 										<ToggleButtonGroup
+											size="small"
 											color="primary"
-											value={currentUser?.gender || "male"}
+											name="gender"
+											value={currentUser?.gender}
 											exclusive
+											//@ts-ignore
 											onChange={handleChange}
 											aria-label="Platform"
-											style={{ borderColor: "#e5e7eb", height: 56 }}
+											style={{ borderColor: "#e5e7eb", height: 56, width: "100%" }}
 										>
 											<ToggleButton
 												value="male"
 												style={{
 													display: "flex",
 													flex: 1,
-													width: 117,
 													borderColor: "#e5e7eb",
 												}}
 											>
-												Male
+												👨‍💻 Male
 											</ToggleButton>
 											<ToggleButton
 												value="female"
 												style={{
 													display: "flex",
 													flex: 1,
-													width: 117,
 													borderColor: "#e5e7eb",
 												}}
 											>
-												Female
+												👩‍💻 Female
 											</ToggleButton>
 										</ToggleButtonGroup>
 									</Grid>
