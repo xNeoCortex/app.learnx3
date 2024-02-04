@@ -22,6 +22,7 @@ import StudentCardMini from "@/components/student/StudentCardMini"
 import DownloadIcon from "@mui/icons-material/Download"
 import AddIcon from "@mui/icons-material/Add"
 import LogoutIcon from "@mui/icons-material/Logout"
+import { UserType } from "@/types/types"
 
 function Lesson() {
 	const queryClient = useQueryClient()
@@ -67,7 +68,7 @@ function Lesson() {
 				//@ts-ignore
 				joinClass({ students: [...lessonTimetableList?.data?.students, userInfo.uid] })
 			} else {
-				const filteredStudents = lessonTimetableList?.data?.students?.filter((item) => item !== userInfo.uid)
+				const filteredStudents = lessonTimetableList?.data?.students?.filter((item: string) => item !== userInfo.uid)
 				//@ts-ignore
 				joinClass({ students: filteredStudents })
 			}
@@ -312,7 +313,7 @@ function Lesson() {
 								}}
 							>
 								<Typography sx={{ fontSize: "15px", fontWeight: "inherit" }}>
-									{lessonDescription[lessonTimetableList?.data?.lesson_type]}
+									{lessonDescription[lessonTimetableList?.data?.lesson_type as keyof typeof lessonDescription]}
 								</Typography>
 							</Box>
 						</Grid>
@@ -331,8 +332,8 @@ function Lesson() {
 								}}
 							>
 								{data?.data
-									?.filter((x) => lessonTimetableList?.data?.students?.includes(x.uid))
-									.map((item, index) => (
+									?.filter((x: UserType) => lessonTimetableList?.data?.students?.includes(x.uid))
+									.map((item: UserType, index: number) => (
 										<Box key={index}>
 											<StudentCardMini studentDetails={item} />
 										</Box>
