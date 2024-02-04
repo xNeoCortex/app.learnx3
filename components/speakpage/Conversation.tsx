@@ -10,6 +10,7 @@ import CardWrapper from "../elements/CardWrapper"
 import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import dayjs from "dayjs"
 import TextToSpeechButton from "./TextToSpeechButton"
+import { LessonType } from "@/types/allLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -23,7 +24,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function Conversation({ lesson }) {
+export default function Conversation({ lesson }: { lesson: LessonType }) {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [open, setOpen] = React.useState(false)
@@ -90,7 +91,7 @@ export default function Conversation({ lesson }) {
 										{now}
 									</Typography>
 									{lesson?.conversation.map((item, index) => (
-										<Grid item xs={12} key={item.id}>
+										<Grid item xs={12} key={index}>
 											<Box
 												key={index}
 												sx={{

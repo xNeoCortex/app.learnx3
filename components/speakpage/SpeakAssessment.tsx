@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import SpeakMultipleChoiceTest from "./SpeakMultipleChoiceTest"
+import { LessonType } from "@/types/allLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -22,7 +23,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function SpeakAssessment({ lesson }) {
+export default function SpeakAssessment({ lesson }: { lesson: LessonType }) {
 	const [open, setOpen] = React.useState(false)
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))

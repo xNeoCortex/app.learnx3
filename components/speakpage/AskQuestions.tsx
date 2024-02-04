@@ -11,6 +11,7 @@ import { Box, Grid, useMediaQuery } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import TextToSpeechButton from "./TextToSpeechButton"
+import { LessonType } from "@/types/allLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -24,7 +25,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function AskQuestions({ lesson }) {
+type LessonQuestionType = Pick<LessonType, "questions">
+
+export default function AskQuestions({ lesson }: { lesson: LessonType }) {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [open, setOpen] = React.useState(false)
@@ -77,7 +80,7 @@ export default function AskQuestions({ lesson }) {
 							>
 								<Grid spacing={2} container>
 									{lesson?.questions?.map((item, index) => (
-										<Grid item xs={12} key={item}>
+										<Grid item xs={12} key={index}>
 											<EachQuestion index={index} item={item} />
 										</Grid>
 									))}
@@ -106,7 +109,16 @@ export default function AskQuestions({ lesson }) {
 	)
 }
 
-const EachQuestion = ({ index, item }) => {
+const EachQuestion = ({
+	item,
+	index,
+}: {
+	item: {
+		question: string
+		sample_answer: string
+	}
+	index: number
+}) => {
 	const [showSampleAnswer, setShowSampleAnswer] = React.useState(false)
 	return (
 		<Box

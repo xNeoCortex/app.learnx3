@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
 import TextToSpeechButton from "./TextToSpeechButton"
+import { LessonType } from "@/types/allLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -22,7 +23,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function Phrases({ lesson }) {
+export default function Phrases({ lesson }: { lesson: LessonType }) {
 	const [open, setOpen] = React.useState(false)
 	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
 

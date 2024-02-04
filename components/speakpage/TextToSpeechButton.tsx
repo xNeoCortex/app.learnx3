@@ -34,7 +34,7 @@ const TextToSpeechButton: React.FC<{
 	}
 
 	const handleSpeak = () => {
-		if (!speaking) {
+		if (!speaking || speechX) {
 			speechX
 				.speak({
 					text,
@@ -48,7 +48,7 @@ const TextToSpeechButton: React.FC<{
 						},
 					},
 				})
-				.then((data) => {
+				.then((data: any) => {
 					console.log("Success !", data)
 				})
 				.catch((e) => {
@@ -71,11 +71,11 @@ const TextToSpeechButton: React.FC<{
 				pitch: 1,
 				splitSentences: true,
 			})
-			.then((data) => {
+			.then((data: any) => {
 				// console.log("Speech is ready, voices are available", data.voices)
 				setVoices(data.voices)
 			})
-			.catch((e) => {
+			.catch((e: any) => {
 				console.error("An error occured while initializing : ", e)
 			})
 		setSpeechX(speech)
