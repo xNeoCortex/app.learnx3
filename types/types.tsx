@@ -54,31 +54,6 @@ export interface AllTestResultType {
 	uid: string
 }
 
-export interface StudentsType {
-	age: string
-	country: string
-	discount: string
-	email: string
-	eng_level_form: string
-	eng_level_test: string
-	gender: string
-	name: string
-	num_of_ai_topics_created: number
-	num_of_lessons: number
-	num_of_lessons_left: number
-	num_of_messages_with_fina_ai: number
-	paid: boolean
-	performance: string
-	permit: boolean
-	phone: string
-	photo: string
-	role: string
-	subscription_end_date: string
-	subscription_start_date: string
-	subscription_type: null // Update with the actual type if needed
-	uid: string
-}
-
 export interface ConvertToWeeklyObjectType {
 	date_from: string
 	date_to: string

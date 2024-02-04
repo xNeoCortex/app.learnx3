@@ -1,12 +1,12 @@
-import React, { ReactComponentElement } from "react"
+import React from "react"
 import Image from "next/image"
-import { useRouter } from "next/router"
-import { Alert, Box, Button, Container } from "@mui/material"
+import { Alert, Box, Button } from "@mui/material"
 
 const CompletedAssessment: React.FC<{
-	score: any
-	setShowResultPage?: (value: boolean) => void
+	score: { result: number }[]
+	setShowResultPage: (value: boolean) => void
 }> = ({ score, setShowResultPage }) => {
+	console.log("score :>> ", score)
 	return (
 		<Box
 			sx={{
@@ -27,7 +27,10 @@ const CompletedAssessment: React.FC<{
 				You have completed this assessment!
 			</Alert>
 			<h4 style={{ padding: 8, border: "3px solid #999bff", borderRadius: 8, background: "white" }}>
-				⭐️ Your score: {score?.map((x, index) => Math.round(x.result) + (score?.length !== index + 1 && `, `))}
+				⭐️ Your score:{" "}
+				{score?.map(
+					(x: { result: number }, index: number) => Math.round(x.result) + (score?.length !== index + 1 ? `, ` : "")
+				)}
 			</h4>
 			<Image alt="complete image" src="/completed-icon.svg" width={400} height={300} style={{ margin: "auto" }} />
 			<Button

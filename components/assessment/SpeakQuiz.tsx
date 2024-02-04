@@ -1,7 +1,24 @@
 import React from "react"
 import { Box, capitalize, CssBaseline, Typography } from "@mui/material"
+import { QuestionsType } from "@/types/GeneratedLessonType"
 
-function SpeakQuiz({ test, show, index, handleSelect }) {
+function SpeakQuiz({
+	test,
+	show,
+	index,
+	handleSelect,
+}: {
+	test: QuestionsType
+	show: boolean
+	index: number
+	handleSelect: (
+		item: {
+			option: string
+			correct: boolean
+		},
+		index: number
+	) => void
+}) {
 	const abc = ["A", "B", "C", "D"]
 	return (
 		<Box
@@ -14,7 +31,7 @@ function SpeakQuiz({ test, show, index, handleSelect }) {
 				flexDirection: "column",
 				background: show ? (test?.response?.correct ? "#06d6a021" : "#ef233c26") : "transparent",
 				border: show ? (test?.response?.correct ? "2px solid #06d6a0" : "2px solid #ef233c") : "transparent",
-				p: show && 1,
+				p: show ? 1 : 0,
 				boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 			}}
 		>
@@ -56,7 +73,7 @@ function SpeakQuiz({ test, show, index, handleSelect }) {
 						color: "black",
 					}}
 				>
-					Correct Answer: <strong> {capitalize(test?.options.find((item) => item?.correct)?.option)}</strong>
+					Correct Answer: <strong> {capitalize(test?.options?.find((item) => item.correct)?.option || "")}</strong>
 				</Typography>
 			)}
 		</Box>

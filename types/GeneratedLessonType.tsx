@@ -1,4 +1,4 @@
-interface Vocabulary {
+export interface VocabularyType {
 	type: string
 	synonyms?: string[]
 	definition: string
@@ -6,7 +6,7 @@ interface Vocabulary {
 	example?: string
 }
 
-interface Assessment {
+export interface AssessmentType {
 	assessment_type: string
 	createdAt: string
 	createdById: string
@@ -18,27 +18,29 @@ interface Assessment {
 	uid: string
 }
 
-interface Exercise {
-	questions: {
-		question: string
-		options: { option: string; correct: boolean }[]
-	}[]
+export interface QuestionsType {
+	question: string
+	options: { option: string; correct: boolean }[]
+	response?: { option: string; correct: boolean }
+}
+export interface ExerciseType {
+	questions: QuestionsType[]
 	topic: string
 	type: string
 	name: string
 }
 
-interface Conversation {
+export interface Conversation {
 	order: number
 	content: string
 	speaker: string
 }
 
-interface TopicContent {
+export interface TopicContentType {
 	phrases: string[]
 	topic: string
 	category: string
-	exercise: Exercise
+	exercise: ExerciseType
 	createdAt: string
 	questions: {
 		sample_answer: string

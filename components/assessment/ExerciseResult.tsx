@@ -12,8 +12,9 @@ import ErrorPage from "../../pages/errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
+import { TestResultType } from "@/types/types"
 
-export default function ExerciseResult({ id }) {
+export default function ExerciseResult({ id }: { id: string }) {
 	const { fetchTestResults } = ApiServices()
 	const {
 		data: testResult,
@@ -29,9 +30,10 @@ export default function ExerciseResult({ id }) {
 	const title = ["Test", "Topic", "Test Score"]
 
 	// Student performance data for Charts
-	const studentResult = testResult?.data.map((item) => item.result)
-	const testTopics = testResult?.data.map((item) => item.topic.slice(0, 15) + "...")
+	const studentResult = testResult?.data.map((item: TestResultType) => item.result)
+	const testTopics = testResult?.data.map((item: TestResultType) => item.topic.slice(0, 15) + "...")
 
+	console.log("testResult?.data :>> ", testResult?.data)
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
@@ -75,12 +77,12 @@ export default function ExerciseResult({ id }) {
 						<TableBody>
 							{testResult?.data.length > 0 &&
 								testResult?.data
-									.sort((a, b) => {
-										if (a.lessonName > b.lessonName) return 1
-										if (a.lessonName < b.lessonName) return -1
+									.sort((a: TestResultType, b: TestResultType) => {
+										if (a.createdAt > b.createdAt) return 1
+										if (a.createdAt < b.createdAt) return -1
 										return 0
 									})
-									?.map((row, index) => (
+									?.map((row: TestResultType, index: number) => (
 										<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 											<TableCell
 												component="th"

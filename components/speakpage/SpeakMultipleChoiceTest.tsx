@@ -9,6 +9,7 @@ import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 import { LessonType } from "@/types/allLessonType"
+import { QuestionsType } from "@/types/GeneratedLessonType"
 
 function SpeakMultipleChoiceTest({
 	lesson,
@@ -24,7 +25,7 @@ function SpeakMultipleChoiceTest({
 	const queryClient = useQueryClient()
 	const [score, setScore] = useState(0)
 	const [show, setShow] = useState(false)
-	const [quizData, setQuizData] = useState([])
+	const [quizData, setQuizData] = useState<QuestionsType[]>([])
 	const [showResultPage, setShowResultPage] = useState(false)
 
 	const { submitTest } = ApiPostServices()
@@ -38,7 +39,13 @@ function SpeakMultipleChoiceTest({
 		),
 	})
 
-	function handleSelect(response, index) {
+	function handleSelect(
+		response: {
+			option: string
+			correct: boolean
+		},
+		index: number
+	) {
 		const quizDataCopy = [...quizData]
 		const answer = quizDataCopy[index]
 		answer.response = response
@@ -119,7 +126,7 @@ function SpeakMultipleChoiceTest({
 				</Button>
 				{!show && !showResultPage ? (
 					<Button
-						disabled={quizData[contentIndex + 1]}
+						disabled={quizData[contentIndex + 1] as any}
 						sx={{
 							flex: 4,
 							margin: "15px 0px",
@@ -162,7 +169,7 @@ function SpeakMultipleChoiceTest({
 					}}
 					onClick={handleNext}
 				>
-					{quizData[contentIndex + 1] ? "Next" : "Next"}
+					{!quizData[contentIndex + 1] ? "Next" : "Next"}
 				</Button>
 			</Box>
 		</Box>
