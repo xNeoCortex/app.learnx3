@@ -6,17 +6,17 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar, Button, IconButton, Typography } from "@mui/material"
+import { Avatar, Button, Typography } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
-import { useClassInfo, useStoreUser } from "@/components/zustand"
 import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/pages/errorpage"
 import { useQuery } from "@tanstack/react-query"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
+import { UserType } from "@/types/types"
 
 export default function StudentsResult() {
 	const { apiRequest } = ApiServices()
@@ -43,6 +43,7 @@ export default function StudentsResult() {
 	})
 
 	const studentList = data?.data
+	console.log("studentList :>> ", studentList)
 
 	if (isLoading || isLoadingT) return <LoadingPage />
 	if (isError || isErrorT) return <ErrorPage />
@@ -99,23 +100,23 @@ export default function StudentsResult() {
 							<TableBody>
 								{studentList?.length > 0 &&
 									studentList
-										?.sort((a, b) => {
+										?.sort((a: UserType, b: UserType) => {
 											if (a.name > b.name) return 1
 											if (a.name < b.name) return -1
 											return 0
 										})
-										?.map((row, index) => (
+										?.map((student: UserType, index: number) => (
 											<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 												<TableCell
 													component="th"
-													scope="row"
+													scope="student"
 													style={{
 														display: "flex",
 														alignItems: "center",
 													}}
 												>
 													<Avatar
-														src={row?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
+														src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 														sx={{
 															width: 35,
 															height: 35,
@@ -124,12 +125,12 @@ export default function StudentsResult() {
 															bgcolor: "white",
 														}}
 													/>
-													<p>{row.name}</p>
+													<p>{student.name}</p>
 												</TableCell>
 												<TableCell>
 													<StudentResult
 														testResults={testResult?.data}
-														studentId={row.uid}
+														studentId={student.uid}
 														assessmentType="numOfTests"
 														selectedLesson={selectedLesson}
 													/>
@@ -137,7 +138,7 @@ export default function StudentsResult() {
 												<TableCell>
 													<StudentResult
 														testResults={testResult?.data}
-														studentId={row.uid}
+														studentId={student.uid}
 														assessmentType="averageGrade"
 														selectedLesson={selectedLesson}
 													/>
@@ -145,13 +146,13 @@ export default function StudentsResult() {
 												<TableCell>
 													<StudentResult
 														testResults={testResult?.data}
-														studentId={row.uid}
+														studentId={student.uid}
 														assessmentType="points"
 														selectedLesson={selectedLesson}
 													/>
 												</TableCell>
 												<TableCell sx={{ textAlign: "center" }}>
-													<Link href={`/student/${row.uid}`}>
+													<Link href={`/student/${student.uid}`}>
 														<Button
 															style={{
 																background: "#5f6ac4",
@@ -177,9 +178,11 @@ export default function StudentsResult() {
 }
 
 const StudentResult = React.memo(({ testResults, studentId, assessmentType }: any) => {
-	const testResultArray = testResults?.filter(({ student_id }) => student_id === studentId)?.map(({ result }) => result)
+	const testResultArray: number[] = testResults
+		?.filter(({ student_id }: { student_id: string }) => student_id === studentId)
+		?.map(({ result }: { result: number | string }) => result)
 
-	const sumResult = testResultArray?.reduce((acc, curr) => acc + curr, 0)
+	const sumResult = testResultArray?.reduce((acc: number, curr: number) => acc + curr, 0)
 	const averageGrade = sumResult / testResultArray?.length
 
 	return (
