@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 
-export default function isDateBeforeToday(dateString) {
+export default function isDateBeforeToday(dateString: string) {
 	const inputDate = dayjs(dateString).startOf("day")
 	const today = dayjs().startOf("day")
 

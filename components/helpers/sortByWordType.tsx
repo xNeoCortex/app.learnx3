@@ -1,4 +1,6 @@
-function sortByWordType(a, b) {
+import { LessonType } from "@/types/allLessonType"
+
+function sortByWordType(a: LessonType, b: LessonType) {
 	if (a.category === "noun") {
 		return -1
 	} else if (b.category === "noun") {

@@ -1,5 +1,5 @@
 import React from "react"
-import dayjs from "dayjs"
+import dayjs, { Dayjs } from "dayjs"
 import utc from "dayjs/plugin/utc" // Import the UTC plugin
 import timezone from "dayjs/plugin/timezone" // Import the timezone plugin
 
@@ -7,7 +7,7 @@ import timezone from "dayjs/plugin/timezone" // Import the timezone plugin
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-function localTime(time) {
+function localTime(time: Dayjs | null) {
 	// Get the current UTC time
 	const utcTime = dayjs(time).utc()
 

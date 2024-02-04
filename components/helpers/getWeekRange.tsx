@@ -14,7 +14,7 @@ export default function groupLessonsByWeek(input: LessonTimetableType[]): Conver
 	const weeklyData: any = {}
 
 	input?.forEach((lesson) => {
-		const lessonDate = new Date(lesson.lesson_date)
+		const lessonDate = new Date(lesson.lesson_date as string)
 		const weekRange: {
 			start: string
 			end: string

@@ -2,19 +2,19 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { onAuthStateChanged } from "firebase/auth"
 
-const useFirebaseAuthentication = (firebase) => {
-  const [authUser, setAuthUser] = useState(null)
+const useFirebaseAuthentication = (firebase: any) => {
+	const [authUser, setAuthUser] = useState(null)
 
-  useEffect(() => {
-    const unlisten = onAuthStateChanged(firebase, (authUser) => {
-      authUser ? setAuthUser(authUser) : setAuthUser(null)
-    })
-    return () => {
-      unlisten()
-    }
-  }, [])
+	useEffect(() => {
+		const unlisten = onAuthStateChanged(firebase, (authUser: any) => {
+			authUser ? setAuthUser(authUser) : setAuthUser(null)
+		})
+		return () => {
+			unlisten()
+		}
+	}, [])
 
-  return authUser
+	return authUser
 }
 
 export default useFirebaseAuthentication
