@@ -1,7 +1,15 @@
 import * as React from "react"
 import Dialog from "@mui/material/Dialog"
 
-export default function AlertDialog({ open, setOpen, component }) {
+export default function AlertDialog({
+	open,
+	setOpen,
+	component,
+}: {
+	open: boolean
+	setOpen: React.Dispatch<React.SetStateAction<boolean>>
+	component: React.ReactNode
+}) {
 	const handleClose = () => {
 		setOpen(false)
 	}
