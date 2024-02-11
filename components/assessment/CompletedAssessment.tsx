@@ -7,21 +7,10 @@ const CompletedAssessment: React.FC<{
 	setShowResultPage: (value: boolean) => void
 }> = memo(({ score, setShowResultPage }) => {
 	return (
-		<Box
-			sx={{
-				background: "#bdbdbd33",
-				margin: "15px 0px",
-				padding: "0px 0px 20px",
-				borderRadius: 3,
-				display: "flex",
-				justifyContent: "space-around",
-				alignItems: "center",
-				flexDirection: "column",
-			}}
-		>
+		<Box sx={BoxStyle}>
 			<Alert
 				severity="success"
-				sx={{ p: 1, m: 2, paddingY: "0px", fontSize: 19, fontWeight: 600, width: "fit-content" }}
+				sx={{ p: 1, m: 2, paddingY: "0px", fontSize: "19px", fontWeight: "600", width: "fit-content" }}
 			>
 				You have completed this assessment!
 			</Alert>
@@ -32,17 +21,7 @@ const CompletedAssessment: React.FC<{
 				)}
 			</h4>
 			<Image alt="complete image" src="/completed-icon.svg" width={400} height={300} style={{ margin: "auto" }} />
-			<Button
-				onClick={() => setShowResultPage(false)}
-				variant="contained"
-				style={{
-					flex: 1,
-					margin: "15px 0px",
-					background: "#9d4edd",
-					color: "white",
-					fontWeight: 600,
-				}}
-			>
+			<Button onClick={() => setShowResultPage(false)} variant="contained" sx={ButtonStyle}>
 				Review Answers
 			</Button>
 		</Box>
@@ -50,3 +29,22 @@ const CompletedAssessment: React.FC<{
 })
 
 export default CompletedAssessment
+
+const BoxStyle = {
+	background: "#bdbdbd33",
+	margin: "15px 0px",
+	padding: "0px 0px 20px",
+	borderRadius: 3,
+	display: "flex",
+	justifyContent: "space-around",
+	alignItems: "center",
+	flexDirection: "column",
+}
+
+const ButtonStyle = {
+	flex: 1,
+	margin: "15px 0px",
+	background: "#9d4edd",
+	color: "white",
+	fontWeight: "600",
+}

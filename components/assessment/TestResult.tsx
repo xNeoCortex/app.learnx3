@@ -50,7 +50,7 @@ const TestResult = memo(({ id }: { id: string }) => {
 			<Grid item xs={12} sm={6}>
 				<TableContainer
 					component={Paper}
-					style={{
+					sx={{
 						width: "calc(100%)",
 						boxShadow: "none",
 					}}
@@ -59,19 +59,19 @@ const TestResult = memo(({ id }: { id: string }) => {
 					<Table aria-label="simple table">
 						<TableHead>
 							<TableRow
-								style={{
+								sx={{
 									background: "rgb(95, 106, 196)",
-									borderRadius: 12,
+									borderRadius: "12px",
 									color: "white",
 								}}
 							>
 								{title.map((item, index) => (
 									<TableCell
 										key={index}
-										style={{
+										sx={{
 											color: "white",
-											fontWeight: 600,
-											fontSize: 15,
+											fontWeight: "600",
+											fontSize: "15px",
 											margin: "auto",
 											textAlign: "center",
 										}}
