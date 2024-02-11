@@ -71,7 +71,7 @@ const textStyle = {
 	color: "#001663",
 	zIndex: 99,
 	mb: 1,
-	fontSize: { xs: 28, sm: 46 },
+	fontSize: { xs: "28px", sm: "40px" },
 	textAlign: { xs: "center", sm: "flex-start" },
 }
 
