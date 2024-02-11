@@ -10,8 +10,7 @@ import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
 import sortByWordType from "@/components/helpers/sortByWordType"
 import { SpeakCard } from "../lessons/SpeakCard"
-import { LessonType } from "@/types/allLessonType"
-import { TopicContentType } from "@/types/GeneratedLessonType"
+import { TopicContentType } from "@/types/generatedLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -24,12 +23,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 		padding: theme.spacing(1),
 	},
 }))
-
-interface DialogTitleProps {
-	id: string
-	children?: React.ReactNode
-	onClose: () => void
-}
 
 export default function FlashCards({ lesson }: { lesson: TopicContentType }) {
 	const [open, setOpen] = React.useState(false)

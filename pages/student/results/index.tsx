@@ -43,7 +43,6 @@ export default function StudentsResult() {
 	})
 
 	const studentList = data?.data
-	console.log("studentList :>> ", studentList)
 
 	if (isLoading || isLoadingT) return <LoadingPage />
 	if (isError || isErrorT) return <ErrorPage />

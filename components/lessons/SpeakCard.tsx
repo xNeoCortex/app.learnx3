@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Box, capitalize, Typography } from "@mui/material"
 import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
-import { VocabularyType } from "@/types/GeneratedLessonType"
+import { VocabularyType } from "@/types/generatedLessonType"
 
 export function SpeakCard({ word, showDefinition }: { word: VocabularyType; showDefinition: boolean }) {
 	return (

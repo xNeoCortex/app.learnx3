@@ -1,7 +1,7 @@
 import React from "react"
 import { Box, Typography } from "@mui/material"
 import CardWrapper from "../elements/CardWrapper"
-import { TopicContentType } from "@/types/GeneratedLessonType"
+import { TopicContentType } from "@/types/generatedLessonType"
 
 function FlashCardsBanner({ lesson }: { lesson: TopicContentType }) {
 	return (

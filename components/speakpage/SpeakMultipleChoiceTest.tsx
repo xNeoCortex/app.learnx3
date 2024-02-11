@@ -9,7 +9,7 @@ import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 import { LessonType } from "@/types/allLessonType"
-import { QuestionsType } from "@/types/GeneratedLessonType"
+import { QuestionsType } from "@/types/generatedLessonType"
 
 function SpeakMultipleChoiceTest({
 	lesson,

@@ -1,4 +1,4 @@
-import { VocabularyType } from "@/types/GeneratedLessonType"
+import { VocabularyType } from "@/types/generatedLessonType"
 
 function sortByWordType(a: VocabularyType, b: VocabularyType) {
 	if (a.type === "noun") {

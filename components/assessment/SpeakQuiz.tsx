@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, capitalize, CssBaseline, Typography } from "@mui/material"
-import { QuestionsType } from "@/types/GeneratedLessonType"
+import { QuestionsType } from "@/types/generatedLessonType"
 
 function SpeakQuiz({
 	test,
