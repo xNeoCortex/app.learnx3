@@ -24,8 +24,8 @@ export const TestTableRow = memo(({ row, index }: { row: TestResultType; index: 
 const TableCellStyle = {
 	display: "flex",
 	alignItems: "center",
-	padding: 10,
-	height: 63,
+	padding: "10px",
+	height: "63px",
 	textAlign: "center",
 }
 
