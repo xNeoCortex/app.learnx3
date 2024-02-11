@@ -1,11 +1,11 @@
-import React from "react"
+import React, { memo } from "react"
 import Image from "next/image"
 import { Alert, Box, Button } from "@mui/material"
 
 const CompletedAssessment: React.FC<{
 	score: { result: number }[]
 	setShowResultPage: (value: boolean) => void
-}> = ({ score, setShowResultPage }) => {
+}> = memo(({ score, setShowResultPage }) => {
 	return (
 		<Box
 			sx={{
@@ -47,6 +47,6 @@ const CompletedAssessment: React.FC<{
 			</Button>
 		</Box>
 	)
-}
+})
 
 export default CompletedAssessment

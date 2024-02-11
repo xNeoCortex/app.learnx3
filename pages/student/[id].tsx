@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/pages/errorpage"
-import ExerciseResult from "../../components/assessment/ExerciseResult"
+import TestResult from "../../components/assessment/TestResult"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 
@@ -161,7 +161,7 @@ function StudentProfile() {
 							</Box>
 						</Grid>
 						<Grid item xs={12}>
-							<ExerciseResult id={id} />
+							<TestResult id={id as string} />
 						</Grid>
 						{/* <Box
 								sx={{
