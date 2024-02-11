@@ -3,7 +3,7 @@ import { createTheme } from "@mui/material/styles"
 
 const theme = createTheme()
 
-function AuthLayout({ children }: any) {
+function AuthLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<Box
 			sx={{

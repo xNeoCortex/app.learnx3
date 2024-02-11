@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react"
+import { ReactNode, memo, useEffect } from "react"
 import { useRouter } from "next/router"
 import ErrorPage from "../../pages/errorpage"
 import WaitingPage from "../other/WaitingPage"
@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 	children: ReactNode
 	permitArray: PermitType[]
 }
-const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => {
+const ProtectedRoute = memo(({ children, permitArray = [] }: ProtectedRouteProps) => {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
 
@@ -28,6 +28,6 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 		return <>{children}</>
 	}
 	return <ErrorPage message="Something went wrong, please try again later!" />
-}
+})
 
 export default ProtectedRoute

@@ -19,7 +19,7 @@ import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
 import { auth } from "../firebaseX"
 
-export default function AccountMenu({ isSmallScreen }: { isSmallScreen: boolean }) {
+const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) => {
 	const { push: navigate } = useRouter()
 	const { userInfo, setUserInfo } = useStoreUser((state) => state)
 
@@ -45,8 +45,18 @@ export default function AccountMenu({ isSmallScreen }: { isSmallScreen: boolean 
 		setAnchorEl(null)
 	}
 
+	const accountType = React.useMemo(() => {
+		if (userInfo?.role === "teacher") {
+			return "Teacher Account"
+		} else if (userInfo?.role === "student") {
+			return "Student Account"
+		} else {
+			return ""
+		}
+	}, [userInfo])
+
 	return (
-		<React.Fragment>
+		<>
 			<Box
 				sx={{
 					display: "flex",
@@ -89,7 +99,7 @@ export default function AccountMenu({ isSmallScreen }: { isSmallScreen: boolean 
 						lineHeight: "1.4",
 					}}
 				>
-					{userInfo?.role === "teacher" ? "Teacher Account" : userInfo?.role === "student" ? "Student Account" : ""}
+					{accountType}
 				</Typography>
 			</Box>
 			<Menu
@@ -143,9 +153,9 @@ export default function AccountMenu({ isSmallScreen }: { isSmallScreen: boolean 
 					Logout
 				</MenuItem>
 			</Menu>
-		</React.Fragment>
+		</>
 	)
-}
+})
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
 	"& .MuiBadge-badge": {
@@ -176,3 +186,5 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 		},
 	},
 }))
+
+export default AccountMenu

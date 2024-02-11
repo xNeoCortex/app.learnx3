@@ -19,8 +19,6 @@ export default function SignInPhone() {
   const [expandForm, setExpandForm] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('')
 
-
-
   function generateRecaptcha() {
     window.recaptchaVerifier = new RecaptchaVerifier('reCaptcha-container', {
       'size': 'invisible',
@@ -28,7 +26,6 @@ export default function SignInPhone() {
       }
     }, auth);
   }
-
 
   function requestOTP(e) {
     e.preventDefault();
