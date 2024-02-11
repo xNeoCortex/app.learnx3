@@ -88,3 +88,8 @@ export interface UserType {
 	qualification: string
 	createdAt: Date
 }
+
+export type TeacherType = Pick<
+	UserType,
+	"name" | "age" | "phone" | "country" | "qualification" | "gender" | "email" | "uid" | "permit"
+>

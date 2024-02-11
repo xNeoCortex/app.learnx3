@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, Typography } from "@mui/material"
-import Link from "next/link"
+import { UserType } from "@/types/types"
+import { Avatar, Box, Typography } from "@mui/material"
 import { memo } from "react"
+import { englishLevels } from "../utils/englishLevels"
 
-const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
+const StudentCardMini = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 	return (
 		<Box
 			style={{
@@ -61,9 +62,10 @@ const StudentCardMini = memo<{ studentDetails: any }>(({ studentDetails }) => {
 								: "1px solid #41b6ff",
 						borderRadius: 12,
 						fontSize: "12px",
+						textAlign: "center",
 					}}
 				>
-					{studentDetails.level || "intermediate"}
+					{englishLevels[studentDetails.eng_level_form] || "intermediate"}
 				</p>
 			</Box>
 		</Box>

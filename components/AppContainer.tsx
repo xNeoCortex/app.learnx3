@@ -4,7 +4,7 @@ import { Box } from "@mui/material"
 import ClassAllocation from "./other/ClassAllocation"
 import { useStoreUser } from "./zustand"
 
-function AppContainer({ children }: any) {
+function AppContainer({ children }: { children: React.ReactNode }) {
 	const { push: navigate } = useRouter()
 	const { userInfo } = useStoreUser()
 

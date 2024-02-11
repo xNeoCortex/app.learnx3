@@ -4,6 +4,7 @@ import AccountMenu from "./auth/SignOut"
 import { useClassInfo, useStoreUser } from "./zustand"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/pages/api/ApiServices"
+import { TestResultType } from "@/types/types"
 
 const Navbar = () => {
 	const theme = useTheme()
@@ -21,7 +22,7 @@ const Navbar = () => {
 	})
 
 	function getStudentTotalScore() {
-		const totalScore = testResults?.data?.reduce((acc, curr) => acc + curr.result, 0)
+		const totalScore = testResults?.data?.reduce((acc: number, curr: TestResultType) => acc + Number(curr.result), 0)
 		return Math.round(totalScore) ?? 0
 	}
 

@@ -12,7 +12,7 @@ import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import { DoughnutChart } from "@/components/other/DoughnutChart"
 
-function Statistics({ displayGraphs }) {
+function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 	const { pathname } = useRouter()
 
 	// find another solution -> no need to fetch all database just to see the length of students array

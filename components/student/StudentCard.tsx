@@ -1,8 +1,9 @@
+import { UserType } from "@/types/types"
 import { Avatar, Box, Button } from "@mui/material"
 import Link from "next/link"
 import { memo } from "react"
 
-const StudentCard = memo<{ studentDetails: any }>(({ studentDetails }) => {
+const StudentCard = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 	return (
 		<Box
 			style={{

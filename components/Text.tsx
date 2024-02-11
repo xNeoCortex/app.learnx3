@@ -1,7 +1,7 @@
 import React from "react"
 import { Box } from "@mui/material"
 
-function TaskComponent({ title, text }) {
+function TaskComponent({ title, text }: { title: string; text: string }) {
 	return (
 		<Box>
 			<h3>{title}</h3>

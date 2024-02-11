@@ -13,8 +13,9 @@ import Link from "next/link"
 import SnackbarX from "../other/SnackbarX"
 import DeleteComponent from "../DeleteComponent"
 import { useStoreUser } from "../zustand"
+import { UserType } from "@/types/types"
 
-export default function StudentList({ data }) {
+export default function StudentList({ data }: { data: UserType[] }) {
 	const [open, setOpen] = React.useState(false)
 	const { userInfo } = useStoreUser()
 

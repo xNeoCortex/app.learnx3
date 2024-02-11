@@ -11,6 +11,7 @@ import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "@/pages/errorpage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
+import { UserType } from "@/types/types"
 
 function StudentCardList() {
 	const { apiRequest } = ApiServices()
@@ -18,7 +19,11 @@ function StudentCardList() {
 	const [alignment, setAlignment] = React.useState("grid")
 
 	// fetch student data
-	const { data, isLoading, isError } = useQuery({
+	const {
+		data: students,
+		isLoading,
+		isError,
+	} = useQuery({
 		queryKey: ["students"],
 		queryFn: () => apiRequest("GET", null, { collectionName: "students" }),
 		refetchOnWindowFocus: false,
@@ -64,7 +69,7 @@ function StudentCardList() {
 							fontWeight: 600,
 						}}
 					>
-						{data?.data?.length ?? 0} Students
+						{students?.data?.length ?? 0} Students
 					</Button>
 				</Typography>
 				<ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform">
@@ -85,7 +90,7 @@ function StudentCardList() {
 						marginBottom: "45px",
 					}}
 				>
-					{data?.data?.map((item, index) => (
+					{students?.data?.map((item: UserType, index: number) => (
 						<Box key={index}>
 							<StudentCard studentDetails={item} />
 						</Box>
@@ -95,7 +100,7 @@ function StudentCardList() {
 				<Box style={{ display: "flex", flexDirection: "column" }}>
 					<Grid container>
 						<Grid item xs={12}>
-							<StudentList data={data?.data} />
+							<StudentList data={students?.data} />
 						</Grid>
 					</Grid>
 				</Box>
