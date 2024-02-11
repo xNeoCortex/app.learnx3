@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import ErrorPage from "@/pages/errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
@@ -37,58 +37,53 @@ function StudentRanking() {
 		refetchOnMount: false,
 	})
 
-	function getStudentTotalScore(studentId: string) {
-		const studentTestResults = testResults?.data?.filter(
-			({ student_id }: { student_id: string }) => student_id === studentId
-		)
-		const totalScore = studentTestResults?.reduce((acc: number, curr: TestResultType) => acc + curr.result, 0)
-		return Math.round(totalScore)
-	}
+	const getStudentTotalScore = useCallback(
+		(studentId: string) => {
+			const studentTestResults = testResults?.data?.filter(
+				({ student_id }: { student_id: string }) => student_id === studentId
+			)
+			const totalScore = studentTestResults?.reduce((acc: number, curr: TestResultType) => acc + curr.result, 0)
+			return Math.round(totalScore)
+		},
+		[testResults?.data]
+	)
 
-	function sortStudentsByPerformance(students: UserType[]) {
-		const sortedStudents = students?.sort((a, b) => {
-			if (getStudentTotalScore(a.uid) > getStudentTotalScore(b.uid)) return -1
-			if (getStudentTotalScore(a.uid) < getStudentTotalScore(b.uid)) return 1
-			return 0
-		})
-		return sortedStudents.map((student) => {
-			return {
-				...student,
-				score: getStudentTotalScore(student.uid),
-			}
-		})
-	}
+	const sortStudentsByPerformance = useCallback(
+		(students: UserType[]) => {
+			const sortedStudents = students?.sort((a, b) => {
+				if (getStudentTotalScore(a.uid) > getStudentTotalScore(b.uid)) return -1
+				if (getStudentTotalScore(a.uid) < getStudentTotalScore(b.uid)) return 1
+				return 0
+			})
+			return sortedStudents.map((student) => {
+				return {
+					...student,
+					score: getStudentTotalScore(student.uid),
+				}
+			})
+		},
+		[getStudentTotalScore, students]
+	)
 
 	if (isLoadingStudents || isLoading) return <LoadingPage />
 	if (isErrorStudents || isError) return <ErrorPage />
 
 	return (
-		<Box
-			sx={{
-				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
-				maxHeight: { xs: "245px", sm: "450px" },
-				width: "100%",
-				margin: "0px 10px 10px 0px",
-				borderRadius: "8px",
-				overflow: "scroll",
-				position: "relative",
-				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-			}}
-		>
+		<Box sx={BoxWrapperStyle}>
 			<TableContainer component={Paper}>
 				<Table aria-label="simple table">
 					<TableHead>
 						<TableRow
-							style={{
+							sx={{
 								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-								borderRadius: 12,
+								borderRadius: "12px",
 								color: "white",
 							}}
 						>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 16 }}>
+							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>
 								Student Leaderboard ({students?.data?.length})
 							</TableCell>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 16 }}>🏆 Points</TableCell>
+							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>🏆 Points</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -104,7 +99,7 @@ function StudentRanking() {
 										<TableCell
 											component="th"
 											scope="row"
-											style={{
+											sx={{
 												display: "flex",
 												alignItems: "center",
 												borderBottom: "none",
@@ -115,32 +110,13 @@ function StudentRanking() {
 											</Typography>
 											<Avatar
 												src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-												sx={{
-													width: 30,
-													height: 30,
-													border: "2px solid rgb(95, 106, 196)",
-													marginRight: 1.5,
-													bgcolor: "white",
-												}}
+												sx={AvatarStyle}
 											/>
 											<Typography sx={{ mr: 1, fontSize: "14px" }}>{student.name} </Typography>
 											{index === 0 && <span> 👑</span>}
 										</TableCell>
 										<TableCell sx={{ borderBottom: "none" }}>
-											<p
-												style={{
-													// fontWeight: 600,
-													color: "#1d243d",
-													padding: "0px",
-													borderRadius: 12,
-													fontSize: 15,
-													width: "100%",
-													maxWidth: "130px",
-													textAlign: "start",
-												}}
-											>
-												⭐️ {student.score}
-											</p>
+											<Typography sx={TextStyle}>⭐️ {student.score}</Typography>
 										</TableCell>
 									</TableRow>
 								)
@@ -153,3 +129,32 @@ function StudentRanking() {
 }
 
 export default StudentRanking
+
+const TextStyle = {
+	color: "#1d243d",
+	padding: "0px",
+	borderRadius: "12px",
+	fontSize: "15px",
+	width: "100%",
+	maxWidth: "130px",
+	textAlign: "start",
+}
+
+const AvatarStyle = {
+	width: 30,
+	height: 30,
+	border: "2px solid rgb(95, 106, 196)",
+	marginRight: 1.5,
+	bgcolor: "white",
+}
+
+const BoxWrapperStyle = {
+	boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
+	maxHeight: { xs: "245px", sm: "450px" },
+	width: "100%",
+	margin: "0px 10px 10px 0px",
+	borderRadius: "8px",
+	overflow: "scroll",
+	position: "relative",
+	background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+}

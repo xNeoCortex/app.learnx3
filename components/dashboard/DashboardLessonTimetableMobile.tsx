@@ -1,6 +1,6 @@
 import React from "react"
 import ApiServices from "@/pages/api/ApiServices"
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ErrorPage from "../../pages/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
@@ -26,16 +26,7 @@ function DashboardLessonTimetableMobile() {
 
 	return (
 		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
-			<Typography
-				style={{
-					margin: "0px 10px 10px 0px",
-					fontWeight: 600,
-					fontSize: 19,
-					color: "#5f616a",
-				}}
-			>
-				Upcoming lessons
-			</Typography>
+			<Typography sx={TextStyle}>Upcoming lessons</Typography>
 			<Box
 				sx={{
 					display: { xs: "flex", sm: "none" },
@@ -48,7 +39,7 @@ function DashboardLessonTimetableMobile() {
 			>
 				{lessonTimetableList?.data
 					?.filter(({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date))
-					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date > b.lesson_date ? 1 : -1))
+					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
 					?.slice(0, 3)
 					?.map((lesson: LessonTimetableType, index: number) => (
 						<LessonTimetableCard key={index} lesson={lesson} />
@@ -59,3 +50,10 @@ function DashboardLessonTimetableMobile() {
 }
 
 export default DashboardLessonTimetableMobile
+
+const TextStyle = {
+	margin: "0px 10px 10px 0px",
+	fontWeight: "600",
+	fontSize: "19px",
+	color: "#5f616a",
+}

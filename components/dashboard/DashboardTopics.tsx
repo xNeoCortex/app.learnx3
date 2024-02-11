@@ -10,8 +10,8 @@ import { TopicType } from "@/types/types"
 
 function DashboardTopics() {
 	const [open, setOpen] = React.useState(false)
-
 	const { apiRequest } = ApiServices()
+
 	const {
 		data: topics,
 		isLoading,
@@ -21,6 +21,7 @@ function DashboardTopics() {
 		queryFn: () => apiRequest("GET", null, { collectionName: "lessonByAiTopics" }),
 		refetchOnWindowFocus: false,
 	})
+
 	if (isError) return <ErrorPage />
 
 	return (
@@ -32,16 +33,7 @@ function DashboardTopics() {
 				message="You have successfully cancelled your sessions!"
 			/>
 
-			<Typography
-				style={{
-					margin: "0px 10px 10px 0px",
-					fontWeight: 600,
-					fontSize: 19,
-					color: "#5f616a",
-				}}
-			>
-				{topics?.data.length > 0 ? "Recent topics" : "No recent topics"}
-			</Typography>
+			<Typography sx={TextStyle}>{topics?.data.length > 0 ? "Recent topics" : "No recent topics"}</Typography>
 			{
 				<Grid container spacing={2}>
 					{isLoading
@@ -64,3 +56,10 @@ function DashboardTopics() {
 }
 
 export default DashboardTopics
+
+const TextStyle = {
+	margin: "0px 10px 10px 0px",
+	fontWeight: "600",
+	fontSize: "19px",
+	color: "#5f616a",
+}

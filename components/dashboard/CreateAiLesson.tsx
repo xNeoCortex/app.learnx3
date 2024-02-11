@@ -12,14 +12,14 @@ import { useRouter } from "next/router"
 import { AiLessonStructure } from "../data/AiLessonStructure"
 import OpenAiFina from "../utils/OpenAiFina"
 
-function CreateAiLesson() {
+const CreateAiLesson = () => {
 	const { push: navigate } = useRouter()
+	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
 	const { loadingGenContentAI, setLoadingGenContentAI } = useStoreTemporary()
 	const [topic, setTopic] = useState("")
 	const [error, setError] = useState(false)
 	const [success, setSuccess] = useState(false)
-	const queryClient = useQueryClient()
 
 	async function CreateAiLessonFunc() {
 		setLoadingGenContentAI(true)
@@ -89,46 +89,17 @@ function CreateAiLesson() {
 		}
 	}
 
-	// useEffect(() => {
-	// 	setTopic("")
-	// 	setSuccess(false)
-	// }, [])
-
 	if (error) return <ErrorPage />
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				justifyContent: "center",
-				flexDirection: "column",
-				alignItems: "center",
-				boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
-				width: "100%",
-				minHeight: "250px",
-				margin: "10px auto 20px",
-				borderRadius: "8px",
-				overflow: "hidden",
-				position: "relative",
-				background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-				borderBox: "box-sizing",
-			}}
-		>
+		<Box sx={ComponentWrapperStyle}>
 			<Typography
 				fontWeight="bolder"
 				sx={{ color: "#001663", m: 3, textAlign: "center", fontSize: { xs: 20, sm: 24 } }}
 			>
 				✨ Unleash the Power of AI! Generate Curriculum with a Click!
 			</Typography>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: { xs: "column", sm: "row" },
-					width: "100%",
-					p: 1,
-					justifyContent: "center",
-				}}
-			>
+			<Box sx={BoxStyleWrapper}>
 				<Search>
 					<SearchIconWrapper>🤖</SearchIconWrapper>
 					<StyledInputBase
@@ -143,17 +114,9 @@ function CreateAiLesson() {
 					variant="contained"
 					onClick={CreateAiLessonFunc}
 					disabled={loadingGenContentAI || topic === ""}
-					sx={{
-						background: "rgb(50, 51, 49)",
-						color: "white",
-						fontWeight: "bold",
-						fontSize: "12px",
-						mr: "30px",
-						margin: "auto",
-						mt: { xs: 2, sm: "2px" },
-					}}
+					sx={ButtonStyle}
 				>
-					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loadingGenContentAI ? "Loading..." : "Generate"}
+					<AutoFixHighIcon sx={{ marginRight: "10px" }} /> {loadingGenContentAI ? "Loading..." : "Generate"}
 				</Button>
 			</Box>
 			<Box
@@ -199,7 +162,7 @@ const Search = styled("div")(({ theme }) => ({
 		backgroundColor: alpha(theme.palette.common.white, 0.25),
 	},
 	marginRight: theme.spacing(2),
-	marginLeft: 0,
+	marginLeft: "0px !important",
 	width: "100%",
 	flexGrow: 1,
 	[theme.breakpoints.up("sm")]: {
@@ -231,3 +194,38 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		},
 	},
 }))
+
+const ComponentWrapperStyle = {
+	display: "flex",
+	justifyContent: "center",
+	flexDirection: "column",
+	alignItems: "center",
+	boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
+	width: "100%",
+	minHeight: "250px",
+	margin: "10px auto 20px",
+	borderRadius: "8px",
+	overflow: "hidden",
+	position: "relative",
+	background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+	borderBox: "box-sizing",
+}
+
+const BoxStyleWrapper = {
+	display: "flex",
+	flexDirection: { xs: "column", sm: "row" },
+	width: "100%",
+	p: 1,
+	justifyContent: "center",
+	alignItems: "center",
+}
+
+const ButtonStyle = {
+	background: "rgb(50, 51, 49)",
+	color: "white",
+	fontWeight: "bold",
+	fontSize: "12px",
+	mr: "30px",
+	margin: "auto",
+	mt: { xs: 2, sm: "2px" },
+}
