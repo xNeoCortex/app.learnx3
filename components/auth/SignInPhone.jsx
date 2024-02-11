@@ -111,7 +111,7 @@ export default function SignInPhone() {
           name="phone"
           autoComplete="email"
           autoFocus
-          style={{ width: '100%' }}
+          sx={{ width: '100%' }}
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
         />
@@ -138,7 +138,7 @@ export default function SignInPhone() {
             fullWidth
             name="code"
             type="number"
-            style={{ width: '100%' }}
+            sx={{ width: '100%' }}
             autoComplete="current-password"
             value={code}
             onChange={(e) => verifyOTP(e)}
@@ -146,8 +146,8 @@ export default function SignInPhone() {
           <p>Please enter the code sent to your phone</p>
         </Box>
       }
-      <p style={{ color: 'grey' }}>or</p>
-      <Link to="/auth/login" style={{ width: '100%' }}>
+      <Typography sx={{ color: 'grey' }}>or</Typography>
+      <Link to="/auth/login" sx={{ width: '100%' }}>
         <Button
           fullWidth
           variant="outlined"
