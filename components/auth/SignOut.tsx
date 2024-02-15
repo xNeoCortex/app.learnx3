@@ -29,7 +29,7 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 		setAnchorEl(event.currentTarget)
 	}
 
-	const handleLogout = () => {
+	const handleLogout = React.useCallback(() => {
 		signOut(auth)
 			.then(() => {
 				// Sign-out successful.
@@ -39,7 +39,7 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 			.catch((error) => {
 				// An error happened.
 			})
-	}
+	}, [])
 
 	const handleClose = () => {
 		setAnchorEl(null)

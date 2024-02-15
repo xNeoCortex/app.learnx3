@@ -19,15 +19,15 @@ export default function SignInPhone() {
   const [expandForm, setExpandForm] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('')
 
-  function generateRecaptcha() {
+  const generateRecaptcha = React.useCallback(() =>{
     window.recaptchaVerifier = new RecaptchaVerifier('reCaptcha-container', {
       'size': 'invisible',
       'callback': (response) => {
       }
     }, auth);
-  }
+  },[])
 
-  function requestOTP(e) {
+  const requestOTP = React.useCallback((e) => {
     e.preventDefault();
     if (phoneNumber.length >= 12) {
       setExpandForm(true)
@@ -44,11 +44,11 @@ export default function SignInPhone() {
           console.log(error)
         });
     }
-  }
+  },[phoneNumber])
 
 
   // Here we verify OPT
-  const verifyOTP = (e) => {
+  const verifyOTP = React.useCallback((e) => {
     e.preventDefault();
     let otpInput = e.target.value
     setCode(otpInput)
@@ -72,7 +72,7 @@ export default function SignInPhone() {
           // alert("Incorrect OTP");
         });
     }
-  };
+  }, [])
 
 
   return (

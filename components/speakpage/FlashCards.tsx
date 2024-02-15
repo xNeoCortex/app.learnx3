@@ -10,7 +10,7 @@ import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
 import sortByWordType from "@/components/helpers/sortByWordType"
 import { SpeakCard } from "../lessons/SpeakCard"
-import { TopicContentType } from "@/types/generatedLessonType"
+import { TopicContentType } from "@/types/GeneratedLessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
