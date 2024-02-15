@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
-import React from "react"
+import React, { memo } from "react"
 
-function ChipX({ text, color = "#5f61c4" }: { text: string; color?: string }) {
+const ChipX = memo(({ text, color = "#5f61c4" }: { text: string; color?: string }) => {
 	return (
 		<Box
 			sx={{
@@ -18,6 +18,6 @@ function ChipX({ text, color = "#5f61c4" }: { text: string; color?: string }) {
 			{text}
 		</Box>
 	)
-}
+})
 
 export default ChipX

@@ -9,21 +9,25 @@ const dayjs = require("dayjs")
 const utc = require("dayjs/plugin/utc")
 dayjs.extend(utc)
 
-export default function DatePickerX({
-	calendarValue,
-	setCalendarValue,
-}: {
-	calendarValue: Dayjs | null | string
-	setCalendarValue: React.Dispatch<React.SetStateAction<LessonTimetableType>>
-}) {
-	return (
-		<LocalizationProvider dateAdapter={AdapterDayjs}>
-			<DateTimePicker
-				sx={{ width: "100%" }}
-				label="Controlled picker"
-				value={localTime(calendarValue) || null}
-				onChange={(newValue) => setCalendarValue((prev) => ({ ...prev, lesson_date: newValue }))}
-			/>
-		</LocalizationProvider>
-	)
-}
+const DatePickerX = React.memo(
+	({
+		calendarValue,
+		setCalendarValue,
+	}: {
+		calendarValue: Dayjs | null | string
+		setCalendarValue: React.Dispatch<React.SetStateAction<LessonTimetableType>>
+	}) => {
+		return (
+			<LocalizationProvider dateAdapter={AdapterDayjs}>
+				<DateTimePicker
+					sx={{ width: "100%" }}
+					label="Controlled picker"
+					value={localTime(calendarValue) || null}
+					onChange={(newValue) => setCalendarValue((prev) => ({ ...prev, lesson_date: newValue }))}
+				/>
+			</LocalizationProvider>
+		)
+	}
+)
+
+export default DatePickerX

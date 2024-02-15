@@ -39,8 +39,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	borderRadius: "50%",
 }))
 
-export default function FinaAvatarMobile({ setOpen }: { setOpen: (arg: boolean) => void }) {
-	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
+const FinaAvatarMobile = React.memo(({ setOpen }: { setOpen: (arg: boolean) => void }) => {
+	const { botComponentWidth } = useStoreTemporary()
 
 	return (
 		<>
@@ -56,4 +56,6 @@ export default function FinaAvatarMobile({ setOpen }: { setOpen: (arg: boolean) 
 			)}
 		</>
 	)
-}
+})
+
+export default FinaAvatarMobile

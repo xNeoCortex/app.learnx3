@@ -19,7 +19,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 export const FinaAvatarMobilePopup: React.FC<{
 	open: boolean
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
-}> = ({ open, setOpen }) => {
+}> = React.memo(({ open, setOpen }) => {
 	return (
 		<BootstrapDialog fullWidth fullScreen maxWidth="md" open={open}>
 			<DialogContent dividers sx={{ background: "#271f4d" }}>
@@ -27,4 +27,4 @@ export const FinaAvatarMobilePopup: React.FC<{
 			</DialogContent>
 		</BootstrapDialog>
 	)
-}
+})
