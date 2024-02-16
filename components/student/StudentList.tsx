@@ -10,10 +10,10 @@ import { Avatar, Button, IconButton } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
-import SnackbarX from "../other/SnackbarX"
 import DeleteComponent from "../DeleteComponent"
 import { useStoreUser } from "../zustand"
 import { UserType } from "@/types/types"
+import { SnackbarX } from "../other/SnackbarX"
 
 export default function StudentList({ data }: { data: UserType[] }) {
 	const [open, setOpen] = React.useState(false)
