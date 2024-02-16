@@ -1,9 +1,9 @@
-import React from "react"
+import React, { memo } from "react"
 import { Box, capitalize, Typography } from "@mui/material"
 import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { VocabularyType } from "@/types/GeneratedLessonType"
 
-export function SpeakCard({ word, showDefinition }: { word: VocabularyType; showDefinition: boolean }) {
+export const SpeakCard = memo(({ word, showDefinition }: { word: VocabularyType; showDefinition: boolean }) => {
 	return (
 		<Box
 			sx={{
@@ -50,13 +50,13 @@ export function SpeakCard({ word, showDefinition }: { word: VocabularyType; show
 					{["definition", "example"].map((item, index) => (
 						<Typography
 							key={index}
-							style={{
+							sx={{
 								background: "white",
 								color: "black",
 								textAlign: "center",
-								marginBottom: 2,
-								borderRadius: 3,
-								padding: 6,
+								marginBottom: "2px",
+								borderRadius: "3px",
+								padding: "6px",
 							}}
 						>
 							<b>{capitalize(item)}: </b> {word[item as keyof VocabularyType]}
@@ -99,4 +99,4 @@ export function SpeakCard({ word, showDefinition }: { word: VocabularyType; show
 			)}
 		</Box>
 	)
-}
+})

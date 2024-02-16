@@ -14,31 +14,13 @@ import VisibilityIcon from "@mui/icons-material/Visibility"
 import { useStoreUser } from "../zustand"
 import Link from "next/link"
 import { LessonTimetableType } from "@/types/types"
+import { memo } from "react"
 
-export default function LessonTimetableCard({ lesson }: { lesson: LessonTimetableType }) {
+const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) => {
 	const { userInfo } = useStoreUser()
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "space-between",
-				alignItems: "start",
-				minHeight: "110px",
-				borderRadius: "10px",
-				padding: "10px 20px 20px",
-				position: "relative",
-				height: "100%",
-				overflow: "hidden",
-				width: { xs: "300px", sm: "100%" },
-				marginRight: { xs: "20px", sm: "0px" },
-				minWidth: "290px",
-				border: "0.5px solid #ebfff6",
-				background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
-				boxShadow: "0 2px 17px rgba(0,0,0,.08)",
-			}}
-		>
+		<Box sx={BoxStyle}>
 			<Box
 				sx={{
 					display: "flex",
@@ -49,16 +31,7 @@ export default function LessonTimetableCard({ lesson }: { lesson: LessonTimetabl
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-					<Avatar
-						alt="Remy Sharp"
-						src="/teacher-johny.png"
-						sx={{
-							cursor: "pointer",
-							width: "30px",
-							height: "30px",
-							m: "10px 10px 10px 0px",
-						}}
-					/>
+					<Avatar alt="Remy Sharp" src="/teacher-johny.png" sx={AvatarStyle} />
 					<Typography noWrap sx={{ maxWidth: 140 }}>
 						{lesson?.teacher_name}
 					</Typography>
@@ -131,17 +104,7 @@ export default function LessonTimetableCard({ lesson }: { lesson: LessonTimetabl
 				</Box>
 				<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 					<Link href={`/lessons/${lesson.uid}`} style={{ textDecoration: "none" }}>
-						<Button
-							sx={{
-								marginRight: "5px",
-								textTransform: "none",
-								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-								color: "white",
-								fontWeight: "600",
-								padding: "3px 10px",
-								"&:hover": { background: "#424493" },
-							}}
-						>
+						<Button sx={ButtonStyle}>
 							<VisibilityIcon
 								sx={{
 									color: "white",
@@ -156,4 +119,41 @@ export default function LessonTimetableCard({ lesson }: { lesson: LessonTimetabl
 			</Box>
 		</Box>
 	)
+})
+export default LessonTimetableCard
+
+const BoxStyle = {
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "space-between",
+	alignItems: "start",
+	minHeight: "110px",
+	borderRadius: "10px",
+	padding: "10px 20px 20px",
+	position: "relative",
+	height: "100%",
+	overflow: "hidden",
+	width: { xs: "300px", sm: "100%" },
+	marginRight: { xs: "20px", sm: "0px" },
+	minWidth: "290px",
+	border: "0.5px solid #ebfff6",
+	background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
+	boxShadow: "0 2px 17px rgba(0,0,0,.08)",
+}
+
+const AvatarStyle = {
+	cursor: "pointer",
+	width: "30px",
+	height: "30px",
+	m: "10px 10px 10px 0px",
+}
+
+const ButtonStyle = {
+	marginRight: "5px",
+	textTransform: "none",
+	background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+	color: "white",
+	fontWeight: "600",
+	padding: "3px 10px",
+	"&:hover": { background: "#424493" },
 }
