@@ -23,13 +23,12 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function Phrases({ lesson }: { lesson: LessonType }) {
+const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 	const [open, setOpen] = React.useState(false)
 	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
 
 	const handleClickOpen = () => {
 		setFlashCardIndex(0)
-
 		setOpen(true)
 	}
 	const handleClose = () => {
@@ -140,4 +139,6 @@ export default function Phrases({ lesson }: { lesson: LessonType }) {
 			</BootstrapDialog>
 		</Box>
 	)
-}
+})
+
+export default Phrases

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { Box, Button } from "@mui/material"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import ApiPostServices from "@/pages/api/ApiPostServices"
@@ -11,169 +11,176 @@ import { LessonType } from "@/types/allLessonType"
 import { QuestionsType } from "@/types/GeneratedLessonType"
 import { LinearTimer } from "../other/LinearTimer"
 
-function SpeakMultipleChoiceTest({
-	lesson,
-	contentIndex,
-	handleNext,
-	handlePrevious,
-}: {
-	lesson: LessonType
-	contentIndex: number
-	handleNext: () => void
-	handlePrevious: () => void
-}) {
-	const queryClient = useQueryClient()
-	const [score, setScore] = useState(0)
-	const [show, setShow] = useState(false)
-	const [quizData, setQuizData] = useState<QuestionsType[]>([])
-	const [showResultPage, setShowResultPage] = useState(false)
+const SpeakMultipleChoiceTest = memo(
+	({
+		lesson,
+		contentIndex,
+		handleNext,
+		handlePrevious,
+	}: {
+		lesson: LessonType
+		contentIndex: number
+		handleNext: () => void
+		handlePrevious: () => void
+	}) => {
+		const queryClient = useQueryClient()
+		const [score, setScore] = useState(0)
+		const [show, setShow] = useState(false)
+		const [quizData, setQuizData] = useState<QuestionsType[]>([])
+		const [showResultPage, setShowResultPage] = useState(false)
 
-	const { submitTest } = ApiPostServices()
+		const { submitTest } = ApiPostServices()
 
-	// Submit assessment on database
-	const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
-		onSuccess: () => (
-			queryClient.invalidateQueries(["testResult"]),
-			queryClient.invalidateQueries(["myLatestTestResult"]),
-			queryClient.invalidateQueries(["mySumTestResult"])
-		),
-	})
-
-	function handleSelect(
-		response: {
-			option: string
-			correct: boolean
-		},
-		index: number
-	) {
-		const quizDataCopy = [...quizData]
-		const answer = quizDataCopy[index]
-		answer.response = response
-		setQuizData(quizDataCopy)
-	}
-
-	function handleSubmit() {
-		const correctAnswers = quizData.filter((item) => item?.response?.correct === true)
-		const score = (correctAnswers?.length / quizData?.length) * 100
-
-		setShow(true)
-		setScore(score)
-		setShowResultPage(true)
-		//@ts-ignore
-		mutate({
-			topic: lesson.topic,
-			level: lesson.level,
-			assessment_type: lesson.exercise.type,
-			result: score,
-			assessment_id: lesson?.uid,
-			student_id: auth.currentUser?.uid,
-			student_name: auth.currentUser?.displayName,
+		// Submit assessment on database
+		const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
+			onSuccess: () => (
+				queryClient.invalidateQueries(["testResult"]),
+				queryClient.invalidateQueries(["myLatestTestResult"]),
+				queryClient.invalidateQueries(["mySumTestResult"])
+			),
 		})
-	}
 
-	// Dialog
-	const [open, setOpen] = useState(false)
+		const handleSelect = useCallback(
+			(
+				response: {
+					option: string
+					correct: boolean
+				},
+				index: number
+			) => {
+				const quizDataCopy = [...quizData]
+				const answer = quizDataCopy[index]
+				answer.response = response
+				setQuizData(quizDataCopy)
+			},
+			[quizData]
+		)
 
-	useEffect(() => {
-		isSuccess && setOpen(true)
-	}, [isLoading])
+		const handleSubmit = useCallback(() => {
+			const correctAnswers = quizData.filter((item) => item?.response?.correct === true)
+			const score = (correctAnswers?.length / quizData?.length) * 100
 
-	// Save quiz data to state
-	useEffect(() => {
-		setQuizData(lesson?.exercise?.questions)
-	}, [])
+			setShow(true)
+			setScore(score)
+			setShowResultPage(true)
+			//@ts-ignore
+			mutate({
+				topic: lesson.topic,
+				level: lesson.level,
+				assessment_type: lesson.exercise.type,
+				result: score,
+				assessment_id: lesson?.uid,
+				student_id: auth.currentUser?.uid,
+				student_name: auth.currentUser?.displayName,
+			})
+		}, [mutate, quizData, lesson])
 
-	if (isLoading) return <LoadingPage />
-	if (isError) return <ErrorPage />
+		// Dialog
+		const [open, setOpen] = useState(false)
 
-	if (show && showResultPage)
-		return <CompletedAssessment score={[{ result: score }]} setShowResultPage={setShowResultPage} />
-	return (
-		<Box
-			sx={{
-				background: "inherit",
-				display: "flex",
-				height: "100%",
-				flexDirection: "column",
-				justifyContent: "space-between",
-			}}
-		>
-			{!show && <LinearTimer minutes={10} handleSubmit={handleSubmit} />}
+		useEffect(() => {
+			isSuccess && setOpen(true)
+		}, [isLoading])
+
+		// Save quiz data to state
+		useEffect(() => {
+			setQuizData(lesson?.exercise?.questions)
+		}, [lesson])
+
+		if (isLoading) return <LoadingPage />
+		if (isError) return <ErrorPage />
+
+		if (show && showResultPage) {
+			return <CompletedAssessment score={[{ result: score }]} setShowResultPage={setShowResultPage} />
+		}
+
+		return (
 			<Box
 				sx={{
+					background: "inherit",
 					display: "flex",
+					height: "100%",
 					flexDirection: "column",
-					mt: 5,
+					justifyContent: "space-between",
 				}}
 			>
-				<SpeakQuiz show={show} test={quizData[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
-			</Box>
-			<Box sx={{ width: "100%", display: "flex" }}>
-				<Button
-					disabled={!quizData[contentIndex - 1]}
+				{!show && <LinearTimer minutes={10} handleSubmit={handleSubmit} />}
+				<Box
 					sx={{
-						flex: 1,
-						margin: "15px 0px",
-						background: "#9d4edd",
-						color: "white",
-						fontWeight: 600,
-						mr: 1,
-						"&:hover": { backgroundColor: "#d6a3ff" },
+						display: "flex",
+						flexDirection: "column",
+						mt: 5,
 					}}
-					onClick={handlePrevious}
 				>
-					{quizData[contentIndex - 1] ? "Back" : "Back"}
-				</Button>
-				{!show && !showResultPage ? (
+					<SpeakQuiz show={show} test={quizData[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
+				</Box>
+				<Box sx={{ width: "100%", display: "flex" }}>
 					<Button
-						disabled={quizData[contentIndex + 1] as any}
+						disabled={!quizData[contentIndex - 1]}
 						sx={{
-							flex: 4,
+							flex: 1,
 							margin: "15px 0px",
-							width: "100%",
 							background: "#9d4edd",
 							color: "white",
 							fontWeight: 600,
+							mr: 1,
 							"&:hover": { backgroundColor: "#d6a3ff" },
 						}}
-						onClick={handleSubmit}
+						onClick={handlePrevious}
 					>
-						Submit
+						{quizData[contentIndex - 1] ? "Back" : "Back"}
 					</Button>
-				) : (
+					{!show && !showResultPage ? (
+						<Button
+							disabled={quizData[contentIndex + 1] as any}
+							sx={{
+								flex: 4,
+								margin: "15px 0px",
+								width: "100%",
+								background: "#9d4edd",
+								color: "white",
+								fontWeight: 600,
+								"&:hover": { backgroundColor: "#d6a3ff" },
+							}}
+							onClick={handleSubmit}
+						>
+							Submit
+						</Button>
+					) : (
+						<Button
+							variant="contained"
+							sx={{
+								flex: 4,
+								margin: "15px 0px",
+								width: "100%",
+								background: "#9d4edd",
+								fontWeight: 600,
+								"&:hover": { backgroundColor: "#d6a3ff" },
+							}}
+							onClick={() => setShowResultPage(true)}
+						>
+							Show Result
+						</Button>
+					)}
 					<Button
-						variant="contained"
+						disabled={!quizData[contentIndex + 1]}
 						sx={{
-							flex: 4,
+							flex: 1,
 							margin: "15px 0px",
-							width: "100%",
 							background: "#9d4edd",
+							color: "white",
 							fontWeight: 600,
+							ml: 1,
 							"&:hover": { backgroundColor: "#d6a3ff" },
 						}}
-						onClick={() => setShowResultPage(true)}
+						onClick={handleNext}
 					>
-						Show Result
+						{!quizData[contentIndex + 1] ? "Next" : "Next"}
 					</Button>
-				)}
-				<Button
-					disabled={!quizData[contentIndex + 1]}
-					sx={{
-						flex: 1,
-						margin: "15px 0px",
-						background: "#9d4edd",
-						color: "white",
-						fontWeight: 600,
-						ml: 1,
-						"&:hover": { backgroundColor: "#d6a3ff" },
-					}}
-					onClick={handleNext}
-				>
-					{!quizData[contentIndex + 1] ? "Next" : "Next"}
-				</Button>
+				</Box>
 			</Box>
-		</Box>
-	)
-}
+		)
+	}
+)
 
 export default SpeakMultipleChoiceTest

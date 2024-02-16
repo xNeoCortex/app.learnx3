@@ -24,7 +24,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function FlashCards({ lesson }: { lesson: TopicContentType }) {
+const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 	const [open, setOpen] = React.useState(false)
 	const [showDefinition, setShowDefinition] = React.useState(false)
 	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
@@ -53,7 +53,7 @@ export default function FlashCards({ lesson }: { lesson: TopicContentType }) {
 	}
 
 	return (
-		<div>
+		<Box>
 			<CardWrapper background="#fff6c9">
 				<Box
 					onClick={handleClickOpen}
@@ -137,6 +137,8 @@ export default function FlashCards({ lesson }: { lesson: TopicContentType }) {
 					</Grid>
 				</DialogContent>
 			</BootstrapDialog>
-		</div>
+		</Box>
 	)
-}
+})
+
+export default FlashCards

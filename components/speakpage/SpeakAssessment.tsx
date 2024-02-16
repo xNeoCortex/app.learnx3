@@ -22,7 +22,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function SpeakAssessment({ lesson }: { lesson: LessonType }) {
+const SpeakAssessment = React.memo(({ lesson }: { lesson: LessonType }) => {
 	const [open, setOpen] = React.useState(false)
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
@@ -91,4 +91,6 @@ export default function SpeakAssessment({ lesson }: { lesson: LessonType }) {
 			</BootstrapDialog>
 		</div>
 	)
-}
+})
+
+export default SpeakAssessment

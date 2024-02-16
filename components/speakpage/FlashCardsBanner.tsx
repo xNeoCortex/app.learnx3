@@ -1,9 +1,9 @@
-import React from "react"
+import React, { memo } from "react"
 import { Box, Typography } from "@mui/material"
 import CardWrapper from "../elements/CardWrapper"
-import { TopicContentType } from "@/types/generatedLessonType"
+import { TopicContentType } from "@/types/GeneratedLessonType"
 
-function FlashCardsBanner({ lesson }: { lesson: TopicContentType }) {
+const FlashCardsBanner = memo(({ lesson }: { lesson: TopicContentType }) => {
 	return (
 		<CardWrapper background="#fff6c9">
 			<Box
@@ -27,6 +27,6 @@ function FlashCardsBanner({ lesson }: { lesson: TopicContentType }) {
 			</Box>
 		</CardWrapper>
 	)
-}
+})
 
 export default FlashCardsBanner

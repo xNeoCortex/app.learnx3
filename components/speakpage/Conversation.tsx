@@ -24,7 +24,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	},
 }))
 
-export default function Conversation({ lesson }: { lesson: LessonType }) {
+const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const [open, setOpen] = React.useState(false)
@@ -213,4 +213,6 @@ export default function Conversation({ lesson }: { lesson: LessonType }) {
 			</BootstrapDialog>
 		</Box>
 	)
-}
+})
+
+export default Conversation
