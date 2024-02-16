@@ -1,3 +1,5 @@
+import { UseMutateFunction } from "@tanstack/react-query"
+import { AxiosResponse } from "axios"
 import { Dayjs } from "dayjs"
 
 export interface TopicType {
@@ -70,7 +72,7 @@ export interface UserType {
 	gender: string
 	phone: string | null
 	country: string
-	role: "student"
+	role: "student" | "teacher" | "admin"
 	permit: boolean
 	performance: string
 	eng_level_form: "A0" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
@@ -93,3 +95,16 @@ export type TeacherType = Pick<
 	UserType,
 	"name" | "age" | "phone" | "country" | "qualification" | "gender" | "email" | "uid" | "permit"
 >
+
+export interface CreateLessonDialogProps {
+	handleClose: () => void
+	open: boolean
+	buttonName: string | undefined
+	lessonInfo: LessonTimetableType
+	setLessonInfo: React.Dispatch<React.SetStateAction<LessonTimetableType>>
+	message: string
+	_lesson: LessonTimetableType | null
+	userInfo: UserType
+	deleteLesson: UseMutateFunction<AxiosResponse<any, any>, unknown, void, unknown>
+	handleSave: () => void
+}
