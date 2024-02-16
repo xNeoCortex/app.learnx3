@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js"
 import { Bar } from "react-chartjs-2"
 
@@ -20,7 +20,7 @@ const options = {
 	label: false,
 }
 
-export function BarChart({ dataProp, labelsProp }: { dataProp: number[]; labelsProp: string[] }) {
+export const BarChart = memo(({ dataProp, labelsProp }: { dataProp: number[]; labelsProp: string[] }) => {
 	const labels = labelsProp
 	const data = {
 		labels: labels,
@@ -56,4 +56,4 @@ export function BarChart({ dataProp, labelsProp }: { dataProp: number[]; labelsP
 	}
 
 	return <Bar data={data} options={options} />
-}
+})

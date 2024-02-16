@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import Link from "next/link"
 import { capitalize } from "@mui/material"
 
-export default function ImgMediaCard({ title, link }: { title: string; link: string }) {
+const ImgMediaCard = React.memo(({ title, link }: { title: string; link: string }) => {
 	return (
 		<Link href={link}>
 			<Card
@@ -35,4 +35,6 @@ export default function ImgMediaCard({ title, link }: { title: string; link: str
 			</Card>
 		</Link>
 	)
-}
+})
+
+export default ImgMediaCard

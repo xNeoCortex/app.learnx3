@@ -50,51 +50,55 @@ function BootstrapDialogTitle(props: DialogTitleProps) {
 	)
 }
 
-export default function ConfirmationModal({
-	openConfirm,
-	setOpenConfirm,
-	action,
-	message,
-	topic,
-}: {
-	openConfirm: boolean
-	setOpenConfirm: React.Dispatch<React.SetStateAction<boolean>>
-	action: () => void
-	message: string
-	topic: string
-}) {
-	const handleNo = () => {
-		setOpenConfirm(false)
-	}
+const ConfirmationModal = React.memo(
+	({
+		openConfirm,
+		setOpenConfirm,
+		action,
+		message,
+		topic,
+	}: {
+		openConfirm: boolean
+		setOpenConfirm: React.Dispatch<React.SetStateAction<boolean>>
+		action: () => void
+		message: string
+		topic: string
+	}) => {
+		const handleNo = () => {
+			setOpenConfirm(false)
+		}
 
-	const handleYes = () => {
-		action()
-		setOpenConfirm(false)
-	}
+		const handleYes = () => {
+			action()
+			setOpenConfirm(false)
+		}
 
-	return (
-		<div>
-			<BootstrapDialog
-				onClose={handleNo}
-				aria-labelledby="customized-dialog-title"
-				open={openConfirm}
-				onClick={(e) => e.stopPropagation()}
-			>
-				<BootstrapDialogTitle id="customized-dialog-title" onClose={handleNo}>
-					{topic}
-				</BootstrapDialogTitle>
-				<DialogContent style={{ padding: "15px 30px 10px" }}>
-					<Typography gutterBottom>{message}</Typography>
-				</DialogContent>
-				<DialogActions style={{ padding: "10px 20px 15px" }}>
-					<Button onClick={handleNo} style={{ color: "rgba(0, 0, 0, 0.87)" }}>
-						No
-					</Button>
-					<Button onClick={handleYes} autoFocus style={{ backgroundColor: "rgb(95, 106, 196)", color: "white" }}>
-						Yes
-					</Button>
-				</DialogActions>
-			</BootstrapDialog>
-		</div>
-	)
-}
+		return (
+			<div>
+				<BootstrapDialog
+					onClose={handleNo}
+					aria-labelledby="customized-dialog-title"
+					open={openConfirm}
+					onClick={(e) => e.stopPropagation()}
+				>
+					<BootstrapDialogTitle id="customized-dialog-title" onClose={handleNo}>
+						{topic}
+					</BootstrapDialogTitle>
+					<DialogContent sx={{ padding: "15px 30px 10px" }}>
+						<Typography gutterBottom>{message}</Typography>
+					</DialogContent>
+					<DialogActions sx={{ padding: "10px 20px 15px" }}>
+						<Button onClick={handleNo} sx={{ color: "rgba(0, 0, 0, 0.87)" }}>
+							No
+						</Button>
+						<Button onClick={handleYes} autoFocus sx={{ backgroundColor: "rgb(95, 106, 196)", color: "white" }}>
+							Yes
+						</Button>
+					</DialogActions>
+				</BootstrapDialog>
+			</div>
+		)
+	}
+)
+
+export default ConfirmationModal

@@ -36,25 +36,27 @@ function LinearProgressWithLabel(props: LinearProgressProps & { progress: number
 	)
 }
 
-export default function LinearTimer({ minutes = 10, handleSubmit }: { minutes: number; handleSubmit: () => void }) {
-	const [progress, setProgress] = React.useState(0)
-	const linearN = (100 / (minutes * 60)) * progress
+export const LinearTimer = React.memo(
+	({ minutes = 10, handleSubmit }: { minutes: number; handleSubmit: () => void }) => {
+		const [progress, setProgress] = React.useState(0)
+		const linearN = (100 / (minutes * 60)) * progress
 
-	React.useEffect(() => {
-		const timer = setInterval(() => {
-			if (progress !== minutes * 60) {
-				progress < minutes * 60 && setProgress(progress + 1)
+		React.useEffect(() => {
+			const timer = setInterval(() => {
+				if (progress !== minutes * 60) {
+					progress < minutes * 60 && setProgress(progress + 1)
+				}
+			}, 1000)
+			progress === minutes * 60 && handleSubmit()
+			return () => {
+				clearInterval(timer)
 			}
-		}, 1000)
-		progress === minutes * 60 && handleSubmit()
-		return () => {
-			clearInterval(timer)
-		}
-	}, [progress])
+		}, [progress])
 
-	return (
-		<Box sx={{ width: "100%" }}>
-			<LinearProgressWithLabel value={linearN} progress={progress} minutes={minutes} />
-		</Box>
-	)
-}
+		return (
+			<Box sx={{ width: "100%" }}>
+				<LinearProgressWithLabel value={linearN} progress={progress} minutes={minutes} />
+			</Box>
+		)
+	}
+)

@@ -3,8 +3,8 @@ import Link from "next/link"
 
 function WaitingPage() {
 	return (
-		<div
-			style={{
+		<Box
+			sx={{
 				height: "100vh",
 				display: "flex",
 				justifyContent: "center",
@@ -60,7 +60,7 @@ function WaitingPage() {
 					</Button>
 				</Link>
 			</Box>
-		</div>
+		</Box>
 	)
 }
 

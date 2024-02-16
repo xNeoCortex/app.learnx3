@@ -6,7 +6,7 @@ function ClassAllocation() {
 	const { setUserInfo } = useStoreUser()
 	return (
 		<Box
-			style={{
+			sx={{
 				height: "100vh",
 				display: "flex",
 				justifyContent: "center",

@@ -10,15 +10,15 @@ function BackButton({ disabled = false }) {
 				disabled={disabled}
 				onClick={() => back()}
 				variant="contained"
-				style={{
-					borderRadius: 20,
+				sx={{
+					borderRadius: "20px",
 					color: disabled ? "grey" : "black",
 					background: "white",
-					width: 100,
-					fontWeight: 600,
+					width: "100px",
+					fontWeight: "600",
 					boxShadow: "none",
-					marginRight: 10,
-					zIndex: 999,
+					marginRight: "10px",
+					zIndex: "999",
 				}}
 			>
 				Back

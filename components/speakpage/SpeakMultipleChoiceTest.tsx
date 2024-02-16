@@ -4,12 +4,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import LoadingPage from "@/components/LoadingPage"
 import CompletedAssessment from "@/components/assessment/CompletedAssessment"
-import LinearTimer from "@/components/other/LinearTimer"
 import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 import { LessonType } from "@/types/allLessonType"
-import { QuestionsType } from "@/types/generatedLessonType"
+import { QuestionsType } from "@/types/GeneratedLessonType"
+import { LinearTimer } from "../other/LinearTimer"
 
 function SpeakMultipleChoiceTest({
 	lesson,
