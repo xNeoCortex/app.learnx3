@@ -1,49 +1,20 @@
-import { UserType } from "@/types/types"
-import { Avatar, Box, Button } from "@mui/material"
-import Link from "next/link"
 import { memo } from "react"
+import { UserType } from "@/types/types"
+import { Avatar, Box, Button, Typography } from "@mui/material"
+import Link from "next/link"
 
 const StudentCard = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 	return (
-		<Box
-			style={{
-				padding: "20px 10px",
-				width: "200px",
-				marginRight: "20px",
-				borderRadius: "23px",
-				color: "white",
-				height: "250px",
-				display: "flex",
-				justifyContent: "space-between",
-				alignItems: "center",
-				flexDirection: "column",
-				background: "#e0e1f1",
-				marginBottom: "20px",
-				position: "relative",
-			}}
-		>
+		<Box sx={BoxStyle}>
 			<Avatar
 				src={studentDetails?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-				sx={{ bgcolor: "white", width: 70, height: 70 }}
+				sx={{ bgcolor: "white", width: "70px", height: "70px" }}
 			/>
 
 			<Box display="flex" alignItems="center" flexDirection="column">
-				<h5
-					style={{
-						color: "#323331",
-						fontWeight: 600,
-						fontSize: 16,
-						padding: 0,
-						margin: 0,
-						marginTop: 8,
-						marginBottom: 8,
-						textAlign: "center",
-					}}
-				>
-					{studentDetails.name}
-				</h5>
-				<p
-					style={{
+				<Typography sx={TypographyStyle}>{studentDetails.name}</Typography>
+				<Typography
+					sx={{
 						color:
 							studentDetails.performance == "Struggling"
 								? "rgb(226, 109, 128)"
@@ -59,27 +30,17 @@ const StudentCard = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 								: studentDetails.performance == "Doing Great"
 								? "2px solid #5fc497"
 								: "2px solid #41b6ff",
-						borderRadius: 12,
-						marginBottom: 15,
+						borderRadius: "12px",
+						marginBottom: "15px",
 						fontSize: "13px",
 					}}
 				>
 					{studentDetails.performance}
-				</p>
+				</Typography>
 			</Box>
 			<Box display="flex" alignItems="center" flexDirection="column">
 				<Link href={`/student/${studentDetails.uid}`}>
-					<Button
-						variant="contained"
-						style={{
-							borderRadius: 20,
-							color: "black",
-							background: "white",
-							width: 100,
-							boxShadow: "none",
-							textTransform: "none",
-						}}
-					>
+					<Button variant="contained" sx={ButtonStyle}>
 						View
 					</Button>
 				</Link>
@@ -88,3 +49,39 @@ const StudentCard = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 	)
 })
 export default StudentCard
+
+const BoxStyle = {
+	padding: "20px 10px",
+	width: "200px",
+	marginRight: "20px",
+	borderRadius: "23px",
+	color: "white",
+	height: "250px",
+	display: "flex",
+	justifyContent: "space-between",
+	alignItems: "center",
+	flexDirection: "column",
+	background: "#e0e1f1",
+	marginBottom: "20px",
+	position: "relative",
+}
+
+const ButtonStyle = {
+	borderRadius: "20px",
+	color: "black",
+	background: "white",
+	width: "100px",
+	boxShadow: "none",
+	textTransform: "none",
+}
+
+const TypographyStyle = {
+	color: "#323331",
+	fontWeight: "600",
+	fontSize: "16px",
+	padding: "0",
+	margin: "0",
+	marginTop: "8px",
+	marginBottom: "8px",
+	textAlign: "center",
+}

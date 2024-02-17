@@ -42,7 +42,7 @@ function StudentCardList() {
 
 	return (
 		<Box
-			style={{
+			sx={{
 				overflowY: "scroll",
 				overflow: "hidden",
 				width: `100%`,
@@ -51,39 +51,39 @@ function StudentCardList() {
 		>
 			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
 				<Typography
-					style={{
+					sx={{
 						margin: "10px 10px 10px 0px",
-						fontWeight: 600,
-						fontSize: 19,
+						fontWeight: "600px",
+						fontSize: "19px",
 						color: "#5f616a",
 					}}
 				>
 					All Students
 					<Button
-						style={{
+						sx={{
 							background: "#5f6ac4",
 							color: "white",
 							boxShadow: "none",
 							padding: "1px 10px 0px",
 							marginLeft: "10px",
-							fontWeight: 600,
+							fontWeight: "600px",
 						}}
 					>
 						{students?.data?.length ?? 0} Students
 					</Button>
 				</Typography>
 				<ToggleButtonGroup color="primary" value={alignment} exclusive onChange={handleChange} aria-label="Platform">
-					<ToggleButton value="row" style={{ padding: "0px 5px", height: 35 }}>
+					<ToggleButton value="row" sx={{ padding: "0px 5px", height: "35px" }}>
 						<TableRowsIcon />
 					</ToggleButton>
-					<ToggleButton value="grid" style={{ padding: "0px 5px", height: 35 }}>
+					<ToggleButton value="grid" sx={{ padding: "0px 5px", height: "35px" }}>
 						<ViewModuleIcon />
 					</ToggleButton>
 				</ToggleButtonGroup>
 			</Box>
 			{alignment == "grid" ? (
 				<Box
-					style={{
+					sx={{
 						display: "flex",
 						flexWrap: "nowrap",
 						overflowX: "scroll",
@@ -97,7 +97,7 @@ function StudentCardList() {
 					))}
 				</Box>
 			) : (
-				<Box style={{ display: "flex", flexDirection: "column" }}>
+				<Box sx={{ display: "flex", flexDirection: "column" }}>
 					<Grid container>
 						<Grid item xs={12}>
 							<StudentList data={students?.data} />
