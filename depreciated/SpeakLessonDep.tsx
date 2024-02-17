@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material"
 import React from "react"
 import { SpeakY } from "../components/data/SpeakingNew"
 
-function SpeakLessonDep(props) {
+function SpeakLessonDep() {
 	return (
 		<div>
 			<Box

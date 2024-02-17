@@ -5,25 +5,12 @@ import CssBaseline from "@mui/material/CssBaseline"
 import TextField from "@mui/material/TextField"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
-import LockOpenIcon from "@mui/icons-material/LockOpen"
 import { Alert, Typography } from "@mui/material"
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth"
 import AuthLayout from "@/components/auth/AuthLayout"
 import Link from "next/link"
 import { auth } from "@/components/firebaseX"
-
-function Copyright(props: any) {
-	return (
-		<Typography variant="body2" color="text.secondary" align="center" {...props}>
-			{"Copyright © "}
-			<a color="inherit" href="#">
-				LearnX3
-			</a>{" "}
-			{new Date().getFullYear()}
-			{"."}
-		</Typography>
-	)
-}
+import Copyright from "@/components/Copyright"
 
 export default function Register() {
 	const [email, setEmail] = React.useState("")
@@ -149,7 +136,7 @@ export default function Register() {
 						</Grid>
 					</Grid>
 				</Box>
-				<Copyright sx={{ mt: 2 }} />
+				<Copyright />
 			</Box>
 		</AuthLayout>
 	)

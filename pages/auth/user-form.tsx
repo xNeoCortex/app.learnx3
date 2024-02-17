@@ -11,7 +11,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
 import { useStoreUser } from "@/components/zustand"
 import { auth, db } from "@/components/firebaseX"
-import { Alert, Divider } from "@mui/material"
+import { Alert, Divider, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
 
@@ -97,49 +97,21 @@ export default function UserForm() {
 	}
 
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: { xs: "column", sm: "row" },
-				alignItems: "center",
-				justifyContent: "center",
-				background: "#5f6ac40f",
-				height: "100vh",
-				overflow: "hidden",
-				gap: "20px",
-				padding: "20px",
-			}}
-		>
+		<Box sx={BoxWrapperStyle}>
 			<CssBaseline />
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "start",
-					maxWidth: "600px",
-					borderRadius: "8px",
-					width: "100%",
-					padding: { xs: 3, sm: 5 },
-					paddingTop: "20px",
-					margin: "10px",
-					overflow: "hidden",
-					boxShadow: "0 2px 17px rgba(0,0,0,.08)",
-					border: ".4px solid #ebeeff",
-					background: "white",
-				}}
-			>
-				<p
-					style={{
+			<Box sx={BoxStyle}>
+				<Typography
+					sx={{
 						display: "flex",
 						alignItems: "Start",
-						fontWeight: 600,
-						fontSize: 22,
+						fontWeight: "600",
+						fontSize: "22px",
 						margin: "5px 0px",
 					}}
 				>
 					Teacher Profile Details 👨‍🏫
-				</p>
-				<p>Enter details to set up your account </p>
+				</Typography>
+				<Typography>Enter details to set up your account </Typography>
 				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, maxWidth: 500 }}>
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
@@ -202,7 +174,7 @@ export default function UserForm() {
 							>
 								<ToggleButton
 									value="male"
-									style={{
+									sx={{
 										display: "flex",
 										flex: 1,
 										borderColor: "#e5e7eb",
@@ -212,7 +184,7 @@ export default function UserForm() {
 								</ToggleButton>
 								<ToggleButton
 									value="female"
-									style={{
+									sx={{
 										display: "flex",
 										flex: 1,
 										borderColor: "#e5e7eb",
@@ -237,7 +209,7 @@ export default function UserForm() {
 					</Box>
 				</Box>
 				<Divider sx={{ marginY: "15px", color: "black" }} />
-				<Grid item xs={12} style={{ width: "100%" }}>
+				<Grid item xs={12} sx={{ width: "100%" }}>
 					<Link href={"/auth/student-form"} style={{ width: "100%" }}>
 						<Button
 							fullWidth
@@ -261,4 +233,32 @@ export default function UserForm() {
 			</Box>
 		</Box>
 	)
+}
+
+const BoxWrapperStyle = {
+	display: "flex",
+	flexDirection: { xs: "column", sm: "row" },
+	alignItems: "center",
+	justifyContent: "center",
+	background: "#5f6ac40f",
+	height: "100vh",
+	overflow: "hidden",
+	gap: "20px",
+	padding: "20px",
+}
+
+const BoxStyle = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "start",
+	maxWidth: "600px",
+	borderRadius: "8px",
+	width: "100%",
+	padding: { xs: 3, sm: 5 },
+	paddingTop: "20px",
+	margin: "10px",
+	overflow: "hidden",
+	boxShadow: "0 2px 17px rgba(0,0,0,.08)",
+	border: ".4px solid #ebeeff",
+	background: "white",
 }

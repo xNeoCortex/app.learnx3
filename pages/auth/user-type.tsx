@@ -5,34 +5,8 @@ import { Avatar, Box, Button, Typography } from "@mui/material"
 function UserType() {
 	const [who, setWho] = React.useState("student")
 	return (
-		<Box
-			style={{
-				width: "100vw",
-				height: "100vh",
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				backgroundImage: `url(/bg1.jpg)`,
-				backgroundPosition: "center",
-				backgroundSize: "cover",
-				backgroundRepeat: "no-repeat",
-			}}
-		>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "start",
-					maxWidth: "650px",
-					background: "#5f6ac40f",
-					borderRadius: "8px",
-					padding: 5,
-					paddingTop: "20px",
-					margin: "10px",
-					marginBottom: "200px",
-					overflow: "hidden",
-				}}
-			>
+		<Box style={BoxWrapperStyle}>
+			<Box sx={BoxStyle}>
 				<Typography sx={{ fontSize: 28, m: "auto", mb: 4, color: "black" }}>
 					Hello, I am a <span style={{ textDecoration: "underline", fontWeight: "bold" }}>{who}</span>!
 				</Typography>
@@ -75,3 +49,29 @@ function UserType() {
 }
 
 export default UserType
+
+const BoxWrapperStyle = {
+	width: "100vw",
+	height: "100vh",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	backgroundImage: `url(/bg1.jpg)`,
+	backgroundPosition: "center",
+	backgroundSize: "cover",
+	backgroundRepeat: "no-repeat",
+}
+
+const BoxStyle = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "start",
+	maxWidth: "650px",
+	background: "#5f6ac40f",
+	borderRadius: "8px",
+	padding: 5,
+	paddingTop: "20px",
+	margin: "10px",
+	marginBottom: "200px",
+	overflow: "hidden",
+}

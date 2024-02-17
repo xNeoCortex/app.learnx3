@@ -11,7 +11,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
 import { useStoreUser } from "@/components/zustand"
 import { auth, db } from "@/components/firebaseX"
-import { Alert, Divider, FormControl, InputLabel, MenuItem, Select } from "@mui/material"
+import { Alert, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
 
@@ -108,50 +108,22 @@ export default function StudentForm() {
 	}
 
 	return (
-		<Box
-			style={{
-				width: "100vw",
-				height: "100vh",
-				display: "flex",
-				justifyContent: "center",
-				alignItems: "center",
-				backgroundImage: `url(/bg1.jpg)`,
-				backgroundPosition: "center",
-				backgroundSize: "cover",
-				backgroundRepeat: "no-repeat",
-			}}
-		>
+		<Box sx={BoxWrapperStyle}>
 			<CssBaseline />
 
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "start",
-					maxWidth: "600px",
-					borderRadius: "8px",
-					width: "100%",
-					padding: { xs: 3, sm: 5 },
-					paddingTop: "20px",
-					margin: "10px",
-					overflow: "hidden",
-					boxShadow: "0 2px 17px rgba(0,0,0,.08)",
-					border: ".4px solid #ebeeff",
-					background: "white",
-				}}
-			>
-				<p
-					style={{
+			<Box sx={BoxStyle}>
+				<Typography
+					sx={{
 						display: "flex",
 						alignItems: "Start",
-						fontWeight: 600,
-						fontSize: 22,
+						fontWeight: "600",
+						fontSize: "22px",
 						margin: "5px 0px",
 					}}
 				>
 					🚀 Student Profile Details
-				</p>
-				<p>Enter details to set up your account</p>
+				</Typography>
+				<Typography>Enter details to set up your account</Typography>
 				<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 					<Grid container spacing={4}>
 						<Grid item xs={12}>
@@ -200,11 +172,11 @@ export default function StudentForm() {
 								//@ts-ignore
 								onChange={handleInput}
 								aria-label="Platform"
-								style={{ borderColor: "#e5e7eb", height: 56, width: "100%" }}
+								sx={{ borderColor: "#e5e7eb", height: "56px", width: "100%" }}
 							>
 								<ToggleButton
 									value="male"
-									style={{
+									sx={{
 										display: "flex",
 										flex: 1,
 										borderColor: "#e5e7eb",
@@ -214,7 +186,7 @@ export default function StudentForm() {
 								</ToggleButton>
 								<ToggleButton
 									value="female"
-									style={{
+									sx={{
 										display: "flex",
 										flex: 1,
 										borderColor: "#e5e7eb",
@@ -275,20 +247,7 @@ export default function StudentForm() {
 					<Divider sx={{ marginY: "15px" }} />
 					<Grid item xs={12}>
 						<Link href={"/auth/user-form"}>
-							<Button
-								fullWidth
-								variant="contained"
-								sx={{
-									mt: 1,
-									mb: 1,
-									background: "white",
-									marginRight: "10px",
-									boxShadow: "none",
-									border: "0.5px solid grey",
-									color: "grey",
-									"&:hover": { background: "#8080802b", boxShadow: "none" },
-								}}
-							>
+							<Button fullWidth variant="contained" sx={ButtonStyle}>
 								I am a teacher 🧑‍🏫
 							</Button>
 						</Link>
@@ -329,3 +288,42 @@ const engLevel = [
 		label: "Proficiency",
 	},
 ]
+
+const ButtonStyle = {
+	mt: 1,
+	mb: 1,
+	background: "white",
+	marginRight: "10px",
+	boxShadow: "none",
+	border: "0.5px solid grey",
+	color: "grey",
+	"&:hover": { background: "#8080802b", boxShadow: "none" },
+}
+
+const BoxWrapperStyle = {
+	width: "100vw",
+	height: "100vh",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	backgroundImage: `url(/bg1.jpg)`,
+	backgroundPosition: "center",
+	backgroundSize: "cover",
+	backgroundRepeat: "no-repeat",
+}
+
+const BoxStyle = {
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "start",
+	maxWidth: "600px",
+	borderRadius: "8px",
+	width: "100%",
+	padding: { xs: 3, sm: 5 },
+	paddingTop: "20px",
+	margin: "10px",
+	overflow: "hidden",
+	boxShadow: "0 2px 17px rgba(0,0,0,.08)",
+	border: ".4px solid #ebeeff",
+	background: "white",
+}

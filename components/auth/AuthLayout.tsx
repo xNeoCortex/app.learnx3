@@ -1,7 +1,4 @@
 import { Box } from "@mui/system"
-import { createTheme } from "@mui/material/styles"
-
-const theme = createTheme()
 
 function AuthLayout({ children }: { children: React.ReactNode }) {
 	return (
@@ -15,9 +12,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
 				background: "#0e1237",
 			}}
 		>
-			{/* <ThemeProvider theme={theme}> */}
 			<Box sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>{children}</Box>
-			{/* </ThemeProvider> */}
 		</Box>
 	)
 }

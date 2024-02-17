@@ -208,11 +208,11 @@ export default function Login() {
 					>
 						{isLoading ? <CircularProgress /> : "🚀 Login"}
 					</Button>
-					<Grid container style={{ display: "flex", justifyContent: "column" }}>
+					<Grid container sx={{ display: "flex", justifyContent: "column" }}>
 						<Grid
 							item
 							margin="auto"
-							style={{
+							sx={{
 								width: "100%",
 								display: "flex",
 								alignItems: "center",
@@ -226,12 +226,12 @@ export default function Login() {
 						<Grid
 							item
 							margin="auto"
-							style={{
+							sx={{
 								width: "100%",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
-								marginBottom: 10,
+								marginBottom: "10px",
 							}}
 						>
 							<Link href="/auth/register">
@@ -239,14 +239,8 @@ export default function Login() {
 							</Link>
 						</Grid>
 					</Grid>
-
-					{/* <Link href="/auth/login-phone">
-						<Button fullWidth variant="outlined" sx={{ mt: 3, mb: 2 }}>
-							Log in with Phone
-						</Button>
-					</Link> */}
 				</Box>
-				<p style={{ textAlign: "center", color: "grey", margin: 0 }}>or</p>
+				<Typography style={{ textAlign: "center", color: "grey", margin: 0 }}>or</Typography>
 				<Button
 					onClick={handleSubmitGoogle}
 					fullWidth
