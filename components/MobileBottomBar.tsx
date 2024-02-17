@@ -1,12 +1,9 @@
 import React from "react"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import { Box } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import BarChartIcon from "@mui/icons-material/BarChart"
-import { ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material"
 import QueryStatsIcon from "@mui/icons-material/QueryStats"
-import SpellcheckIcon from "@mui/icons-material/Spellcheck"
 import QuizIcon from "@mui/icons-material/Quiz"
 import CastForEducationIcon from "@mui/icons-material/CastForEducation"
 import LightbulbIcon from "@mui/icons-material/Lightbulb"
@@ -14,6 +11,7 @@ import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "./zustand"
 import VerifiedIcon from "@mui/icons-material/Verified"
 import AppsIcon from "@mui/icons-material/Apps"
+import SidebarItem from "./SidebarItem"
 
 function MobileBottomBar() {
 	const { pathname } = useRouter()
@@ -38,102 +36,24 @@ function MobileBottomBar() {
 			}}
 		>
 			{userInfo?.role === "teacher" ? (
-				dataTeacher()?.map((item, index) => (
-					<Link key={index} href={item?.link}>
-						<ListItem disablePadding>
-							<ListItemButton
-								className="onHover"
-								style={{
-									color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
-									borderRadius: 5,
-									marginBottom: 5,
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-									maxWidth: 100,
-								}}
-							>
-								<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
-									{item.icon}
-								</ListItemIcon>
-								<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
-							</ListItemButton>
-						</ListItem>
-					</Link>
-				))
+				dataTeacher()?.map((item, index) => <SidebarItem key={index} item={item} pathname={pathname} />)
 			) : userInfo?.role === "student" ? (
 				<>
 					{dataStudent()?.map((item, index) => (
-						<Link key={index} href={item?.link}>
-							<ListItem disablePadding>
-								<ListItemButton
-									className="onHover"
-									style={{
-										color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
-										borderRadius: 5,
-										marginBottom: 5,
-										display: "flex",
-										flexDirection: "column",
-										alignItems: "center",
-										maxWidth: 100,
-										padding: "10px 5px",
-									}}
-								>
-									<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
-										{item.icon}
-									</ListItemIcon>
-									<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
-								</ListItemButton>
-							</ListItem>
-						</Link>
+						<SidebarItem key={index} item={item} pathname={pathname} />
 					))}
-					<Link href={`/student/${userInfo?.uid}`}>
-						<ListItem disablePadding>
-							<ListItemButton
-								className="onHover"
-								style={{
-									color: pathname == `/student/[id]` ? "rgb(4, 7, 24)" : "#BAB9CC",
-									borderRadius: 5,
-									marginBottom: 5,
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-									maxWidth: 100,
-									padding: "10px 5px",
-								}}
-							>
-								<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
-									<BarChartIcon />
-								</ListItemIcon>
-								<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>My Result</Typography>
-							</ListItemButton>
-						</ListItem>
-					</Link>
+					<SidebarItem
+						item={{
+							name: "My Result",
+							href: `/student/[id]`,
+							link: `/student/${userInfo?.uid}`,
+							icon: <BarChartIcon sx={{ width: 30, height: 30 }} />,
+						}}
+						pathname={pathname}
+					/>
 				</>
 			) : userInfo?.role === "admin" ? (
-				dataAdmin().map((item, index) => (
-					<Link key={index} href={item?.link}>
-						<ListItem disablePadding>
-							<ListItemButton
-								className="onHover"
-								style={{
-									color: pathname == item.href ? "rgb(4, 7, 24)" : "#BAB9CC",
-									borderRadius: 5,
-									marginBottom: 5,
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-									maxWidth: 100,
-								}}
-							>
-								<ListItemIcon style={{ color: "inherit", display: "flex", justifyContent: "center" }}>
-									{item.icon}
-								</ListItemIcon>{" "}
-								<Typography sx={{ fontSize: 11, textAlign: "center", width: "100%" }}>{item.name}</Typography>
-							</ListItemButton>
-						</ListItem>
-					</Link>
-				))
+				dataAdmin().map((item, index) => <SidebarItem key={index} item={item} pathname={pathname} />)
 			) : (
 				""
 			)}
@@ -151,12 +71,12 @@ const dataTeacher = () => {
 			link: `/home/teacher`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
-		// {
-		// 	name: "Curriculum",
-		// 	href: "/curriculum",
-		// 	link: "/curriculum",
-		// 	icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
-		// },
+		{
+			name: "Lessons",
+			href: "/lessons",
+			link: "/lessons",
+			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
 		{
 			name: "Topics",
 			href: "/speak",
@@ -175,23 +95,11 @@ const dataTeacher = () => {
 			link: `/student/results`,
 			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
-		{
-			name: "Class Statistics",
-			href: "/class-statistics",
-			link: "/class-statistics",
-			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Mark Writing",
-			href: "/grade-writing",
-			link: "/grade-writing",
-			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
-		},
 		// {
-		// 	name: "Teacher Fina",
-		// 	href: "/fina",
-		// 	link: "/fina",
-		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
+		// 	name: "Class Statistics",
+		// 	href: "/class-statistics",
+		// 	link: "/class-statistics",
+		// 	icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
 		// },
 	]
 }
@@ -269,23 +177,5 @@ const dataAdmin = () => {
 			link: "/test",
 			icon: <QuizIcon sx={{ width: 30, height: 30 }} />,
 		},
-		// {
-		// 	name: "Writing",
-		// 	href: "/writing",
-		// 	link: "/writing",
-		// 	icon: <HistoryEduIcon sx={{ width: 30, height: 30 }} />,
-		// },
-		{
-			name: "Mark Writing",
-			href: "/grade-writing",
-			link: "/grade-writing",
-			icon: <SpellcheckIcon sx={{ width: 30, height: 30 }} />,
-		},
-		// {
-		// 	name: "Teacher Fina",
-		// 	href: "/fina",
-		// 	link: "/fina",
-		// 	icon: <AdbIcon sx={{ width: 30, height: 30 }} />,
-		// },
 	]
 }

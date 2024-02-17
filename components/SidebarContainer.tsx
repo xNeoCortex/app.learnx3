@@ -1,25 +1,30 @@
 import React from "react"
 import { ThemeProvider, useTheme } from "@mui/material/styles"
 import { Box, useMediaQuery } from "@mui/material"
-//@ts-ignore
 import Sidebar from "./sidebar"
 import Navbar from "./Navbar"
 import Fina from "@/pages/fina"
 import FinaAvatar from "./fina/FinaAvatar"
 import MobileBottomBar from "./MobileBottomBar"
-import FinaAvatarMobile from "./fina/FinaAvatarMobile"
 import { FinaAvatarMobilePopup } from "./fina/FinaAvatarMobilePopup"
+import { useStoreTemporary } from "./zustand"
 
 function SidebarContainer({ children }: { children: React.ReactNode }) {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
-	const [open, setOpen] = React.useState<boolean>(false)
+	const { setBotComponentWidth } = useStoreTemporary()
+	const [finaPopupOpen, setFinaPopupOpen] = React.useState<boolean>(false)
+
+	const handleFinaPopup = () => {
+		isSmallScreen ? setFinaPopupOpen(true) : setBotComponentWidth(900)
+	}
 
 	return (
-		<Box sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}>
-			{isSmallScreen ? <FinaAvatarMobile setOpen={setOpen} /> : <FinaAvatar />}
-			<FinaAvatarMobilePopup open={open} setOpen={setOpen} />
-			<ThemeProvider theme={theme}>
+		<ThemeProvider theme={theme}>
+			<Box sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}>
+				<FinaAvatar handleFinaClick={handleFinaPopup} />
+				<FinaAvatarMobilePopup open={finaPopupOpen} setOpen={setFinaPopupOpen} />
+
 				<Box
 					sx={{
 						display: "flex",
@@ -28,26 +33,25 @@ function SidebarContainer({ children }: { children: React.ReactNode }) {
 					}}
 				>
 					<Sidebar />
-					<Box
-						sx={{
-							// background: "#5f6ac40a",
-							padding: { xs: "10px 10px 0px", sm: "10px 20px 10px 5px" },
-							maxWidth: "1400px",
-							minHeight: "calc(100vh - 0px)",
-							width: "100%",
-							margin: "none auto",
-							overflowY: "scroll",
-						}}
-					>
+					<Box sx={BoxStyle}>
 						<Navbar />
 						{children}
 					</Box>
-					{!isSmallScreen && <Fina setOpen={setOpen} />}
+					{!isSmallScreen && <Fina setOpen={setFinaPopupOpen} />}
 				</Box>
 				<MobileBottomBar />
-			</ThemeProvider>
-		</Box>
+			</Box>
+		</ThemeProvider>
 	)
 }
 
 export default SidebarContainer
+
+const BoxStyle = {
+	padding: { xs: "10px 10px 0px", sm: "10px 20px 10px 5px" },
+	maxWidth: "1400px",
+	minHeight: "calc(100vh - 0px)",
+	width: "100%",
+	margin: "none auto",
+	overflowY: "scroll",
+}
