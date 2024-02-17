@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import SpeakMultipleChoiceTest from "./SpeakMultipleChoiceTest"
-import { LessonType } from "@/types/allLessonType"
+import { LessonType } from "@/types/lessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",

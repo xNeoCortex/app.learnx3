@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid, useMediaQuery } from "@mui/material"
-import { LessonType } from "@/types/allLessonType"
+import { LessonType } from "@/types/lessonType"
 import EachQuestion from "./EachQuestion"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

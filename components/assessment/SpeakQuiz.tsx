@@ -1,7 +1,7 @@
 "use client"
 import React, { memo } from "react"
 import { Box, capitalize, CssBaseline, Typography } from "@mui/material"
-import { QuestionsType } from "@/types/GeneratedLessonType"
+import { QuestionsType } from "@/types/generatedLessonType"
 
 const SpeakQuiz = memo(
 	({

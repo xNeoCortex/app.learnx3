@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import { Box, Typography } from "@mui/material"
 import CardWrapper from "../elements/CardWrapper"
-import { TopicContentType } from "@/types/GeneratedLessonType"
+import { TopicContentType } from "@/types/generatedLessonType"
 
 const FlashCardsBanner = memo(({ lesson }: { lesson: TopicContentType }) => {
 	return (

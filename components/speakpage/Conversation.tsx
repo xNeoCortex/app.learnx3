@@ -10,7 +10,7 @@ import CardWrapper from "../elements/CardWrapper"
 import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import dayjs from "dayjs"
 import TextToSpeechButton from "./TextToSpeechButton"
-import { LessonType } from "@/types/allLessonType"
+import { LessonType } from "@/types/lessonType"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
