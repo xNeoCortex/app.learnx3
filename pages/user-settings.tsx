@@ -14,13 +14,13 @@ import { updateProfile } from "firebase/auth"
 import { useStoreUser } from "../components/zustand"
 import { auth, db } from "../components/firebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
-import SnackbarX from "@/components/other/SnackbarX"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import ApiServices from "./api/ApiServices"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "./error"
+import { SnackbarX } from "@/components/other/SnackbarX"
 
 export default function MySettings() {
 	const { userInfo } = useStoreUser((state) => state)

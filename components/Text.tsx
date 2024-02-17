@@ -1,7 +1,7 @@
-import React from "react"
+import React, { memo } from "react"
 import { Box } from "@mui/material"
 
-function TaskComponent({ title, text }: { title: string; text: string }) {
+const TaskComponent = memo(({ title, text }: { title: string; text: string }) => {
 	return (
 		<Box>
 			<h3>{title}</h3>
@@ -12,6 +12,6 @@ function TaskComponent({ title, text }: { title: string; text: string }) {
 			/>
 		</Box>
 	)
-}
+})
 
 export default TaskComponent

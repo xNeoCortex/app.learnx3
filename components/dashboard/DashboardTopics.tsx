@@ -1,12 +1,12 @@
 import React from "react"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
-import SnackbarX from "@/components/other/SnackbarX"
 import { Box, Grid, Skeleton, Typography } from "@mui/material"
 import ErrorPage from "../../pages/errorpage"
 import ImgMediaCard from "../other/Card"
 import dayjs from "dayjs"
 import { TopicType } from "@/types/types"
+import { SnackbarX } from "../other/SnackbarX"
 
 function DashboardTopics() {
 	const [open, setOpen] = React.useState(false)

@@ -39,8 +39,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	borderRadius: "50%",
 }))
 
-export default function FinaAvatar() {
-	const { botComponentWidth, setBotComponentWidth } = useStoreTemporary()
+const FinaAvatar = React.memo(({ handleFinaClick }: { handleFinaClick: () => void }) => {
+	const { botComponentWidth } = useStoreTemporary()
 
 	return (
 		<>
@@ -50,10 +50,12 @@ export default function FinaAvatar() {
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
 						alt="Fina"
 						src="/teacher_green.svg"
-						onClick={() => setBotComponentWidth(900)}
+						onClick={handleFinaClick}
 					/>
 				</StyledBadge>
 			)}
 		</>
 	)
-}
+})
+
+export default FinaAvatar

@@ -16,10 +16,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
 			}}
 		>
 			{/* <ThemeProvider theme={theme}> */}
-			<Box sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
-				{/* <WelcomeMessage /> */}
-				{children}
-			</Box>
+			<Box sx={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>{children}</Box>
 			{/* </ThemeProvider> */}
 		</Box>
 	)
