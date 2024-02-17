@@ -19,10 +19,10 @@ import { englishLevels } from "@/components/utils/englishLevels"
 import AddLesson from "@/components/lessons/AddLesson"
 import { lessonDescription } from "@/components/data/LessonDescription"
 import StudentCardMini from "@/components/student/StudentCardMini"
-import DownloadIcon from "@mui/icons-material/Download"
 import AddIcon from "@mui/icons-material/Add"
 import LogoutIcon from "@mui/icons-material/Logout"
 import { UserType } from "@/types/types"
+import { useMemo } from "react"
 
 function Lesson() {
 	const queryClient = useQueryClient()
@@ -75,30 +75,17 @@ function Lesson() {
 		}
 	}
 
-	const studentJoined = lessonTimetableList?.data?.students?.includes(userInfo?.uid) || false
+	const studentJoined = useMemo(
+		() => lessonTimetableList?.data?.students?.includes(userInfo?.uid) || false,
+		[lessonTimetableList?.data?.students, userInfo?.uid]
+	)
+
 	if (cIsError || isError) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<Box
-					sx={{
-						padding: { xs: "20px", sm: "25px 40px" },
-						borderRadius: "23px",
-						color: "white",
-						height: "100%",
-						display: "flex",
-						justifyContent: "start",
-						alignItems: "center",
-						flexDirection: "column",
-						boxSizing: "border-box",
-						width: "100%",
-						overflow: "auto",
-						position: "relative",
-						border: "0.5px solid #ebfff6",
-						background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
-					}}
-				>
+				<Box sx={BoxWrapperStyle}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<Box
@@ -268,25 +255,6 @@ function Lesson() {
 												</Button>
 											</a>
 										)}
-										{/* <Button
-											sx={{
-												marginRight: "5px",
-												textTransform: "none",
-												background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-												color: "white",
-												fontWeight: "600",
-												padding: "3px 10px",
-												"&:hover": { background: "#424493" },
-											}}
-										>
-											<DownloadIcon
-												sx={{
-													color: "white",
-													marginRight: "6px",
-												}}
-											/>
-											<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Download materials</Typography>
-										</Button> */}
 										{userInfo?.role == "admin" && (
 											<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
 										)}
@@ -348,3 +316,20 @@ function Lesson() {
 }
 
 export default Lesson
+
+const BoxWrapperStyle = {
+	padding: { xs: "20px", sm: "25px 40px" },
+	borderRadius: "23px",
+	color: "white",
+	height: "100%",
+	display: "flex",
+	justifyContent: "start",
+	alignItems: "center",
+	flexDirection: "column",
+	boxSizing: "border-box",
+	width: "100%",
+	overflow: "auto",
+	position: "relative",
+	border: "0.5px solid #ebfff6",
+	background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
+}

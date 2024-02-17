@@ -70,7 +70,7 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 													width: "35px",
 													height: "35px",
 													border: "2px solid rgb(95, 106, 196)",
-													marginRight: "1.5px",
+													marginRight: 1.5,
 													bgcolor: "white",
 												}}
 											/>

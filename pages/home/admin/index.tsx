@@ -34,12 +34,13 @@ function AdminPage() {
 				<LoadingPage />
 			</Box>
 		)
+
 	if (isError || isErrorTeacher) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin"]}>
 			<SidebarContainer>
-				<Box style={{ display: "flex", flexDirection: "column" }}>
+				<Box sx={{ display: "flex", flexDirection: "column" }}>
 					<Typography sx={{ fontSize: "22px", p: 1, fontWeight: "bolder" }}>Manage Students and Teachers</Typography>
 					<Grid container spacing={4}>
 						<Grid item xs={12} sm={6}>

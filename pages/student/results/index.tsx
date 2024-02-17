@@ -52,10 +52,10 @@ export default function StudentsResult() {
 			<SidebarContainer>
 				<Box sx={{ marginTop: "0px" }}>
 					<Typography
-						style={{
+						sx={{
 							margin: "10px 10px 10px 0px",
-							fontWeight: 600,
-							fontSize: 19,
+							fontWeight: "600",
+							fontSize: "19px",
 							color: "#5f616a",
 						}}
 					>
@@ -63,7 +63,7 @@ export default function StudentsResult() {
 					</Typography>
 					<TableContainer
 						component={Paper}
-						style={{
+						sx={{
 							margin: "10px 10px 10px 0px",
 							width: "calc(100%)",
 							boxShadow: "none",
@@ -73,27 +73,17 @@ export default function StudentsResult() {
 						<Table aria-label="simple table">
 							<TableHead>
 								<TableRow
-									style={{
+									sx={{
 										background: "rgb(95, 106, 196)",
-										borderRadius: 12,
+										borderRadius: "12px",
 										color: "white",
 									}}
 								>
-									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>
-										Students ({studentList?.length})
-									</TableCell>
-									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										# of Tests
-									</TableCell>
-									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										Average grade
-									</TableCell>
-									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										Points
-									</TableCell>
-									<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15, textAlign: "center" }}>
-										Profile
-									</TableCell>
+									<TableCell sx={{ ...TableCellStyle, textAlign: "start" }}>Students ({studentList?.length})</TableCell>
+									<TableCell sx={TableCellStyle}># of Tests</TableCell>
+									<TableCell sx={TableCellStyle}>Average grade</TableCell>
+									<TableCell sx={TableCellStyle}>Points</TableCell>
+									<TableCell sx={TableCellStyle}>Profile</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
@@ -105,67 +95,12 @@ export default function StudentsResult() {
 											return 0
 										})
 										?.map((student: UserType, index: number) => (
-											<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-												<TableCell
-													component="th"
-													scope="student"
-													style={{
-														display: "flex",
-														alignItems: "center",
-													}}
-												>
-													<Avatar
-														src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-														sx={{
-															width: 35,
-															height: 35,
-															border: "2px solid rgb(95, 106, 196)",
-															marginRight: 1.5,
-															bgcolor: "white",
-														}}
-													/>
-													<p>{student.name}</p>
-												</TableCell>
-												<TableCell>
-													<StudentResult
-														testResults={testResult?.data}
-														studentId={student.uid}
-														assessmentType="numOfTests"
-														selectedLesson={selectedLesson}
-													/>
-												</TableCell>
-												<TableCell>
-													<StudentResult
-														testResults={testResult?.data}
-														studentId={student.uid}
-														assessmentType="averageGrade"
-														selectedLesson={selectedLesson}
-													/>
-												</TableCell>
-												<TableCell>
-													<StudentResult
-														testResults={testResult?.data}
-														studentId={student.uid}
-														assessmentType="points"
-														selectedLesson={selectedLesson}
-													/>
-												</TableCell>
-												<TableCell sx={{ textAlign: "center" }}>
-													<Link href={`/student/${student.uid}`}>
-														<Button
-															style={{
-																background: "#5f6ac4",
-																color: "white",
-																boxShadow: "none",
-																padding: "0px",
-																textTransform: "none",
-															}}
-														>
-															View
-														</Button>
-													</Link>
-												</TableCell>
-											</TableRow>
+											<TableRowComponent
+												key={index}
+												student={student}
+												testResult={testResult?.data}
+												selectedLesson={selectedLesson}
+											/>
 										))}
 							</TableBody>
 						</Table>
@@ -208,3 +143,73 @@ const StudentResult = React.memo(({ testResults, studentId, assessmentType }: an
 		</Typography>
 	)
 })
+
+const TableRowComponent = React.memo(
+	({ student, testResult, selectedLesson }: { student: UserType; testResult: number; selectedLesson: number }) => {
+		return (
+			<TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+				<TableCell
+					component="th"
+					scope="student"
+					sx={{
+						display: "flex",
+						alignItems: "center",
+					}}
+				>
+					<Avatar
+						src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
+						sx={{
+							width: 35,
+							height: 35,
+							border: "2px solid rgb(95, 106, 196)",
+							marginRight: 1.5,
+							bgcolor: "white",
+						}}
+					/>
+					<p>{student.name}</p>
+				</TableCell>
+				<TableCell>
+					<StudentResult
+						testResults={testResult}
+						studentId={student.uid}
+						assessmentType="numOfTests"
+						selectedLesson={selectedLesson}
+					/>
+				</TableCell>
+				<TableCell>
+					<StudentResult
+						testResults={testResult}
+						studentId={student.uid}
+						assessmentType="averageGrade"
+						selectedLesson={selectedLesson}
+					/>
+				</TableCell>
+				<TableCell>
+					<StudentResult
+						testResults={testResult}
+						studentId={student.uid}
+						assessmentType="points"
+						selectedLesson={selectedLesson}
+					/>
+				</TableCell>
+				<TableCell sx={{ textAlign: "center" }}>
+					<Link href={`/student/${student.uid}`}>
+						<Button
+							sx={{
+								background: "#5f6ac4",
+								color: "white",
+								boxShadow: "none",
+								padding: "0px",
+								textTransform: "none",
+							}}
+						>
+							View
+						</Button>
+					</Link>
+				</TableCell>
+			</TableRow>
+		)
+	}
+)
+
+const TableCellStyle = { color: "white", fontWeight: "600", fontSize: "15px", textAlign: "center" }

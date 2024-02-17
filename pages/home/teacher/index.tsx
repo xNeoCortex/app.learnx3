@@ -3,7 +3,7 @@ import Statistics from "@/components/Statistics"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import StudentCardList from "@/components/student/StudentCardList"
-import { Grid, Typography } from "@mui/material"
+import { Grid } from "@mui/material"
 import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTimetable"
 import DashboardLessonTimetableMobile from "@/components/dashboard/DashboardLessonTimetableMobile"
 

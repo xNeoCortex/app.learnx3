@@ -45,10 +45,10 @@ function index() {
 							}}
 						>
 							<Typography
-								style={{
+								sx={{
 									margin: "0px 10px 10px 0px",
-									fontWeight: 600,
-									fontSize: 19,
+									fontWeight: "600",
+									fontSize: "19px",
 									color: "#5f616a",
 								}}
 							>
@@ -93,7 +93,7 @@ function index() {
 										</Grid>
 										{lessons
 											.sort((a: LessonTimetableType, b: LessonTimetableType) =>
-												a.lesson_date > b.lesson_date ? 1 : -1
+												a.lesson_date! > b.lesson_date! ? 1 : -1
 											)
 											.map((lesson: LessonTimetableType, index: number) => (
 												<Grid key={index} item xs={12} sm={3}>

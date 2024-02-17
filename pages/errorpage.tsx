@@ -1,6 +1,7 @@
 import React from "react"
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 function ErrorPage({ message = "" }) {
 	const router = useRouter()
@@ -43,9 +44,9 @@ function ErrorPage({ message = "" }) {
 						{message.length > 0 ? message : "Sorry, something went wrong!"}
 					</Typography>
 				</Box>
-				{/* <Button variant="contained" onClick={() => router.back()}>
-					Go Back
-				</Button> */}
+				<Link href="/auth/login">
+					<Button variant="contained">Login again</Button>
+				</Link>
 			</Box>
 		</Box>
 	)

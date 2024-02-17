@@ -9,7 +9,7 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { updateDoc, deleteDoc, doc } from "firebase/firestore"
 import { sendPasswordResetEmail } from "firebase/auth"
-import { Alert } from "@mui/material"
+import { Alert, Typography } from "@mui/material"
 import { updateProfile } from "firebase/auth"
 import { useStoreUser } from "../components/zustand"
 import { auth, db } from "../components/firebaseX"
@@ -34,6 +34,11 @@ export default function MySettings() {
 	})
 	const [email, setEmail] = React.useState(userInfo?.email || "")
 	const [emailMessage, setEmailMessage] = React.useState("")
+	const [open, setOpen] = React.useState(false)
+	const [message, setMessage] = React.useState("")
+	const [openConfirmUpdate, setOpenConfirmUpdate] = React.useState(false)
+	const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false)
+	const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false)
 
 	// Fetching lessons
 	const { data, isLoading, isError } = useQuery({
@@ -49,17 +54,11 @@ export default function MySettings() {
 
 	const fetchedUser = data?.data
 
-	//Snackbar
-	const [open, setOpen] = React.useState(false)
-	const [message, setMessage] = React.useState("")
-
-	// OnMount set user information
 	React.useEffect(() => {
 		setCurrentUser(fetchedUser)
 	}, [data, isLoading])
 
 	// Reset Password
-	const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false)
 	function resetPassword() {
 		sendPasswordResetEmail(auth, email)
 			.then(() => {
@@ -71,7 +70,6 @@ export default function MySettings() {
 			})
 	}
 
-	// set gender
 	const handleChange = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>, option?: string) => {
 		setCurrentUser((prev) => ({
 			...prev,
@@ -81,8 +79,6 @@ export default function MySettings() {
 		}))
 	}
 
-	// Update user data
-	const [openConfirmUpdate, setOpenConfirmUpdate] = React.useState(false)
 	async function updateData() {
 		const userDoc =
 			userInfo.role === "student" ? doc(db, "students", userInfo?.uid) : doc(db, "teachers", userInfo?.uid)
@@ -101,14 +97,10 @@ export default function MySettings() {
 		}
 	}
 
-	// Delete user data
-	const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false)
-
 	async function deleteUserAccount() {
 		try {
 			const userDoc = doc(db, "users", userInfo?.uid)
 			await deleteDoc(userDoc)
-
 			await deleteUser(user as any)
 			setMessage("Your account has been deleted")
 			setOpen(true)
@@ -118,7 +110,6 @@ export default function MySettings() {
 		}
 	}
 
-	// Handle Submit button
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		updateData()
@@ -126,6 +117,7 @@ export default function MySettings() {
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
+
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
@@ -160,17 +152,17 @@ export default function MySettings() {
 						margin: { xs: "10px", sm: "20px 40px" },
 					}}
 				>
-					<p
-						style={{
+					<Typography
+						sx={{
 							display: "flex",
 							alignItems: "center",
-							fontWeight: 600,
-							fontSize: 22,
+							fontWeight: "600",
+							fontSize: "22px",
 							margin: "10px 0px",
 						}}
 					>
 						Profile details
-					</p>
+					</Typography>
 					<p>Change your account info</p>
 
 					<Grid container spacing={2}>
@@ -220,11 +212,11 @@ export default function MySettings() {
 											//@ts-ignore
 											onChange={handleChange}
 											aria-label="Platform"
-											style={{ borderColor: "#e5e7eb", height: 56, width: "100%" }}
+											sx={{ borderColor: "#e5e7eb", height: "56px", width: "100%" }}
 										>
 											<ToggleButton
 												value="male"
-												style={{
+												sx={{
 													display: "flex",
 													flex: 1,
 													borderColor: "#e5e7eb",
@@ -234,7 +226,7 @@ export default function MySettings() {
 											</ToggleButton>
 											<ToggleButton
 												value="female"
-												style={{
+												sx={{
 													display: "flex",
 													flex: 1,
 													borderColor: "#e5e7eb",
@@ -247,7 +239,6 @@ export default function MySettings() {
 								</Grid>
 								<Button
 									onClick={() => setOpenConfirmUpdate(true)}
-									// type="submit"
 									fullWidth
 									variant="contained"
 									sx={{ mt: 8, mb: 2, background: "rgb(226, 109, 128)" }}
@@ -256,7 +247,7 @@ export default function MySettings() {
 								</Button>
 								<Button
 									onClick={() => setOpenConfirmDelete(true)}
-									style={{
+									sx={{
 										width: "100%",
 										marginBottom: "16px",
 										color: "rgb(226, 109, 128)",
@@ -267,7 +258,7 @@ export default function MySettings() {
 								</Button>
 								<Button
 									onClick={() => setOpenConfirmPassword(true)}
-									style={{
+									sx={{
 										width: "100%",
 										color: "#1976d2",
 										border: "1px solid #1976d2",
@@ -277,7 +268,7 @@ export default function MySettings() {
 									Change Login Password
 								</Button>
 								{emailMessage && (
-									<Alert severity="success" style={{ marginTop: 10 }}>
+									<Alert severity="success" sx={{ marginTop: "10px" }}>
 										{emailMessage}
 									</Alert>
 								)}

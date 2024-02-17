@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Box, Grid, Typography } from "@mui/material"
@@ -26,10 +26,14 @@ function index() {
 		refetchOnWindowFocus: false,
 	})
 
-	const topicCategories: string[] = topics?.data
-		?.sort((a: TopicType, b: TopicType) => a.category?.localeCompare(b.category))
-		?.map(({ category }: { category: string }) => category)
-		?.filter((value: string, index: number, self: string) => self.indexOf(value) === index)
+	const topicCategories: string[] = useMemo(
+		() =>
+			topics?.data
+				?.sort((a: TopicType, b: TopicType) => a.category?.localeCompare(b.category))
+				?.map(({ category }: { category: string }) => category)
+				?.filter((value: string, index: number, self: string) => self.indexOf(value) === index),
+		[topics?.data]
+	)
 
 	if (isError) return <ErrorPage />
 	if (isLoading) return <LoadingPage />
