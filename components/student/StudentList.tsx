@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar, Button, IconButton } from "@mui/material"
+import { Avatar, Button, Typography } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
@@ -15,7 +15,7 @@ import { useStoreUser } from "../zustand"
 import { UserType } from "@/types/types"
 import { SnackbarX } from "../other/SnackbarX"
 
-export default function StudentList({ data }: { data: UserType[] }) {
+const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 	const [open, setOpen] = React.useState(false)
 	const { userInfo } = useStoreUser()
 
@@ -28,31 +28,21 @@ export default function StudentList({ data }: { data: UserType[] }) {
 				message="Student has been successfully deleted!"
 			/>
 
-			<TableContainer
-				component={Paper}
-				style={{
-					margin: "10px 10px 10px 0px",
-					width: "100%",
-					boxShadow: "none",
-					maxHeight: "600px",
-				}}
-			>
+			<TableContainer component={Paper} sx={TableContainerStyle}>
 				<CssBaseline />
 				<Table aria-label="simple table">
 					<TableHead>
 						<TableRow
-							style={{
+							sx={{
 								background: "rgb(95, 106, 196)",
-								borderRadius: 12,
+								borderRadius: "12px",
 								color: "white",
 							}}
 						>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Students ({data?.length})</TableCell>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Performance</TableCell>
-							<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Profile</TableCell>
-							{userInfo.role == "admin" && (
-								<TableCell style={{ color: "white", fontWeight: 600, fontSize: 15 }}>Delete</TableCell>
-							)}{" "}
+							<TableCell sx={TableCellStyle}>Students ({data?.length})</TableCell>
+							<TableCell sx={TableCellStyle}>Performance</TableCell>
+							<TableCell sx={TableCellStyle}>Profile</TableCell>
+							{userInfo.role == "admin" && <TableCell sx={TableCellStyle}>Delete</TableCell>}{" "}
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -77,19 +67,19 @@ export default function StudentList({ data }: { data: UserType[] }) {
 											<Avatar
 												src={row?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
 												sx={{
-													width: 35,
-													height: 35,
+													width: "35px",
+													height: "35px",
 													border: "2px solid rgb(95, 106, 196)",
-													marginRight: 1.5,
+													marginRight: "1.5px",
 													bgcolor: "white",
 												}}
 											/>
 											<p>{row.name}</p>
 										</TableCell>
 										<TableCell>
-											<p
+											<Typography
 												style={{
-													fontWeight: 600,
+													fontWeight: "600",
 													padding: "3px 10px",
 													background: "white",
 													color:
@@ -104,7 +94,7 @@ export default function StudentList({ data }: { data: UserType[] }) {
 															: row.performance == "Doing Great"
 															? "2px solid #5fc497"
 															: "2px solid #41b6ff",
-													borderRadius: 12,
+													borderRadius: "12px",
 													fontSize: "13px",
 													width: "100%",
 													maxWidth: "130px",
@@ -112,7 +102,7 @@ export default function StudentList({ data }: { data: UserType[] }) {
 												}}
 											>
 												{row?.performance}
-											</p>
+											</Typography>
 										</TableCell>
 										<TableCell>
 											<Link href={`/student/${row.uid}`}>
@@ -146,4 +136,15 @@ export default function StudentList({ data }: { data: UserType[] }) {
 			</TableContainer>
 		</Box>
 	)
+})
+
+export default StudentList
+
+const TableCellStyle = { color: "white", fontWeight: "600", fontSize: "15px" }
+
+const TableContainerStyle = {
+	margin: "10px 10px 10px 0px",
+	width: "100%",
+	boxShadow: "none",
+	maxHeight: "600px",
 }
