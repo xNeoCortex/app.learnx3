@@ -3,11 +3,11 @@ import { ThemeProvider, useTheme } from "@mui/material/styles"
 import { Box, useMediaQuery } from "@mui/material"
 import Sidebar from "./sidebar"
 import Navbar from "./Navbar"
-import Fina from "@/pages/fina"
 import FinaAvatar from "./fina/FinaAvatar"
 import MobileBottomBar from "./MobileBottomBar"
 import { FinaAvatarMobilePopup } from "./fina/FinaAvatarMobilePopup"
 import { useStoreTemporary } from "./zustand"
+import Fina from "@/pages/fina"
 
 function SidebarContainer({ children }: { children: React.ReactNode }) {
 	const theme = useTheme()
