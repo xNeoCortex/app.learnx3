@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Typography } from "@mui/material"
 import Link from "next/link"
 import { useStoreUser } from "../zustand"
 
-function ClassAllocation() {
+function NotPermitted() {
 	const { setUserInfo } = useStoreUser()
 	return (
 		<Box
@@ -60,4 +60,4 @@ function ClassAllocation() {
 	)
 }
 
-export default ClassAllocation
+export default NotPermitted

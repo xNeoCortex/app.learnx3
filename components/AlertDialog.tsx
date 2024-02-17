@@ -15,15 +15,13 @@ export default function AlertDialog({
 	}
 
 	return (
-		<div>
-			<Dialog
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				{component}
-			</Dialog>
-		</div>
+		<Dialog
+			open={open}
+			onClose={handleClose}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		>
+			{component}
+		</Dialog>
 	)
 }
