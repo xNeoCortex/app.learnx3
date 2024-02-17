@@ -1,5 +1,5 @@
 import { Box, IconButton } from "@mui/material"
-import { useState } from "react"
+import { memo, useState } from "react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
@@ -13,7 +13,7 @@ const DeleteComponent: React.FC<{
 	invalidateCache: string
 	itemId: string
 	setOpen: (open: boolean) => void
-}> = ({ collectionName, invalidateCache, itemId, setOpen }) => {
+}> = memo(({ collectionName, invalidateCache, itemId, setOpen }) => {
 	const [openConfirmDelete, setOpenConfirmDelete] = useState(false)
 	const queryClient = useQueryClient()
 	const { apiRequest } = ApiServices()
@@ -62,6 +62,5 @@ const DeleteComponent: React.FC<{
 			)}
 		</Box>
 	)
-}
-
+})
 export default DeleteComponent
