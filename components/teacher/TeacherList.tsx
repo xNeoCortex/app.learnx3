@@ -13,11 +13,11 @@ import Switch from "@mui/material/Switch"
 import ApiPostServices from "@/pages/api/ApiPostServices"
 import ErrorPage from "../../pages/errorpage"
 import { useMutation } from "@tanstack/react-query"
-import SnackbarX from "../other/SnackbarX"
 import DeleteComponent from "../DeleteComponent"
 import { TeacherType } from "@/types/types"
+import { SnackbarX } from "../other/SnackbarX"
 
-export default function TeacherList({ data }: { data: TeacherType[] }) {
+const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 	const [open, setOpen] = React.useState(false)
 
 	return (
@@ -69,9 +69,9 @@ export default function TeacherList({ data }: { data: TeacherType[] }) {
 			</TableContainer>
 		</Box>
 	)
-}
+})
 
-function TableRows({ teacher, setOpen }: { teacher: TeacherType; setOpen: (arg: boolean) => void }) {
+const TableRows = React.memo(({ teacher, setOpen }: { teacher: TeacherType; setOpen: (arg: boolean) => void }) => {
 	const { updateTeacherInfo } = ApiPostServices()
 	const { mutate, isError } = useMutation((body) => updateTeacherInfo(body, teacher.uid))
 	const [checked, setChecked] = React.useState(true)
@@ -119,4 +119,6 @@ function TableRows({ teacher, setOpen }: { teacher: TeacherType; setOpen: (arg: 
 			</TableCell>
 		</TableRow>
 	)
-}
+})
+
+export default TeacherList
