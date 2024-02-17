@@ -1,6 +1,7 @@
+import { memo, useMemo } from "react"
 import { useRouter } from "next/router"
 import { useQuery } from "@tanstack/react-query"
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import GppBadIcon from "@mui/icons-material/GppBad"
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious"
 import SchoolRoundedIcon from "@mui/icons-material/SchoolRounded"
@@ -12,7 +13,7 @@ import ApiServices from "@/pages/api/ApiServices"
 import LoadingPage from "@/components/LoadingPage"
 import { DoughnutChart } from "@/components/other/DoughnutChart"
 
-function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
+const Statistics = memo(({ displayGraphs }: { displayGraphs: boolean }) => {
 	const { pathname } = useRouter()
 
 	// find another solution -> no need to fetch all database just to see the length of students array
@@ -29,45 +30,46 @@ function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 			name: "# of Students",
 			color: "#e2e6fb4d",
 			number: data?.data.length,
-			icon: <SchoolRoundedIcon style={{ width: 50, height: 50, color: "rgb(95, 97, 196)" }} />,
+			icon: <SchoolRoundedIcon sx={{ width: "50px", height: "50px", color: "rgb(95, 97, 196)" }} />,
 		},
 		{
 			name: "Struggling",
 			color: "rgb(255 139 79 / 7%)",
 			number: 3,
-			icon: <GppBadIcon style={{ width: 50, height: 50, color: "#ff8b4f" }} />,
+			icon: <GppBadIcon sx={{ width: "50px", height: "50px", color: "#ff8b4f" }} />,
 		},
 		{
 			name: "Doing Well",
 			color: "rgb(65 182 255 / 8%)",
 			number: 2,
-			icon: <SkipPreviousIcon style={{ width: 50, height: 50, color: "#41b6ff" }} />,
+			icon: <SkipPreviousIcon sx={{ width: "50px", height: "50px", color: "#41b6ff" }} />,
 		},
 		{
 			name: "Doing Great",
 			color: "rgb(94 196 151 / 8%)",
 			number: 2,
-			icon: <ThumbUpAltIcon style={{ width: 50, height: 50, color: "#5fc497" }} />,
+			icon: <ThumbUpAltIcon sx={{ width: "50px", height: "50px", color: "#5fc497" }} />,
 		},
 	]
-	const studentPerformance = dataSet.map((item) => item.name + "=" + item.number)
+	const studentPerformance =
+		useMemo(() => dataSet.map((item) => item.name + "=" + item.number), [dataSet, data?.data]) || []
 
 	if (isLoading) return <LoadingPage />
 	if (isError) return <ErrorPage />
 
 	return (
 		<Box sx={{ mt: "10px" }}>
-			<h3
-				style={{
+			<Typography
+				sx={{
 					margin: "0px 10px 10px 0px",
-					marginBottom: 20,
-					fontWeight: 600,
-					fontSize: 19,
+					marginBottom: "20px",
+					fontWeight: "600",
+					fontSize: "19px",
 					color: "#5f616a",
 				}}
 			>
 				Class Statistics
-			</h3>
+			</Typography>
 			{pathname.includes("class-statistics") && (
 				<Box
 					sx={{
@@ -86,35 +88,35 @@ function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 			<Grid container spacing={2}>
 				{dataSet.map((item, index) => (
 					<Grid item xs={12} sm={3} key={index}>
-						<div
-							style={{
+						<Box
+							sx={{
 								padding: "20px 10px",
 								flex: 1,
 								color: "white",
-								height: 100,
+								height: "100px",
 								display: "flex",
 								justifyContent: "start",
 								alignItems: "center",
 								flexDirection: "row",
-								borderRadius: 10,
+								borderRadius: "10px",
 								boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 								background: item.color,
 							}}
 						>
 							<Box sx={{ marginRight: 2, marginLeft: 1 }}>{item.icon}</Box>
-							<div>
-								<h2
+							<Box>
+								<Typography
 									style={{
-										fontWeight: 600,
-										fontSize: 22,
+										fontWeight: "600",
+										fontSize: "22px",
 										color: "rgb(50, 51, 49)",
 									}}
 								>
 									{item.number}
-								</h2>
-								<p style={{ fontSize: 15, color: "rgba(50, 51, 49, 0.8)" }}>{item.name}</p>
-							</div>
-						</div>
+								</Typography>
+								<Typography style={{ fontSize: "15px", color: "rgba(50, 51, 49, 0.8)" }}>{item.name}</Typography>
+							</Box>
+						</Box>
 					</Grid>
 				))}
 			</Grid>
@@ -123,16 +125,16 @@ function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 					<Grid
 						item
 						xs={6}
-						style={{
-							padding: 10,
+						sx={{
+							padding: "10px",
 							margin: "40px 0px 30px",
 						}}
 					>
 						<Box
 							style={{
 								margin: "auto",
-								borderRadius: 10,
-								padding: 45,
+								borderRadius: "10px",
+								padding: "45px",
 								boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 							}}
 						>
@@ -142,20 +144,20 @@ function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 					<Grid
 						item
 						xs={6}
-						style={{
+						sx={{
 							margin: "40px 0px 30px",
-							padding: 10,
+							padding: "10px",
 						}}
 					>
 						<Box
-							style={{
+							sx={{
 								margin: "auto",
 								display: "flex",
 								alignItems: "center",
 								height: "100%",
 								width: "100%",
-								padding: 15,
-								borderRadius: 10,
+								padding: "15px",
+								borderRadius: "10px",
 								boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 							}}
 						>
@@ -166,6 +168,6 @@ function Statistics({ displayGraphs }: { displayGraphs: boolean }) {
 			)}
 		</Box>
 	)
-}
+})
 
 export default Statistics
