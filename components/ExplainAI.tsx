@@ -5,7 +5,6 @@ import ClearIcon from "@mui/icons-material/Clear"
 import OpenAiFina from "./utils/OpenAiFina"
 
 function ExplainAI({ prompt, buttonTitle, bg }: { prompt: string; buttonTitle: string; bg?: string }) {
-	// const [prompt, setPrompt] = useState("");
 	const [result, setResult] = useState("")
 	const [loading, setLoading] = useState(false)
 
@@ -79,18 +78,18 @@ function ExplainAI({ prompt, buttonTitle, bg }: { prompt: string; buttonTitle: s
 					variant="contained"
 					onClick={handleClick}
 					disabled={loading}
-					style={{
+					sx={{
 						background: "rgb(50, 51, 49)",
 						color: "white",
 						fontWeight: "bold",
-						fontSize: 12,
+						fontSize: "12px",
 					}}
 				>
-					<AutoFixHighIcon style={{ marginRight: 10 }} /> {loading ? "Loading..." : buttonTitle}
+					<AutoFixHighIcon sx={{ marginRight: "10px" }} /> {loading ? "Loading..." : buttonTitle}
 				</Button>
 
-				<div
-					style={{
+				<Box
+					sx={{
 						width: "100%",
 						minHeight: "100%",
 						color: "black",
@@ -102,7 +101,7 @@ function ExplainAI({ prompt, buttonTitle, bg }: { prompt: string; buttonTitle: s
 							__html: result.replace(/\n/g, "<br />"),
 						}}
 					/>
-				</div>
+				</Box>
 			</Box>
 		</Box>
 	)
