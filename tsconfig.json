@@ -18,6 +18,7 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/404.js", "pages/404.jsx"],
+  "include": ["next-env.d.ts", "pages/**/*",
+  "src/**/*", "**/*.ts", "**/*.tsx", "pages/404.js", "pages/404.jsx"],
   "exclude": ["node_modules"]
 }
