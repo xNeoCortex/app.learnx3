@@ -8,8 +8,8 @@ import { auth } from "../firebaseX"
 import ErrorPage from "@/pages/error"
 import SpeakQuiz from "../assessment/SpeakQuiz"
 import { LessonType } from "@/types/lessonType"
-import { QuestionsType } from "@/types/generatedLessonType"
 import { LinearTimer } from "../other/LinearTimer"
+import { QuestionsType } from "@/types/generatedLessonType"
 
 const SpeakMultipleChoiceTest = memo(
 	({

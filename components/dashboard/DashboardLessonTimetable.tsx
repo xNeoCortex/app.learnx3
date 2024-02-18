@@ -35,8 +35,8 @@ function DashboardLessonTimetable() {
 					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
 					?.slice(0, 3)
 					?.map((lesson: LessonTimetableType, index: number) => (
-						<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
-							<LessonTimetableCard key={index} lesson={lesson} />
+						<Grid key={index} item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
+							<LessonTimetableCard lesson={lesson} />
 						</Grid>
 					))}
 				{lessonTimetableList?.data.length > 3 && (
