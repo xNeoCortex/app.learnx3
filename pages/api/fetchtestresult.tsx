@@ -1,7 +1,8 @@
 import { query, collection, where, getDocs } from "firebase/firestore"
 import { db } from "../../components/firebaseX"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "GET") {
 		try {
 			const id = req.query.id

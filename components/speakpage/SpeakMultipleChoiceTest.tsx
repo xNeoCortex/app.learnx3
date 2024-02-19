@@ -10,6 +10,7 @@ import SpeakQuiz from "../assessment/SpeakQuiz"
 import { LessonType } from "@/types/lessonType"
 import { LinearTimer } from "../other/LinearTimer"
 import { QuestionsType } from "@/types/generatedLessonType"
+import { TestResultType } from "@/types/types"
 
 const SpeakMultipleChoiceTest = memo(
 	({
@@ -32,13 +33,22 @@ const SpeakMultipleChoiceTest = memo(
 		const { submitTest } = ApiPostServices()
 
 		// Submit assessment on database
-		const { mutate, isLoading, isError, isSuccess } = useMutation((body) => submitTest(body), {
-			onSuccess: () => (
-				queryClient.invalidateQueries(["testResult"]),
-				queryClient.invalidateQueries(["myLatestTestResult"]),
-				queryClient.invalidateQueries(["mySumTestResult"])
-			),
-		})
+		const { mutate, isLoading, isError, isSuccess } = useMutation(
+			(
+				body: TestResultType & {
+					student_id: string
+					student_name: string
+					assessment_id: string | ""
+				}
+			) => submitTest(body),
+			{
+				onSuccess: () => (
+					queryClient.invalidateQueries(["testResult"]),
+					queryClient.invalidateQueries(["myLatestTestResult"]),
+					queryClient.invalidateQueries(["mySumTestResult"])
+				),
+			}
+		)
 
 		const handleSelect = useCallback(
 			(
@@ -69,9 +79,9 @@ const SpeakMultipleChoiceTest = memo(
 				level: lesson.level,
 				assessment_type: lesson.exercise.type,
 				result: score,
-				assessment_id: lesson?.uid,
-				student_id: auth.currentUser?.uid,
-				student_name: auth.currentUser?.displayName,
+				assessment_id: lesson?.uid || "",
+				student_id: auth.currentUser?.uid || "",
+				student_name: auth.currentUser?.displayName || "",
 			})
 		}, [mutate, quizData, lesson])
 

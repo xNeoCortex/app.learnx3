@@ -20,7 +20,7 @@ function MostRecentTestScore() {
 
 	const mostRecentTestResult = React.useMemo(() => {
 		const sortedResults = (testResults?.data || []).sort(
-			(a: TestResultType, b: TestResultType) => b.createdAt.localeCompare(a.createdAt) || 0
+			(a: TestResultType, b: TestResultType) => b.createdAt?.localeCompare(a.createdAt) || 0
 		)
 		return sortedResults[0] || null
 	}, [testResults?.data])

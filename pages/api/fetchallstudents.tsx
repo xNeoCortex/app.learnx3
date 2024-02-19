@@ -1,9 +1,14 @@
 import { query, collection, getDocs } from "firebase/firestore"
 import { db } from "../../components/firebaseX"
+import { NextApiRequest, NextApiResponse } from "next"
+import { UserType } from "@/types/types"
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "GET") {
-		const students = []
+		const students: UserType[] &
+			{
+				uid: string
+			}[] = []
 		try {
 			const q = query(collection(db, "students"))
 			const querySnapshot = await getDocs(q)

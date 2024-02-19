@@ -3,10 +3,11 @@ import textToSpeech from "@google-cloud/text-to-speech"
 
 // Import other required libraries
 import fs from "fs"
+import { NextApiRequest, NextApiResponse } from "next"
 import util from "util"
 // Creates a client
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "GET") {
 		const { id } = req.query
 

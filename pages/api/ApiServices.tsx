@@ -23,20 +23,6 @@ function ApiServices() {
 		return response
 	}
 
-	async function fetchEssayResults() {
-		const response = await axios.get(`/api/fetchessaysresults`)
-		return response
-	}
-
-	async function fetchEssayInfo(id: string) {
-		const response = await axios.get(`/api/fetchessayinfo`, {
-			params: {
-				id: id,
-			},
-		})
-		return response
-	}
-
 	async function fetchTestResults(id: string) {
 		const response = await axios.get(`/api/fetchtestresult`, {
 			params: {
@@ -46,46 +32,6 @@ function ApiServices() {
 		return response
 	}
 
-	async function fetchClasses() {
-		const response = await axios.get(`/api/fetchclasses`)
-		return response
-	}
-
-	async function fetchOneClass(id: string) {
-		const response = await axios.get(`/api/fetchoneclass`, {
-			params: {
-				id: id,
-			},
-		})
-		return response
-	}
-
-	async function fetchLessons() {
-		const response = await axios.get(`/api/fetchlessons`)
-		return response
-	}
-
-	async function fetchAllCurriculum() {
-		const res = await axios.get("/api/fetchallcurriculums")
-		return res
-	}
-
-	async function fetchCurriculum(id: string) {
-		const response = await axios.get(`/api/fetchonecurriculum`, {
-			params: {
-				id,
-			},
-		})
-		return response
-	}
-	async function fetchOneLesson(id: string) {
-		const response = await axios.get(`/api/fetchonelesson`, {
-			params: {
-				id,
-			},
-		})
-		return response
-	}
 	async function fetchOneLessonByAi(id: string) {
 		const response = await axios.get(`/api/speak/fetchonelessonbyai`, {
 			params: {
@@ -93,20 +39,6 @@ function ApiServices() {
 			},
 		})
 		return response
-	}
-
-	async function fetchAssessment(type: string | number) {
-		return await axios.get("/api/assessmentapi", {
-			params: {
-				type,
-			},
-		})
-	}
-
-	async function fetchOneAssessment(params: string | number) {
-		return await axios.get("/api/getoneassessment", {
-			params: params,
-		})
 	}
 
 	interface ApiRequestParams {
@@ -133,18 +65,8 @@ function ApiServices() {
 		fetchStudentData,
 		fetchAllStudents,
 		fetchAllTeachers,
-		fetchEssayResults,
-		fetchEssayInfo,
 		fetchTestResults,
-		fetchClasses,
-		fetchOneClass,
-		fetchLessons,
-		fetchAllCurriculum,
-		fetchCurriculum,
-		fetchOneLesson,
 		fetchOneLessonByAi,
-		fetchAssessment,
-		fetchOneAssessment,
 		apiRequest,
 	}
 }

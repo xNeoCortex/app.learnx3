@@ -73,7 +73,9 @@ const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 
 const TableRows = React.memo(({ teacher, setOpen }: { teacher: TeacherType; setOpen: (arg: boolean) => void }) => {
 	const { updateTeacherInfo } = ApiPostServices()
-	const { mutate, isError } = useMutation((body) => updateTeacherInfo(body, teacher.uid))
+	const { mutate, isError } = useMutation((body: { permit: boolean }) =>
+		updateTeacherInfo(body, teacher?.uid as string)
+	)
 	const [checked, setChecked] = React.useState(true)
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

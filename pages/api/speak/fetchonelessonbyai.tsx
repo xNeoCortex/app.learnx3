@@ -1,12 +1,13 @@
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "../../../components/firebaseX"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	if (req.method === "GET") {
 		const { id } = req.query
 
 		try {
-			const docRef = doc(db, "lessonByAi", id)
+			const docRef = doc(db, "lessonByAi", id as string)
 			const docSnap = await getDoc(docRef)
 
 			console.log(docSnap.exists())
