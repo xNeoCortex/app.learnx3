@@ -1,4 +1,5 @@
 import React, { useState, useEffect, memo } from "react"
+//@ts-ignore
 import Speech from "speak-tts"
 import VolumeUpIcon from "@mui/icons-material/VolumeUp"
 import { IconButton } from "@mui/material"
@@ -36,6 +37,7 @@ const TextToSpeechButton: React.FC<{
 
 		const handleSpeak = () => {
 			if (!speaking || speechX) {
+				//@ts-ignore
 				speechX
 					.speak({
 						text,
@@ -52,10 +54,11 @@ const TextToSpeechButton: React.FC<{
 					.then((data: any) => {
 						console.log("Success !", data)
 					})
-					.catch((e) => {
+					.catch((e: any) => {
 						console.error("An error occurred :", e)
 					})
 			} else {
+				//@ts-ignore
 				speechX.cancel()
 				setSpeaking(false)
 			}
