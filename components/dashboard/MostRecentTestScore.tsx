@@ -46,7 +46,9 @@ function MostRecentTestScore() {
 					}}
 				>
 					{mostRecentTestResult?.result ?? "No Test Result"}
-					{mostRecentTestResult?.result !== null && <span style={{ fontSize: 15 }}>/100</span>}
+					{(mostRecentTestResult?.result !== null || mostRecentTestResult?.result !== undefined) && (
+						<span style={{ fontSize: 15 }}>/100</span>
+					)}
 				</Typography>
 				{mostRecentTestResult?.topic && (
 					<Typography variant="body2" sx={{ color: "#1d243d" }}>
