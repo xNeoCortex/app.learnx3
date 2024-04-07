@@ -67,8 +67,8 @@ const dataTeacher = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home/teacher",
-			link: `/home/teacher`,
+			href: "/",
+			link: `/`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -108,8 +108,8 @@ const dataStudent = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home",
-			link: `/home`,
+			href: "/",
+			link: `/`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{

@@ -34,10 +34,7 @@ function sidebar() {
 				overflowX: "hidden",
 			}}
 		>
-			<Link
-				href={userInfo?.role === "admin" ? "/" : userInfo?.role === "teacher" ? `/home/teacher` : `/home`}
-				style={{ display: "flex", margin: "10px auto 10px", alignContent: "center" }}
-			>
+			<Link href={"/"} style={{ display: "flex", margin: "10px auto 10px", alignContent: "center" }}>
 				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
 			</Link>
 
@@ -87,8 +84,8 @@ const dataTeacher = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home/teacher",
-			link: `/home/teacher`,
+			href: "/",
+			link: `/`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -128,8 +125,8 @@ const dataStudent = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home",
-			link: `/home`,
+			href: "/",
+			link: `/`,
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
@@ -151,20 +148,20 @@ const dataAdmin = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home/admin",
-			link: "/home/admin",
+			href: "/",
+			link: "/",
 			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Home Teacher",
-			href: "/home/teacher",
-			link: "/home/teacher",
+			href: "/",
+			link: "/",
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Home Student",
-			href: "/home",
-			link: "/home",
+			href: "/",
+			link: "/",
 			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
