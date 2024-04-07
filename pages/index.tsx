@@ -1,12 +1,24 @@
 import React from "react"
 import Head from "next/head"
-import { CssBaseline } from "@mui/material"
+import { Box, CssBaseline } from "@mui/material"
+import userDetails from "@/components/hooks/userDetails"
 import { useStoreUser } from "@/components/zustand"
-import Login from "./auth/login"
+import LoadingPage from "@/components/LoadingPage"
+import MyDashboard from "./home"
+import TeacherDashboard from "./home/teacher"
+import ErrorPage from "./error"
 
 export default function Home() {
 	const { userInfo } = useStoreUser()
-	if (!userInfo?.role) return <Login />
+	const { isLoading, error } = userDetails()
+
+	if (isLoading && !userInfo)
+		return (
+			<Box sx={{ width: "100vw", height: "100vh" }}>
+				<LoadingPage />
+			</Box>
+		)
+
 	return (
 		<>
 			<Head>
@@ -16,6 +28,15 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<CssBaseline />
+			<>
+				{userInfo?.role === "student" ? (
+					<MyDashboard />
+				) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
+					<TeacherDashboard />
+				) : (
+					<ErrorPage />
+				)}
+			</>
 		</>
 	)
 }
