@@ -1,9 +1,7 @@
-import { Avatar, Box, Button, Typography } from "@mui/material"
-import Link from "next/link"
-import { useStoreUser } from "../zustand"
+import { Avatar, Box, Typography } from "@mui/material"
+import LogoutButton from "../auth/LogoutButton"
 
 function NotPermitted() {
-	const { setUserInfo } = useStoreUser()
 	return (
 		<Box
 			sx={{
@@ -50,11 +48,7 @@ function NotPermitted() {
 						</Typography>
 					</Box>
 				</Box>
-				<Link href="/auth/login">
-					<Button variant="contained" onClick={() => setUserInfo(null)}>
-						Login
-					</Button>
-				</Link>
+				<LogoutButton />
 			</Box>
 		</Box>
 	)

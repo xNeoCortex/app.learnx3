@@ -1,3 +1,4 @@
+import LogoutButton from "@/components/auth/LogoutButton"
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import Link from "next/link"
 
@@ -27,7 +28,7 @@ function ErrorPage({ message = "" }) {
 					overflow: "hidden",
 				}}
 			>
-				<Box sx={{ display: "flex" }}>
+				<Box alignItems={"center"} justifyContent={"center"} display={"flex"}>
 					<Avatar
 						alt="Remy Sharp"
 						src="/teacher-johny.png"
@@ -38,15 +39,17 @@ function ErrorPage({ message = "" }) {
 							m: 1,
 						}}
 					/>
-					<Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
-						{message.length > 0 ? message : "Sorry, something went wrong!"}
-						{/* : "Sorry, you do not have access to this page!"} */}
-					</Typography>
+					<Box gap={2} display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"}>
+						<Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
+							{message.length > 0 ? message : "Sorry, something went wrong :/"}
+							<Typography sx={{ fontSize: 16, marginLeft: "10px", textAlign: "center", maxWidth: "'100%" }}>
+								Try to login again!
+							</Typography>
+						</Typography>
+						<LogoutButton />
+					</Box>
 				</Box>
 			</Box>
-			<Link href="/auth/login">
-				<Button variant="contained">Login</Button>
-			</Link>
 		</Box>
 	)
 }
