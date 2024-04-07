@@ -56,7 +56,7 @@ export default function StudentForm() {
 			phone: phone,
 			country: country,
 			role: "student",
-			permit: true,
+			permit: false,
 			performance: "Doing ok",
 			eng_level_form: eng_level_form,
 			eng_level_test: "",
@@ -73,7 +73,7 @@ export default function StudentForm() {
 			createdAt: new Date(),
 		}
 		try {
-			const user = await setDoc(doc(db, "students", id), { ...currentUserInfo })
+			await setDoc(doc(db, "students", id), { ...currentUserInfo })
 			setUserInfo({ ...currentUserInfo } as UserType)
 		} catch (e) {
 			console.error("Error adding document: ", e)
@@ -91,7 +91,7 @@ export default function StudentForm() {
 				.then(() => {
 					if (auth.currentUser) {
 						addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
-						navigate("/home")
+						navigate("/")
 					}
 				})
 				.catch((error) => {
