@@ -10,24 +10,19 @@ interface ProtectedRouteProps {
 	children: ReactNode
 	permitArray: PermitType[]
 }
-const ProtectedRoute = memo(({ children, permitArray = [] }: ProtectedRouteProps) => {
-	const { push: navigate } = useRouter()
+const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => {
 	const { userInfo } = useStoreUser()
-
-	useEffect(() => {
-		!userInfo && navigate("/auth/login")
-	}, [userInfo, permitArray])
 
 	if ((!userInfo?.permit && userInfo?.role == "teacher") || (!userInfo?.permit && userInfo?.role == "student"))
 		return <WaitingPage />
 
-	if (!userInfo && !permitArray.includes(userInfo?.role)) {
+	if (!permitArray.includes(userInfo?.role)) {
 		return <ErrorPage message="You do not have permission to visit this page!" />
 	}
-	if (userInfo && permitArray.includes(userInfo?.role)) {
+	if (permitArray.includes(userInfo?.role)) {
 		return <>{children}</>
 	}
 	return <ErrorPage message="Something went wrong, please try again later!" />
-})
+}
 
 export default ProtectedRoute
