@@ -1,6 +1,6 @@
 import React from "react"
 import ApiServices from "@/pages/api/ApiServices"
-import { Box, Grid, Typography } from "@mui/material"
+import { Alert, Box, Grid, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ErrorPage from "../../pages/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
@@ -22,16 +22,27 @@ function DashboardLessonTimetable() {
 		refetchOnWindowFocus: false,
 	})
 
+	const filteredLessonTimetable = lessonTimetableList?.data?.filter(
+		({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date)
+	)
 	if (cIsError) return <ErrorPage />
 	if (cIsLoading) return <LoadingPage />
+	if (filteredLessonTimetable.length === 0)
+		return (
+			<Alert
+				severity="warning"
+				sx={{ p: 1, mt: 2, paddingY: "0px", fontSize: "15px", fontWeight: "500", width: "fit-content" }}
+			>
+				No upcoming lessons
+			</Alert>
+		)
 
 	return (
 		<Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column" }}>
-			{lessonTimetableList?.data.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>}
+			{filteredLessonTimetable.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>}
 
 			<Grid container spacing={2}>
-				{lessonTimetableList?.data
-					?.filter(({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date))
+				{filteredLessonTimetable
 					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
 					?.slice(0, 3)
 					?.map((lesson: LessonTimetableType, index: number) => (
