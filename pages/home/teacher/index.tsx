@@ -7,7 +7,7 @@ import { Grid } from "@mui/material"
 import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTimetable"
 import DashboardLessonTimetableMobile from "@/components/dashboard/DashboardLessonTimetableMobile"
 
-function MyDashboard() {
+function TeacherDashboard() {
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher"]}>
 			<SidebarContainer>
@@ -28,4 +28,4 @@ function MyDashboard() {
 	)
 }
 
-export default MyDashboard
+export default TeacherDashboard

@@ -2,8 +2,16 @@ import { query, collection, where, getDocs } from "firebase/firestore"
 import { db } from "../../components/firebaseX"
 import { TeacherType } from "@/types/types"
 import { NextApiRequest, NextApiResponse } from "next"
+import { getAuth } from "@clerk/nextjs/server"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	// Clerk auth check
+	const { userId } = getAuth(req)
+
+	if (!userId) {
+		return res.status(401).json({ message: "Not authenticated" })
+	}
+
 	if (req.method === "GET") {
 		const teachers: TeacherType[] &
 			{

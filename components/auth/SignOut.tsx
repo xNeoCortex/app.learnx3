@@ -17,29 +17,18 @@ import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
 import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
-import { auth } from "../firebaseX"
+import { useClerk } from "@clerk/nextjs"
 
 const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) => {
-	const { push: navigate } = useRouter()
 	const { userInfo, setUserInfo } = useStoreUser((state) => state)
+	const { signOut } = useClerk()
+	const router = useRouter()
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 	const open = Boolean(anchorEl)
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget)
 	}
-
-	const handleLogout = React.useCallback(() => {
-		signOut(auth)
-			.then(() => {
-				// Sign-out successful.
-				navigate("/auth/login")
-				setUserInfo(null)
-			})
-			.catch((error) => {
-				// An error happened.
-			})
-	}, [])
 
 	const handleClose = () => {
 		setAnchorEl(null)
@@ -146,7 +135,8 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 					</Link>
 				</MenuItem>
 				<Divider />
-				<MenuItem onClick={handleLogout}>
+
+				<MenuItem onClick={() => (signOut(() => router.push("/")), setUserInfo(null))}>
 					<ListItemIcon>
 						<Logout fontSize="small" />
 					</ListItemIcon>

@@ -1,10 +1,20 @@
 import { collection, addDoc, query, getDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore"
 import { db } from "../../components/firebaseX"
 import { NextApiRequest, NextApiResponse } from "next"
+import { getAuth } from "@clerk/nextjs/server"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	const { collectionName, uid = null, role = null } = req.query
 	const body = req.body
+
+	// Clerk auth check
+	const { userId } = getAuth(req)
+
+	if (!userId) {
+		return res.status(401).json({ message: "Not authenticated" })
+	}
+
+	// API Request
 	if (req.method === "POST") {
 		try {
 			const docRef = await addDoc(collection(db, collectionName as string), body)

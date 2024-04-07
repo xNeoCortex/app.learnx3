@@ -256,17 +256,6 @@ export default function MySettings() {
 								>
 									Delete My Profile
 								</Button>
-								<Button
-									onClick={() => setOpenConfirmPassword(true)}
-									sx={{
-										width: "100%",
-										color: "#1976d2",
-										border: "1px solid #1976d2",
-										marginRight: "10px",
-									}}
-								>
-									Change Login Password
-								</Button>
 								{emailMessage && (
 									<Alert severity="success" sx={{ marginTop: "10px" }}>
 										{emailMessage}

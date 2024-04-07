@@ -1,7 +1,7 @@
 import React from "react"
-import { Avatar, Box, Button, Typography } from "@mui/material"
+import { Avatar, Box, Typography } from "@mui/material"
 import { useRouter } from "next/router"
-import Link from "next/link"
+import LogoutButton from "@/components/auth/LogoutButton"
 
 function ErrorPage({ message = "" }) {
 	const router = useRouter()
@@ -40,13 +40,13 @@ function ErrorPage({ message = "" }) {
 							m: 1,
 						}}
 					/>
-					<Typography sx={{ fontSize: 28, m: "auto", marginLeft: "10px" }}>
-						{message.length > 0 ? message : "Sorry, something went wrong!"}
-					</Typography>
+					<Box display={"flex"} flexDirection={"column"} alignItems={"center"} gap={2}>
+						<Typography sx={{ fontSize: 24, m: "auto", marginLeft: "10px", textAlign: "center" }}>
+							{message.length > 0 ? message : "Sorry, something went wrong!"}
+						</Typography>
+						<LogoutButton />
+					</Box>
 				</Box>
-				<Link href="/auth/login">
-					<Button variant="contained">Login again</Button>
-				</Link>
 			</Box>
 		</Box>
 	)

@@ -1,5 +1,5 @@
-import { Avatar, Box, Button, Typography } from "@mui/material"
-import Link from "next/link"
+import { Avatar, Box, Typography } from "@mui/material"
+import LogoutButton from "../auth/LogoutButton"
 
 function WaitingPage() {
 	return (
@@ -54,11 +54,7 @@ function WaitingPage() {
 						</Typography>
 					</Box>
 				</Box>
-				<Link href="/auth/login" style={{ marginTop: 20 }}>
-					<Button variant="contained" sx={{ background: "rgb(95, 106, 196)" }}>
-						Login
-					</Button>
-				</Link>
+				<LogoutButton text="logout" />
 			</Box>
 		</Box>
 	)
