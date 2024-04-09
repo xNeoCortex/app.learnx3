@@ -8,7 +8,6 @@ import CloseIcon from "@mui/icons-material/Close"
 import Typography from "@mui/material/Typography"
 import CardWrapper from "../elements/CardWrapper"
 import { Box, Grid } from "@mui/material"
-import sortByWordType from "@/components/helpers/sortByWordType"
 import { SpeakCard } from "../lessons/SpeakCard"
 import { TopicContentType } from "@/types/generatedLessonType"
 
@@ -28,7 +27,6 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 	const [open, setOpen] = React.useState(false)
 	const [showDefinition, setShowDefinition] = React.useState(false)
 	const [flashCardIndex, setFlashCardIndex] = React.useState(0)
-	const currentFlashCard = lesson?.vocabularies?.sort(sortByWordType).reverse()?.[flashCardIndex]
 
 	const handleClickOpen = () => {
 		setFlashCardIndex(0)
@@ -92,7 +90,7 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 									<CloseIcon />
 								</IconButton>
 							</Box>
-							<SpeakCard word={currentFlashCard} showDefinition={showDefinition} />
+							<SpeakCard lesson={lesson} showDefinition={showDefinition} flashCardIndex={flashCardIndex} />
 							<Box sx={{ width: "100%", display: "flex" }}>
 								<Button
 									sx={{
