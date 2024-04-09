@@ -19,6 +19,8 @@ export default function Home() {
 			</Box>
 		)
 
+	if (error) return <ErrorPage />
+
 	return (
 		<>
 			<Head>
