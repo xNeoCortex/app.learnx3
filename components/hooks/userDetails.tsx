@@ -1,57 +1,66 @@
-import React, { useEffect, useState } from "react"
-import { useStoreUser } from "@/components/zustand"
+// userDetails.js
+import { useEffect, useState } from "react"
 import { useAuth } from "@clerk/nextjs"
 import { getAuth, signInWithCustomToken } from "firebase/auth"
 import { getDoc, doc } from "firebase/firestore"
 import { db } from "@/components/firebaseX"
 import { useRouter } from "next/router"
+import { useStoreUser } from "@/components/zustand"
 
-function userDetails() {
+function useUserDetails() {
 	const { push: navigate } = useRouter()
 	const { getToken } = useAuth()
-	const { setUserInfo } = useStoreUser()
+	const { setUserInfo, userInfo } = useStoreUser()
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState("")
-
+	const [detailsFetched, setDetailsFetched] = useState(false)
+	console.log("!detailsFetched :>> ", !detailsFetched)
+	console.log("detailsFetched :>> ", detailsFetched)
 	useEffect(() => {
-		const signInWithClerk = async () => {
-			const auth = getAuth()
-			const token: string | null = await getToken({ template: "integration_firebase" })
-			const userCredentials = await signInWithCustomToken(auth, token as string)
+		if (userInfo && !detailsFetched) {
+			setIsLoading(false)
+			setDetailsFetched(true)
+			return
+		}
 
-			const user = userCredentials.user
+		const loadUserDetails = async () => {
 			try {
+				const auth = getAuth()
+				const token = await getToken({ template: "integration_firebase" })
+				const userCredentials = await signInWithCustomToken(auth, token as string)
+
+				const user = userCredentials.user
 				const docRef = doc(db, "teachers", user.uid)
 				const usersData = await getDoc(docRef)
 
-				const docRefStudent = doc(db, "students", user.uid)
-				const usersDataStudent = await getDoc(docRefStudent)
-
 				if (usersData.exists()) {
-					setIsLoading(false)
 					setUserInfo(usersData.data())
-				} else if (usersDataStudent.exists()) {
 					setIsLoading(false)
-					setUserInfo(usersDataStudent.data())
 				} else {
-					console.log(" :>> no user")
-					setError("No user found")
-					setIsLoading(false)
-					return navigate("/auth/student-form")
+					const docRefStudent = doc(db, "students", user.uid)
+					const usersDataStudent = await getDoc(docRefStudent)
+
+					if (usersDataStudent.exists()) {
+						setUserInfo(usersDataStudent.data())
+						setIsLoading(false)
+					} else {
+						navigate("/auth/student-form")
+					}
 				}
 			} catch (error) {
-				console.log("error 57 :>> ", error)
-				setError("api error")
+				console.error("Error fetching user details:", error)
+				setError("API error")
 				setIsLoading(false)
 			}
 		}
 
-		signInWithClerk()
+		loadUserDetails()
 	}, [])
+
 	return {
 		isLoading,
 		error,
 	}
 }
 
-export default userDetails
+export default useUserDetails
