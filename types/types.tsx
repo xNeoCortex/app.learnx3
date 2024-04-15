@@ -9,6 +9,7 @@ export interface TopicType {
 	createdByName: string
 	lessonId: string
 	topic: string
+	imagePath?: string
 }
 
 export interface LessonTimetableType {

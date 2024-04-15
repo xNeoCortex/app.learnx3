@@ -1,25 +1,29 @@
+// Home.jsx
 import React from "react"
 import Head from "next/head"
 import { Box, CssBaseline } from "@mui/material"
-import userDetails from "@/components/hooks/userDetails"
-import { useStoreUser } from "@/components/zustand"
 import LoadingPage from "@/components/LoadingPage"
 import MyDashboard from "./home"
 import TeacherDashboard from "./home/teacher"
 import ErrorPage from "./error"
+import { useStoreUser } from "@/components/zustand"
+import useUserDetails from "@/components/hooks/userDetails"
 
 export default function Home() {
+	const { isLoading, error } = useUserDetails()
 	const { userInfo } = useStoreUser()
-	const { isLoading, error } = userDetails()
 
-	if (isLoading && !userInfo)
+	if (isLoading) {
 		return (
 			<Box sx={{ width: "100vw", height: "100vh" }}>
 				<LoadingPage />
 			</Box>
 		)
+	}
 
-	if (error) return <ErrorPage />
+	if (error) {
+		return <ErrorPage />
+	}
 
 	return (
 		<>
@@ -30,15 +34,7 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<CssBaseline />
-			<>
-				{userInfo?.role === "student" ? (
-					<MyDashboard />
-				) : userInfo?.role === "teacher" || userInfo?.role === "admin" ? (
-					<TeacherDashboard />
-				) : (
-					<ErrorPage />
-				)}
-			</>
+			<>{userInfo && (userInfo.role === "student" ? <MyDashboard /> : <TeacherDashboard />)}</>
 		</>
 	)
 }
