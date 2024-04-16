@@ -83,7 +83,7 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 									{" "}
 									Learn words with FlashCards!
 									<Typography>
-										{flashCardIndex + 1}/{lesson?.vocabularies.length}
+										{flashCardIndex + 1}/{lesson?.vocabularies?.length}
 									</Typography>
 								</Typography>
 								<IconButton onClick={handleClose}>

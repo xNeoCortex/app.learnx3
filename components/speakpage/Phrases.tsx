@@ -77,7 +77,7 @@ const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 									{" "}
 									Learn with Phrases
 									<Typography>
-										{flashCardIndex + 1}/{lesson?.phrases.length}
+										{flashCardIndex + 1}/{lesson?.phrases?.length}
 									</Typography>
 								</Typography>
 								<IconButton onClick={handleClose}>

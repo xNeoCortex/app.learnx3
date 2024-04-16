@@ -74,7 +74,7 @@ const SpeakAssessment = React.memo(({ lesson }: { lesson: LessonType }) => {
 					<Box sx={{ p: { xs: "5px", sm: "5px 40px 10px" }, height: "90%" }}>
 						<Box sx={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
 							<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}>
-								{capitalize(lesson?.topic)} [{contentIndex + 1}/{lesson?.exercise?.questions.length}]
+								{capitalize(lesson?.topic)} [{contentIndex + 1}/{lesson?.exercise?.questions?.length}]
 							</Typography>
 							<IconButton onClick={handleClose}>
 								<CloseIcon sx={{ color: "white" }} />

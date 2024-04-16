@@ -14,8 +14,7 @@ function useUserDetails() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState("")
 	const [detailsFetched, setDetailsFetched] = useState(false)
-	console.log("!detailsFetched :>> ", !detailsFetched)
-	console.log("detailsFetched :>> ", detailsFetched)
+
 	useEffect(() => {
 		if (userInfo && !detailsFetched) {
 			setIsLoading(false)

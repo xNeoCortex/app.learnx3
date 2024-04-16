@@ -90,7 +90,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 									<Typography sx={{ width: "100%", textAlign: "center", m: "10px auto 0px", color: "grey" }}>
 										{now}
 									</Typography>
-									{lesson?.conversation.map((item, index) => (
+									{lesson?.conversation?.map((item, index) => (
 										<Grid item xs={12} key={index}>
 											<Box
 												key={index}
