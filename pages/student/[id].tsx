@@ -19,102 +19,103 @@ function StudentProfile() {
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
 	})
-	if (isLoading)
-		return (
-			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
-				<LoadingPage />
-			</Box>
-		)
+
 	if (isError) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<Box sx={BoxWrapperStyle}>
-					<Grid container spacing={2}>
-						<Grid item xs={12}>
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "left",
-									justifyContent: "start",
-									width: "100%",
-									padding: "5px",
-									marginBottom: 1,
-								}}
-							>
-								<Avatar
-									src={data?.data?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-									sx={{ bgcolor: "white", width: 100, height: 100 }}
-								/>
+				{isLoading ? (
+					<Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<LoadingPage />
+					</Box>
+				) : (
+					<Box sx={BoxWrapperStyle}>
+						<Grid container spacing={2}>
+							<Grid item xs={12}>
 								<Box
-									display="flex"
-									alignItems="center"
-									flexDirection="column"
 									sx={{
 										display: "flex",
+										alignItems: "left",
+										justifyContent: "start",
 										width: "100%",
-										justifyContent: "center",
-										alignItems: "flexStart",
-										padding: "0px 30px",
+										padding: "5px",
+										marginBottom: 1,
 									}}
 								>
-									<Typography
-										style={{
-											color: "#323331",
-											fontWeight: "600",
-											fontSize: "18px",
-											padding: 0,
-											marginBottom: "15px",
-										}}
-									>
-										{data?.data.name}
-									</Typography>
+									<Avatar
+										src={data?.data?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
+										sx={{ bgcolor: "white", width: 100, height: 100 }}
+									/>
 									<Box
+										display="flex"
+										alignItems="center"
+										flexDirection="column"
 										sx={{
 											display: "flex",
-											justifyContent: "start",
-											alignItems: "center",
-											flexWrap: "wrap",
+											width: "100%",
+											justifyContent: "center",
+											alignItems: "flexStart",
+											padding: "0px 30px",
 										}}
 									>
-										{[
-											data?.data?.country || "country unknown",
-											data?.data?.email,
-											`${data?.data?.age || "NA"} years old`,
-										].map((item, index) => (
-											<Typography key={index} sx={TypographyStyle}>
-												{item}
-											</Typography>
-										))}
 										<Typography
 											style={{
-												...TypographyStyle,
-												color:
-													data?.data.performance == "Struggling"
-														? "rgb(226, 109, 128)"
-														: data?.data.performance == "Doing Great"
-														? "#5fc497"
-														: "#41b6ff",
-												border:
-													data?.data.performance == "Struggling"
-														? "1px solid rgb(226, 109, 128)"
-														: data?.data.performance == "Doing Great"
-														? "1px solid #5fc497"
-														: "1px solid #41b6ff",
+												color: "#323331",
+												fontWeight: "600",
+												fontSize: "18px",
+												padding: 0,
+												marginBottom: "15px",
 											}}
 										>
-											{data?.data.performance}
+											{data?.data.name}
 										</Typography>
+										<Box
+											sx={{
+												display: "flex",
+												justifyContent: "start",
+												alignItems: "center",
+												flexWrap: "wrap",
+											}}
+										>
+											{[
+												data?.data?.country || "country unknown",
+												data?.data?.email,
+												`${data?.data?.age || "NA"} years old`,
+											].map((item, index) => (
+												<Typography key={index} sx={TypographyStyle}>
+													{item}
+												</Typography>
+											))}
+											<Typography
+												style={{
+													...TypographyStyle,
+													color:
+														data?.data.performance == "Struggling"
+															? "rgb(226, 109, 128)"
+															: data?.data.performance == "Doing Great"
+															? "#5fc497"
+															: "#41b6ff",
+													border:
+														data?.data.performance == "Struggling"
+															? "1px solid rgb(226, 109, 128)"
+															: data?.data.performance == "Doing Great"
+															? "1px solid #5fc497"
+															: "1px solid #41b6ff",
+												}}
+											>
+												{data?.data.performance}
+											</Typography>
+										</Box>
 									</Box>
 								</Box>
-							</Box>
+							</Grid>
+							<Grid item xs={12}>
+								<TestResult id={id as string} />
+							</Grid>
 						</Grid>
-						<Grid item xs={12}>
-							<TestResult id={id as string} />
-						</Grid>
-					</Grid>
-				</Box>
+					</Box>
+				)}
 			</SidebarContainer>
 		</ProtectedRoute>
 	)
