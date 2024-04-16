@@ -5,27 +5,26 @@ import { useStoreUser, useStoreTemporary } from "../zustand"
 import { useQueryClient } from "@tanstack/react-query"
 import InputBase from "@mui/material/InputBase"
 import { styled, alpha } from "@mui/material/styles"
-import ErrorPage from "../../pages/errorpage"
 import { collection, addDoc } from "firebase/firestore"
 import { db, storage } from "../firebaseX"
 import { useRouter } from "next/router"
 import { AiLessonStructure } from "../data/AiLessonStructure"
 import OpenAiFina from "../utils/OpenAiFina"
+import { TopicType } from "@/types/types"
 import OpenAI from "openai"
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { ref, uploadBytesResumable } from "firebase/storage"
 import { constants } from "../constants/constants"
 import { base64ToBlob } from "../helpers/base64ToBlob"
 import { v4 as uuidv4 } from "uuid"
 import { getObject } from "../helpers/getObject"
 
-const CreateAiLesson = () => {
+const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 	const { push: navigate } = useRouter()
 	const queryClient = useQueryClient()
 	const { userInfo } = useStoreUser()
 	const { loadingGenContentAI, setLoadingGenContentAI } = useStoreTemporary()
 	const [topic, setTopic] = useState("")
-	const [error, setError] = useState(false)
-	const [success, setSuccess] = useState(false)
+	const [error, setError] = useState("")
 	const openai = new OpenAI({
 		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 		dangerouslyAllowBrowser: true,
@@ -34,6 +33,13 @@ const CreateAiLesson = () => {
 	async function CreateAiLessonFunc() {
 		setLoadingGenContentAI(true)
 		try {
+			const topicExists = topics.find((item) => item.topic.toLowerCase().trim() === topic.toLowerCase().trim())
+			if (topicExists) {
+				setError("Topic already exists! Check the list of topics.")
+				setLoadingGenContentAI(false)
+				return
+			}
+
 			const response = await OpenAiFina({
 				model: "gpt-3.5-turbo-16k-0613",
 				messages: [
@@ -69,7 +75,7 @@ const CreateAiLesson = () => {
 					// model: userInfo.role === "student" ? "dall-e-2" : "dall-e-3",
 					prompt: `Create an image of ${topic}. Make it colorful. This is for school curriculum`,
 					response_format: "b64_json",
-					size: userInfo.role === "student" ? "512x512" : "1024x1024",
+					// size: userInfo.role === "student" ? "512x512" : "1024x1024",
 				})
 				// Convert image from b64_json to JPEG
 				const decodedImage = base64ToBlob(image.data[0].b64_json)
@@ -105,77 +111,85 @@ const CreateAiLesson = () => {
 				category: createdLesson.category?.toLowerCase() || "other",
 			})
 
-			queryClient.invalidateQueries(["lessonByAiTopics", "topicImages"]), setLoadingGenContentAI(false)
-			setError(false)
+			queryClient.invalidateQueries(["lessonByAiTopics", "topicImages"])
 			setLoadingGenContentAI(false)
-			setSuccess(true)
+			setError("no-error")
 			setTopic("")
 			navigate(`/speak/${lessonDoc.id}`)
 		} catch (error) {
 			console.log("error", error)
 			setLoadingGenContentAI(false)
-			setError(true)
+			setError("An error occurred while creating your curriculum. Please try again.")
 		}
 	}
 
-	if (error) return <ErrorPage />
-
 	return (
 		<Box sx={ComponentWrapperStyle}>
-			<Typography
-				fontWeight="bolder"
-				sx={{ color: "#001663", m: 3, textAlign: "center", fontSize: { xs: 20, sm: 24 } }}
-			>
-				✨ Unleash the Power of AI! Generate Curriculum with a Click!
-			</Typography>
-			<Box sx={BoxStyleWrapper}>
-				<Search>
-					<SearchIconWrapper>🤖</SearchIconWrapper>
-					<StyledInputBase
-						placeholder="Write your topic…"
-						inputProps={{ "aria-label": "search" }}
-						value={topic}
-						onChange={(e) => setTopic(e.target.value)}
-						onKeyPress={(e) => e.key === "Enter" && CreateAiLessonFunc()}
-					/>
-				</Search>
-				<Button
-					variant="contained"
-					onClick={CreateAiLessonFunc}
-					disabled={loadingGenContentAI || topic === ""}
-					sx={ButtonStyle}
+			<Box p={"10px"} width={"100%"}>
+				<Typography
+					fontWeight="bolder"
+					sx={{ color: "#001663", m: 3, textAlign: "center", fontSize: { xs: 20, sm: 24 } }}
 				>
-					<AutoFixHighIcon sx={{ marginRight: "10px" }} /> {loadingGenContentAI ? "Loading..." : "Generate"}
-				</Button>
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					margin: "10px",
-					p: 1,
-				}}
-			>
-				{loadingGenContentAI ? (
-					<Box sx={{ width: "100%" }}>
-						<LinearProgress />
-						<Typography sx={{ m: 1, textAlign: "center" }}>
-							Your Custom Curriculum is Underway! It takes around <b>1 minute</b> to create your curriculum.
-						</Typography>
-					</Box>
-				) : success === true ? (
-					<Alert severity="success" sx={{ p: 1, m: 2, paddingY: "0px", width: "fit-content" }}>
-						Your curriculum has been successfully created!
-					</Alert>
-				) : (
-					["Travel", "Book", "History", "Sport"].map((item) => (
-						<Button
-							onClick={() => setTopic(item)}
-							sx={{ color: "white", border: "1px solid white", m: 1, display: { xs: "none", sm: "flex" } }}
+					✨ Unleash the Power of AI! Generate Curriculum with a Click!
+				</Typography>
+				<Box sx={BoxStyleWrapper}>
+					<Search>
+						<SearchIconWrapper>🤖</SearchIconWrapper>
+						<StyledInputBase
+							placeholder="Write your topic…"
+							inputProps={{ "aria-label": "search" }}
+							value={topic}
+							onChange={(e) => setTopic(e.target.value)}
+							onKeyPress={(e) => e.key === "Enter" && CreateAiLessonFunc()}
+						/>
+					</Search>
+					<Button
+						variant="contained"
+						onClick={CreateAiLessonFunc}
+						disabled={loadingGenContentAI || topic === ""}
+						sx={ButtonStyle}
+					>
+						<AutoFixHighIcon sx={{ marginRight: "10px" }} /> {loadingGenContentAI ? "Loading..." : "Generate"}
+					</Button>
+				</Box>
+				<Box
+					sx={{
+						display: "flex",
+						margin: "10px",
+						p: 1,
+					}}
+				>
+					{loadingGenContentAI ? (
+						<Box sx={{ width: "100%" }}>
+							<LinearProgress />
+							<Typography sx={{ m: 1, textAlign: "center" }}>
+								Your Custom Curriculum is Underway! It takes around <b>1 minute</b> to create your curriculum.
+							</Typography>
+						</Box>
+					) : error === "no-error" ? (
+						<Alert severity="success" sx={{ p: 1, m: "8px auto", paddingY: "0px", width: "fit-content" }}>
+							Your curriculum has been successfully created!
+						</Alert>
+					) : error ? (
+						<Alert severity="error" sx={{ p: 1, m: "8px auto", paddingY: "0px", width: "fit-content" }}>
+							{error}
+						</Alert>
+					) : (
+						<Typography
+							sx={{
+								p: 1,
+								m: 1,
+								color: "#001663",
+								paddingY: "0px",
+								width: "100%",
+								fontWeight: "semibold",
+								textAlign: "center",
+							}}
 						>
-							💎 {item}
-						</Button>
-					))
-				)}
+							Enter your topic and click on Generate to create your curriculum.
+						</Typography>
+					)}
+				</Box>
 			</Box>
 		</Box>
 	)
@@ -190,7 +204,6 @@ const Search = styled("div")(({ theme }) => ({
 	"&:hover": {
 		backgroundColor: alpha(theme.palette.common.white, 0.25),
 	},
-	marginRight: theme.spacing(2),
 	marginLeft: "0px !important",
 	width: "100%",
 	flexGrow: 1,
@@ -254,7 +267,7 @@ const ButtonStyle = {
 	color: "white",
 	fontWeight: "bold",
 	fontSize: "12px",
-	mr: "30px",
 	margin: "auto",
 	mt: { xs: 2, sm: "2px" },
+	ml: { xs: "auto", sm: "16px" },
 }
