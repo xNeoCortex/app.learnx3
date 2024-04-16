@@ -17,7 +17,7 @@ function index() {
 	const { botComponentWidth } = useStoreTemporary()
 	const { apiRequest, fetchAiImages } = ApiServices()
 
-	const { data: topicImages, isError: isErrorImages } = useQuery({
+	const { data: topicImages } = useQuery({
 		queryKey: ["topicImages"],
 		queryFn: () => fetchAiImages(),
 		refetchOnWindowFocus: false,
@@ -42,49 +42,54 @@ function index() {
 		[topics?.data]
 	)
 
-	if (isError || isErrorImages) return <ErrorPage />
-	if (isLoading) return <LoadingPage />
+	if (isError) return <ErrorPage />
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<Box sx={{ marginTop: "20px", width: "100%" }}>
-					<CreateAiLesson topics={topics?.data} />
-					<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll" }}>
-						{["All", ...topicCategories]?.map((categoryX) => (
-							<Typography
-								onClick={() => setCategory(categoryX)}
-								sx={{
-									cursor: "pointer",
-									background: categoryX === category ? "#282828" : "#f2f2f2",
-									color: categoryX === category ? "white" : "#282828",
-									mr: "8px",
-									p: "4px 16px",
-									borderRadius: 2,
-									width: "fit-content",
-									minWidth: "fit-content",
-								}}
-							>
-								{" "}
-								{categoryX?.toLowerCase()}
-							</Typography>
-						))}
+				{isLoading ? (
+					<Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<LoadingPage />
 					</Box>
-					<Grid container spacing={2}>
-						{topics?.data
-							.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
-							.filter((x: TopicType) => (category === "All" ? x : x.category === category))
-							.map((x: TopicType) => {
-								const imageX = topicImages?.data.find(({ name }: { name: string }) => name === x?.imagePath)
+				) : (
+					<Box sx={{ marginTop: "20px", width: "100%" }}>
+						<CreateAiLesson topics={topics?.data} />
+						<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll" }}>
+							{["All", ...topicCategories]?.map((categoryX) => (
+								<Typography
+									onClick={() => setCategory(categoryX)}
+									sx={{
+										cursor: "pointer",
+										background: categoryX === category ? "#282828" : "#f2f2f2",
+										color: categoryX === category ? "white" : "#282828",
+										mr: "8px",
+										p: "4px 16px",
+										borderRadius: 2,
+										width: "fit-content",
+										minWidth: "fit-content",
+									}}
+								>
+									{" "}
+									{categoryX?.toLowerCase()}
+								</Typography>
+							))}
+						</Box>
+						<Grid container spacing={2}>
+							{topics?.data
+								.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
+								.filter((x: TopicType) => (category === "All" ? x : x.category === category))
+								.map((x: TopicType) => {
+									const imageX = topicImages?.data.find(({ name }: { name: string }) => name === x?.imagePath)
 
-								return (
-									<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
-										<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} image={imageX} />
-									</Grid>
-								)
-							})}
-					</Grid>
-				</Box>
+									return (
+										<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
+											<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} image={imageX} />
+										</Grid>
+									)
+								})}
+						</Grid>
+					</Box>
+				)}
 			</SidebarContainer>
 		</ProtectedRoute>
 	)

@@ -29,36 +29,36 @@ export default function SpeakingLessonAi() {
 		refetchOnWindowFocus: false,
 	})
 
-	if (isLoading)
-		return (
-			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
-				<LoadingPage />
-			</Box>
-		)
 	if (isError) return <ErrorPage />
 
 	return (
 		<SidebarContainer>
-			<Grid container spacing={2}>
-				<Grid item xs={12}>
-					<SpeakingInfo topic={lessonByAi?.data?.topic} imagePath={lessonByAi?.data?.imagePath} />
+			{isLoading ? (
+				<Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+					<LoadingPage />
+				</Box>
+			) : (
+				<Grid container spacing={2}>
+					<Grid item xs={12}>
+						<SpeakingInfo topic={lessonByAi?.data?.topic} imagePath={lessonByAi?.data?.imagePath} />
+					</Grid>
+					<Grid item xs={12} sm={4}>
+						<FlashCards lesson={lessonByAi?.data} />
+					</Grid>
+					<Grid item xs={12} sm={4}>
+						<Phrases lesson={lessonByAi?.data} />
+					</Grid>
+					<Grid item xs={12} sm={4}>
+						<Conversation lesson={lessonByAi?.data} />
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<AskQuestions lesson={lessonByAi?.data} />
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<SpeakAssessment lesson={lessonByAi?.data} />
+					</Grid>
 				</Grid>
-				<Grid item xs={12} sm={4}>
-					<FlashCards lesson={lessonByAi?.data} />
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<Phrases lesson={lessonByAi?.data} />
-				</Grid>
-				<Grid item xs={12} sm={4}>
-					<Conversation lesson={lessonByAi?.data} />
-				</Grid>
-				<Grid item xs={12} sm={6}>
-					<AskQuestions lesson={lessonByAi?.data} />
-				</Grid>
-				<Grid item xs={12} sm={6}>
-					<SpeakAssessment lesson={lessonByAi?.data} />
-				</Grid>
-			</Grid>
+			)}
 		</SidebarContainer>
 	)
 }
