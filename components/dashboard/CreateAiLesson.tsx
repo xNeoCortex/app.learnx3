@@ -7,10 +7,16 @@ import InputBase from "@mui/material/InputBase"
 import { styled, alpha } from "@mui/material/styles"
 import ErrorPage from "../../pages/errorpage"
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "../firebaseX"
+import { db, storage } from "../firebaseX"
 import { useRouter } from "next/router"
 import { AiLessonStructure } from "../data/AiLessonStructure"
 import OpenAiFina from "../utils/OpenAiFina"
+import OpenAI from "openai"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { constants } from "../constants/constants"
+import { base64ToBlob } from "../helpers/base64ToBlob"
+import { v4 as uuidv4 } from "uuid"
+import { getObject } from "../helpers/getObject"
 
 const CreateAiLesson = () => {
 	const { push: navigate } = useRouter()
@@ -20,6 +26,10 @@ const CreateAiLesson = () => {
 	const [topic, setTopic] = useState("")
 	const [error, setError] = useState(false)
 	const [success, setSuccess] = useState(false)
+	const openai = new OpenAI({
+		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+		dangerouslyAllowBrowser: true,
+	})
 
 	async function CreateAiLessonFunc() {
 		setLoadingGenContentAI(true)
@@ -50,21 +60,52 @@ const CreateAiLesson = () => {
 			})
 			const createdLesson = response.choices[0].message.content && getObject(response.choices[0].message.content)
 
+			const uniqueId = uuidv4()
+			let imagePath
+			try {
+				//DALL-E image generation
+				const image = await openai.images.generate({
+					model: "dall-e-3",
+					// model: userInfo.role === "student" ? "dall-e-2" : "dall-e-3",
+					prompt: `Create an image of ${topic}. Make it colorful. This is for school curriculum`,
+					response_format: "b64_json",
+					size: userInfo.role === "student" ? "512x512" : "1024x1024",
+				})
+				// Convert image from b64_json to JPEG
+				const decodedImage = base64ToBlob(image.data[0].b64_json)
+				// generate unique ID
+
+				// Save image in firebase storage
+				const storageRef = ref(
+					storage,
+					`${constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH}/${userInfo.uid + "-" + uniqueId}`
+				)
+				if (decodedImage) uploadBytesResumable(storageRef, decodedImage)
+
+				imagePath = `${userInfo.uid + "-" + uniqueId}`
+			} catch (error) {
+				imagePath = null
+			}
+
+			// Save lesson info in Firestore
 			const lessonDoc = await addDoc(collection(db, "lessonByAi"), {
 				...createdLesson,
+				imagePath,
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
 			})
 			await addDoc(collection(db, "lessonByAiTopics"), {
 				topic: createdLesson.topic,
+				imagePath,
 				lessonId: lessonDoc.id,
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
 				category: createdLesson.category?.toLowerCase() || "other",
 			})
-			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoadingGenContentAI(false)
+
+			queryClient.invalidateQueries(["lessonByAiTopics", "topicImages"]), setLoadingGenContentAI(false)
 			setError(false)
 			setLoadingGenContentAI(false)
 			setSuccess(true)
@@ -74,18 +115,6 @@ const CreateAiLesson = () => {
 			console.log("error", error)
 			setLoadingGenContentAI(false)
 			setError(true)
-		}
-	}
-
-	function getObject(text: string) {
-		const start = text.indexOf("{")
-		const end = text.lastIndexOf("}") + 1
-		const objectText = text.substring(start, end)
-		const objectResult = eval("(" + objectText + ")")
-		if (typeof objectResult === "object") {
-			return objectResult
-		} else {
-			return {}
 		}
 	}
 
