@@ -6,11 +6,17 @@ import { useQueryClient } from "@tanstack/react-query"
 import InputBase from "@mui/material/InputBase"
 import { styled, alpha } from "@mui/material/styles"
 import { collection, addDoc } from "firebase/firestore"
-import { db } from "../firebaseX"
+import { db, storage } from "../firebaseX"
 import { useRouter } from "next/router"
 import { AiLessonStructure } from "../data/AiLessonStructure"
 import OpenAiFina from "../utils/OpenAiFina"
 import { TopicType } from "@/types/types"
+import OpenAI from "openai"
+import { ref, uploadBytesResumable } from "firebase/storage"
+import { constants } from "../constants/constants"
+import { base64ToBlob } from "../helpers/base64ToBlob"
+import { v4 as uuidv4 } from "uuid"
+import { getObject } from "../helpers/getObject"
 
 const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 	const { push: navigate } = useRouter()
@@ -19,6 +25,10 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 	const { loadingGenContentAI, setLoadingGenContentAI } = useStoreTemporary()
 	const [topic, setTopic] = useState("")
 	const [error, setError] = useState("")
+	const openai = new OpenAI({
+		apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+		dangerouslyAllowBrowser: true,
+	})
 
 	async function CreateAiLessonFunc() {
 		setLoadingGenContentAI(true)
@@ -56,21 +66,52 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 			})
 			const createdLesson = response.choices[0].message.content && getObject(response.choices[0].message.content)
 
+			const uniqueId = uuidv4()
+			let imagePath
+			try {
+				//DALL-E image generation
+				const image = await openai.images.generate({
+					model: "dall-e-3",
+					// model: userInfo.role === "student" ? "dall-e-2" : "dall-e-3",
+					prompt: `Create an image of ${topic}. Make it colorful. This is for school curriculum`,
+					response_format: "b64_json",
+					// size: userInfo.role === "student" ? "512x512" : "1024x1024",
+				})
+				// Convert image from b64_json to JPEG
+				const decodedImage = base64ToBlob(image.data[0].b64_json)
+				// generate unique ID
+
+				// Save image in firebase storage
+				const storageRef = ref(
+					storage,
+					`${constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH}/${userInfo.uid + "-" + uniqueId}`
+				)
+				if (decodedImage) uploadBytesResumable(storageRef, decodedImage)
+
+				imagePath = `${userInfo.uid + "-" + uniqueId}`
+			} catch (error) {
+				imagePath = null
+			}
+
+			// Save lesson info in Firestore
 			const lessonDoc = await addDoc(collection(db, "lessonByAi"), {
 				...createdLesson,
+				imagePath,
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
 			})
 			await addDoc(collection(db, "lessonByAiTopics"), {
 				topic: createdLesson.topic,
+				imagePath,
 				lessonId: lessonDoc.id,
 				createdAt: `${new Date().toISOString()}`,
 				createdById: `${userInfo.uid}`,
 				createdByName: `${userInfo.name}`,
 				category: createdLesson.category?.toLowerCase() || "other",
 			})
-			queryClient.invalidateQueries(["lessonByAiTopics"]), setLoadingGenContentAI(false)
+
+			queryClient.invalidateQueries(["lessonByAiTopics", "topicImages"])
 			setLoadingGenContentAI(false)
 			setError("no-error")
 			setTopic("")
@@ -79,18 +120,6 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 			console.log("error", error)
 			setLoadingGenContentAI(false)
 			setError("An error occurred while creating your curriculum. Please try again.")
-		}
-	}
-
-	function getObject(text: string) {
-		const start = text.indexOf("{")
-		const end = text.lastIndexOf("}") + 1
-		const objectText = text.substring(start, end)
-		const objectResult = eval("(" + objectText + ")")
-		if (typeof objectResult === "object") {
-			return objectResult
-		} else {
-			return {}
 		}
 	}
 
@@ -138,11 +167,11 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 							</Typography>
 						</Box>
 					) : error === "no-error" ? (
-						<Alert severity="success" sx={{ p: 1, m: 2, paddingY: "0px", width: "fit-content" }}>
+						<Alert severity="success" sx={{ p: 1, m: "8px auto", paddingY: "0px", width: "fit-content" }}>
 							Your curriculum has been successfully created!
 						</Alert>
 					) : error ? (
-						<Alert severity="error" sx={{ p: 1, m: 2, paddingY: "0px", width: "fit-content" }}>
+						<Alert severity="error" sx={{ p: 1, m: "8px auto", paddingY: "0px", width: "fit-content" }}>
 							{error}
 						</Alert>
 					) : (
@@ -175,7 +204,6 @@ const Search = styled("div")(({ theme }) => ({
 	"&:hover": {
 		backgroundColor: alpha(theme.palette.common.white, 0.25),
 	},
-	marginRight: theme.spacing(2),
 	marginLeft: "0px !important",
 	width: "100%",
 	flexGrow: 1,
@@ -239,7 +267,7 @@ const ButtonStyle = {
 	color: "white",
 	fontWeight: "bold",
 	fontSize: "12px",
-	mr: "30px",
 	margin: "auto",
 	mt: { xs: 2, sm: "2px" },
+	ml: { xs: "auto", sm: "16px" },
 }

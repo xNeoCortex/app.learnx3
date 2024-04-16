@@ -1,8 +1,18 @@
-import { Avatar, Button, capitalize, Typography } from "@mui/material"
+import { capitalize, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import React from "react"
+import ApiServices from "../api/ApiServices"
+import { useQuery } from "@tanstack/react-query"
 
-const SpeakingInfo = ({ topic = "", image }: { topic: string; image: string }) => {
+const SpeakingInfo = ({ topic = "", imagePath }: { topic: string; imagePath: string }) => {
+	const { fetchAiImages } = ApiServices()
+
+	const { data: topicImages } = useQuery({
+		queryKey: [`topicImages-${imagePath}`],
+		queryFn: () => fetchAiImages(imagePath),
+		refetchOnWindowFocus: false,
+	})
+
 	return (
 		<Box sx={BoxWrapperStyle}>
 			<Box
@@ -18,7 +28,7 @@ const SpeakingInfo = ({ topic = "", image }: { topic: string; image: string }) =
 			>
 				<Typography
 					sx={{
-						color: "white",
+						color: "black",
 						fontWeight: "500",
 						fontSize: "19px",
 						padding: "1px",
@@ -32,21 +42,29 @@ const SpeakingInfo = ({ topic = "", image }: { topic: string; image: string }) =
 					sx={{
 						color: "white",
 						fontWeight: "600",
-						fontSize: "32px",
+						fontSize: "44px",
 						padding: "1px",
 						margin: "1px",
 						marginBottom: "10px",
+						background: "linear-gradient(45deg, rgb(139, 88, 254), rgb(95, 222, 231))",
+						WebkitBackgroundClip: "text",
+						WebkitTextFillColor: "transparent",
+						width: "fit-content",
 					}}
 				>
 					{capitalize(topic)}
 				</Typography>
 			</Box>
-			<Avatar
-				src={image}
+			<Box
 				sx={{
-					width: 200,
-					height: "100%",
-					marginRight: "30px",
+					width: "300px",
+					height: "200px",
+					backgroundImage: `url(${topicImages?.data.url || "/mobile-book.svg"})`,
+					backgroundPosition: "center",
+					backgroundSize: "cover",
+					backgroundRepeat: "no-repeat",
+					boxShadow: "20px 0px 15px white inset ",
+					borderColor: "white",
 				}}
 			/>
 		</Box>
@@ -64,6 +82,6 @@ const BoxWrapperStyle = {
 	borderRadius: "8px",
 	overflow: "hidden",
 	position: "relative",
-	background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-	p: 1,
+	background: "white",
+	maxHeight: 200,
 }

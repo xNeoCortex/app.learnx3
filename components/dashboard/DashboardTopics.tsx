@@ -10,7 +10,7 @@ import { SnackbarX } from "../other/SnackbarX"
 
 function DashboardTopics() {
 	const [open, setOpen] = React.useState(false)
-	const { apiRequest } = ApiServices()
+	const { apiRequest, fetchAiImages } = ApiServices()
 
 	const {
 		data: topics,
@@ -21,8 +21,13 @@ function DashboardTopics() {
 		queryFn: () => apiRequest("GET", null, { collectionName: "lessonByAiTopics" }),
 		refetchOnWindowFocus: false,
 	})
+	const { data: topicImages, isError: isErrorImages } = useQuery({
+		queryKey: ["topicImages"],
+		queryFn: () => fetchAiImages(),
+		refetchOnWindowFocus: false,
+	})
 
-	if (isError) return <ErrorPage />
+	if (isError || isErrorImages) return <ErrorPage />
 
 	return (
 		<Box>
@@ -43,12 +48,17 @@ function DashboardTopics() {
 						: topics?.data.length > 0 &&
 						  topics.data
 								?.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
-								.slice(0, 4)
-								.map((topicObject: TopicType, index: number) => (
-									<Grid item xs={6} sm={6} lg={3} key={index}>
-										<ImgMediaCard title={topicObject.topic} link={`/speak/${topicObject.lessonId}`} />
-									</Grid>
-								))}
+								.slice(0, 6)
+								.map((topicObject: TopicType, index: number) => {
+									const imageX = topicImages?.data?.find(
+										({ name }: { name: string }) => name === topicObject?.imagePath
+									)
+									return (
+										<Grid item xs={6} sm={3} lg={2} key={index}>
+											<ImgMediaCard title={topicObject.topic} link={`/speak/${topicObject.lessonId}`} image={imageX} />
+										</Grid>
+									)
+								})}
 				</Grid>
 			}
 		</Box>

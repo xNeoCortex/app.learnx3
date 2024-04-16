@@ -15,7 +15,14 @@ import { TopicType } from "@/types/types"
 function index() {
 	const [category, setCategory] = React.useState("All")
 	const { botComponentWidth } = useStoreTemporary()
-	const { apiRequest } = ApiServices()
+	const { apiRequest, fetchAiImages } = ApiServices()
+
+	const { data: topicImages, isError: isErrorImages } = useQuery({
+		queryKey: ["topicImages"],
+		queryFn: () => fetchAiImages(),
+		refetchOnWindowFocus: false,
+	})
+
 	const {
 		data: topics,
 		isLoading,
@@ -35,7 +42,7 @@ function index() {
 		[topics?.data]
 	)
 
-	if (isError) return <ErrorPage />
+	if (isError || isErrorImages) return <ErrorPage />
 	if (isLoading) return <LoadingPage />
 
 	return (
@@ -67,11 +74,15 @@ function index() {
 						{topics?.data
 							.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 							.filter((x: TopicType) => (category === "All" ? x : x.category === category))
-							.map((x: TopicType) => (
-								<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
-									<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} />
-								</Grid>
-							))}
+							.map((x: TopicType) => {
+								const imageX = topicImages?.data.find(({ name }: { name: string }) => name === x?.imagePath)
+
+								return (
+									<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
+										<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} image={imageX} />
+									</Grid>
+								)
+							})}
 					</Grid>
 				</Box>
 			</SidebarContainer>

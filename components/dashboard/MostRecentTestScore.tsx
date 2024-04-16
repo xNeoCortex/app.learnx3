@@ -40,7 +40,7 @@ function MostRecentTestScore() {
 				<Typography sx={{ color: "#1d243d", mb: 1 }}>Your most recent test score </Typography>
 				<Typography
 					sx={{
-						fontSize: { xs: 24, sm: 32 },
+						fontSize: { xs: 22, sm: 28 },
 						fontWeight: 600,
 						color: "#1d243d",
 					}}

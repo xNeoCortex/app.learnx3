@@ -18,6 +18,15 @@ function ApiServices() {
 		return response
 	}
 
+	async function fetchAiImages(imagePath?: string) {
+		const response = await axios.get(`/api/fetchfromstorage`, {
+			params: {
+				imagePath: imagePath,
+			},
+		})
+		return response
+	}
+
 	async function fetchAllTeachers() {
 		const response = await axios.get(`/api/fetchallteachers`)
 		return response
@@ -68,6 +77,7 @@ function ApiServices() {
 		fetchTestResults,
 		fetchOneLessonByAi,
 		apiRequest,
+		fetchAiImages,
 	}
 }
 
