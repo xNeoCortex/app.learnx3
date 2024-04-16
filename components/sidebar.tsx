@@ -34,8 +34,8 @@ function sidebar() {
 				overflowX: "hidden",
 			}}
 		>
-			<Link href={"/"} style={{ display: "flex", margin: "10px auto 10px", alignContent: "center" }}>
-				<img src="/logo-mini.png" alt="mini logo" style={{ height: "37px" }} />
+			<Link href={"/"} style={{ display: "flex", margin: "14px auto 10px", alignContent: "center" }}>
+				<img src="/learnX3_logo.png" alt="mini logo" style={{ height: "44px", borderRadius: 4 }} />
 			</Link>
 
 			<Box
