@@ -37,11 +37,11 @@ const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 	}
 
 	const handleNext = () => {
-		lesson?.phrases[flashCardIndex + 1] ? setFlashCardIndex((prev) => prev + 1) : handleClose()
+		lesson?.phrases?.[flashCardIndex + 1] ? setFlashCardIndex((prev) => prev + 1) : handleClose()
 	}
 
 	const handlePrevious = () => {
-		lesson?.phrases[flashCardIndex - 1] ? setFlashCardIndex((prev) => prev - 1) : handleClose()
+		lesson?.phrases?.[flashCardIndex - 1] ? setFlashCardIndex((prev) => prev - 1) : handleClose()
 	}
 
 	return (
@@ -100,9 +100,9 @@ const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 									boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
 								}}
 							>
-								<TextToSpeechButton text={lesson?.phrases[flashCardIndex]} />
+								<TextToSpeechButton text={lesson?.phrases?.[flashCardIndex]} />
 								<Typography variant="h5" sx={{ textAlign: "center" }}>
-									{lesson?.phrases[flashCardIndex]}
+									{lesson?.phrases?.[flashCardIndex]}
 								</Typography>
 							</Box>
 							<Box sx={{ width: "100%", display: "flex", gap: 2 }}>
@@ -117,7 +117,7 @@ const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 									autoFocus
 									onClick={handlePrevious}
 								>
-									{lesson?.phrases[flashCardIndex - 1] ? "Back" : "Close"}
+									{lesson?.phrases?.[flashCardIndex - 1] ? "Back" : "Close"}
 								</Button>
 								<Button
 									sx={{
@@ -130,7 +130,7 @@ const Phrases = React.memo(({ lesson }: { lesson: LessonType }) => {
 									autoFocus
 									onClick={handleNext}
 								>
-									{lesson?.phrases[flashCardIndex + 1] ? "Next" : "Close"}
+									{lesson?.phrases?.[flashCardIndex + 1] ? "Next" : "Close"}
 								</Button>
 							</Box>
 						</Grid>

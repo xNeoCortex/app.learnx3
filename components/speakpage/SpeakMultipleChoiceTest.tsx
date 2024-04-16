@@ -59,7 +59,7 @@ const SpeakMultipleChoiceTest = memo(
 				index: number
 			) => {
 				const quizDataCopy = [...quizData]
-				const answer = quizDataCopy[index]
+				const answer = quizDataCopy?.[index]
 				answer.response = response
 				setQuizData(quizDataCopy)
 			},
@@ -67,7 +67,7 @@ const SpeakMultipleChoiceTest = memo(
 		)
 
 		const handleSubmit = useCallback(() => {
-			const correctAnswers = quizData.filter((item) => item?.response?.correct === true)
+			const correctAnswers = quizData?.filter((item) => item?.response?.correct === true)
 			const score = (correctAnswers?.length / quizData?.length) * 100
 
 			setShow(true)
@@ -122,11 +122,11 @@ const SpeakMultipleChoiceTest = memo(
 						mt: 5,
 					}}
 				>
-					<SpeakQuiz show={show} test={quizData[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
+					<SpeakQuiz show={show} test={quizData?.[contentIndex]} index={contentIndex} handleSelect={handleSelect} />
 				</Box>
 				<Box sx={{ width: "100%", display: "flex" }}>
 					<Button
-						disabled={!quizData[contentIndex - 1]}
+						disabled={!quizData?.[contentIndex - 1]}
 						sx={{
 							flex: 1,
 							margin: "15px 0px",
@@ -138,11 +138,11 @@ const SpeakMultipleChoiceTest = memo(
 						}}
 						onClick={handlePrevious}
 					>
-						{quizData[contentIndex - 1] ? "Back" : "Back"}
+						{quizData?.[contentIndex - 1] ? "Back" : "Back"}
 					</Button>
 					{!show && !showResultPage ? (
 						<Button
-							disabled={quizData[contentIndex + 1] as any}
+							disabled={quizData?.[contentIndex + 1] as any}
 							sx={{
 								flex: 4,
 								margin: "15px 0px",
@@ -173,7 +173,7 @@ const SpeakMultipleChoiceTest = memo(
 						</Button>
 					)}
 					<Button
-						disabled={!quizData[contentIndex + 1]}
+						disabled={!quizData?.[contentIndex + 1]}
 						sx={{
 							flex: 1,
 							margin: "15px 0px",
@@ -185,7 +185,7 @@ const SpeakMultipleChoiceTest = memo(
 						}}
 						onClick={handleNext}
 					>
-						{!quizData[contentIndex + 1] ? "Next" : "Next"}
+						{!quizData?.[contentIndex + 1] ? "Next" : "Next"}
 					</Button>
 				</Box>
 			</Box>

@@ -39,13 +39,13 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 	}
 
 	const handleNext = () => {
-		lesson?.vocabularies[flashCardIndex + 1]
+		lesson?.vocabularies?.[flashCardIndex + 1]
 			? (setFlashCardIndex((prev) => prev + 1), setShowDefinition(false))
 			: handleClose()
 	}
 
 	const handlePrevious = () => {
-		lesson?.vocabularies[flashCardIndex - 1]
+		lesson?.vocabularies?.[flashCardIndex - 1]
 			? (setFlashCardIndex((prev) => prev - 1), setShowDefinition(false))
 			: handleClose()
 	}
@@ -102,7 +102,7 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 									autoFocus
 									onClick={handlePrevious}
 								>
-									{lesson?.vocabularies[flashCardIndex - 1] ? "Back" : "Close"}
+									{lesson?.vocabularies?.[flashCardIndex - 1] ? "Back" : "Close"}
 								</Button>
 								<Button
 									sx={{
@@ -128,7 +128,7 @@ const FlashCards = React.memo(({ lesson }: { lesson: TopicContentType }) => {
 									autoFocus
 									onClick={handleNext}
 								>
-									{lesson?.vocabularies[flashCardIndex + 1] ? "Next" : "Close"}
+									{lesson?.vocabularies?.[flashCardIndex + 1] ? "Next" : "Close"}
 								</Button>
 							</Box>
 						</Grid>

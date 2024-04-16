@@ -25,7 +25,7 @@ function SpeakLessonDep() {
 				</Typography>
 				<Box>
 					<Grid spacing={2} container>
-						{SpeakY.phrases.map((item, index) => (
+						{SpeakY.phrases?.map((item, index) => (
 							<Grid item xs={12} key={item}>
 								<Box
 									key={index}
