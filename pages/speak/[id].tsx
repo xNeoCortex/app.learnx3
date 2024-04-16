@@ -41,7 +41,7 @@ export default function SpeakingLessonAi() {
 		<SidebarContainer>
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
-					<SpeakingInfo topic={lessonByAi?.data?.topic} image="/mobile-book.svg" />
+					<SpeakingInfo topic={lessonByAi?.data?.topic} imagePath={lessonByAi?.data?.imagePath} />
 				</Grid>
 				<Grid item xs={12} sm={4}>
 					<FlashCards lesson={lessonByAi?.data} />
