@@ -49,7 +49,7 @@ function index() {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				<Box sx={{ marginTop: "20px", width: "100%" }}>
-					<CreateAiLesson />
+					<CreateAiLesson topics={topics?.data} />
 					<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll" }}>
 						{["All", ...topicCategories]?.map((categoryX) => (
 							<Typography
