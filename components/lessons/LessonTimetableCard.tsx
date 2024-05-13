@@ -114,7 +114,8 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 							<Typography sx={{ fontSize: 12, fontWeight: 600 }}>View</Typography>
 						</Button>
 					</Link>
-					{userInfo.role == "admin" && <AddLesson _lesson={lesson} buttonName="Edit lesson" />}
+					{userInfo.role == "admin" ||
+						(userInfo.role == "teacher" && <AddLesson _lesson={lesson} buttonName="Edit lesson" />)}
 				</Box>
 			</Box>
 		</Box>

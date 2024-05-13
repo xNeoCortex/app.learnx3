@@ -255,9 +255,10 @@ function Lesson() {
 												</Button>
 											</a>
 										)}
-										{userInfo?.role == "admin" && (
-											<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
-										)}
+										{userInfo?.role == "admin" ||
+											(userInfo?.role == "teacher" && (
+												<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
+											))}
 									</Box>
 								</Box>
 							</Box>
