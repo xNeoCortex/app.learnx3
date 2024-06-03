@@ -4,13 +4,13 @@ import SidebarContainer from "@/components/SidebarContainer"
 import { Box, Grid, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
-import ImgMediaCard from "@/components/other/Card"
 import CreateAiLesson from "@/components/dashboard/CreateAiLesson"
 import ErrorPage from "../error"
 import dayjs from "dayjs"
 import LoadingPage from "@/components/LoadingPage"
 import { useStoreTemporary } from "@/components/zustand"
 import { TopicType } from "@/types/types"
+import CustomCard from "@/components/other/CustomCard"
 
 function index() {
 	const [category, setCategory] = React.useState("All")
@@ -83,7 +83,13 @@ function index() {
 
 									return (
 										<Grid item xs={6} sm={botComponentWidth === 900 ? 4 : 3} lg={botComponentWidth === 900 ? 4 : 2}>
-											<ImgMediaCard title={x.topic} link={`/speak/${x.lessonId}`} image={imageX} />
+											<CustomCard
+												title={x.topic}
+												link={`/speak/${x.lessonId}`}
+												image={imageX?.url}
+												category={x.category}
+												createdById={x.createdById}
+											/>
 										</Grid>
 									)
 								})}

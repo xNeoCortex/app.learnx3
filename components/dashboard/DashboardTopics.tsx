@@ -3,10 +3,10 @@ import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
 import { Box, Grid, Skeleton, Typography } from "@mui/material"
 import ErrorPage from "../../pages/errorpage"
-import ImgMediaCard from "../other/Card"
 import dayjs from "dayjs"
 import { TopicType } from "@/types/types"
 import { SnackbarX } from "../other/SnackbarX"
+import CustomCard from "../other/CustomCard"
 
 function DashboardTopics() {
 	const [open, setOpen] = React.useState(false)
@@ -55,7 +55,13 @@ function DashboardTopics() {
 									)
 									return (
 										<Grid item xs={6} sm={3} lg={2} key={index}>
-											<ImgMediaCard title={topicObject.topic} link={`/speak/${topicObject.lessonId}`} image={imageX} />
+											<CustomCard
+												title={topicObject.topic}
+												link={`/speak/${topicObject.lessonId}`}
+												image={imageX?.url}
+												category={topicObject.category}
+												createdById={topicObject.createdById}
+											/>
 										</Grid>
 									)
 								})}
