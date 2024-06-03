@@ -73,7 +73,7 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 				const image = await openai.images.generate({
 					model: "dall-e-3",
 					// model: userInfo.role === "student" ? "dall-e-2" : "dall-e-3",
-					prompt: `Create an image of ${topic}. Make it colorful. This is for school curriculum`,
+					prompt: `Create an animated image of ${topic}.`,
 					response_format: "b64_json",
 					// size: userInfo.role === "student" ? "512x512" : "1024x1024",
 				})
