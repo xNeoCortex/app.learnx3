@@ -136,6 +136,7 @@ const BoxWrapperStyle = {
 	boxSizing: "border-box",
 	width: "100%",
 	overflow: "auto",
+	margin: "auto",
 }
 
 const TypographyStyle = {
