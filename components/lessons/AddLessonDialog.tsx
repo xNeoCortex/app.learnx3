@@ -197,19 +197,20 @@ const AddLessonDialog = React.memo(
 								</Box>
 							)}
 						</Box>
-						{userInfo?.role == "admin" && (
-							<Button
-								variant="contained"
-								color="error"
-								onClick={() => (deleteLesson(), handleClose())}
-								sx={{
-									m: "10px ",
-									background: "rgb(255 92 92)",
-								}}
-							>
-								Delete lesson
-							</Button>
-						)}
+						{userInfo?.role == "admin" ||
+							(userInfo?.role == "teacher" && (
+								<Button
+									variant="contained"
+									color="error"
+									onClick={() => (deleteLesson(), handleClose())}
+									sx={{
+										m: "10px ",
+										background: "rgb(255 92 92)",
+									}}
+								>
+									Delete lesson
+								</Button>
+							))}
 						<Button
 							disabled={isButtonDisabled(lessonInfo)}
 							variant="contained"
