@@ -81,46 +81,54 @@ function StudentRanking() {
 							}}
 						>
 							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>
-								Student Leaderboard ({students?.data?.length})
+								Student Leaderboard (Top 10)
 							</TableCell>
 							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>🏆 Points</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{students?.data?.length > 0 &&
-							sortStudentsByPerformance(students?.data)?.map(
-								(
-									student: UserType & {
-										score: number
-									},
-									index
-								) => (
-									<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-										<TableCell
-											component="th"
-											scope="row"
-											sx={{
-												display: "flex",
-												alignItems: "center",
-												borderBottom: "none",
-											}}
-										>
-											<Typography sx={{ mr: 1 }} variant="body2">
-												{index + 1}
-											</Typography>
-											<Avatar
-												src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-												sx={AvatarStyle}
-											/>
-											<Typography sx={{ mr: 1, fontSize: "14px" }}>{student.name} </Typography>
-											{index === 0 && <span> 👑</span>}
-										</TableCell>
-										<TableCell sx={{ borderBottom: "none" }}>
-											<Typography sx={TextStyle}>⭐️ {student.score}</Typography>
-										</TableCell>
-									</TableRow>
-								)
-							)}
+							sortStudentsByPerformance(students?.data)
+								?.slice(0, 10)
+								?.map(
+									(
+										student: UserType & {
+											score: number
+										},
+										index
+									) => (
+										<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+											<TableCell
+												component="th"
+												scope="row"
+												sx={{
+													display: "flex",
+													alignItems: "center",
+													borderBottom: "none",
+												}}
+											>
+												<Typography sx={{ mr: 1 }} variant="body2">
+													{index + 1}
+												</Typography>
+												<Avatar
+													src={
+														student?.image
+															? student?.image
+															: student?.gender === "male"
+															? "/pupil-avatar.png"
+															: "/school-girl.svg"
+													}
+													sx={AvatarStyle}
+												/>
+												<Typography sx={{ mr: 1, fontSize: "14px" }}>{student.name} </Typography>
+												{index === 0 && <span> 👑</span>}
+											</TableCell>
+											<TableCell sx={{ borderBottom: "none" }}>
+												<Typography sx={TextStyle}>⭐️ {student.score}</Typography>
+											</TableCell>
+										</TableRow>
+									)
+								)}
 					</TableBody>
 				</Table>
 			</TableContainer>

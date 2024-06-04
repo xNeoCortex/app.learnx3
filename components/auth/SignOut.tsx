@@ -64,6 +64,7 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 					>
 						<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
 							<Avatar
+								src={userInfo?.image || ""}
 								sx={{
 									width: 28,
 									height: 28,
@@ -71,9 +72,7 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 									background: "rgba(95, 106, 196, 0.05)",
 									color: "rgb(95, 106, 196)",
 								}}
-							>
-								<PersonIcon />
-							</Avatar>
+							/>
 						</StyledBadge>
 					</IconButton>
 				</Tooltip>
