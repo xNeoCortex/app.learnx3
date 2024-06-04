@@ -1,4 +1,4 @@
-import { Box, Button, capitalize, Grid, Typography } from "@mui/material"
+import { Box, Button, capitalize, Typography } from "@mui/material"
 import dayjs from "dayjs"
 import ChipX from "../elements/ChipX"
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
@@ -15,10 +15,25 @@ import Link from "next/link"
 import { LessonTimetableType } from "@/types/types"
 import { memo } from "react"
 import CustomAvatar from "../elements/CustomAvatar"
+import { useQuery } from "@tanstack/react-query"
+import ApiServices from "@/pages/api/ApiServices"
 
 const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) => {
 	const { userInfo } = useStoreUser()
+	const { apiRequest } = ApiServices()
 
+	// fetch teacher data
+	const {
+		data: teacherData,
+		isLoading: teacherIsLoading,
+		isError: teacherIsError,
+	} = useQuery({
+		queryKey: ["teachers"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "teachers", uid: lesson?.teacher_id }),
+		refetchOnWindowFocus: false,
+		refetchOnMount: false,
+		enabled: !!lesson?.teacher_id,
+	})
 	return (
 		<Box sx={BoxStyle}>
 			<Box
@@ -31,7 +46,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-					<CustomAvatar image={userInfo?.image} gender={userInfo?.gender} style={AvatarStyle} />
+					<CustomAvatar image={teacherData?.data?.image} gender={userInfo?.gender} style={AvatarStyle} />
 					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 						<Typography noWrap sx={{ maxWidth: 140, fontSize: "8px", color: "grey", marginBottom: "-4px" }}>
 							Teacher

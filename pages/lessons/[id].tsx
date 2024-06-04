@@ -44,6 +44,18 @@ function Lesson() {
 		refetchOnWindowFocus: false,
 	})
 
+	// fetch teacher data
+	const {
+		data: teacherData,
+		isLoading: teacherIsLoading,
+		isError: teacherIsError,
+	} = useQuery({
+		queryKey: ["teachers"],
+		queryFn: () => apiRequest("GET", null, { collectionName: "teachers", uid: lessonTimetableList?.data?.teacher_id }),
+		refetchOnWindowFocus: false,
+		enabled: !!lessonTimetableList?.data?.teacher_id,
+	})
+
 	// Join class
 	const {
 		mutate: joinClass,
@@ -75,6 +87,7 @@ function Lesson() {
 			}
 		}
 	}
+	console.log("lessonTimetableList :>> ", lessonTimetableList)
 
 	const studentJoined = useMemo(
 		() => lessonTimetableList?.data?.students?.includes(userInfo?.uid) || false,
@@ -110,8 +123,7 @@ function Lesson() {
 								<Box
 									sx={{
 										display: "flex",
-										alignItems: "start",
-										flexDirection: "column",
+										alignItems: "center",
 										mb: 1,
 										height: "100%",
 									}}
@@ -126,28 +138,39 @@ function Lesson() {
 									>
 										Topic: {capitalizeFirstLetter(lessonTimetableList?.data?.topic)}
 									</Typography>
-								</Box>
-
-								<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-									<CustomAvatar
-										image={userInfo?.image}
-										gender={userInfo?.gender}
-										style={{
-											width: "30px",
-											height: "30px",
-											margin: "10px 10px 10px 0px",
-										}}
-									/>
-									<Typography noWrap sx={{ maxWidth: 140, color: "black", mr: 1 }}>
-										{lessonTimetableList?.data?.teacher_name}
-									</Typography>
-									<Box sx={{ display: "flex" }}>
+									<Box sx={{ display: "flex", ml: 2 }}>
 										{lessonTimetableList?.data?.lesson_type && (
 											<ChipX
 												color={lessonTypeColors[lessonTimetableList?.data?.lesson_type]}
 												text={capitalize(lessonTimetableList?.data?.lesson_type?.split("_")?.join(" "))}
 											/>
 										)}
+									</Box>
+								</Box>
+
+								<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
+									<CustomAvatar
+										image={teacherData?.data?.image}
+										gender={userInfo?.gender}
+										style={{
+											width: "50px",
+											height: "50px",
+											margin: "10px 10px 10px 0px",
+										}}
+									/>
+									<Box gap={"2px"}>
+										<Typography
+											sx={{
+												fontSize: 10,
+												padding: 0,
+												color: "grey",
+											}}
+										>
+											Teacher
+										</Typography>
+										<Typography noWrap sx={{ maxWidth: 140, color: "black", mr: 1, fontWeight: 600 }}>
+											{capitalize(lessonTimetableList?.data?.teacher_name || "")}
+										</Typography>
 									</Box>
 								</Box>
 
