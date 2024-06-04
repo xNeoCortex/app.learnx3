@@ -5,5 +5,5 @@ export const englishLevels: { [key: string]: string } = {
 	B1: "Intermediate",
 	B2: "Upper-Intermediate",
 	C1: "Advanced",
-	C2: "Proficiency",
+	C2: "Proficient",
 }

@@ -9,7 +9,7 @@ export const student = {
 	role: "student",
 	permit: true,
 	performance: "Doing ok",
-	level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+	level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 	subscription_type: "free", // free, charity, premium
 	subscription_start_date: "2021-05-05",
 	subscription_end_date: "2021-06-05",
@@ -47,7 +47,7 @@ export const lesson = [
 		lesson_id: null,
 		lesson_target_skills: ["speaking", "listening"], // Speaking,  Grammar, Vocabulary, Pronunciation, Exam Preparation, Business English, General English, IElTS, TOEFL
 		lesson_type: "speaking_club", // general_english, speaking_club, business_english, ielts, toefl
-		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 		platform: "Google Meet",
 		video_call_link: "https://meet.google.com/xxx-xxx-xxx",
 		topic: "Functional Language: invitations and giving general excuses; pronunciation work",
@@ -64,7 +64,7 @@ export const lesson = [
 		lesson_id: null,
 		lesson_target_skills: ["speaking", "listening"], // Speaking,  Grammar, Vocabulary, Pronunciation, Exam Preparation, Business English, General English, IElTS, TOEFL
 		lesson_type: "general_english", // general_english, speaking_club, business_english, ielts, toefl
-		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 		platform: "Google Meet",
 		video_call_link: "https://meet.google.com/xxx-xxx-xxx",
 		topic: "Helping others",
@@ -81,7 +81,7 @@ export const lesson = [
 		lesson_id: null,
 		lesson_target_skills: ["speaking", "listening"], // Speaking,  Grammar, Vocabulary, Pronunciation, Exam Preparation, Business English, General English, IElTS, TOEFL
 		lesson_type: "general_english", // general_english, speaking_club, business_english, ielts, toefl
-		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 		platform: "Google Meet",
 		video_call_link: "https://meet.google.com/xxx-xxx-xxx",
 		topic: " Functional Language: invitations and giving general excuses; pronunciation work",
@@ -98,7 +98,7 @@ export const lesson = [
 		lesson_id: null,
 		lesson_target_skills: ["speaking", "listening"], // Speaking,  Grammar, Vocabulary, Pronunciation, Exam Preparation, Business English, General English, IElTS, TOEFL
 		lesson_type: "general_english", // general_english, speaking_club, business_english, ielts, toefl
-		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 		platform: "Google Meet",
 		video_call_link: "https://meet.google.com/xxx-xxx-xxx",
 		topic: " Functional Language: invitations and giving general excuses; pronunciation work",
@@ -115,7 +115,7 @@ export const lesson = [
 		lesson_id: null,
 		lesson_target_skills: ["speaking", "listening"], // Speaking,  Grammar, Vocabulary, Pronunciation, Exam Preparation, Business English, General English, IElTS, TOEFL
 		lesson_type: "general_english", // general_english, speaking_club, business_english, ielts, toefl
-		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = proficiency
+		level: "A1", // A0 = beginner, A1 = elementary, A2 = pre-intermediate, B1 = intermediate, B2 = upper-intermediate, C1 = advanced, C2 = Proficient
 		platform: "Google Meet",
 		video_call_link: "https://meet.google.com/xxx-xxx-xxx",
 		topic: " Functional Language: invitations and giving general excuses; pronunciation work",
