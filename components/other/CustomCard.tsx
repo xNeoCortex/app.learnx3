@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, CardMedia, Typography, Button, Box, Avatar, capitalize } from "@mui/material"
+import { Card, CardMedia, Typography, Box, capitalize } from "@mui/material"
 import Link from "next/link"
 import { useStoreUser } from "../zustand"
 

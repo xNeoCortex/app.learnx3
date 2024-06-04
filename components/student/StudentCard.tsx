@@ -2,13 +2,15 @@ import { memo } from "react"
 import { UserType } from "@/types/types"
 import { Avatar, Box, Button, Typography } from "@mui/material"
 import Link from "next/link"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const StudentCard = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
 	return (
 		<Box sx={BoxStyle}>
-			<Avatar
-				src={studentDetails?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-				sx={{ bgcolor: "white", width: "70px", height: "70px" }}
+			<CustomAvatar
+				image={studentDetails?.image}
+				gender={studentDetails?.gender}
+				style={{ width: "70px", height: "70px" }}
 			/>
 
 			<Box display="flex" alignItems="center" flexDirection="column">

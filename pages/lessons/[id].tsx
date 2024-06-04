@@ -23,6 +23,7 @@ import AddIcon from "@mui/icons-material/Add"
 import LogoutIcon from "@mui/icons-material/Logout"
 import { UserType } from "@/types/types"
 import { useMemo } from "react"
+import CustomAvatar from "@/components/elements/CustomAvatar"
 
 function Lesson() {
 	const queryClient = useQueryClient()
@@ -128,14 +129,13 @@ function Lesson() {
 								</Box>
 
 								<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-									<Avatar
-										alt="Remy Sharp"
-										src={userInfo?.image || "/teacher-johny.png"}
-										sx={{
-											cursor: "pointer",
+									<CustomAvatar
+										image={userInfo?.image}
+										gender={userInfo?.gender}
+										style={{
 											width: "30px",
 											height: "30px",
-											m: "10px 10px 10px 0px",
+											margin: "10px 10px 10px 0px",
 										}}
 									/>
 									<Typography noWrap sx={{ maxWidth: 140, color: "black", mr: 1 }}>

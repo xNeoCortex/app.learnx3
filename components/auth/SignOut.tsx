@@ -1,9 +1,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { signOut } from "firebase/auth"
 import Box from "@mui/material/Box"
-import Avatar from "@mui/material/Avatar"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
@@ -15,9 +13,9 @@ import Logout from "@mui/icons-material/Logout"
 import { Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import Badge from "@mui/material/Badge"
-import PersonIcon from "@mui/icons-material/Person"
 import { useStoreUser } from "../zustand"
 import { useClerk } from "@clerk/nextjs"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) => {
 	const { userInfo, setUserInfo } = useStoreUser((state) => state)
@@ -63,14 +61,13 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 						aria-expanded={open ? "true" : undefined}
 					>
 						<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
-							<Avatar
-								src={userInfo?.image || ""}
-								sx={{
-									width: 28,
-									height: 28,
-									border: "2px solid rgb(95, 106, 196)",
+							<CustomAvatar
+								image={userInfo?.image}
+								gender={userInfo?.gender}
+								style={{
+									width: 30,
+									height: 30,
 									background: "rgba(95, 106, 196, 0.05)",
-									color: "rgb(95, 106, 196)",
 								}}
 							/>
 						</StyledBadge>

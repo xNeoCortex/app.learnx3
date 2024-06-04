@@ -1,24 +1,13 @@
 import { UserType } from "@/types/types"
-import { Avatar, Box, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { memo } from "react"
 import { englishLevels } from "../utils/englishLevels"
-import { getAuth } from "firebase/auth"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const StudentCardMini = memo<{ studentDetails: UserType }>(({ studentDetails }) => {
-	const user = getAuth().currentUser
-
 	return (
 		<Box sx={BoxStyle}>
-			<Avatar
-				src={
-					studentDetails.image
-						? studentDetails.image
-						: studentDetails?.gender === "male"
-						? "/pupil-avatar.png"
-						: "/school-girl.svg"
-				}
-				sx={{ bgcolor: "white", width: 55, height: 55, border: "2px solid rgb(95, 106, 196)" }}
-			/>
+			<CustomAvatar image={studentDetails?.image} gender={studentDetails?.gender} style={{ width: 55, height: 55 }} />
 
 			<Box display="flex" alignItems="center" flexDirection="column">
 				<Typography noWrap sx={TypographyStyle}>

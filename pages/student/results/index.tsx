@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar, Button, Typography } from "@mui/material"
+import { Button, Typography } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { UserType } from "@/types/types"
+import CustomAvatar from "@/components/elements/CustomAvatar"
 
 export default function StudentsResult() {
 	const { apiRequest } = ApiServices()
@@ -156,14 +157,13 @@ const TableRowComponent = React.memo(
 						alignItems: "center",
 					}}
 				>
-					<Avatar
-						src={student?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-						sx={{
+					<CustomAvatar
+						image={student?.image}
+						gender={student?.gender}
+						style={{
 							width: 35,
 							height: 35,
-							border: "2px solid rgb(95, 106, 196)",
 							marginRight: 1.5,
-							bgcolor: "white",
 						}}
 					/>
 					<p>{student.name}</p>

@@ -7,6 +7,7 @@ import ErrorPage from "@/pages/errorpage"
 import TestResult from "../../components/assessment/TestResult"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
+import CustomAvatar from "@/components/elements/CustomAvatar"
 
 function StudentProfile() {
 	const {
@@ -43,9 +44,10 @@ function StudentProfile() {
 										marginBottom: 1,
 									}}
 								>
-									<Avatar
-										src={data?.data?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-										sx={{ bgcolor: "white", width: 100, height: 100 }}
+									<CustomAvatar
+										gender={data?.data?.gender}
+										image={data?.data?.image}
+										style={{ width: 100, height: 100 }}
 									/>
 									<Box
 										display="flex"

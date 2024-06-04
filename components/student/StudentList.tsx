@@ -14,6 +14,7 @@ import DeleteComponent from "../DeleteComponent"
 import { useStoreUser } from "../zustand"
 import { UserType } from "@/types/types"
 import { SnackbarX } from "../other/SnackbarX"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 	const [open, setOpen] = React.useState(false)
@@ -53,28 +54,23 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 									if (a.name < b.name) return -1
 									return 0
 								})
-								?.map((row, index) => (
+								?.map((student, index) => (
 									<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 										<TableCell
 											component="th"
-											scope="row"
-											//
+											scope="student"
 											style={{
 												display: "flex",
 												alignItems: "center",
 											}}
 										>
-											<Avatar
-												src={row?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-												sx={{
-													width: "35px",
-													height: "35px",
-													border: "2px solid rgb(95, 106, 196)",
-													marginRight: 1.5,
-													bgcolor: "white",
-												}}
+											<CustomAvatar
+												image={student?.image}
+												gender={student?.gender}
+												style={{ width: "35px", height: "35px", marginRight: 1.5 }}
 											/>
-											<p>{row.name}</p>
+
+											<p>{student.name}</p>
 										</TableCell>
 										<TableCell>
 											<Typography
@@ -83,15 +79,15 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 													padding: "3px 10px",
 													background: "white",
 													color:
-														row.performance == "Struggling"
+														student.performance == "Struggling"
 															? "rgb(226, 109, 128)"
-															: row.performance == "Doing Great"
+															: student.performance == "Doing Great"
 															? "#5fc497"
 															: "#41b6ff",
 													border:
-														row.performance == "Struggling"
+														student.performance == "Struggling"
 															? "2px solid rgb(226, 109, 128)"
-															: row.performance == "Doing Great"
+															: student.performance == "Doing Great"
 															? "2px solid #5fc497"
 															: "2px solid #41b6ff",
 													borderRadius: "12px",
@@ -101,11 +97,11 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 													textAlign: "center",
 												}}
 											>
-												{row?.performance}
+												{student?.performance}
 											</Typography>
 										</TableCell>
 										<TableCell>
-											<Link href={`/student/${row.uid}`}>
+											<Link href={`/student/${student.uid}`}>
 												<Button
 													style={{
 														background: "#5f6ac4",
@@ -124,7 +120,7 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 												<DeleteComponent
 													collectionName="students"
 													invalidateCache="students"
-													itemId={row?.uid}
+													itemId={student?.uid}
 													setOpen={setOpen}
 												/>
 											</TableCell>

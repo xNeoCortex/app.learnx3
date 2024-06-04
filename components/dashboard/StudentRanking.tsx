@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import ErrorPage from "@/pages/errorpage"
 import ApiServices from "@/pages/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
-import { Box, Avatar, Typography } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -12,6 +12,7 @@ import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import LoadingPage from "../LoadingPage"
 import { TestResultType, UserType } from "@/types/types"
+import CustomAvatar from "../elements/CustomAvatar"
 
 function StudentRanking() {
 	const { apiRequest } = ApiServices()
@@ -110,15 +111,10 @@ function StudentRanking() {
 												<Typography sx={{ mr: 1 }} variant="body2">
 													{index + 1}
 												</Typography>
-												<Avatar
-													src={
-														student?.image
-															? student?.image
-															: student?.gender === "male"
-															? "/pupil-avatar.png"
-															: "/school-girl.svg"
-													}
-													sx={AvatarStyle}
+												<CustomAvatar
+													gender={student?.gender}
+													image={student?.image}
+													style={{ marginRight: 1.5, width: "30px", height: "30px" }}
 												/>
 												<Typography sx={{ mr: 1, fontSize: "14px" }}>{student.name} </Typography>
 												{index === 0 && <span> 👑</span>}
@@ -146,14 +142,6 @@ const TextStyle = {
 	width: "100%",
 	maxWidth: "130px",
 	textAlign: "start",
-}
-
-const AvatarStyle = {
-	width: 30,
-	height: 30,
-	border: "2px solid rgb(95, 106, 196)",
-	marginRight: 1.5,
-	bgcolor: "white",
 }
 
 const BoxWrapperStyle = {

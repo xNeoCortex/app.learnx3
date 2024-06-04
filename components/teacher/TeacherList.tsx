@@ -6,7 +6,6 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Switch from "@mui/material/Switch"
@@ -16,6 +15,7 @@ import { useMutation } from "@tanstack/react-query"
 import DeleteComponent from "../DeleteComponent"
 import { TeacherType } from "@/types/types"
 import { SnackbarX } from "../other/SnackbarX"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 	const [open, setOpen] = React.useState(false)
@@ -100,15 +100,10 @@ const TableRows = React.memo(({ teacher, setOpen }: { teacher: TeacherType; setO
 					alignItems: "center",
 				}}
 			>
-				<Avatar
-					src={teacher?.gender === "male" ? "/pupil-avatar.png" : "/school-girl.svg"}
-					sx={{
-						width: 35,
-						height: 35,
-						border: "2px solid rgb(95, 106, 196)",
-						marginRight: 1.5,
-						bgcolor: "white",
-					}}
+				<CustomAvatar
+					image={teacher?.image}
+					gender={teacher?.gender}
+					style={{ width: "35px", height: "35px", marginRight: 1.5 }}
 				/>
 				<p>{teacher.name}</p>
 			</TableCell>

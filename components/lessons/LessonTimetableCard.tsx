@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, capitalize, Grid, Typography } from "@mui/material"
+import { Box, Button, capitalize, Grid, Typography } from "@mui/material"
 import dayjs from "dayjs"
 import ChipX from "../elements/ChipX"
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
@@ -10,11 +10,11 @@ import EventIcon from "@mui/icons-material/Event"
 import AssessmentIcon from "@mui/icons-material/Assessment"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import VisibilityIcon from "@mui/icons-material/Visibility"
-
 import { useStoreUser } from "../zustand"
 import Link from "next/link"
 import { LessonTimetableType } from "@/types/types"
 import { memo } from "react"
+import CustomAvatar from "../elements/CustomAvatar"
 
 const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) => {
 	const { userInfo } = useStoreUser()
@@ -31,7 +31,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-					<Avatar alt="Remy Sharp" src={userInfo.image || "/teacher-johny.png"} sx={AvatarStyle} />
+					<CustomAvatar image={userInfo?.image} gender={userInfo?.gender} style={AvatarStyle} />
 					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 						<Typography noWrap sx={{ maxWidth: 140, fontSize: "8px", color: "grey", marginBottom: "-4px" }}>
 							Teacher
@@ -148,7 +148,6 @@ const BoxStyle = {
 }
 
 const AvatarStyle = {
-	cursor: "pointer",
 	width: "30px",
 	height: "30px",
 	m: "10px 10px 10px 0px",
