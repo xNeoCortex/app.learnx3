@@ -50,7 +50,7 @@ function Lesson() {
 		isLoading: teacherIsLoading,
 		isError: teacherIsError,
 	} = useQuery({
-		queryKey: ["teachers"],
+		queryKey: [`teachers-${lessonTimetableList?.data?.teacher_id}`],
 		queryFn: () => apiRequest("GET", null, { collectionName: "teachers", uid: lessonTimetableList?.data?.teacher_id }),
 		refetchOnWindowFocus: false,
 		enabled: !!lessonTimetableList?.data?.teacher_id,

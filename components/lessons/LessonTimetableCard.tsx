@@ -28,7 +28,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 		isLoading: teacherIsLoading,
 		isError: teacherIsError,
 	} = useQuery({
-		queryKey: ["teachers"],
+		queryKey: [`teachers-${lesson?.teacher_id}`],
 		queryFn: () => apiRequest("GET", null, { collectionName: "teachers", uid: lesson?.teacher_id }),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
