@@ -10,12 +10,11 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
 import { useStoreUser } from "@/components/zustand"
-import { auth, db } from "@/components/firebaseX"
-import { Alert, Divider, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
+import { auth, db, storage } from "@/components/firebaseX"
+import { Alert, Divider, FormControl, Input, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
-
-type UserForm = Pick<UserType, "name" | "age" | "phone" | "country" | "eng_level_form" | "gender">
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
 
 export default function StudentForm() {
 	const { push: navigate } = useRouter()
@@ -25,29 +24,37 @@ export default function StudentForm() {
 		setUserInfo: (userInfo: UserType) => void
 	} = useStoreUser()
 	const [error, setError] = React.useState("")
-	const [{ name, age, phone, country, eng_level_form, gender }, setUserInformation] = React.useState<UserForm>({
+	const [{ name, age, phone, country, eng_level_form, gender, image }, setUserInformation] = React.useState({
 		name: "",
 		age: null,
 		phone: null,
 		country: "",
 		eng_level_form: "",
 		gender: "",
+		image: null,
 	})
 	const handleInput = (
-		{ target: { value, name } }: React.ChangeEvent<HTMLInputElement>,
+		{ target: { value, name, type, files } }: React.ChangeEvent<HTMLInputElement>,
 		option?: "eng_level_form" | "male" | "female"
 	) => {
-		setUserInformation((prev) => ({
-			...prev,
-			[name]: value,
-			...(option && { [option]: value }),
-			...((option === "male" || option === "female") && { gender: option }),
-		}))
+		if (type === "file" && files) {
+			setUserInformation((prev) => ({
+				...prev,
+				[name]: files[0],
+			}))
+		} else {
+			setUserInformation((prev) => ({
+				...prev,
+				[name]: value,
+				...(option && { [option]: value }),
+				...((option === "male" || option === "female") && { gender: option }),
+			}))
+		}
 	}
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
 	async function addUser(id: string, name: string, email: string) {
-		const currentUserInfo = {
+		const currentUserInfo: UserType = {
 			uid: id,
 			name: name,
 			email: email,
@@ -58,7 +65,7 @@ export default function StudentForm() {
 			role: "student",
 			permit: false,
 			performance: "Doing ok",
-			eng_level_form: eng_level_form,
+			eng_level_form: eng_level_form as any,
 			eng_level_test: "",
 			subscription_type: null,
 			paid: false,
@@ -69,14 +76,26 @@ export default function StudentForm() {
 			num_of_ai_topics_created: 0,
 			num_of_messages_with_fina_ai: 0,
 			discount: "",
-			photo: "",
+			image: "",
 			createdAt: new Date(),
 		}
 		try {
-			await setDoc(doc(db, "students", id), { ...currentUserInfo })
-			setUserInfo({ ...currentUserInfo } as UserType)
+			if (image) {
+				// @ts-ignore
+				const imageRef = ref(storage, `studentImages/${image?.name || `image-${id}`}`)
+				await uploadBytes(imageRef, image as any)
+				const imageX = await getDownloadURL(imageRef)
+				await setDoc(doc(db, "students", id), { ...currentUserInfo, image: imageX })
+				setUserInfo({ ...currentUserInfo, image: imageX })
+			} else {
+				await setDoc(doc(db, "students", id), {
+					...currentUserInfo,
+				})
+				setUserInfo({ ...currentUserInfo })
+			}
 		} catch (e) {
 			console.error("Error adding document: ", e)
+			setError("Something went wrong, please try again later")
 		}
 	}
 
@@ -110,7 +129,6 @@ export default function StudentForm() {
 	return (
 		<Box sx={BoxWrapperStyle}>
 			<CssBaseline />
-
 			<Box sx={BoxStyle}>
 				<Typography
 					sx={{
@@ -160,6 +178,21 @@ export default function StudentForm() {
 								label="Phone Number"
 								value={phone}
 								onChange={handleInput}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Input
+								name="image"
+								type="file"
+								placeholder="Upload Image"
+								onChange={handleInput}
+								style={{
+									borderBottom: "0px ",
+									background: "#f5f5f5",
+									width: "100%",
+									padding: "10px",
+									borderRadius: "5px",
+								}}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -285,7 +318,7 @@ const engLevel = [
 	},
 	{
 		value: "C2",
-		label: "Proficiency",
+		label: "Proficient",
 	},
 ]
 
