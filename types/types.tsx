@@ -94,7 +94,7 @@ export interface UserType {
 
 export type TeacherType = Pick<
 	UserType,
-	"name" | "age" | "phone" | "country" | "qualification" | "gender" | "email" | "uid" | "permit"
+	"name" | "age" | "phone" | "country" | "qualification" | "gender" | "email" | "uid" | "permit" | "image"
 >
 
 export interface CreateLessonDialogProps {

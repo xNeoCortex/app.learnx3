@@ -25,7 +25,7 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 		refetchOnMount: false,
 		enabled: !!userAuth?.uid,
 		onSuccess: (data) => setUserInfo({ ...userInfo, permit: data.data.permit }),
-		onError: (error) => console.error("Error fetching user data:", error), // Log error
+		onError: (error) => console.error("Error fetching user data:", error),
 	})
 
 	if (isError) return <ErrorPage />

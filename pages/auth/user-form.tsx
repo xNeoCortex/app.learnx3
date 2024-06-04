@@ -19,9 +19,16 @@ import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
 type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender" | "image">
 
 export default function UserForm() {
-	const { push: navigate, back } = useRouter()
+	const { push: navigate } = useRouter()
 	const { setUserInfo } = useStoreUser()
 	const [error, setError] = React.useState("")
+	const [status, setStatus] = React.useState<{
+		loading: boolean
+		error: boolean
+	}>({
+		loading: false,
+		error: false,
+	})
 
 	const [{ name, age, gender, phone, qualification, image }, setUserInformation] = React.useState<TeacherForm>({
 		name: "",
@@ -69,6 +76,8 @@ export default function UserForm() {
 			createdAt: new Date(),
 		}
 
+		setStatus({ loading: true, error: false })
+
 		try {
 			if (image) {
 				// @ts-ignore
@@ -77,42 +86,35 @@ export default function UserForm() {
 				const imageX = await getDownloadURL(imageRef)
 				await setDoc(doc(db, "teachers", id), { ...currentUserInfo, image: imageX })
 				setUserInfo({ ...currentUserInfo, image: imageX })
+				setStatus({ loading: false, error: false })
 			} else {
 				await setDoc(doc(db, "teachers", id), {
 					...currentUserInfo,
 				})
 				setUserInfo({ ...currentUserInfo })
+				setStatus({ loading: false, error: false })
 			}
 		} catch (e) {
 			console.error("Error adding document: ", e)
+			setStatus({ loading: false, error: true })
 		}
 	}
 
 	// Handle register
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-
-		if (name.length) {
-			updateProfile(auth.currentUser as any, {
-				displayName: name,
+		updateProfile(auth.currentUser as any, {
+			displayName: name,
+		})
+			.then(() => {
+				if (auth.currentUser) {
+					addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
+					navigate("/")
+				}
 			})
-				.then(() => {
-					if (auth.currentUser) {
-						addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
-						navigate("/")
-					}
-				})
-				.catch((error) => {
-					const errorCode = error.code
-					const errorMessage = error.message
-					setError("Something went wrong, please try again later")
-					console.log("user-type errorCode", errorCode)
-					console.log("user-type errorMessage", errorMessage)
-				})
-		} else {
-			setError("Please enter your name")
-			console.log("Please enter your name")
-		}
+			.catch((error) => {
+				setError("Something went wrong, please try again later")
+				console.log("user-type errorMessage", error.message)
+			})
 	}
 
 	return (
@@ -238,7 +240,7 @@ export default function UserForm() {
 							variant="contained"
 							sx={{ mt: 4, mb: 2, background: "linear-gradient(45deg, rgb(139, 88, 254), rgb(95, 222, 231))" }}
 						>
-							Save
+							{status.loading ? "Loading..." : "Save"}
 						</Button>
 					</Box>
 				</Box>
