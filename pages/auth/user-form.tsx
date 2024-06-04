@@ -10,35 +10,43 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { useRouter } from "next/router"
 import { useStoreUser } from "@/components/zustand"
-import { auth, db } from "@/components/firebaseX"
-import { Alert, Divider, Typography } from "@mui/material"
+import { auth, db, storage } from "@/components/firebaseX"
+import { Alert, Divider, Input, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
+import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
 
-type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender">
+type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender" | "image">
 
 export default function UserForm() {
 	const { push: navigate, back } = useRouter()
 	const { setUserInfo } = useStoreUser()
 	const [error, setError] = React.useState("")
 
-	const [{ name, age, gender, phone, qualification }, setUserInformation] = React.useState<TeacherForm>({
+	const [{ name, age, gender, phone, qualification, image }, setUserInformation] = React.useState<TeacherForm>({
 		name: "",
 		age: null,
 		phone: null,
 		country: "",
 		qualification: "",
 		gender: "",
+		image: null,
 	})
-	const handleChange = (
-		{ target: { name, value } }: React.ChangeEvent<HTMLInputElement>,
-		option?: "male" | "female"
-	) => {
-		setUserInformation((prev) => ({
-			...prev,
-			[name]: value,
-			...(option && { gender: option }),
-		}))
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>, option?: "male" | "female") => {
+		const { name, value, type, files } = event.target
+		if (type === "file" && files) {
+			setUserInformation((prev) => ({
+				...prev,
+				[name]: files[0],
+			}))
+		} else {
+			setUserInformation((prev) => ({
+				...prev,
+				[name]: value,
+				...(option && { gender: option }),
+			}))
+		}
 	}
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
@@ -57,13 +65,24 @@ export default function UserForm() {
 			qualification: ["Teaching English as a Foreign Language (TEFL)"],
 			specializations: ["Speaking", "Pronunciation"],
 			reviews: [],
-			photo: "",
+			image,
 			createdAt: new Date(),
 		}
 
 		try {
-			const user = await setDoc(doc(db, "teachers", id), { ...currentUserInfo })
-			setUserInfo({ ...currentUserInfo })
+			if (image) {
+				// @ts-ignore
+				const imageRef = ref(storage, `teacherImages/${image?.name || `image-${id}`}`)
+				await uploadBytes(imageRef, image as any)
+				const imageX = await getDownloadURL(imageRef)
+				await setDoc(doc(db, "teachers", id), { ...currentUserInfo, image: imageX })
+				setUserInfo({ ...currentUserInfo, image: imageX })
+			} else {
+				await setDoc(doc(db, "teachers", id), {
+					...currentUserInfo,
+				})
+				setUserInfo({ ...currentUserInfo })
+			}
 		} catch (e) {
 			console.error("Error adding document: ", e)
 		}
@@ -159,6 +178,21 @@ export default function UserForm() {
 								label="Qualification / Certifications"
 								value={qualification}
 								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Input
+								name="image"
+								type="file"
+								placeholder="Upload Image"
+								onChange={handleChange}
+								style={{
+									borderBottom: "0px ",
+									background: "#f5f5f5",
+									width: "100%",
+									padding: "10px",
+									borderRadius: "5px",
+								}}
 							/>
 						</Grid>
 						<Grid item xs={12}>

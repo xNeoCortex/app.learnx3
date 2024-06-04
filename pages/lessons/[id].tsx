@@ -130,7 +130,7 @@ function Lesson() {
 								<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
 									<Avatar
 										alt="Remy Sharp"
-										src="/teacher-johny.png"
+										src={userInfo.image || "/teacher-johny.png"}
 										sx={{
 											cursor: "pointer",
 											width: "30px",

@@ -1,18 +1,20 @@
 import * as React from "react"
-import { deleteUser } from "firebase/auth"
-import Button from "@mui/material/Button"
-import CssBaseline from "@mui/material/CssBaseline"
-import TextField from "@mui/material/TextField"
-import Grid from "@mui/material/Grid"
-import Box from "@mui/material/Box"
-import ToggleButton from "@mui/material/ToggleButton"
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
+import { deleteUser, updateProfile } from "firebase/auth"
 import { updateDoc, deleteDoc, doc } from "firebase/firestore"
-import { sendPasswordResetEmail } from "firebase/auth"
-import { Alert, Typography } from "@mui/material"
-import { updateProfile } from "firebase/auth"
+import {
+	Button,
+	CssBaseline,
+	TextField,
+	Grid,
+	Box,
+	ToggleButton,
+	ToggleButtonGroup,
+	Alert,
+	Typography,
+	Input,
+} from "@mui/material"
 import { useStoreUser } from "../../components/zustand"
-import { auth, db } from "../../components/firebaseX"
+import { auth, db, storage } from "../../components/firebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
@@ -21,26 +23,23 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "../error"
 import { SnackbarX } from "@/components/other/SnackbarX"
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "@firebase/storage"
 
 export default function MySettings() {
-	const { userInfo } = useStoreUser((state) => state)
-	const user = auth.currentUser // Current user
+	const { userInfo, setUserInfo } = useStoreUser()
+	const user = auth.currentUser
 	const queryClient = useQueryClient()
 	const { apiRequest } = ApiServices()
-	const [currentUser, setCurrentUser] = React.useState({
-		name: "",
-		age: 0,
-		gender: "",
-	})
-	const [email, setEmail] = React.useState(userInfo?.email || "")
-	const [emailMessage, setEmailMessage] = React.useState("")
+	const [currentUser, setCurrentUser] = React.useState({ name: "", age: 0, gender: "", image: null })
 	const [open, setOpen] = React.useState(false)
-	const [message, setMessage] = React.useState("")
+	const [message, setMessage] = React.useState({
+		text: "",
+		type: "",
+	})
 	const [openConfirmUpdate, setOpenConfirmUpdate] = React.useState(false)
 	const [openConfirmDelete, setOpenConfirmDelete] = React.useState(false)
-	const [openConfirmPassword, setOpenConfirmPassword] = React.useState(false)
 
-	// Fetching lessons
+	// Fetch user data
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["myInfo"],
 		queryFn: () =>
@@ -55,64 +54,102 @@ export default function MySettings() {
 	const fetchedUser = data?.data
 
 	React.useEffect(() => {
-		setCurrentUser(fetchedUser)
-	}, [data, isLoading])
+		if (fetchedUser) setCurrentUser(fetchedUser)
+	}, [fetchedUser])
 
-	// Reset Password
-	function resetPassword() {
-		sendPasswordResetEmail(auth, email)
-			.then(() => {
-				setEmailMessage("Password reset email sent! Please follow the link on your email to reset your password.")
-			})
-			.catch((error) => {
-				setEmailMessage("Something went wrong!")
-				console.log("error.message :>> ", error.message)
-			})
-	}
-
-	const handleChange = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>, option?: string) => {
-		setCurrentUser((prev) => ({
-			...prev,
-			[name]: value,
-			...(option && { [option]: value }),
-			...((option === "male" || option === "female") && { gender: option }),
-		}))
-	}
-
-	async function updateData() {
-		const userDoc =
-			userInfo.role === "student" ? doc(db, "students", userInfo?.uid) : doc(db, "teachers", userInfo?.uid)
-		try {
-			if (!currentUser) return setMessage("Please fill in the form!")
-			await updateDoc(userDoc, currentUser as any)
-			await updateProfile(auth.currentUser as any, {
-				displayName: currentUser?.name || "",
-			})
-			queryClient.invalidateQueries(["myInfo"])
-			setOpen(true)
-			setMessage("Your information has been updated!")
-		} catch (e) {
-			setMessage("Something went wrong")
-			setOpen(true)
+	// Handle input change
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value, type, files } = event.target
+		if (type === "file" && files) {
+			setCurrentUser((prev) => ({
+				...prev,
+				[name]: files[0],
+			}))
+		} else {
+			setCurrentUser((prev) => ({
+				...prev,
+				[name]: value,
+			}))
 		}
 	}
 
-	async function deleteUserAccount() {
+	const handleGenderChange = (_: React.MouseEvent<HTMLElement>, newGender: string) => {
+		setCurrentUser((prev) => ({
+			...prev,
+			gender: newGender,
+		}))
+	}
+
+	// Update user data
+	const updateData = async () => {
+		const userDoc =
+			userInfo.role === "student" ? doc(db, "students", userInfo?.uid) : doc(db, "teachers", userInfo?.uid)
 		try {
-			const userDoc = doc(db, "users", userInfo?.uid)
-			await deleteDoc(userDoc)
-			await deleteUser(user as any)
-			setMessage("Your account has been deleted")
+			if (!currentUser.name || !currentUser.age) {
+				setMessage({
+					text: "Please fill in the form!",
+					type: "error",
+				})
+				setOpen(true)
+				return
+			}
+
+			if (currentUser.image) {
+				const imagePath = userInfo.role === "teacher" ? "teacherImages" : "studentImages"
+
+				//@ts-ignore
+				const imageRef = ref(storage, `${imagePath}/${currentUser.image?.name || `image-${userInfo.uid}`}`)
+				await uploadBytes(imageRef, currentUser.image as any)
+				const imageX = await getDownloadURL(imageRef)
+				await updateDoc(userDoc, { ...currentUser, image: imageX })
+				await updateProfile(auth.currentUser as any, { displayName: currentUser.name })
+				setUserInfo({ ...userInfo, ...currentUser, image: imageX })
+			} else {
+				await updateDoc(userDoc, { ...currentUser })
+				await updateProfile(auth.currentUser as any, { displayName: currentUser.name })
+				setUserInfo({ ...userInfo, ...currentUser })
+			}
+			queryClient.invalidateQueries(["myInfo"])
+			setMessage({ text: "Your information has been updated!", type: "success" })
 			setOpen(true)
-		} catch (error) {
-			setMessage("Something went wrong")
+		} catch (e) {
+			setMessage({ text: "Something went wrong", type: "error" })
 			setOpen(true)
 		}
 	}
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
-		updateData()
+		setOpenConfirmUpdate(true)
+	}
+
+	const deleteUserAccount = async () => {
+		try {
+			const userDoc = doc(db, "users", userInfo?.uid)
+			await deleteDoc(userDoc)
+			await deleteUser(user as any)
+			deleteImage()
+			setMessage({ text: "Your account has been deleted", type: "success" })
+			setOpen(true)
+		} catch (error) {
+			setMessage({ text: "Something went wrong", type: "error" })
+			setOpen(true)
+		}
+	}
+
+	// Delete image
+	const deleteImage = async () => {
+		const imageUrl = userInfo.image
+
+		try {
+			const imageRef = ref(storage, imageUrl)
+			await deleteObject(imageRef)
+			setUserInfo({ ...userInfo, image: null })
+			setCurrentUser((previewData) => ({ ...previewData, image: null }))
+			setMessage({ text: "Image deleted successfully", type: "success" })
+		} catch (error) {
+			setMessage({ text: "Something went wrong deleting the image", type: "error" })
+		}
 	}
 
 	if (isLoading) return <LoadingPage />
@@ -130,20 +167,13 @@ export default function MySettings() {
 					message="Are you sure you want to delete your account?"
 				/>
 				<ConfirmationModal
-					openConfirm={openConfirmPassword}
-					setOpenConfirm={setOpenConfirmPassword}
-					action={resetPassword}
-					topic="Reset Password"
-					message="Are you sure you want to reset your password?"
-				/>
-				<ConfirmationModal
 					openConfirm={openConfirmUpdate}
 					setOpenConfirm={setOpenConfirmUpdate}
 					action={updateData}
 					topic="Update Information"
 					message="Are you sure you want to update your information?"
 				/>
-				<SnackbarX open={open} setOpen={setOpen} backgroundColor="#32a676" message={message} />
+				<SnackbarX open={open} setOpen={setOpen} backgroundColor="#32a676" message={message.text} />
 				<Box
 					sx={{
 						display: "flex",
@@ -164,7 +194,6 @@ export default function MySettings() {
 						Profile details
 					</Typography>
 					<p>Change your account info</p>
-
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={6} component="form" noValidate onSubmit={handleSubmit}>
 							<Box
@@ -206,12 +235,10 @@ export default function MySettings() {
 										<ToggleButtonGroup
 											size="small"
 											color="primary"
-											name="gender"
 											value={currentUser?.gender}
 											exclusive
-											//@ts-ignore
-											onChange={handleChange}
-											aria-label="Platform"
+											onChange={handleGenderChange}
+											aria-label="gender"
 											sx={{ borderColor: "#e5e7eb", height: "56px", width: "100%" }}
 										>
 											<ToggleButton
@@ -236,6 +263,21 @@ export default function MySettings() {
 											</ToggleButton>
 										</ToggleButtonGroup>
 									</Grid>
+									<Grid item xs={12}>
+										<Input
+											name="image"
+											type="file"
+											placeholder="Upload Image"
+											onChange={handleChange}
+											style={{
+												borderBottom: "0px ",
+												background: "#f5f5f5",
+												width: "100%",
+												padding: "10px",
+												borderRadius: "5px",
+											}}
+										/>
+									</Grid>
 								</Grid>
 								<Button
 									onClick={() => setOpenConfirmUpdate(true)}
@@ -244,6 +286,17 @@ export default function MySettings() {
 									sx={{ mt: 8, mb: 2, background: "rgb(226, 109, 128)" }}
 								>
 									Update
+								</Button>
+								<Button
+									onClick={deleteImage}
+									sx={{
+										width: "100%",
+										marginBottom: "16px",
+										color: "rgb(226, 109, 128)",
+										border: "1px solid rgb(226, 109, 128)",
+									}}
+								>
+									Delete My Photo
 								</Button>
 								<Button
 									onClick={() => setOpenConfirmDelete(true)}
@@ -256,9 +309,9 @@ export default function MySettings() {
 								>
 									Delete My Profile
 								</Button>
-								{emailMessage && (
-									<Alert severity="success" sx={{ marginTop: "10px" }}>
-										{emailMessage}
+								{message.text && (
+									<Alert severity={message.type === "success" ? "success" : "error"} sx={{ marginTop: "10px" }}>
+										{message.text}
 									</Alert>
 								)}
 							</Box>
