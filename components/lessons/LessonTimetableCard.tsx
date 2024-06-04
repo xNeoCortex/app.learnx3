@@ -31,10 +31,15 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-					<Avatar alt="Remy Sharp" src="/teacher-johny.png" sx={AvatarStyle} />
-					<Typography noWrap sx={{ maxWidth: 140 }}>
-						{lesson?.teacher_name}
-					</Typography>
+					<Avatar alt="Remy Sharp" src={userInfo.image || "/teacher-johny.png"} sx={AvatarStyle} />
+					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+						<Typography noWrap sx={{ maxWidth: 140, fontSize: "8px", color: "grey", marginBottom: "-4px" }}>
+							Teacher
+						</Typography>
+						<Typography noWrap sx={{ maxWidth: 140 }}>
+							{lesson?.teacher_name}
+						</Typography>
+					</Box>
 				</Box>
 				<Box sx={{ display: "flex" }}>
 					<ChipX
