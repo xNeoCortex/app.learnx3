@@ -1,0 +1,62 @@
+{
+	"initialQuestions": [
+		{
+			"question": "Choose the correct form of the verb to complete the sentence: 'She __________ to the market every Sunday.'",
+			"options": ["go", "goes", "going", "gone"],
+			"answer": "goes"
+		},
+
+		{
+			"question": "Select the correct word to complete the sentence: 'The book is __________ the table.'",
+			"options": ["in", "on", "under", "over"],
+			"answer": "on"
+		},
+
+		{
+			"question": "Which of the following is a synonym for 'happy'?",
+			"options": ["sad", "joyful", "angry", "tired"],
+			"answer": "joyful"
+		},
+
+		{
+			"question": "Choose the correct answer to fill in the blank: 'They __________ dinner at 7 PM last night.'",
+			"options": ["eat", "ate", "eaten", "eating"],
+			"answer": "ate"
+		},
+
+		{
+			"question": "Identify the correctly punctuated sentence: a) My brother, who lives in New York, is coming to visit. b) My brother who lives in New York is coming to visit. c) My brother, who lives in New York is coming to visit. d) My brother who, lives in New York, is coming to visit.",
+			"options": ["a", "b", "c", "d"],
+			"answer": "a"
+		},
+
+		{
+			"question": "Choose the correct pronoun to complete the sentence: 'The teacher gave __________ homework to the students.'",
+			"options": ["his", "her", "their", "its"],
+			"answer": "their"
+		},
+
+		{
+			"question": "Which sentence is in the passive voice?",
+			"options": [
+				"The chef cooked a delicious meal.",
+				"A delicious meal was cooked by the chef.",
+				"The chef was cooking a delicious meal.",
+				"A delicious meal cooked by the chef."
+			],
+			"answer": "A delicious meal was cooked by the chef."
+		},
+
+		{
+			"question": "Fill in the blank with the correct preposition: 'She is interested __________ learning new languages.'",
+			"options": ["on", "in", "at", "for"],
+			"answer": "in"
+		},
+
+		{
+			"question": "Choose the correct form of the adjective to complete the sentence: 'This is the __________ movie I have ever seen.'",
+			"options": ["more interesting", "most interesting", "interestingest", "interesting"],
+			"answer": "most interesting"
+		}
+	]
+}
