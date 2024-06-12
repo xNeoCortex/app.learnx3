@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Container, Typography, Button } from "@mui/material"
-import PlayQuiz from "../../components/entry-test/PlayQuiz"
+import PlayQuiz from "../../components/entry-test/play-quiz"
 import { initialQuestions } from "../../components/data/initial-questions.json"
 import { QuizItem } from "../../types/quizType"
 import { shuffleArray } from "../../components/utils/shuffleArray"

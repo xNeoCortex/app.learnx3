@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Container, Box, Typography, RadioGroup, FormControlLabel, Button, Radio, Grid } from "@mui/material"
-import Timer from "./Timer"
+import Timer from "./timer"
 import { QuizItem } from "../../types/quizType"
 import { shuffleArray } from "../utils/shuffleArray"
 import { on } from "events"
