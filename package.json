@@ -19,6 +19,8 @@
     "@mui/material": "^5.10.17",
     "@mui/x-date-pickers": "^6.12.0",
     "@react-query-firebase/firestore": "^1.0.0-dev.7",
+    "@react-three/drei": "^9.106.0",
+    "@react-three/fiber": "^8.16.8",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
     "@testing-library/jest-dom": "^5.16.5",
@@ -31,7 +33,7 @@
     "browser-image-compression": "^2.0.2",
     "chart.js": "^4.2.0",
     "dayjs": "^1.11.9",
-    "firebase": "^9.20.0",
+    "firebase": "^10.12.2",
     "firebase-admin": "^11.8.0",
     "fs": "^0.0.1-security",
     "next": "13.3.0",
@@ -39,6 +41,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
+    "react-loading-icons": "^1.1.0",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.10.0",
     "react-spinners": "^0.13.8",
@@ -47,6 +50,7 @@
     "util": "^0.12.5",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
+    "vmsg": "0.3.0",
     "web-vitals": "^2.1.4",
     "zustand": "^4.1.5"
   }
