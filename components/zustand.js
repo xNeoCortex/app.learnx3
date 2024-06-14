@@ -73,4 +73,32 @@ const useStoreUser = create(
 	)
 )
 
+
+export const useStoreFilePath = create(
+	(set, get) => ({
+		aiFilePath: '',
+		setAiFilePath: (text) => set(() => ({ aiFilePath: text })),
+	}),
+ 
+)
+
+
+export const useChatStore = create((set) => ({
+messages: [{
+	role: "system",
+	content:
+		"You an assistant which helps users with improving their english speaking fluency. Talk short sentences. If the user does mistakes, you will correct them."
+}, {
+	role: "assistant",
+	content: "Hey! I'm Fina. Let's practice your English! What would you like to talk about?"
+}],
+addMessage: (message) => set((state) => ({ messages: message }))
+}))
+
+export const useSuggestionsStore = create((set) => ({
+suggestion: 'Hey, how are you?',
+addSuggestion: (message) => set((state) => ({ suggestion: message }))
+}))
+
+
 export { useStore, useStoreTemporary, useStoreUser, useClassInfo }
