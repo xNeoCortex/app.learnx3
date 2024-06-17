@@ -30,19 +30,20 @@ function MostRecentTestScore() {
 			<Box sx={{ marginRight: 4, marginLeft: 1 }}>
 				<SchoolRoundedIcon
 					sx={{
-						width: "75px",
-						height: "75px",
+						width: "65px",
+						height: "65px",
 						color: "rgb(128 146 245)",
 					}}
 				/>
 			</Box>
-			<Box>
-				<Typography sx={{ color: "#1d243d", mb: 1 }}>Your most recent test score </Typography>
+			<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%" }}>
+				<Typography sx={{ color: "#1d243d", fontSize: 14 }}>Your most recent test score </Typography>
 				<Typography
 					sx={{
 						fontSize: { xs: 22, sm: 28 },
 						fontWeight: 600,
 						color: "#1d243d",
+						mt: 1,
 					}}
 				>
 					{mostRecentTestResult?.result ?? "No Test Result"}
@@ -65,7 +66,7 @@ const BoxStyleWrapper = {
 	maxHeight: "250px",
 	height: "100%",
 	borderRadius: "8px",
-	padding: "20px 10px",
+	padding: "15px 20px",
 	color: "white",
 	display: "flex",
 	justifyContent: "start",
