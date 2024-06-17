@@ -11,17 +11,16 @@ const FinaAvatar = React.memo(({ handleFinaClick }: { handleFinaClick: () => voi
 
 	return (
 		<>
-			{botComponentWidth !== 900 ||
-				(pathname !== "/avatar" && (
-					<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
-						<Avatar
-							sx={{ objectFit: "contain", width: "55px", height: "55px" }}
-							alt="Fina"
-							src="/teacher_green.svg"
-							onClick={handleFinaClick}
-						/>
-					</StyledBadge>
-				))}
+			{(botComponentWidth !== 900 || pathname !== "/avatar") && (
+				<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
+					<Avatar
+						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
+						alt="Fina"
+						src="/teacher_green.svg"
+						onClick={handleFinaClick}
+					/>
+				</StyledBadge>
+			)}
 		</>
 	)
 })
