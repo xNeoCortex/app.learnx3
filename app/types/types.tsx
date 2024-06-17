@@ -22,7 +22,7 @@ export interface LessonTimetableType {
 	lesson_date: Dayjs | null | string
 	lesson_duration_minutes: number
 	lesson_target_skills: ("speaking" | "listening")[]
-	lesson_type: string
+	lesson_type: "general_english" | "speaking_club" | "business_english" | "ielts" | "toefl"
 	level: string
 	passcode: string
 	platform: string

@@ -39,18 +39,17 @@ function DashboardLessonTimetable() {
 
 	return (
 		<Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column" }}>
-			{filteredLessonTimetable.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>}
-
+			{/* {filteredLessonTimetable.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>} */}
 			<Grid container spacing={2}>
 				{filteredLessonTimetable
 					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
-					?.slice(0, 3)
+					?.slice(0, 2)
 					?.map((lesson: LessonTimetableType, index: number) => (
-						<Grid key={index} item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
+						<Grid key={index} item xs={12} sm={4} md={2} sx={{ display: { xs: "none", sm: "grid" } }}>
 							<LessonTimetableCard lesson={lesson} />
 						</Grid>
 					))}
-				{lessonTimetableList?.data.length > 3 && (
+				{/* {lessonTimetableList?.data.length > 2 && (
 					<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
 						<Link href={`/lessons`} style={{ width: "100%" }}>
 							<Box sx={BoxStyle}>
@@ -61,7 +60,7 @@ function DashboardLessonTimetable() {
 							</Box>
 						</Link>
 					</Grid>
-				)}
+				)} */}
 			</Grid>
 		</Box>
 	)

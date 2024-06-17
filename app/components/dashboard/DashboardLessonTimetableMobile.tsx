@@ -30,7 +30,6 @@ function DashboardLessonTimetableMobile() {
 
 	return (
 		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
-			{filteredLessonTimetable.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>}
 			<Box
 				sx={{
 					display: { xs: "flex", sm: "none" },

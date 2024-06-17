@@ -98,7 +98,7 @@ function index() {
 												a.lesson_date! > b.lesson_date! ? 1 : -1
 											)
 											.map((lesson: LessonTimetableType, index: number) => (
-												<Grid key={index} item xs={12} sm={3}>
+												<Grid key={index} item xs={12} sm={3} md={2}>
 													{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
 												</Grid>
 											))}

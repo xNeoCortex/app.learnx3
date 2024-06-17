@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import { TestResultType } from "@/types/types"
 import { useMemo } from "react"
 import ApiServices from "../api/ApiServices"
+import { brandColors } from "./utils/brandColors"
 
 const Navbar = () => {
 	const theme = useTheme()
@@ -33,7 +34,7 @@ const Navbar = () => {
 					<Typography
 						fontWeight="bold"
 						noWrap
-						sx={{ margin: "0px 2px", color: "#32325d", fontSize: { xs: 20, sm: 24 }, maxWidth: { xs: 200, sm: 400 } }}
+						sx={{ margin: "0px 2px", color: brandColors.black, fontSize: { xs: 20 }, maxWidth: { xs: 200, sm: 400 } }}
 					>
 						{auth?.currentUser ? "Hello, " + auth?.currentUser?.displayName + " 👋" : "Hello"}
 					</Typography>
