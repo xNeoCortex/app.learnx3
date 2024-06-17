@@ -5,13 +5,13 @@ import Avatar from "@mui/material/Avatar"
 import { useStoreTemporary } from "../zustand"
 import { usePathname } from "next/navigation"
 
-const FinaAvatar = React.memo(({ handleFinaClick }: { handleFinaClick: () => void }) => {
+const FinaAvatar = ({ handleFinaClick }: { handleFinaClick: () => void }) => {
 	const { botComponentWidth } = useStoreTemporary()
 	const pathname = usePathname()
 
 	return (
 		<>
-			{(botComponentWidth !== 900 || pathname !== "/avatar") && (
+			{botComponentWidth !== 900 && !pathname.includes("avatar") && (
 				<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
 					<Avatar
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
@@ -23,7 +23,7 @@ const FinaAvatar = React.memo(({ handleFinaClick }: { handleFinaClick: () => voi
 			)}
 		</>
 	)
-})
+}
 
 export default FinaAvatar
 
