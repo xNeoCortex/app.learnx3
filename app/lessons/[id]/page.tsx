@@ -2,7 +2,6 @@
 import { Avatar, Box, Button, capitalize, Chip, Grid, Typography } from "@mui/material"
 import ApiServices from "@/api/ApiServices"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { useRouter, useSearchParams } from "next/navigation"
 import ErrorPage from "@/errorpage"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
