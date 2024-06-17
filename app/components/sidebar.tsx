@@ -15,6 +15,7 @@ import Link from "next/link"
 import VerifiedIcon from "@mui/icons-material/Verified"
 import AppsIcon from "@mui/icons-material/Apps"
 import SidebarItem from "./SidebarItem"
+import FaceRetouchingNaturalIcon from "@mui/icons-material/FaceRetouchingNatural"
 
 function sidebar() {
 	const pathname = usePathname()
@@ -61,7 +62,7 @@ function sidebar() {
 							<SidebarItem
 								item={{
 									name: "My Result",
-									href: `/student/[id]`,
+									href: `/student/${userInfo?.uid}`,
 									link: `/student/${userInfo?.uid}`,
 									icon: <BarChartIcon sx={{ width: 30, height: 30 }} />,
 								}}
@@ -141,6 +142,12 @@ const dataStudent = () => {
 			href: "/lessons",
 			link: "/lessons",
 			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
+		},
+		{
+			name: "Fina AI",
+			href: "/avatar",
+			link: "/avatar",
+			icon: <FaceRetouchingNaturalIcon sx={{ width: 30, height: 30 }} />,
 		},
 	]
 }
