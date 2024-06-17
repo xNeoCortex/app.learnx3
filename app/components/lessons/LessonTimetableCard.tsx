@@ -163,7 +163,7 @@ const BoxStyle = {
 	minWidth: "190px",
 	border: "0.5px solid #f3f3f3",
 	background: brandColors.lightGrey,
-	boxShadow: "0 2px 6px rgba(0,0,0,.08)",
+	boxShadow: "0 2px 6px #efeaea",
 	transition: "transform 0.3s ease-in-out",
 	"&:hover": {
 		cursor: "pointer",

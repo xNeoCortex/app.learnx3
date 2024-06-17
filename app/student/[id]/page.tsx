@@ -81,7 +81,7 @@ function StudentProfile({ params }: { params: { id: string } }) {
 										>
 											{[
 												data?.data?.country || "country unknown",
-												data?.data?.email,
+												data?.data?.email || "email unknown",
 												`${data?.data?.age || "NA"} years old`,
 											].map((item, index) => (
 												<Typography key={index} sx={TypographyStyle}>
