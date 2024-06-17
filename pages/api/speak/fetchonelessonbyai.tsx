@@ -1,7 +1,7 @@
 import { doc, getDoc } from "firebase/firestore"
-import { db } from "../../../components/firebaseX"
 import { NextApiRequest, NextApiResponse } from "next"
 import { getAuth } from "@clerk/nextjs/server"
+import { db } from "@/components/firebaseX"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	// Clerk auth check

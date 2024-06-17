@@ -124,7 +124,7 @@ const AccountMenu = React.memo(({ isSmallScreen }: { isSmallScreen: boolean }) =
 				anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
 			>
 				<MenuItem>
-					<Link href="/user-settings" style={{ display: "flex", alignItems: "center" }}>
+					<Link href="/user-settings" style={{ display: "flex", alignItems: "center", color: "black" }}>
 						<ListItemIcon>
 							<Settings fontSize="small" />
 						</ListItemIcon>

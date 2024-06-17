@@ -81,8 +81,6 @@ export default function MySettings() {
 		}))
 	}
 
-	console.log("userInfo :>> ", userInfo)
-	console.log("currentUser :>> ", currentUser)
 	// Update user data
 	const updateData = async () => {
 		const userDoc =
@@ -97,7 +95,7 @@ export default function MySettings() {
 				return
 			}
 
-			if (currentUser.image) {
+			if (currentUser.image && currentUser.image !== userInfo.image) {
 				const imagePath = userInfo.role === "teacher" ? "teacherImages" : "studentImages"
 
 				//@ts-ignore
@@ -176,7 +174,6 @@ export default function MySettings() {
 					topic="Update Information"
 					message="Are you sure you want to update your information?"
 				/>
-				<SnackbarX open={open} setOpen={setOpen} backgroundColor="#32a676" message={message.text} />
 				<Box
 					sx={{
 						display: "flex",

@@ -16,15 +16,12 @@ export async function POST(request: Request) {
 		return NextResponse.json(
 			{
 				message: "Audio file saved",
-				filePath: `audios/my-speech.mp3`
+				filePath: `audios/my-speech.mp3`,
 			},
 			{ status: 200 }
 		)
 	} catch (error) {
 		console.error("Error deleting the audio file:", error)
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		)
+		return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
 	}
 }
