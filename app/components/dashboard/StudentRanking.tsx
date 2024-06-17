@@ -13,6 +13,7 @@ import Paper from "@mui/material/Paper"
 import LoadingPage from "../LoadingPage"
 import { TestResultType, UserType } from "@/types/types"
 import CustomAvatar from "../elements/CustomAvatar"
+import { brandColors } from "../utils/brandColors"
 
 function StudentRanking() {
 	const { apiRequest } = ApiServices()
@@ -76,15 +77,29 @@ function StudentRanking() {
 					<TableHead>
 						<TableRow
 							sx={{
-								background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-								borderRadius: "12px",
-								color: "white",
+								background: brandColors.lightGrey,
 							}}
 						>
-							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>
+							<TableCell
+								sx={{
+									color: brandColors.black,
+									fontWeight: "600",
+									fontSize: "16px",
+									borderBottom: "0.2px solid white",
+								}}
+							>
 								Student Leaderboard (Top 10)
 							</TableCell>
-							<TableCell sx={{ color: "white", fontWeight: "600", fontSize: "16px" }}>🏆 Points</TableCell>
+							<TableCell
+								sx={{
+									color: brandColors.black,
+									fontWeight: "600",
+									fontSize: "16px",
+									borderBottom: "0.2px solid white",
+								}}
+							>
+								🏆 Points
+							</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -152,5 +167,5 @@ const BoxWrapperStyle = {
 	borderRadius: "8px",
 	overflow: "scroll",
 	position: "relative",
-	background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+	background: "white",
 }

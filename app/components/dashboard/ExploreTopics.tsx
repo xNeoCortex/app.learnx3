@@ -1,6 +1,7 @@
 import React from "react"
 import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material"
 import Link from "next/link"
+import { brandColors } from "../utils/brandColors"
 
 function ExploreTopics() {
 	const theme = useTheme()
@@ -68,7 +69,7 @@ const contentStyle = {
 }
 
 const textStyle = {
-	color: "#001663",
+	color: brandColors.darkBlue,
 	zIndex: 99,
 	mb: 1,
 	fontSize: { xs: "28px", sm: "40px" },
