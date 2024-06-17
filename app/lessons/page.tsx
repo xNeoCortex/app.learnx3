@@ -4,7 +4,7 @@ import React, { ReactNode } from "react"
 import dayjs from "dayjs"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
-import { Box, Grid, Typography } from "@mui/material"
+import { Alert, Box, Grid, Typography } from "@mui/material"
 import AddLesson from "@/components/lessons/AddLesson"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "../api/ApiServices"
@@ -30,6 +30,8 @@ function index() {
 		queryFn: () => apiRequest("GET", null, { collectionName: "lessonTimetable" }),
 		refetchOnWindowFocus: false,
 	})
+
+	const lessonsList = groupLessonsByWeek(lessonTimetableList?.data)?.filter((item) => !isDateBeforeToday(item?.date_to))
 
 	if (cIsError) return <ErrorPage />
 
@@ -60,51 +62,59 @@ function index() {
 						</Box>
 					</Grid>
 					<Grid container spacing={3}>
-						{groupLessonsByWeek(lessonTimetableList?.data)
-							?.filter((item) => !isDateBeforeToday(item?.date_to))
-							.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
-							?.map(
-								(
-									{
-										date_from,
-										date_to,
-										lessons,
-									}: {
-										date_from: string
-										date_to: string
-										lessons: LessonTimetableType[]
-									},
-									index
-								) => (
-									<React.Fragment key={index}>
-										<Grid item xs={12} key={index} sx={{ marginTop: "20px" }}>
-											<Box
-												sx={{
-													display: "flex",
-													alignItems: "center",
-													justifyContent: "space-between",
-													width: "100%",
-												}}
-											>
-												<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
-													<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
-														{dayjs(date_from).format("D MMMM")} - {dayjs(date_to).format("D MMMM")}
-													</Typography>
+						{lessonsList?.length === 0 ? (
+							<Alert
+								severity="warning"
+								sx={{ p: 1, mt: 4, ml: 3, paddingY: "0px", fontSize: "15px", fontWeight: "500", width: "fit-content" }}
+							>
+								No upcoming lessons
+							</Alert>
+						) : (
+							lessonsList
+								?.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
+								?.map(
+									(
+										{
+											date_from,
+											date_to,
+											lessons,
+										}: {
+											date_from: string
+											date_to: string
+											lessons: LessonTimetableType[]
+										},
+										index
+									) => (
+										<React.Fragment key={index}>
+											<Grid item xs={12} key={index} sx={{ marginTop: "20px" }}>
+												<Box
+													sx={{
+														display: "flex",
+														alignItems: "center",
+														justifyContent: "space-between",
+														width: "100%",
+													}}
+												>
+													<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
+														<Typography sx={{ fontSize: 16, fontWeight: 600 }}>
+															{dayjs(date_from).format("D MMMM")} - {dayjs(date_to).format("D MMMM")}
+														</Typography>
+													</Box>
 												</Box>
-											</Box>
-										</Grid>
-										{lessons
-											.sort((a: LessonTimetableType, b: LessonTimetableType) =>
-												a.lesson_date! > b.lesson_date! ? 1 : -1
-											)
-											.map((lesson: LessonTimetableType, index: number) => (
-												<Grid key={index} item xs={12} sm={3} md={2}>
-													{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
-												</Grid>
-											))}
-									</React.Fragment>
+											</Grid>
+											{lessons
+												.sort((a: LessonTimetableType, b: LessonTimetableType) =>
+													a.lesson_date! > b.lesson_date! ? 1 : -1
+												)
+												.map((lesson: LessonTimetableType, index: number) => (
+													<Grid key={index} item xs={12} sm={3} md={2}>
+														{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
+													</Grid>
+												))}
+										</React.Fragment>
+									)
 								)
-							)}
+						)}
 					</Grid>
 				</Box>
 			</SidebarContainer>
