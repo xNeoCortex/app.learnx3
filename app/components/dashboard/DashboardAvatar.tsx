@@ -34,7 +34,7 @@ function DashboardAvatar() {
 							maxHeight: "350px",
 							width: "fit-content",
 							top: isSmallScreen ? -15 : 0,
-							left: isSmallScreen ? 70 : -10,
+							left: isSmallScreen ? 70 : -30,
 							marginTop: isSmallScreen ? 0 : -32,
 							marginLeft: isSmallScreen ? 0 : 5,
 							zIndex: 999,
