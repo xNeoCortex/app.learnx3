@@ -1,5 +1,5 @@
 "use client"
-import { Environment, OrbitControls, useTexture } from "@react-three/drei"
+import { Environment, useTexture } from "@react-three/drei"
 import { useThree } from "@react-three/fiber"
 import { Avatar } from "./Avatar"
 
@@ -9,7 +9,6 @@ export const Experience = () => {
 
 	return (
 		<>
-			{/* <OrbitControls /> */}
 			<Avatar position={[0, -3, 5]} scale={2} />
 			<Environment preset="sunset" />
 			<mesh>

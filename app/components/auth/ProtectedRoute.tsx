@@ -1,6 +1,5 @@
 "use client"
-import { ReactNode, memo, useEffect } from "react"
-import { useRouter } from "next/router"
+import { ReactNode } from "react"
 import ErrorPage from "@/errorpage"
 import WaitingPage from "../other/WaitingPage"
 import { useStoreUser } from "../zustand"

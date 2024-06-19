@@ -17,13 +17,11 @@ const UseAudioRecorder = () => {
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
 
-	console.log("isRecording :>> ", isRecording)
 	const recordFn = async () => {
 		setStatus("loading")
 		setSpeakingLoading(false)
 
 		if (isRecording) {
-			console.log("isRecording :>> ", isRecording)
 			try {
 				if (myFilePath) {
 					await fetch("/api/delete-audio", {
@@ -51,8 +49,6 @@ const UseAudioRecorder = () => {
 				setStatus("success")
 			}
 		} else {
-			console.log("not recording :>> ", isRecording)
-
 			setSpeakingLoading(true)
 			try {
 				await recorder.initAudio()
@@ -66,8 +62,6 @@ const UseAudioRecorder = () => {
 			}
 		}
 	}
-
-	console.log("status :>> ", status)
 
 	return (
 		//@ts-ignore
