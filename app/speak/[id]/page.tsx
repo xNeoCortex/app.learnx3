@@ -6,7 +6,6 @@ import LoadingPage from "@/components/LoadingPage"
 import SidebarContainer from "@/components/SidebarContainer"
 import ErrorPage from "../../error"
 import SpeakingInfo from "../SpeakingInfo"
-import { useRouter, useSearchParams } from "next/navigation"
 import FlashCards from "@/components/speakpage/FlashCards"
 import Phrases from "@/components/speakpage/Phrases"
 import AskQuestions from "@/components/speakpage/AskQuestions"
@@ -59,11 +58,4 @@ export default function SpeakingLessonAi({ params }: { params: { id: string } })
 			)}
 		</SidebarContainer>
 	)
-}
-
-export const lessonColors = {
-	noun: "#e2e6fb4d",
-	verb: "rgb(255 139 79 / 20%)",
-	adverb: "rgb(65 182 255 / 20%)",
-	adjective: "rgb(94 196 151 / 20%)",
 }
