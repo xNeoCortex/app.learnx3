@@ -45,7 +45,7 @@ function DashboardLessonTimetable() {
 					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
 					?.slice(0, 2)
 					?.map((lesson: LessonTimetableType, index: number) => (
-						<Grid key={index} item xs={12} sm={4} md={2} sx={{ display: { xs: "none", sm: "grid" } }}>
+						<Grid key={index} item xs={12} sm={4} sx={{ display: { xs: "none", sm: "grid" } }}>
 							<LessonTimetableCard lesson={lesson} />
 						</Grid>
 					))}

@@ -3,10 +3,9 @@ import React from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Canvas } from "@react-three/fiber"
-import { Container, Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import { Experience } from "@/components/Chat/Experience"
 import Chat from "@/components/Chat/ChatPage"
-import UseAudioRecorder from "@/components/Chat/UseAudioRecorder"
 
 export default function HomeX() {
 	return (

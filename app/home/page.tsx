@@ -11,6 +11,7 @@ import WordOfTheDay from "../components/dashboard/WordOfTheDay"
 import MostRecentTestScore from "../components/dashboard/MostRecentTestScore"
 import StudentRanking from "../components/dashboard/StudentRanking"
 import DashboardTopics from "../components/dashboard/DashboardTopics"
+import DashboardAvatar from "@/components/dashboard/DashboardAvatar"
 
 function MyDashboard() {
 	const { botComponentWidth } = useStoreTemporary()
@@ -19,9 +20,12 @@ function MyDashboard() {
 		<ProtectedRoute permitArray={["admin", "student"]}>
 			<SidebarContainer>
 				<Grid container spacing={2}>
-					<Grid item xs={12}>
+					<Grid item xs={12} md={6}>
 						<DashboardLessonTimetable />
 						<DashboardLessonTimetableMobile />
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<DashboardAvatar />
 					</Grid>
 					<Grid item xs={12} sm={botComponentWidth === 900 ? 12 : 8}>
 						<Grid container spacing={2}>
