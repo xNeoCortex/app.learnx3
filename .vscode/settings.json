@@ -22,5 +22,6 @@
          "titleBar.inactiveBackground": "#a44ae5",
          "titleBar.inactiveForeground": "#15202b99",
          "commandCenter.border": "#15202b99"
-       },
+      },
+      "typescript.tsdk": "node_modules/typescript/lib",
 }
