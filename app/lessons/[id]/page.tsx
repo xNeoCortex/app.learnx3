@@ -24,6 +24,7 @@ import LogoutIcon from "@mui/icons-material/Logout"
 import { UserType } from "@/types/types"
 import { useMemo } from "react"
 import CustomAvatar from "@/components/elements/CustomAvatar"
+import { brandColors } from "@/components/utils/brandColors"
 
 function Lesson({ params }: { params: { id: string } }) {
 	const queryClient = useQueryClient()
@@ -85,7 +86,6 @@ function Lesson({ params }: { params: { id: string } }) {
 			}
 		}
 	}
-	console.log("lessonTimetableList :>> ", lessonTimetableList)
 
 	const studentJoined = useMemo(
 		() => lessonTimetableList?.data?.students?.includes(userInfo?.uid) || false,
@@ -115,7 +115,11 @@ function Lesson({ params }: { params: { id: string } }) {
 								<Box sx={{ display: { xs: "none", sm: "flex" } }}>
 									<img
 										style={{ position: "absolute", top: 30, right: 30, width: 330 }}
-										src="/teacher-online-presentation.svg"
+										src={
+											lessonTimetableList?.data?.lesson_type === "speaking_club"
+												? "/images/speaking-infographic.png"
+												: "/images/teacher-image-infographic.png"
+										}
 										alt="teacher"
 									/>
 								</Box>
@@ -319,7 +323,7 @@ function Lesson({ params }: { params: { id: string } }) {
 									flexWrap: "nowrap",
 									overflowX: "scroll",
 									marginBottom: "25px",
-									mt: 1,
+									mt: 2,
 								}}
 							>
 								{data?.data
@@ -342,7 +346,7 @@ export default Lesson
 
 const BoxWrapperStyle = {
 	padding: { xs: "20px", sm: "25px 40px" },
-	borderRadius: "23px",
+	borderRadius: "18px",
 	color: "white",
 	height: "100%",
 	display: "flex",
@@ -354,5 +358,5 @@ const BoxWrapperStyle = {
 	overflow: "auto",
 	position: "relative",
 	border: "0.5px solid #ebfff6",
-	background: "linear-gradient(45deg, #D0DFFB, rgb(206 236 248 / 22%))",
+	background: brandColors.lightGrey,
 }

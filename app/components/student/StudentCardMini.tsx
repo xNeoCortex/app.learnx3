@@ -31,7 +31,7 @@ const StudentCardMini = memo<{ studentDetails: UserType }>(({ studentDetails }) 
 								? "1px solid #5fc497"
 								: "1px solid #41b6ff",
 						borderRadius: "12px",
-						fontSize: "12px",
+						fontSize: "10px",
 						textAlign: "center",
 					}}
 				>
@@ -53,7 +53,7 @@ const BoxStyle = {
 	justifyContent: "space-between",
 	alignItems: "center",
 	flexDirection: "column",
-	background: "#f2f2f2",
+	background: "#e2e6fb",
 	marginBottom: "10px",
 	position: "relative",
 }

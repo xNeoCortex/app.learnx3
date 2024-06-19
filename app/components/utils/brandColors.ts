@@ -8,6 +8,6 @@ export const brandColors: {
 	lightGrey: "#f5f5f7",
 	grey: "#6e6e73",
 	black: "#1d1d1f",
-	lightPurple: "#8967fd",
+	lightPurple: "rgb(95, 106, 196)",
 	darkBlue: "#001663",
 }
