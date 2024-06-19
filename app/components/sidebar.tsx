@@ -24,6 +24,7 @@ function sidebar() {
 
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
 				background: "white",
 				maxWidth: "none",

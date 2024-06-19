@@ -6,6 +6,7 @@ import LogoutButton from "./components/auth/LogoutButton"
 function ErrorPage({ message = "" }) {
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
 				height: "100vh",
 				display: "flex",
@@ -15,6 +16,7 @@ function ErrorPage({ message = "" }) {
 			}}
 		>
 			<Box
+				//@ts-ignore
 				sx={{
 					display: "flex",
 					flexDirection: "column",
