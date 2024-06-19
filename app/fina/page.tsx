@@ -17,7 +17,7 @@ interface Message {
 	content: string
 	order?: number
 }
-const Fina = ({ setOpen }: { setOpen: (arg: boolean) => void }) => {
+export default function Fina(props: any) {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const { userInfo } = useStoreUser()
@@ -123,7 +123,7 @@ const Fina = ({ setOpen }: { setOpen: (arg: boolean) => void }) => {
 			>
 				<IconButton
 					sx={{ color: "#BAB9CC" }}
-					onClick={() => (isSmallScreen ? setOpen(false) : setBotComponentWidth(0))}
+					onClick={() => (isSmallScreen ? props.setOpen(false) : setBotComponentWidth(0))}
 				>
 					<KeyboardDoubleArrowRightIcon />
 				</IconButton>
@@ -200,8 +200,6 @@ const Fina = ({ setOpen }: { setOpen: (arg: boolean) => void }) => {
 		</Box>
 	)
 }
-
-export default Fina
 
 const BotFinaAI = ({
 	loading,
