@@ -17,7 +17,7 @@ interface Message {
 	content: string
 	order?: number
 }
-const Fina: React.FC<{ setOpen: React.Dispatch<React.SetStateAction<boolean>> }> = ({ setOpen }) => {
+const Fina = ({ setOpen }: { setOpen: (arg: boolean) => void }) => {
 	const theme = useTheme()
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
 	const { userInfo } = useStoreUser()
