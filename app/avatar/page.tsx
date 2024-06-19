@@ -8,6 +8,7 @@ import { Experience } from "@/components/Chat/Experience"
 import Chat from "@/components/Chat/ChatPage"
 
 export default function HomeX() {
+	let location = ""
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
