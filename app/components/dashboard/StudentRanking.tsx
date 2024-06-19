@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import ErrorPage from "@/errorpage"
 import ApiServices from "@/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
-import { Box, Typography } from "@mui/material"
+import { Box, Skeleton, Typography } from "@mui/material"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -67,7 +67,6 @@ function StudentRanking() {
 		[getStudentTotalScore, students]
 	)
 
-	if (isLoadingStudents || isLoading) return <LoadingPage />
 	if (isErrorStudents || isError) return <ErrorPage />
 
 	return (
@@ -103,7 +102,14 @@ function StudentRanking() {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{students?.data?.length > 0 &&
+						{isLoadingStudents || isLoading ? (
+							<Box sx={{ display: "flex", flexDirection: "column", margin: "10px", width: "100%" }}>
+								{[1, 2, 3, 4, 5].map((item) => (
+									<Skeleton key={item} variant="rounded" sx={{ height: "70px", margin: "5px" }} />
+								))}
+							</Box>
+						) : (
+							students?.data?.length > 0 &&
 							sortStudentsByPerformance(students?.data)
 								?.slice(0, 10)
 								?.map(
@@ -139,7 +145,8 @@ function StudentRanking() {
 											</TableCell>
 										</TableRow>
 									)
-								)}
+								)
+						)}
 					</TableBody>
 				</Table>
 			</TableContainer>

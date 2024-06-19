@@ -1,12 +1,13 @@
 import React from "react"
 import ApiServices from "@/api/ApiServices"
-import { Alert, Box, Typography } from "@mui/material"
+import { Alert, Box, Skeleton, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ErrorPage from "@/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
 import LessonTimetableCard from "../lessons/LessonTimetableCard"
 import LoadingPage from "../LoadingPage"
 import { LessonTimetableType } from "@/types/types"
+import Grid from "react-loading-icons/dist/esm/components/grid"
 
 function DashboardLessonTimetableMobile() {
 	const { apiRequest } = ApiServices()
@@ -26,7 +27,6 @@ function DashboardLessonTimetableMobile() {
 	)
 
 	if (cIsError) return <ErrorPage />
-	if (cIsLoading) return <LoadingPage />
 
 	return (
 		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
@@ -39,12 +39,16 @@ function DashboardLessonTimetableMobile() {
 					width: `calc(100vw-20px)`,
 				}}
 			>
-				{filteredLessonTimetable
-					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
-					?.slice(0, 3)
-					?.map((lesson: LessonTimetableType, index: number) => (
-						<LessonTimetableCard key={index} lesson={lesson} />
-					))}
+				{cIsLoading
+					? [1, 2].map((x) => (
+							<Skeleton key={x} variant="rounded" sx={{ height: "315px", width: "230px", margin: "5px" }} />
+					  ))
+					: filteredLessonTimetable
+							?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
+							?.slice(0, 3)
+							?.map((lesson: LessonTimetableType, index: number) => (
+								<LessonTimetableCard key={index} lesson={lesson} />
+							))}
 			</Box>
 		</Box>
 	)

@@ -1,12 +1,10 @@
 import React from "react"
 import ApiServices from "@/api/ApiServices"
-import { Alert, Box, Grid, Typography } from "@mui/material"
+import { Alert, Box, Grid, Skeleton, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import ErrorPage from "@/errorpage"
 import isDateBeforeToday from "../helpers/isDateBeforeToday"
 import LessonTimetableCard from "../lessons/LessonTimetableCard"
-import Link from "next/link"
-import LoadingPage from "../LoadingPage"
 import { LessonTimetableType } from "@/types/types"
 
 function DashboardLessonTimetable() {
@@ -26,8 +24,8 @@ function DashboardLessonTimetable() {
 		({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date)
 	)
 	if (cIsError) return <ErrorPage />
-	if (cIsLoading) return <LoadingPage />
-	if (filteredLessonTimetable.length === 0)
+
+	if (filteredLessonTimetable?.length === 0)
 		return (
 			<Alert
 				severity="warning"
@@ -38,17 +36,23 @@ function DashboardLessonTimetable() {
 		)
 
 	return (
-		<Box sx={{ display: { xs: "none", sm: "flex" }, flexDirection: "column" }}>
+		<Box sx={{ display: { xs: "none", sm: "flex" } }}>
 			{/* {filteredLessonTimetable.length > 0 && <Typography sx={TextStyle}>Upcoming lessons</Typography>} */}
 			<Grid container spacing={2}>
-				{filteredLessonTimetable
-					?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
-					?.slice(0, 2)
-					?.map((lesson: LessonTimetableType, index: number) => (
-						<Grid key={index} item xs={12} sm={4} sx={{ display: { xs: "none", sm: "grid" } }}>
-							<LessonTimetableCard lesson={lesson} />
-						</Grid>
-					))}
+				{cIsLoading
+					? [1, 2, 3].map((x) => (
+							<Grid item xs={6} sm={4} key={x}>
+								<Skeleton variant="rounded" sx={{ height: "315px" }} />
+							</Grid>
+					  ))
+					: filteredLessonTimetable
+							?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
+							?.slice(0, 2)
+							?.map((lesson: LessonTimetableType, index: number) => (
+								<Grid key={index} item xs={12} sm={4} sx={{ display: { xs: "none", sm: "grid" } }}>
+									<LessonTimetableCard lesson={lesson} />
+								</Grid>
+							))}
 				{/* {lessonTimetableList?.data.length > 2 && (
 					<Grid item xs={12} sm={6} lg={3} sx={{ display: { xs: "none", sm: "grid" } }}>
 						<Link href={`/lessons`} style={{ width: "100%" }}>
