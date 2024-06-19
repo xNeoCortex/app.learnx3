@@ -158,7 +158,8 @@ const AddLessonDialog = React.memo(
 											{["general_english", "speaking_club", "business_english", "ielts", "toefl"].map((item, index) => (
 												<Box
 													key={index}
-													onClick={() => setLessonInfo((prev) => ({ ...prev, lesson_type: item }))}
+													//@ts-ignore
+													onClick={() => setLessonInfo((prev: LessonTimetableType) => ({ ...prev, lesson_type: item }))}
 													sx={{
 														flex: 1,
 														textAlign: "center",
