@@ -7,8 +7,7 @@ import { Box } from "@mui/material"
 import { Experience } from "@/components/Chat/Experience"
 import Chat from "@/components/Chat/ChatPage"
 
-export default function HomeX() {
-	let location = ""
+export default function AvatarAIPage() {
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
