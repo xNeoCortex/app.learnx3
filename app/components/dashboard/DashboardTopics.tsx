@@ -30,6 +30,7 @@ function DashboardTopics() {
 	if (isError || isErrorImages) return <ErrorPage />
 
 	return (
+		//@ts-ignore
 		<Box>
 			<SnackbarX
 				open={open}
@@ -42,11 +43,13 @@ function DashboardTopics() {
 			{
 				<Grid container spacing={2}>
 					{isLoading
-						? [1, 2, 3, 4, 5].map((item) => (
-								<Skeleton key={item} variant="rounded" sx={{ margin: "10px", width: "320px", minHeight: "150px" }} />
+						? [1, 2, 3, 4, 5, 6].map((item) => (
+								<Grid item xs={6} sm={2} key={item}>
+									<Skeleton variant="rounded" sx={{ minHeight: "200px" }} />
+								</Grid>
 						  ))
 						: topics?.data.length > 0 &&
-						  topics.data
+						  topics?.data
 								?.sort((a: TopicType, b: TopicType) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
 								.slice(0, 6)
 								.map((topicObject: TopicType, index: number) => {
