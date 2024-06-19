@@ -2,6 +2,7 @@ import React from "react"
 import { Card, CardMedia, Typography, Box, capitalize } from "@mui/material"
 import Link from "next/link"
 import { useStoreUser } from "../zustand"
+import { brandColors } from "../utils/brandColors"
 
 const CustomCard = React.memo(
 	({
@@ -27,13 +28,18 @@ const CustomCard = React.memo(
 						backgroundColor: "#ffffff",
 						boxShadow: 3,
 						p: 1,
+						transition: "transform 0.3s ease-in-out",
+						"&:hover": {
+							cursor: "pointer",
+							transform: "scale(1.01)",
+						},
 					}}
 				>
 					<Box sx={{ textAlign: "right", position: "relative" }}>
 						{createdById === userInfo.uid && (
 							<Typography
 								sx={{
-									background: "#8967fd",
+									background: brandColors.lightPurple,
 									color: "#fff",
 									display: "inline-block",
 									padding: "4px 8px",
