@@ -104,7 +104,7 @@ export default function Chat() {
 					{suggestion && <Typography fontSize={10}>{suggestion}</Typography>}
 				</Box>
 
-				<UseAudioRecorder />
+				{/* <UseAudioRecorder /> */}
 			</Box>
 		</Box>
 	)

@@ -52,7 +52,7 @@ const ChatBox = () => (
 
 const AudioRecorderContainer = () => (
 	<Box position={"relative"} bottom={10} marginTop={"-100px"} width={"100%"} display={"flex"} justifyContent={"center"}>
-		<UseAudioRecorder />
+		{/* <UseAudioRecorder /> */}
 	</Box>
 )
 

@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 import LogoutButton from "./components/auth/LogoutButton"
 
 function ErrorPage({ message = "" }) {
-	const router = useRouter()
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
 				height: "100vh",
 				display: "flex",
