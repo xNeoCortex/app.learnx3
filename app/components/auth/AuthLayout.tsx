@@ -3,6 +3,7 @@ import { Box } from "@mui/system"
 function AuthLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
 				width: "100vw",
 				height: "100vh",
