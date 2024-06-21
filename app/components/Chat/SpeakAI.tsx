@@ -1,3 +1,4 @@
+"use client"
 import { useChatStore, useStoreFilePath, useSuggestionsStore } from "../zustand"
 import axios from "axios"
 
@@ -10,16 +11,6 @@ function useSpeakAI() {
 	async function Speak(myFilePath: string) {
 		// Delete the previous AI audio file
 		try {
-			// if (aiFilePath) {
-			// 	await fetch("/api/delete-audio", {
-			// 		method: "POST",
-			// 		headers: {
-			// 			"Content-Type": "application/json"
-			// 		},
-			// 		body: JSON.stringify({ filePath: aiFilePath })
-			// 	})
-			// }
-
 			setAiFilePath(null)
 
 			// Generate text from the recorded audio - Whisper

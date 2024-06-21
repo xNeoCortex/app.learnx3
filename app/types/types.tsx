@@ -87,7 +87,7 @@ export interface UserType {
 	num_of_ai_topics_created: number
 	num_of_messages_with_fina_ai: number
 	discount: "10%" | "20%" | "30%" | "40%" | "50%" | "60%" | "70%" | "80%" | "90%" | "100%" | ""
-	image: null | string
+	image: null | string | File
 	qualification?: string
 	createdAt: Date
 }

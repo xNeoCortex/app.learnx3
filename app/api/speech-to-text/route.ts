@@ -1,32 +1,41 @@
 // pages/api/generate-audio.js
 import OpenAI from "openai"
 import fs from "fs"
+import path from "path"
+import os from "os"
 import { NextResponse } from "next/server"
+import axios from "axios"
 
 const openai = new OpenAI({
-	apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY
+	apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 })
 
-export async function POST(request: any) {
+export async function POST(request: Request) {
 	const { myFilePath } = await request.json()
 
 	try {
+		// Download the file from Firebase Storage
+		const response = await axios.get(myFilePath, { responseType: "arraybuffer" })
+		const tempFilePath = path.join(os.tmpdir(), `temp-audio-${Date.now()}.mp3`)
+		fs.writeFileSync(tempFilePath, Buffer.from(response.data), "binary")
+
+		// Generate transcription using OpenAI
 		const transcription = await openai.audio.transcriptions.create({
-			file: fs.createReadStream(`public/${myFilePath}`),
-			model: "whisper-1"
+			file: fs.createReadStream(tempFilePath),
+			model: "whisper-1",
 		})
+
+		// Clean up the temporary file
+		fs.unlinkSync(tempFilePath)
 
 		return NextResponse.json(
 			{
-				text: transcription.text
+				text: transcription.text,
 			},
 			{ status: 200 }
 		)
 	} catch (error) {
 		console.error("Error generating the audio file:", error)
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		)
+		return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
 	}
 }

@@ -1,5 +1,4 @@
 import { storage } from "@/components/firebaseX"
-import { NextApiRequest, NextApiResponse } from "next"
 import { getAuth } from "@clerk/nextjs/server"
 import { ref, list, getDownloadURL, getMetadata } from "firebase/storage"
 import { constants } from "@/components/constants/constants"

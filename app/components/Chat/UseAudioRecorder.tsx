@@ -24,15 +24,6 @@ const UseAudioRecorder = () => {
 
 		if (isRecording) {
 			try {
-				if (myFilePath) {
-					await fetch("/api/delete-audio", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify({ filePath: myFilePath }),
-					})
-				}
 				const blob = await recorder.stopRecording()
 				const { data } = await axios.post("/api/save-audio", blob)
 

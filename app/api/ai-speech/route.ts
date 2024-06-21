@@ -1,11 +1,12 @@
 // pages/api/generate-audio.js
 import OpenAI from "openai"
-import fs from "fs"
-import path from "path"
 import { NextResponse } from "next/server"
+import { getAuth } from "@clerk/nextjs/server"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { storage } from "@/components/firebaseX"
 
 const openai = new OpenAI({
-	apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY
+	apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
 })
 
 export async function POST(request: any) {
@@ -16,44 +17,38 @@ export async function POST(request: any) {
 			messages: messages,
 			model: "gpt-4o",
 			temperature: 0.7,
-			max_tokens: 300
+			max_tokens: 300,
 		})
 
 		const messageFromGPT = completion.choices[0].message.content || ""
 		if (!messageFromGPT) {
-			return NextResponse.json(
-				{ message: "Failed to generate audio" },
-				{ status: 400 }
-			)
+			return NextResponse.json({ message: "Failed to generate audio" }, { status: 400 })
 		}
 		const mp3 = await openai.audio.speech.create({
 			model: "tts-1",
 			voice: "alloy",
-			input: messageFromGPT
+			input: messageFromGPT,
 		})
 
 		const buffer = Buffer.from(await mp3.arrayBuffer())
-		const filePath = path.join(
-			process.cwd(),
-			"public/audios",
-			`speech-${currentTime}.mp3`
-		)
+		const currentTime = new Date().getTime()
+		const { userId } = getAuth(request)
+		const uniqueFileName = `ai-speech-${currentTime}-${userId}.mp3`
+		const audioRef = ref(storage, `audios/${userId}/${uniqueFileName}`)
 
-		await fs.promises.writeFile(filePath, buffer)
+		await uploadBytes(audioRef, buffer)
+		const audioURL = await getDownloadURL(audioRef)
 
 		return NextResponse.json(
 			{
 				message: "Audio file saved",
-				filePath: `audios/speech-${currentTime}.mp3`,
-				messageFromGPT
+				filePath: audioURL,
+				messageFromGPT,
 			},
 			{ status: 200 }
 		)
 	} catch (error) {
 		console.error("Error generating the audio file:", error)
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		)
+		return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
 	}
 }

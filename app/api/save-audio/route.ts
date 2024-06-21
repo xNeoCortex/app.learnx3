@@ -1,22 +1,24 @@
-import fs from "fs"
-import path from "path"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { storage } from "@/components/firebaseX"
+import { getAuth } from "@clerk/nextjs/server"
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
 	const resp = await request.blob()
-
 	const currentTime = new Date().getTime()
+	const { userId } = getAuth(request)
+	const uniqueFileName = `my-speech-${currentTime}-${userId}.mp3`
+	const audioRef = ref(storage, `audios/${userId}/${uniqueFileName}`)
 
 	try {
 		const buffer = Buffer.from(await resp.arrayBuffer())
-		const filePath = path.join(process.cwd(), "public/audios", `my-speech.mp3`)
-
-		await fs.promises.writeFile(filePath, buffer)
+		await uploadBytes(audioRef, buffer)
+		const audioURL = await getDownloadURL(audioRef)
 
 		return NextResponse.json(
 			{
 				message: "Audio file saved",
-				filePath: `audios/my-speech.mp3`,
+				filePath: audioURL,
 			},
 			{ status: 200 }
 		)

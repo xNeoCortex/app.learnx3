@@ -25,6 +25,7 @@ import { deleteObject, getDownloadURL, ref, uploadBytes } from "@firebase/storag
 import { useStoreUser } from "@/components/zustand"
 import { auth, db, storage } from "@/components/firebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
+import { constants } from "@/components/constants/constants"
 
 export default function MySettings() {
 	const { userInfo, setUserInfo } = useStoreUser()
@@ -96,7 +97,10 @@ export default function MySettings() {
 			}
 
 			if (currentUser.image && currentUser.image !== userInfo.image) {
-				const imagePath = userInfo.role === "teacher" ? "teacherImages" : "studentImages"
+				const imagePath =
+					userInfo.role === "teacher"
+						? constants.FIREBASE_STORAGE_TEACHER_IMAGE_PATH
+						: constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH
 
 				//@ts-ignore
 				const imageRef = ref(storage, `${imagePath}/${currentUser.image?.name || `image-${userInfo.uid}`}`)

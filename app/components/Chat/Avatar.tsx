@@ -54,16 +54,6 @@ export function Avatar(props) {
 	})
 
 	useEffect(() => {
-		async function deleteAudio(file) {
-			await fetch("/api/delete-audio", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ filePath: file }),
-			})
-		}
-
 		nodes.Wolf3D_Head.morphTargetInfluences[nodes.Wolf3D_Head.morphTargetDictionary["viseme_I"]] = 1
 		nodes.Wolf3D_Teeth.morphTargetInfluences[nodes.Wolf3D_Teeth.morphTargetDictionary["viseme_I"]] = 1
 		if (aiFilePath) {
@@ -73,7 +63,6 @@ export function Avatar(props) {
 			} else {
 				setAnimation("Angry")
 			}
-			deleteAudio(aiFilePath)
 		} else {
 			setAnimation("Idle")
 			audio.pause()

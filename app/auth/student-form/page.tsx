@@ -16,6 +16,7 @@ import { Alert, Divider, FormControl, Input, InputLabel, MenuItem, Select, Typog
 import Link from "next/link"
 import { UserType } from "@/types/types"
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import { constants } from "@/components/constants/constants"
 
 export default function StudentForm() {
 	const { push: navigate } = useRouter()
@@ -83,7 +84,7 @@ export default function StudentForm() {
 		try {
 			if (image) {
 				// @ts-ignore
-				const imageRef = ref(storage, `studentImages/${image?.name || `image-${id}`}`)
+				const imageRef = ref(storage, `${constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH}/${image?.name || `image-${id}`}`)
 				await uploadBytes(imageRef, image as any)
 				const imageX = await getDownloadURL(imageRef)
 				await setDoc(doc(db, "students", id), { ...currentUserInfo, image: imageX })
