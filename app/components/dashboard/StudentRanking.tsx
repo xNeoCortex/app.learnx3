@@ -70,7 +70,10 @@ function StudentRanking() {
 	if (isErrorStudents || isError) return <ErrorPage />
 
 	return (
-		<Box sx={BoxWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxWrapperStyle}
+		>
 			<TableContainer component={Paper}>
 				<Table aria-label="simple table">
 					<TableHead>
