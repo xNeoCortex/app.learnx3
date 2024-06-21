@@ -22,7 +22,10 @@ function SidebarContainer({ children }: { children: React.ReactNode }) {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Box sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}>
+			<Box
+				//@ts-ignore
+				sx={{ width: "100%", paddingBottom: { xs: "70px", sm: "10px" } }}
+			>
 				<FinaAvatar handleFinaClick={handleFinaPopup} />
 				<FinaAvatarMobilePopup open={finaPopupOpen} setOpen={setFinaPopupOpen} />
 
