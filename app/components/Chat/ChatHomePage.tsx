@@ -1,9 +1,10 @@
 "use client"
 import { Canvas } from "@react-three/fiber"
 import { Container, Box, Typography } from "@mui/material"
-import UseAudioRecorder from "./UseAudioRecorder"
 import { Experience } from "./Experience"
 import Chat from "./ChatPage"
+import dynamic from "next/dynamic"
+const UseAudioRecorder = dynamic(() => import("./UseAudioRecorder"), { ssr: false })
 
 const CanvasContainer = () => (
 	<Box
@@ -52,7 +53,7 @@ const ChatBox = () => (
 
 const AudioRecorderContainer = () => (
 	<Box position={"relative"} bottom={10} marginTop={"-100px"} width={"100%"} display={"flex"} justifyContent={"center"}>
-		{/* <UseAudioRecorder /> */}
+		<UseAudioRecorder />
 	</Box>
 )
 

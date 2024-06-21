@@ -3,7 +3,8 @@
 import { useChatStore, useSuggestionsStore } from "../zustand"
 import axios from "axios"
 import { Box, Button, Container, Stack, Typography } from "@mui/material"
-import UseAudioRecorder from "./UseAudioRecorder"
+import dynamic from "next/dynamic"
+const UseAudioRecorder = dynamic(() => import("./UseAudioRecorder"), { ssr: false })
 
 export default function Chat() {
 	const { messages } = useChatStore()
@@ -104,7 +105,7 @@ export default function Chat() {
 					{suggestion && <Typography fontSize={10}>{suggestion}</Typography>}
 				</Box>
 
-				{/* <UseAudioRecorder /> */}
+				<UseAudioRecorder />
 			</Box>
 		</Box>
 	)
