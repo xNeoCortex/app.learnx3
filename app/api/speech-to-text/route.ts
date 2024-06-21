@@ -13,11 +13,11 @@ const openai = new OpenAI({
 export async function POST(request: Request) {
 	const { myFilePath } = await request.json()
 
+	const response = await axios.get(myFilePath, { responseType: "arraybuffer" })
+	const tempFilePath = path.join(os.tmpdir(), `temp-audio-${Date.now()}.mp3`)
+	fs.writeFileSync(tempFilePath, Buffer.from(response.data), "binary")
 	try {
 		// Download the file from Firebase Storage
-		const response = await axios.get(myFilePath, { responseType: "arraybuffer" })
-		const tempFilePath = path.join(os.tmpdir(), `temp-audio-${Date.now()}.mp3`)
-		fs.writeFileSync(tempFilePath, Buffer.from(response.data), "binary")
 
 		// Generate transcription using OpenAI
 		const transcription = await openai.audio.transcriptions.create({
@@ -36,6 +36,10 @@ export async function POST(request: Request) {
 		)
 	} catch (error) {
 		console.error("Error generating the audio file:", error)
-		return NextResponse.json({ message: "Internal Server Error" }, { status: 500 })
+		// Clean up the temporary file in case of an error
+		if (fs.existsSync(tempFilePath)) {
+			fs.unlinkSync(tempFilePath)
+		}
+		return NextResponse.json({ message: error }, { status: 500 })
 	}
 }
