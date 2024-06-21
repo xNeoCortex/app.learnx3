@@ -1,4 +1,3 @@
-// pages/api/generate-audio.js
 import OpenAI from "openai"
 import fs from "fs"
 import path from "path"
@@ -16,8 +15,14 @@ export async function POST(request: Request) {
 	const response = await axios.get(myFilePath, { responseType: "arraybuffer" })
 	const tempFilePath = path.join(os.tmpdir(), `temp-audio-${Date.now()}.mp3`)
 	fs.writeFileSync(tempFilePath, Buffer.from(response.data), "binary")
+
 	try {
-		// Download the file from Firebase Storage
+		// Validate file extension
+		const fileName = path.basename(tempFilePath) // Extract filename from URL
+		const extension = path.extname(fileName).toLowerCase() // Get file extension
+		if (![".mp3", ".mp4", ".mpeg", ".mpga", ".oga", ".ogg", ".wav", ".webm"].includes(extension)) {
+			throw new Error("Unsupported audio format")
+		}
 
 		// Generate transcription using OpenAI
 		const transcription = await openai.audio.transcriptions.create({
