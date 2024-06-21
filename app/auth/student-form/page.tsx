@@ -129,7 +129,10 @@ export default function StudentForm() {
 	}
 
 	return (
-		<Box sx={BoxWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxWrapperStyle}
+		>
 			<CssBaseline />
 			<Box sx={BoxStyle}>
 				<Typography
