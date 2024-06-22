@@ -19,6 +19,8 @@ export async function POST(request: NextRequest) {
 			{
 				message: "Audio file saved",
 				filePath: audioURL,
+				audioRef: audioRef.fullPath,
+				audioBucket: audioRef.bucket,
 			},
 			{ status: 200 }
 		)

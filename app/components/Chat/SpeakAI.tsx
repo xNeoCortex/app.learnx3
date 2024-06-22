@@ -1,6 +1,8 @@
 "use client"
 import { useChatStore, useStoreFilePath, useSuggestionsStore } from "../zustand"
 import axios from "axios"
+import OpenAI from "openai"
+import { getFunctions, httpsCallable } from "@firebase/functions"
 
 function useSpeakAI() {
 	const { setAiFilePath } = useStoreFilePath()
@@ -13,20 +15,29 @@ function useSpeakAI() {
 		try {
 			setAiFilePath(null)
 
-			// Generate text from the recorded audio - Whisper
-			const { data } = await axios.post(
-				"/api/speech-to-text",
-				{
-					myFilePath,
-				},
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			)
+			const audioFunc = httpsCallable(getFunctions(), "downloadaudio")
 
-			const voiceText = await data.text
+			const audioData = await audioFunc({ audioFilePath: myFilePath })
+
+			// Convert the byte array to a Uint8Array
+			const byteArray = new Uint8Array(Object.values(audioData.data as Uint8Array))
+
+			// Create a Blob from the Uint8Array
+			const blob = new Blob([byteArray], { type: "audio/wav" })
+			const formData = new FormData()
+			formData.append("model", "whisper-1")
+			formData.append("file", blob, "audio.wav") // Provide a filename for the audio file
+			formData.append("response_format", "text")
+
+			// Send the request to OpenAI using fetch
+			const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+				headers: {
+					Authorization: "Bearer " + process.env.NEXT_PUBLIC_OPENAI_KEY,
+				},
+				method: "POST",
+				body: formData,
+			})
+			const voiceText = await res.text()
 
 			// Add the user message to the chat
 			messageFromGPT = [...messages, { role: "user", content: voiceText }]

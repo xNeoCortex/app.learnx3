@@ -27,9 +27,9 @@ const UseAudioRecorder = () => {
 				const blob = await recorder.stopRecording()
 				const { data } = await axios.post("/api/save-audio", blob)
 
-				if (data.filePath) {
-					setMyFilePath(data.filePath)
-					await Speak(data.filePath)
+				if (data.audioRef) {
+					setMyFilePath(data.audioRef)
+					await Speak(data.audioRef)
 				} else {
 					setStatus("error")
 				}
