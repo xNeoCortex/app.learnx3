@@ -1,27 +1,32 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@deepgram/sdk"
+import OpenAI, { toFile } from "openai"
+import { Readable } from "stream"
 
-const deepgram = createClient(process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY ?? "")
+const openai = new OpenAI({
+	apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+})
 
 export async function POST(request: NextRequest) {
 	try {
 		const { myFilePath } = await request.json()
 
-		// Ensure the request to Deepgram has the correct Content-Type header
-		const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
-			{
-				url: myFilePath,
-			},
-			{
-				model: "nova-2",
-				smart_format: true,
-			}
-		)
+		const audioArrayBuffer = await fetch(myFilePath).then((res) => res.arrayBuffer())
+		const audioBuffer = Buffer.from(audioArrayBuffer)
 
+		// Ensure the request to Deepgram has the correct Content-Type header
+		const convertedAudio = await toFile(Readable.from(audioBuffer), "audio.mp3")
+
+		const transcription = await openai.audio.transcriptions.create({
+			file: convertedAudio,
+			model: "whisper-1",
+			response_format: "text",
+		})
+
+		console.log("transcription :>> ", transcription)
 		return NextResponse.json(
 			{
-				text: result?.results.channels[0].alternatives[0].transcript ?? "No transcription available",
-				error,
+				text: transcription,
 			},
 			{ status: 200 }
 		)
