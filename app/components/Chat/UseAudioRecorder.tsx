@@ -9,6 +9,7 @@ import { Box, Button } from "@mui/material"
 import { ref, uploadBytes } from "firebase/storage"
 import { storage } from "../firebaseX"
 import { useStoreUser } from "../zustand"
+import { getDownloadURL } from "firebase/storage"
 
 const recorder = new Recorder({
 	wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
@@ -36,12 +37,11 @@ const UseAudioRecorder = () => {
 
 				const buffer = Buffer.from(await blob.arrayBuffer())
 				await uploadBytes(audioRef, buffer)
+				const storageURL = await getDownloadURL(audioRef)
 
-				const url = `https://storage.googleapis.com/${audioRef.bucket}/${audioRef.fullPath}`
-
-				if (url) {
-					setMyFilePath(url)
-					await Speak(url)
+				if (storageURL) {
+					setMyFilePath(storageURL)
+					await Speak(storageURL)
 				} else {
 					setStatus("error")
 				}
