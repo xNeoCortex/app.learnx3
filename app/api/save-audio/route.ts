@@ -15,12 +15,11 @@ export async function POST(request: NextRequest) {
 		await uploadBytes(audioRef, buffer)
 		const audioURL = await getDownloadURL(audioRef)
 
+		const url = `https://storage.googleapis.com/${audioRef.bucket}/${audioRef.fullPath}`
 		return NextResponse.json(
 			{
 				message: "Audio file saved",
-				filePath: audioURL,
-				audioRef: audioRef.fullPath,
-				audioBucket: audioRef.bucket,
+				filePath: url,
 			},
 			{ status: 200 }
 		)
