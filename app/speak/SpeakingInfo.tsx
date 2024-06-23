@@ -15,7 +15,10 @@ const SpeakingInfo = ({ topic = "", imagePath }: { topic: string; imagePath: str
 	})
 
 	return (
-		<Box sx={BoxWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxWrapperStyle}
+		>
 			<Box
 				display="flex"
 				flexDirection="column"

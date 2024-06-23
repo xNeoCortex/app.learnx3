@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { ref, uploadBytes } from "firebase/storage"
 import { storage } from "@/components/firebaseX"
 import { getAuth } from "@clerk/nextjs/server"
 
@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
 	try {
 		const buffer = Buffer.from(await resp.arrayBuffer())
 		await uploadBytes(audioRef, buffer)
-		const audioURL = await getDownloadURL(audioRef)
 
 		const url = `https://storage.googleapis.com/${audioRef.bucket}/${audioRef.fullPath}`
 		return NextResponse.json(

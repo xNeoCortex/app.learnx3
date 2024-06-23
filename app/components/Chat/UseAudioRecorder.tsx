@@ -8,6 +8,9 @@ import MicIcon from "@mui/icons-material/Mic"
 import { Box, Button, Input } from "@mui/material"
 import RecorderAudio from "./RecorderAudio"
 import { useRecorderPermission } from "./useRecorderPermission"
+import { storage } from "../firebaseX"
+import { ref, uploadBytes } from "firebase/storage"
+import { useStoreUser } from "../zustand"
 
 const recorder = new Recorder({
 	wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
@@ -19,6 +22,7 @@ const UseAudioRecorder = () => {
 	const [myFilePath, setMyFilePath] = useState("")
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
+	const { userInfo } = useStoreUser()
 
 	const [audioURL, setAudioURL] = useState("")
 	const recorder = useRecorderPermission("audio")
@@ -32,11 +36,18 @@ const UseAudioRecorder = () => {
 		await recorder.stopRecording()
 		let blob = await recorder.getBlob()
 		setAudioURL(URL.createObjectURL(blob))
-		console.log("URL.createObjectURL(blob) :>> ", URL.createObjectURL(blob))
-		const { data } = await axios.post("/api/save-audio", blob)
+		// const { data } = await axios.post("/api/save-audio", blob)
 
-		setMyFilePath(data.filePath)
-		Speak(data.filePath)
+		const currentTime = new Date().getTime()
+		const uniqueFileName = `my-speech-${currentTime}-${userInfo.uid}.mp3`
+		const audioRef = ref(storage, `audios/${userInfo.uid}/${uniqueFileName}`)
+		const buffer = Buffer.from(await blob.arrayBuffer())
+		await uploadBytes(audioRef, buffer)
+
+		const url = `https://storage.googleapis.com/${audioRef.bucket}/${audioRef.fullPath}`
+
+		setMyFilePath(url)
+		Speak(url)
 		setStatus("success")
 
 		// const recordFn = async () => {
