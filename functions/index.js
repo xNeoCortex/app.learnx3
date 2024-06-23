@@ -46,22 +46,19 @@ exports.sayhello = functions.https.onCall((data, context) => {
 });
 
 
-exports.downloadaudio = functions.https.onCall((data, context) => {
+exports.downloadaudio = functions.https.onCall(async (data, context) => {
 	const { audioFilePath } = data
 
 	const bucket = storage.bucket()
 	const file = bucket.file(audioFilePath)
 
-	return file
-		.download()
-		.then((data) => {
-			const audioData = data[0]
 
-    return audioData
-
-		})
-		.catch((error) => {
-			console.error("Error downloading audio file:", error)
-			throw new functions.https.HttpsError("internal", error)
-		})
+	try {
+    const [audioData] = await file.download();
+    const base64Audio = audioData.toString('base64');
+    return { data: base64Audio };
+  } catch (error) {
+    console.error("Error downloading audio file:", error);
+    throw new functions.https.HttpsError("internal", error);
+  }
 })

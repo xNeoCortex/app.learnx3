@@ -17,10 +17,17 @@ function useSpeakAI() {
 
 			const audioFunc = httpsCallable(getFunctions(), "downloadaudio")
 
-			const audioData = await audioFunc({ audioFilePath: myFilePath })
+			const { data } = await audioFunc({ audioFilePath: myFilePath })
 
-			// Convert the byte array to a Uint8Array
-			const byteArray = new Uint8Array(Object.values(audioData.data as Uint8Array))
+			// Decode the base64 encoded audio data
+			//@ts-ignore
+			const base64Audio = data.data // Base64 encoded audio data
+			const byteCharacters = atob(base64Audio)
+			const byteNumbers = new Array(byteCharacters.length)
+			for (let i = 0; i < byteCharacters.length; i++) {
+				byteNumbers[i] = byteCharacters.charCodeAt(i)
+			}
+			const byteArray = new Uint8Array(byteNumbers)
 
 			// Create a Blob from the Uint8Array
 			const blob = new Blob([byteArray], { type: "audio/wav" })
@@ -28,7 +35,6 @@ function useSpeakAI() {
 			formData.append("model", "whisper-1")
 			formData.append("file", blob, "audio.wav") // Provide a filename for the audio file
 			formData.append("response_format", "text")
-
 			// Send the request to OpenAI using fetch
 			const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
 				headers: {
