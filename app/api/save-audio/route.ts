@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
 	const resp = await request.blob()
 	const currentTime = new Date().getTime()
 	const { userId } = getAuth(request)
-	const uniqueFileName = `my-speech-${currentTime}-${userId}.aac`
+	const uniqueFileName = `my-speech-${currentTime}-${userId}.mp3`
 	const audioRef = ref(storage, `audios/${userId}/${uniqueFileName}`)
 
 	try {
