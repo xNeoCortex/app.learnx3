@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
 			},
 			{
 				headers: {
+					Accept: "application/json",
 					"Content-Type": "application/json",
 					Authorization: `Token ${process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY}`,
 				},
