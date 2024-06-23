@@ -11,33 +11,20 @@ export async function POST(request: NextRequest) {
 		console.log("myFilePath :>> ", myFilePath)
 
 		// Ensure the request to Deepgram has the correct Content-Type header
-		const response = await axios.post(
-			"https://api.deepgram.com/v1/listen",
+		const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
 			{
-				url: myFilePath,
-				options: {
-					model: "nova-2",
-					smart_format: true,
-				},
+				url: "https://dpgr.am/spacewalk.wav",
 			},
 			{
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					Authorization: `Token ${process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY}`,
-				},
+				model: "nova-2",
+				smart_format: true,
 			}
 		)
 
-		if (response.status !== 200) {
-			throw new Error(`Deepgram API error: ${response.statusText}`)
-		}
-
-		const data = response.data
-
 		return NextResponse.json(
 			{
-				text: data.results.channels[0].alternatives[0].transcript ?? "No transcription available",
+				text: result?.results.channels[0].alternatives[0].transcript ?? "No transcription available",
+				error,
 			},
 			{ status: 200 }
 		)
