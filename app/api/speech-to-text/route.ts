@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@deepgram/sdk"
 import OpenAI from "openai"
 import { toFile } from "openai/uploads"
 import { Readable } from "stream"
@@ -10,20 +9,14 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
 	try {
-		const { myFilePath } = await request.json()
+		// const { myFilePath } = await request.json()
 
+		const myFilePath =
+			"https://storage.googleapis.com/educatex-45e0d.appspot.com/audios/user_2hPqsPs964iQlz0z0BlOT8JcDDC/ai-speech-1718989355539-user_2hPqsPs964iQlz0z0BlOT8JcDDC.mp3"
 		const audioArrayBuffer = await fetch(myFilePath).then((res) => res.arrayBuffer())
 		const audioBuffer = Buffer.from(audioArrayBuffer)
 
-		// Ensure the request to Deepgram has the correct Content-Type header
 		const convertedAudio = await toFile(Readable.from(audioBuffer), "audio.mp3")
-
-		// const response = await openai.files.create({
-		// 	file: convertedAudio,
-		// 	purpose: "assistants",
-		// })
-
-		// console.log("responseAA :>> ", response)
 
 		const transcription = await openai.audio.transcriptions.create({
 			file: convertedAudio,
@@ -31,7 +24,6 @@ export async function POST(request: NextRequest) {
 			response_format: "text",
 		})
 
-		console.log("transcription :>> ", transcription)
 		return NextResponse.json(
 			{
 				text: transcription,
