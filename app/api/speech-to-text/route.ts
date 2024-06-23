@@ -11,7 +11,6 @@ export async function POST(request: NextRequest) {
 	try {
 		const { myFilePath } = await request.json()
 
-		console.log("myFilePath :>> ", myFilePath)
 		const audioArrayBuffer = await fetch(myFilePath).then((res) => res.arrayBuffer())
 		const audioBuffer = Buffer.from(audioArrayBuffer)
 
