@@ -5,7 +5,7 @@ import { Recorder } from "vmsg"
 import useSpeakAI from "./SpeakAI"
 import { Bars } from "react-loading-icons"
 import MicIcon from "@mui/icons-material/Mic"
-import { Box, Button } from "@mui/material"
+import { Box, Button, Input } from "@mui/material"
 import RecorderAudio from "./RecorderAudio"
 import { useRecorderPermission } from "./useRecorderPermission"
 
@@ -20,6 +20,7 @@ const UseAudioRecorder = () => {
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
 
+	const [audioURL, setAudioURL] = useState("")
 	const recorder = useRecorderPermission("audio")
 
 	const startRecording = async () => {
@@ -30,6 +31,8 @@ const UseAudioRecorder = () => {
 	const stopRecording = async () => {
 		await recorder.stopRecording()
 		let blob = await recorder.getBlob()
+		setAudioURL(URL.createObjectURL(blob))
+		console.log("URL.createObjectURL(blob) :>> ", URL.createObjectURL(blob))
 		const { data } = await axios.post("/api/save-audio", blob)
 
 		setMyFilePath(data.filePath)
@@ -81,6 +84,13 @@ const UseAudioRecorder = () => {
 			</Box>
 		)} */}
 
+			<Input
+				sx={{ border: "1px solid grey" }}
+				type="text"
+				value={audioURL}
+				onChange={(e) => setAudioURL(e.target.value)}
+			/>
+			{<audio controls src={audioURL} />}
 			<Button
 				sx={{
 					backgroundColor: "black",
