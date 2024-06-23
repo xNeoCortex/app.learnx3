@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@deepgram/sdk"
-import OpenAI, { toFile } from "openai"
+import OpenAI from "openai"
+import { toFile } from "openai/uploads"
 import { Readable } from "stream"
 
 const openai = new OpenAI({
@@ -16,6 +17,13 @@ export async function POST(request: NextRequest) {
 
 		// Ensure the request to Deepgram has the correct Content-Type header
 		const convertedAudio = await toFile(Readable.from(audioBuffer), "audio.mp3")
+
+		// const response = await openai.files.create({
+		// 	file: convertedAudio,
+		// 	purpose: "assistants",
+		// })
+
+		// console.log("responseAA :>> ", response)
 
 		const transcription = await openai.audio.transcriptions.create({
 			file: convertedAudio,
