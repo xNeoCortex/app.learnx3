@@ -30,11 +30,13 @@ function useSpeakAI() {
 			const byteArray = new Uint8Array(byteNumbers)
 
 			// Create a Blob from the Uint8Array
-			const blob = new Blob([byteArray], { type: "audio/wav" })
+			const blob = new Blob([byteArray], { type: "audio/mp3" })
+
 			const formData = new FormData()
 			formData.append("model", "whisper-1")
-			formData.append("file", blob, "audio.wav") // Provide a filename for the audio file
+			formData.append("file", blob, "audio.mp3") // Provide a filename for the audio file
 			formData.append("response_format", "text")
+
 			// Send the request to OpenAI using fetch
 			const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
 				headers: {
