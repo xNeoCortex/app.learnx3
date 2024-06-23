@@ -9,10 +9,8 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
 	try {
-		// const { myFilePath } = await request.json()
+		const { myFilePath } = await request.json()
 
-		const myFilePath =
-			"https://storage.googleapis.com/educatex-45e0d.appspot.com/audios/user_2hPqsPs964iQlz0z0BlOT8JcDDC/ai-speech-1718989355539-user_2hPqsPs964iQlz0z0BlOT8JcDDC.mp3"
 		const audioArrayBuffer = await fetch(myFilePath).then((res) => res.arrayBuffer())
 		const audioBuffer = Buffer.from(audioArrayBuffer)
 
