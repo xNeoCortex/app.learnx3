@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import axios from "axios"
 import { createClient } from "@deepgram/sdk"
 
 const deepgram = createClient(process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY ?? "")
@@ -8,21 +9,34 @@ export async function POST(request: NextRequest) {
 		const { myFilePath } = await request.json()
 
 		console.log("myFilePath :>> ", myFilePath)
-		// STEP 2: Call the transcribeUrl method with the audio payload and options
-		const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
+
+		// Ensure the request to Deepgram has the correct Content-Type header
+		const response = await axios.post(
+			"https://api.deepgram.com/v1/listen",
 			{
 				url: myFilePath,
+				options: {
+					model: "nova-2",
+					smart_format: true,
+				},
 			},
 			{
-				model: "nova-2",
-				smart_format: true,
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Token ${process.env.NEXT_PUBLIC_DEEPGRAM_API_KEY}`,
+				},
 			}
 		)
 
+		if (response.status !== 200) {
+			throw new Error(`Deepgram API error: ${response.statusText}`)
+		}
+
+		const data = response.data
+
 		return NextResponse.json(
 			{
-				text: result?.results.channels[0].alternatives[0].transcript ?? "No transcription available",
-				error,
+				text: data.results.channels[0].alternatives[0].transcript ?? "No transcription available",
 			},
 			{ status: 200 }
 		)
