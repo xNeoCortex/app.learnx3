@@ -81,7 +81,7 @@ export default function Chat() {
 							>
 								{message?.content && (
 									<Typography
-										fontSize={32}
+										fontSize={12}
 										sx={{
 											width: "fit-content",
 											color: message.role === "user" ? "black" : "white",
