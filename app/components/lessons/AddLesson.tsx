@@ -9,7 +9,7 @@ import { Button, Box } from "@mui/material"
 import { LessonTimetableType } from "@/types/types"
 import AddLessonDialog from "./AddLessonDialog"
 
-const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType; params: { id: string } }>(
+const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType; params?: { id: string } }>(
 	({ buttonName, _lesson = null, params }) => {
 		const id = params?.id || null
 

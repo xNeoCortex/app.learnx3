@@ -40,35 +40,43 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						alignItems: "center",
 						justifyContent: "space-between",
 						width: "100%",
+						position: "relative",
 					}}
 				>
-					<Box sx={{ display: "flex", alignItems: "center" }}>
-						<CustomAvatar image={teacherData?.data?.image} gender={userInfo?.gender} style={AvatarStyle} />
-						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-							<Typography noWrap sx={{ maxWidth: 140, fontSize: "8px", color: brandColors.grey, marginBottom: "-4px" }}>
+					<Box sx={{ display: "flex", alignItems: "center", flex: 1, mt: 1 }}>
+						<CustomAvatar
+							image={teacherData?.data?.image || "/teacher-johny.png"}
+							gender={userInfo?.gender}
+							style={AvatarStyle}
+						/>
+						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
+							<Typography noWrap sx={{ maxWidth: 90, fontSize: "8px", color: brandColors.grey, marginBottom: "-4px" }}>
 								Teacher
 							</Typography>
-							<Typography noWrap sx={{ maxWidth: 70, fontSize: "12px", fontWeight: 600 }}>
+							<Typography noWrap sx={{ maxWidth: 100, fontSize: "12px", fontWeight: 600 }}>
 								{lesson?.teacher_name}
 							</Typography>
 						</Box>
 					</Box>
-					<Box sx={{ display: "flex" }}>
-						<ChipX
-							color={"black"}
-							text={capitalize(lesson?.lesson_type.split("_").join(" "))}
-							style={{
-								background: "white",
-								fontWeight: 600,
-								borderColor: brandColors.grey,
-								color: brandColors.grey,
-								padding: "3px 6px",
-								borderRadius: "5px",
-								fontSize: "8px",
-								margin: "0px",
-							}}
-						/>
-					</Box>
+					<ChipX
+						color={"black"}
+						text={capitalize(lesson?.lesson_type.split("_").join(" "))}
+						style={{
+							background: "white",
+							fontWeight: 600,
+							borderColor: brandColors.grey,
+							color: brandColors.grey,
+							padding: "2px 4px",
+							borderRadius: "5px",
+							fontSize: "8px",
+							margin: "0px",
+							position: "absolute",
+							top: 2,
+							right: 0,
+							width: "fit-content",
+							maxWidth: "fit-content",
+						}}
+					/>
 				</Box>
 
 				<Box
@@ -87,7 +95,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 								: "/images/teacher-image-infographic.png"
 						}
 						alt="question"
-						style={{ width: lesson.lesson_type === "speaking_club" ? "95%" : "90%" }}
+						style={{ width: lesson.lesson_type === "speaking_club" ? "95%" : "90%", marginTop: "-5px" }}
 					/>
 				</Box>
 

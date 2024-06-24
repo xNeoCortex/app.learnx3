@@ -10,14 +10,17 @@ function DashboardAvatar() {
 
 	return (
 		<Link href="/avatar" style={{ width: "fit-content" }}>
-			<Box sx={exploreTopicsStyle}>
+			<Box
+				//@ts-ignore
+				sx={exploreTopicsStyle}
+			>
 				<Box
 					sx={{
 						display: "flex",
 						flexDirection: { xs: "column", sm: "row" },
 						flex: 1,
 						height: "100%",
-						minHeight: 300,
+						minHeight: 290,
 						background: "#060634",
 						borderRadius: "8px",
 						position: "relative",
