@@ -10,6 +10,7 @@ import { ref, uploadBytes } from "firebase/storage"
 import { storage } from "../firebaseX"
 import { useStoreUser } from "../zustand"
 import { getDownloadURL } from "firebase/storage"
+import { brandColors } from "../utils/brandColors"
 
 const recorder = new Recorder({
 	wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
@@ -18,7 +19,6 @@ const recorder = new Recorder({
 const UseAudioRecorder = () => {
 	const { Speak } = useSpeakAI()
 	const [isRecording, setIsRecording] = useState(false)
-	const [myFilePath, setMyFilePath] = useState("")
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
 	const { userInfo } = useStoreUser()
@@ -40,7 +40,6 @@ const UseAudioRecorder = () => {
 				const storageURL = await getDownloadURL(audioRef)
 
 				if (storageURL) {
-					setMyFilePath(storageURL)
 					await Speak(storageURL)
 				} else {
 					setStatus("error")
@@ -78,15 +77,17 @@ const UseAudioRecorder = () => {
 
 			<Button
 				sx={{
-					backgroundColor: "black",
+					backgroundColor: brandColors.darkerBlue,
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					width: "50px",
+					width: "30px",
 					height: "60px",
 					borderRadius: "50%",
+					transition: "all 0.3s",
+					border: "1px solid white",
 					"&:hover": {
-						backgroundColor: isRecording ? "red" : "black",
+						backgroundColor: isRecording ? "red" : brandColors.lightPurple,
 						color: "white",
 					},
 				}}

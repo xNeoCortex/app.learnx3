@@ -1,6 +1,6 @@
 "use client"
 import { Canvas } from "@react-three/fiber"
-import { Container, Box, Typography } from "@mui/material"
+import { Container, Box } from "@mui/material"
 import { Experience } from "./Experience"
 import Chat from "./ChatPage"
 import dynamic from "next/dynamic"
@@ -44,9 +44,6 @@ const ChatBox = () => (
 			backdropFilter: "blur(30px)",
 		}}
 	>
-		<Typography color={"white"} fontWeight={"bold"} fontStyle={"italic"}>
-			Talk to Fina
-		</Typography>
 		<Chat />
 	</Box>
 )
@@ -81,7 +78,6 @@ export default function ChatHomePage() {
 					marginTop={"25px"}
 					position={"relative"}
 				>
-					<Typography variant="h2">AI Avatar</Typography>
 					<CanvasContainer />
 					<ChatBox />
 					<AudioRecorderContainer />

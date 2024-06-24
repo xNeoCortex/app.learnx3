@@ -6,7 +6,6 @@ import { db } from "@/components/firebaseX"
 export async function GET(request: NextRequest) {
 	const id = request.nextUrl.searchParams.get("id")
 
-	console.log("id :>> ", id)
 	const { userId } = getAuth(request)
 
 	if (!userId) {

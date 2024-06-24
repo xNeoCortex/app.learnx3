@@ -77,7 +77,6 @@ const TextToSpeechButton: React.FC<{
 					splitSentences: true,
 				})
 				.then((data: any) => {
-					// console.log("Speech is ready, voices are available", data.voices)
 					setVoices(data.voices)
 				})
 				.catch((e: any) => {
