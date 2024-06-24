@@ -20,8 +20,7 @@ import ApiServices from "../api/ApiServices"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import LoadingPage from "@/components/LoadingPage"
 import ErrorPage from "../error"
-import { SnackbarX } from "@/components/other/SnackbarX"
-import { deleteObject, getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import { deleteObject, getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage"
 import { useStoreUser } from "@/components/zustand"
 import { auth, db, storage } from "@/components/firebaseX"
 import ConfirmationModal from "@/components/other/ConfirmationModal"
@@ -100,15 +99,14 @@ export default function MySettings() {
 				const imagePath =
 					userInfo.role === "teacher"
 						? constants.FIREBASE_STORAGE_TEACHER_IMAGE_PATH
-						: constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH
+						: constants.FIREBASE_STORAGE_STUDENT_IMAGE_PATH
 
-				//@ts-ignore
-				const imageRef = ref(storage, `${imagePath}/${currentUser.image?.name || `image-${userInfo.uid}`}`)
+				const imageRef = storageRef(storage, `${imagePath}/${`image-${userInfo.uid}`}`)
 				await uploadBytes(imageRef, currentUser.image as any)
 				const imageX = await getDownloadURL(imageRef)
-				await updateDoc(userDoc, { ...currentUser, image: imageX })
+				await updateDoc(userDoc, { ...currentUser, image: imageX, imageRef: imageRef.fullPath })
 				await updateProfile(auth.currentUser as any, { displayName: currentUser.name })
-				setUserInfo({ ...userInfo, ...currentUser, image: imageX })
+				setUserInfo({ ...userInfo, ...currentUser, image: imageX, imageRef: imageRef.fullPath })
 			} else {
 				await updateDoc(userDoc, { ...currentUser })
 				await updateProfile(auth.currentUser as any, { displayName: currentUser.name })
@@ -118,6 +116,7 @@ export default function MySettings() {
 			setMessage({ text: "Your information has been updated!", type: "success" })
 			setOpen(true)
 		} catch (e) {
+			console.error(e)
 			setMessage({ text: "Something went wrong", type: "error" })
 			setOpen(true)
 		}
@@ -144,15 +143,16 @@ export default function MySettings() {
 
 	// Delete image
 	const deleteImage = async () => {
-		const imageUrl = userInfo.image
+		const imageReference = userInfo.imageRef
+		const imageRef = storageRef(storage, imageReference)
 
 		try {
-			const imageRef = ref(storage, imageUrl)
 			await deleteObject(imageRef)
 			setUserInfo({ ...userInfo, image: null })
 			setCurrentUser((previewData) => ({ ...previewData, image: null }))
 			setMessage({ text: "Image deleted successfully", type: "success" })
 		} catch (error) {
+			console.log("error :>> ", error)
 			setMessage({ text: "Something went wrong deleting the image", type: "error" })
 		}
 	}
@@ -179,6 +179,7 @@ export default function MySettings() {
 					message="Are you sure you want to update your information?"
 				/>
 				<Box
+					//@ts-ignore
 					sx={{
 						display: "flex",
 						flexDirection: "column",

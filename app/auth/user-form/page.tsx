@@ -16,6 +16,7 @@ import { Alert, Divider, Input, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
 import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import { constants } from "@/components/constants/constants"
 
 type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender" | "image">
 
@@ -81,12 +82,11 @@ export default function UserForm() {
 
 		try {
 			if (image) {
-				// @ts-ignore
-				const imageRef = ref(storage, `teacherImages/${image?.name || `image-${id}`}`)
+				const imageRef = ref(storage, `${constants.FIREBASE_STORAGE_TEACHER_IMAGE_PATH}/${`image-${id}`}`)
 				await uploadBytes(imageRef, image as any)
 				const imageX = await getDownloadURL(imageRef)
-				await setDoc(doc(db, "teachers", id), { ...currentUserInfo, image: imageX })
-				setUserInfo({ ...currentUserInfo, image: imageX })
+				await setDoc(doc(db, "teachers", id), { ...currentUserInfo, image: imageX, imageRef: imageRef.fullPath })
+				setUserInfo({ ...currentUserInfo, image: imageX, imageRef: imageRef.fullPath })
 				setStatus({ loading: false, error: false })
 			} else {
 				await setDoc(doc(db, "teachers", id), {

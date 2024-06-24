@@ -84,11 +84,11 @@ export default function StudentForm() {
 		try {
 			if (image) {
 				// @ts-ignore
-				const imageRef = ref(storage, `${constants.FIREBASE_STORAGE_TOPIC_IMAGE_PATH}/${image?.name || `image-${id}`}`)
+				const imageRef = ref(storage, `${constants.FIREBASE_STORAGE_STUDENT_IMAGE_PATH}/${`image-${id}`}`)
 				await uploadBytes(imageRef, image as any)
 				const imageX = await getDownloadURL(imageRef)
-				await setDoc(doc(db, "students", id), { ...currentUserInfo, image: imageX })
-				setUserInfo({ ...currentUserInfo, image: imageX })
+				await setDoc(doc(db, "students", id), { ...currentUserInfo, image: imageX, imageRef: imageRef.fullPath })
+				setUserInfo({ ...currentUserInfo, image: imageX, imageRef: imageRef.fullPath })
 			} else {
 				await setDoc(doc(db, "students", id), {
 					...currentUserInfo,

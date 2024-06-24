@@ -1,6 +1,7 @@
 import { UseMutateFunction } from "@tanstack/react-query"
 import { AxiosResponse } from "axios"
 import { Dayjs } from "dayjs"
+import { StorageReference } from "firebase/storage"
 
 export interface TopicType {
 	category: string
@@ -87,7 +88,8 @@ export interface UserType {
 	num_of_ai_topics_created: number
 	num_of_messages_with_fina_ai: number
 	discount: "10%" | "20%" | "30%" | "40%" | "50%" | "60%" | "70%" | "80%" | "90%" | "100%" | ""
-	image: null | string | File
+	image?: null | string | File
+	imageRef?: string | StorageReference
 	qualification?: string
 	createdAt: Date
 }
