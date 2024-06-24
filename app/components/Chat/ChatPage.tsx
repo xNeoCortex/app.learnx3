@@ -1,5 +1,4 @@
 "use client"
-// pages/index.js
 import { useChatStore, useSuggestionsStore } from "../zustand"
 import axios from "axios"
 import { Box, Button, Container, Stack, Typography } from "@mui/material"
@@ -47,6 +46,7 @@ export default function Chat() {
 				maxHeight: "100%",
 				boxSizing: "border-box",
 				backgroundColor: "black",
+				transition: "all 0.3s ease-in-out",
 			}}
 		>
 			<Typography color={"white"} fontWeight={"bold"} fontSize={"small"}>
