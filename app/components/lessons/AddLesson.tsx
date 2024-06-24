@@ -9,11 +9,10 @@ import { Button, Box } from "@mui/material"
 import { LessonTimetableType } from "@/types/types"
 import AddLessonDialog from "./AddLessonDialog"
 
-const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType }>(
-	({ buttonName, _lesson = null }) => {
-		const { get } = useSearchParams()
+const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType; params: { id: string } }>(
+	({ buttonName, _lesson = null, params }) => {
+		const id = params?.id || null
 
-		const id = get("id")
 		const queryClient = useQueryClient()
 		const { userInfo } = useStoreUser()
 		const { apiRequest } = ApiServices()
