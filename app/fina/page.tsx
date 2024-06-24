@@ -97,6 +97,7 @@ export default function Fina(props: any) {
 
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
 				width: isSmallScreen ? "100vw" : botComponentWidth,
 				height: "100vh",
