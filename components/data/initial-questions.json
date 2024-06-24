@@ -57,6 +57,12 @@
 			"question": "Choose the correct form of the adjective to complete the sentence: 'This is the __________ movie I have ever seen.'",
 			"options": ["more interesting", "most interesting", "interestingest", "interesting"],
 			"answer": "most interesting"
+		},
+
+		{
+			"question": "Select the correct form of the verb to complete the sentence: 'She ________ for her exam when the power went out.'",
+			"options": ["studied", "studies", "study", "studying"],
+			"answer": "was studying"
 		}
 	]
 }

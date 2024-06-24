@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from "react"
-import { Container, Box, Typography, RadioGroup, FormControlLabel, Button, Radio, Grid } from "@mui/material"
-import Timer from "./timer"
+import { Box, Button, Dialog, DialogContent, IconButton, Typography, CssBaseline, styled } from "@mui/material"
+import CloseIcon from "@mui/icons-material/Close"
 import { QuizItem } from "../../types/quizType"
 import { shuffleArray } from "../utils/shuffleArray"
-import { on } from "events"
+import { LinearTimer } from "../other/LinearTimer"
+import { alignProperty } from "@mui/material/styles/cssUtils"
 
 type PlayQuizProps = {
 	quiz: QuizItem[]
 	onFinished: (history: boolean[]) => void
 }
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+	"& .MuiDialogContent-root": {
+		padding: theme.spacing(2),
+		background: "rgb(4 0 21 / 100%)", 
+	},
+	"& .MuiDialogActions-root": {
+		padding: theme.spacing(1),
+	},
+}))
 
 const PlayQuiz: React.FC<PlayQuizProps> = ({ quiz, onFinished }) => {
 	const [currentQuizItemIndex, setCurrentQuizItemIndex] = useState<number>(0)
@@ -40,32 +51,14 @@ const PlayQuiz: React.FC<PlayQuizProps> = ({ quiz, onFinished }) => {
 		return answer === currentQuizItem.answer
 	}
 
-	const renderProgressBar = () => {
-		return (
-			<Box display="flex" justifyContent="center" my={2}>
-				{quiz.map((_, i) => (
-					<Box
-						key={i}
-						width={25}
-						height={10}
-						mx={0.5}
-						bgcolor={i >= currentQuizItemIndex ? "gray" : history[i] ? "navy" : "navy"}
-					/>
-				))}
-			</Box>
-		)
-	}
-
-	const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleAnswerChange = (selectedAnswer: string) => {
 		if (questionStatus === "unanswered") {
-			setAnswer((event.target as HTMLInputElement).value)
+			setAnswer(selectedAnswer)
 		}
 	}
 
 	const handleTimerFinish = () => {
-		setHistory((prevHistory) => [...prevHistory, false])
-		setQuestionStatus("invalid")
-		onFinished(history)
+		onFinished([...history, false])
 	}
 
 	const handleNextQuestion = () => {
@@ -79,57 +72,102 @@ const PlayQuiz: React.FC<PlayQuizProps> = ({ quiz, onFinished }) => {
 	}
 
 	return (
-		<Container maxWidth="md" sx={{ textAlign: "center", mt: 5 }}>
-			{renderProgressBar()}
-			{questionStatus === "unanswered" && (
-				<Box position="absolute" top={50} right={50}>
-					<Timer max={10} onFinished={handleTimerFinish} />
-				</Box>
-			)}
-			<Typography variant="h4" component="div" sx={{ mt: 5, mb: 2 }}>
-				{currentQuizItem.question}
-			</Typography>
-			<RadioGroup value={answer} onChange={handleAnswerChange}>
-				<Grid container spacing={2}>
-					{availableAnswers.map((availableAnswer, index) => (
-						<Grid item xs={6} key={index}>
-							<FormControlLabel
-								value={availableAnswer}
-								control={<Radio />}
-								label={
-									<span
-									// style={{
-									//   color:
-									//     questionStatus === "unanswered"
-									//       ? "black"
-									//       : isValidAnswer(availableAnswer)
-									//       ? "black"
-									//       : "black",
-									// }}
-									>
-										{availableAnswer}
-									</span>
-								}
-							/>
-						</Grid>
-					))}
-				</Grid>
-			</RadioGroup>
-			{questionStatus !== "unanswered" && (
-				<Box mt={3}>
-					<Typography variant="h6" color={questionStatus === "valid" ? "green" : "red"}>
-						{/* {questionStatus === "valid" ? "Correct!" : "Incorrect!"} */}
+		<BootstrapDialog open={true} fullWidth maxWidth="md">
+			<DialogContent dividers>
+				<CssBaseline />
+				<Box
+					sx={{
+						width: "100%",
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						mb: 3,
+					}}
+				>
+					<Typography sx={{ color: "white", fontWeight: 600, fontSize: 22 }}>
+						Quiz [{currentQuizItemIndex + 1}/{quiz.length}]
 					</Typography>
-					<Button sx={ButtonStyle} variant="contained" onClick={handleNextQuestion}>
-						Next Question
-					</Button>
+					<IconButton onClick={() => onFinished(history)}>
+						<CloseIcon sx={{ color: "white" }} />
+					</IconButton>
 				</Box>
-			)}
-		</Container>
+				<LinearTimer minutes={10} handleSubmit={handleTimerFinish} />
+				<Box
+					key={currentQuizItemIndex}
+					mb="10px"
+					borderRadius="10px"
+					sx={BoxStyle(questionStatus === "invalid", questionStatus === "valid")}
+				>
+					<Typography fontWeight="bolder" sx={{ color: "white", fontSize: 18 }}>
+						{`${currentQuizItemIndex + 1}. ${currentQuizItem.question}`}
+					</Typography>
+					<Box>
+						{availableAnswers.map((availableAnswer, index) => (
+							<Typography
+								key={index}
+								onClick={() => handleAnswerChange(availableAnswer)}
+								sx={TextStyle(answer, availableAnswer)}
+							>
+								{String.fromCharCode(65 + index)}. {availableAnswer}
+							</Typography>
+						))}
+					</Box>
+					{questionStatus !== "unanswered" && (
+						<Typography sx={TextStyleAnswer}>
+							Correct Answer: <strong>{currentQuizItem.answer}</strong>
+						</Typography>
+					)}
+					{questionStatus !== "unanswered" && (
+						<Box textAlign="center" mt={3}>
+							<Button sx={ButtonStyle} variant="contained" onClick={handleNextQuestion}>
+								Next Question
+							</Button>
+						</Box>
+					)}
+				</Box>
+			</DialogContent>
+		</BootstrapDialog>
 	)
 }
 
 export default PlayQuiz
+
+const BoxStyle = (show: boolean, correct: boolean | undefined) => {
+	return {
+		display: "flex",
+		flex: 1,
+		flexDirection: "column",
+		background: show ? (correct ? "#06d6a021" : "#ef233c26") : "transparent",
+		border: show ? (correct ? "2px solid #06d6a0" : "2px solid #ef233c") : "transparent",
+		p: show ? 1 : 0,
+		boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
+	}
+}
+
+const TextStyle = (responseOption: string | undefined, option: string | undefined) => {
+	return {
+		cursor: "pointer",
+		border: responseOption == option ? "3px solid #90e0ef" : "1px solid #90e0ef",
+		borderRadius: 2,
+		color: "#e1e1e1",
+		width: "100%",
+		margin: "20px 20px 0px 0px",
+		fontSize: 16,
+		p: 2,
+		textAlign: "start",
+		background: responseOption == option ? "rgb(144 224 239 / 30%)" : "transparent",
+	}
+}
+
+const TextStyleAnswer = {
+	mt: 2,
+	mb: 1,
+	border: "2px solid #06d6a0",
+	borderRadius: 2,
+	p: 1,
+	background: "#06d6a0",
+	color: "black",
+}
 
 const ButtonStyle = {
 	flex: 1,
@@ -137,4 +175,5 @@ const ButtonStyle = {
 	background: "#9d4edd",
 	color: "white",
 	fontWeight: "600",
+	"&:hover": { backgroundColor: "#d6a3ff" },
 }
