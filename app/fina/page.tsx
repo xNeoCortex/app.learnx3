@@ -85,10 +85,9 @@ export default function Fina(props: any) {
 	}
 
 	//scroll to bottom
-	const chatsRef = createRef()
+	const chatsRef = createRef() as any
 
 	const scrollToBottom = () => {
-		// @ts-ignore
 		chatsRef.current.scrollTop = chatsRef.current.scrollHeight
 	}
 
@@ -164,7 +163,7 @@ export default function Fina(props: any) {
 											<Avatar
 												sx={{ width: 35, height: 35, mr: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
-												src="/teacher_green.svg"
+												src="/ai-avatar-headshot.png"
 											/>
 											<p
 												dangerouslySetInnerHTML={{

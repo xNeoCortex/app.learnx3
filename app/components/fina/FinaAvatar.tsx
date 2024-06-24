@@ -17,7 +17,7 @@ const FinaAvatar = ({ handleFinaClick }: { handleFinaClick: () => void }) => {
 					<Avatar
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
 						alt="Fina"
-						src="/teacher_green.svg"
+						src="/ai-avatar-headshot.png"
 						onClick={handleFinaClick}
 					/>
 				</StyledBadge>

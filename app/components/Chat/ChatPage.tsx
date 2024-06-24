@@ -24,7 +24,6 @@ export default function Chat() {
 	const chatsRef = createRef() as any
 
 	const scrollToBottom = () => {
-		// @ts-ignore
 		chatsRef.current.scrollTop = chatsRef.current.scrollHeight
 	}
 
