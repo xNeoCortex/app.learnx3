@@ -148,6 +148,9 @@ export default function MySettings() {
 
 		try {
 			await deleteObject(imageRef)
+			const userDoc =
+				userInfo.role === "student" ? doc(db, "students", userInfo?.uid) : doc(db, "teachers", userInfo?.uid)
+			await updateDoc(userDoc, { ...currentUser, image: null, imageRef: null })
 			setUserInfo({ ...userInfo, image: null })
 			setCurrentUser((previewData) => ({ ...previewData, image: null }))
 			setMessage({ text: "Image deleted successfully", type: "success" })
