@@ -49,7 +49,18 @@ export default function Chat() {
 			}}
 		>
 			<Typography color={"white"} fontWeight={"bold"} fontSize={"small"}>
-				<GradientText text="AI English Practice Room" />
+				<GradientText text="AI English Practice Room" />{" "}
+				<span
+					style={{
+						background: brandColors.lightPurple,
+						marginLeft: 4,
+						borderRadius: "4px",
+						padding: "1px 8px",
+						fontWeight: 500,
+					}}
+				>
+					Beta
+				</span>
 			</Typography>
 			<Box sx={{ width: "100%", overflow: "scroll", height: "100%", maxHeight: 500 }}>
 				<Stack
