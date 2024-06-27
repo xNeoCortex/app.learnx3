@@ -1,7 +1,5 @@
 "use client"
-import axios from "axios"
-import { useState } from "react"
-import { Recorder } from "vmsg"
+import { useEffect, useState } from "react"
 import useSpeakAI from "./SpeakAI"
 import { Bars } from "react-loading-icons"
 import MicIcon from "@mui/icons-material/Mic"
@@ -11,10 +9,7 @@ import { storage } from "../firebaseX"
 import { useStoreUser } from "../zustand"
 import { getDownloadURL } from "firebase/storage"
 import { brandColors } from "../utils/brandColors"
-
-const recorder = new Recorder({
-	wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
-})
+import { useReactMediaRecorder } from "react-media-recorder"
 
 const UseAudioRecorder = () => {
 	const { Speak } = useSpeakAI()
@@ -22,6 +17,25 @@ const UseAudioRecorder = () => {
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
 	const { userInfo } = useStoreUser()
+	const { startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true })
+
+	useEffect(() => {
+		const uploadAudio = async () => {
+			const currentTime = new Date().getTime()
+			if (mediaBlobUrl) {
+				const blob = await fetch(mediaBlobUrl).then((r) => r.blob())
+				const uniqueFileName = `my-speech-${currentTime}-${userInfo.uid}`
+				const audioRef = ref(storage, `audios/${userInfo.uid}/${uniqueFileName}`)
+				await uploadBytes(audioRef, blob)
+				const storageURL = await getDownloadURL(audioRef)
+				await Speak(storageURL)
+			}
+		}
+
+		if (!isRecording && mediaBlobUrl) {
+			uploadAudio()
+		}
+	}, [mediaBlobUrl])
 
 	const recordFn = async () => {
 		setStatus("loading")
@@ -29,36 +43,27 @@ const UseAudioRecorder = () => {
 
 		if (isRecording) {
 			try {
-				const blob = await recorder.stopRecording()
-
-				const currentTime = new Date().getTime()
-				const uniqueFileName = `my-speech-${currentTime}-${userInfo.uid}.mp3`
-				const audioRef = ref(storage, `audios/${userInfo.uid}/${uniqueFileName}`)
-
-				const buffer = Buffer.from(await blob.arrayBuffer())
-				await uploadBytes(audioRef, buffer)
-				const storageURL = await getDownloadURL(audioRef)
-
-				if (storageURL) {
-					await Speak(storageURL)
-				} else {
-					setStatus("error")
-				}
+				stopRecording()
+				setIsRecording(false)
+				setStatus("success")
 			} catch (e) {
 				console.error(e)
 				setStatus("error")
-			} finally {
-				setIsRecording(false)
-				setStatus("success")
 			}
 		} else {
 			setSpeakingLoading(true)
 			try {
-				await recorder.initAudio()
-				await recorder.initWorker()
-				recorder.startRecording()
+				startRecording()
 				setIsRecording(true)
 				setStatus("success")
+
+				// Automatically stop recording after 30 seconds
+				setTimeout(() => {
+					stopRecording()
+					setIsRecording(false)
+					setSpeakingLoading(false)
+					setStatus("success")
+				}, 30000)
 			} catch (e) {
 				console.error("Error initializing recorder:", e)
 				setStatus("error")

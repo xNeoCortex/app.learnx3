@@ -24,10 +24,10 @@ export default function AvatarAIPage() {
 						margin: "auto",
 					}}
 				>
-					<Grid item xs={8}>
+					<Grid item xs={12} sm={7}>
 						<CanvasContainer />
 					</Grid>
-					<Grid item xs={4}>
+					<Grid item xs={12} sm={5}>
 						<ChatBox />
 					</Grid>
 				</Grid>
@@ -53,6 +53,7 @@ const CanvasContainer = () => (
 
 const ChatBox = () => (
 	<Box
+		//@ts-ignore
 		flex={1}
 		display={"flex"}
 		flexDirection={"column"}
@@ -63,8 +64,8 @@ const ChatBox = () => (
 		borderRadius={4}
 		right={10}
 		padding={1}
-		maxWidth={"420px"}
 		height={"100%"}
+		width={"100%"}
 		gap={1}
 		sx={{
 			WebkitBackdropFilter: "blur(30px)",

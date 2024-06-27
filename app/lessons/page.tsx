@@ -1,6 +1,5 @@
 "use client"
-
-import React, { ReactNode } from "react"
+import React from "react"
 import dayjs from "dayjs"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
@@ -38,7 +37,10 @@ function index() {
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<Box sx={{ marginTop: "20px", width: "100%" }}>
+				<Box
+					//@ts-ignore
+					sx={{ marginTop: "20px", width: "100%" }}
+				>
 					<Grid item xs={12} sm={12} sx={{ marginTop: "20px" }}>
 						<Box
 							sx={{

@@ -43,6 +43,7 @@ export default function Chat() {
 				gap: 1,
 				p: "10px",
 				maxHeight: "100%",
+				width: "100%",
 				boxSizing: "border-box",
 				backgroundColor: "black",
 				transition: "all 0.3s ease-in-out",
