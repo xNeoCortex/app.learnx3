@@ -1,10 +1,10 @@
+"use client"
 import React, { useEffect, useState } from "react"
 import { Box, Button, Dialog, DialogContent, IconButton, Typography, CssBaseline, styled } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
-import { QuizItem } from "../../types/quizType"
-import { shuffleArray } from "../utils/shuffleArray"
-import { LinearTimer } from "../other/LinearTimer"
-import { alignProperty } from "@mui/material/styles/cssUtils"
+import { QuizItem } from "../../../types/quizType"
+import { shuffleArray } from "../../utils/shuffleArray"
+import Timer from "./timer"
 
 type PlayQuizProps = {
 	quiz: QuizItem[]
@@ -14,7 +14,7 @@ type PlayQuizProps = {
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	"& .MuiDialogContent-root": {
 		padding: theme.spacing(2),
-		background: "rgb(4 0 21 / 100%)", 
+		background: "rgb(4 0 21 / 100%)",
 	},
 	"& .MuiDialogActions-root": {
 		padding: theme.spacing(1),
@@ -76,6 +76,7 @@ const PlayQuiz: React.FC<PlayQuizProps> = ({ quiz, onFinished }) => {
 			<DialogContent dividers>
 				<CssBaseline />
 				<Box
+					//@ts-ignore
 					sx={{
 						width: "100%",
 						display: "flex",
@@ -91,7 +92,7 @@ const PlayQuiz: React.FC<PlayQuizProps> = ({ quiz, onFinished }) => {
 						<CloseIcon sx={{ color: "white" }} />
 					</IconButton>
 				</Box>
-				<LinearTimer minutes={10} handleSubmit={handleTimerFinish} />
+				<Timer onFinished={handleTimerFinish} />
 				<Box
 					key={currentQuizItemIndex}
 					mb="10px"
