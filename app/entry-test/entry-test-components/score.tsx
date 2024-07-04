@@ -35,7 +35,10 @@ const Score: React.FC<{
 	}
 
 	return (
-		<Box sx={BoxStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxStyle}
+		>
 			<Typography variant="h3" sx={{ color: "#3f51b5", mb: 2 }}>
 				Score
 			</Typography>
