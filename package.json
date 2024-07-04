@@ -52,6 +52,7 @@
     "speak-tts": "^2.0.8",
     "three": "^0.165.0",
     "typescript": "5.0.4",
+    "urlpattern-polyfill": "^10.0.0",
     "uuid": "^9.0.1",
     "uuidv4": "^6.2.13",
     "zustand": "^4.1.5"
