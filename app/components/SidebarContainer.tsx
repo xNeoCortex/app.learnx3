@@ -56,6 +56,6 @@ const BoxStyle = {
 	maxWidth: "1400px",
 	minHeight: "calc(100vh - 0px)",
 	width: "100%",
-	margin: "none auto",
+	marginX: " auto",
 	overflowY: "scroll",
 }
