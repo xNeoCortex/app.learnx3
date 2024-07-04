@@ -12,15 +12,15 @@ export default function AvatarAIPage() {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				<Grid
+					spacing={1}
 					container
-					spacing={2}
 					sx={{
 						background: "black",
 						height: "calc(100% - 80px)",
 						width: "100%",
 						overflow: "hidden",
 						borderRadius: 3,
-						padding: 2,
+						padding: 1,
 						margin: "auto",
 					}}
 				>
@@ -61,7 +61,7 @@ const ChatBox = () => (
 		justifyContent={"start"}
 		margin={"0px"}
 		border={"1px solid white"}
-		borderRadius={4}
+		borderRadius={2}
 		right={10}
 		padding={1}
 		height={"100%"}
