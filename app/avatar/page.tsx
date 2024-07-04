@@ -21,7 +21,7 @@ export default function AvatarAIPage() {
 						overflow: "hidden",
 						borderRadius: 3,
 						padding: 1,
-						margin: "auto",
+						margin: "-10px auto",
 					}}
 				>
 					<Grid item xs={12} sm={7}>
