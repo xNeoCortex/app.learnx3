@@ -12,16 +12,16 @@ export default function AvatarAIPage() {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				<Grid
+					spacing={1}
 					container
-					spacing={2}
 					sx={{
-						background: "black",
+						background: "rgb(224, 225, 241)",
 						height: "calc(100% - 80px)",
 						width: "100%",
 						overflow: "hidden",
 						borderRadius: 3,
-						padding: 2,
-						margin: "auto",
+						padding: 1,
+						margin: "-10px auto",
 					}}
 				>
 					<Grid item xs={12} sm={7}>
@@ -43,6 +43,8 @@ const CanvasContainer = () => (
 			height: "100%",
 			width: "100%",
 		}}
+		borderRadius={2}
+		overflow={"hidden"}
 	>
 		<Canvas shadows camera={{ position: [0, 0, 8], fov: 42 }}>
 			<color attach="background" args={["#ececec"]} />
@@ -61,7 +63,7 @@ const ChatBox = () => (
 		justifyContent={"start"}
 		margin={"0px"}
 		border={"1px solid white"}
-		borderRadius={4}
+		borderRadius={2}
 		right={10}
 		padding={1}
 		height={"100%"}
@@ -70,6 +72,7 @@ const ChatBox = () => (
 		sx={{
 			WebkitBackdropFilter: "blur(30px)",
 			backdropFilter: "blur(30px)",
+			background: "#f5f5f7",
 		}}
 	>
 		<Chat />
