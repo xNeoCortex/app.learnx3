@@ -15,7 +15,7 @@ export default function AvatarAIPage() {
 					spacing={1}
 					container
 					sx={{
-						background: "black",
+						background: "rgb(224, 225, 241)",
 						height: "calc(100% - 80px)",
 						width: "100%",
 						overflow: "hidden",
@@ -43,6 +43,8 @@ const CanvasContainer = () => (
 			height: "100%",
 			width: "100%",
 		}}
+		borderRadius={2}
+		overflow={"hidden"}
 	>
 		<Canvas shadows camera={{ position: [0, 0, 8], fov: 42 }}>
 			<color attach="background" args={["#ececec"]} />
@@ -70,6 +72,7 @@ const ChatBox = () => (
 		sx={{
 			WebkitBackdropFilter: "blur(30px)",
 			backdropFilter: "blur(30px)",
+			background: "#f5f5f7",
 		}}
 	>
 		<Chat />

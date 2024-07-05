@@ -45,7 +45,7 @@ export default function Chat() {
 				maxHeight: "100%",
 				width: "100%",
 				boxSizing: "border-box",
-				backgroundColor: "black",
+				backgroundColor: "#f5f5f7",
 				transition: "all 0.3s ease-in-out",
 			}}
 		>
@@ -67,7 +67,7 @@ export default function Chat() {
 				<Stack
 					ref={chatsRef}
 					spacing={2}
-					sx={{ alignSelf: "stretch", overflowY: "scroll", height: "100%", maxHeight: "100%", mt: "8px" }}
+					sx={{ alignSelf: "stretch", overflowY: "scroll", height: "100%", maxHeight: "100%", mt: "0px" }}
 				>
 					{messages?.slice(1).map(
 						(
@@ -126,8 +126,8 @@ export default function Chat() {
 							textDecoration: "none",
 							width: "90px",
 							textTransform: "none",
-							border: "1px solid #f4d35e",
-							color: "#f4d35e",
+							border: "2px solid #f4d35e",
+							color: "#cda000",
 							fontWeight: "semibold",
 							fontSize: "10px",
 							" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
@@ -136,7 +136,7 @@ export default function Chat() {
 						💡 Suggest
 					</Button>
 					{suggestion && (
-						<Typography fontSize={10} color={brandColors.lightGrey}>
+						<Typography fontSize={10} color={brandColors.black}>
 							{suggestion}
 						</Typography>
 					)}
