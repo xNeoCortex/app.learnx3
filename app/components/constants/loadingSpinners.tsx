@@ -13,7 +13,7 @@ import {
 	ThreeDots,
 } from "react-loading-icons"
 
-const loadingIcons = [
+export const LoadingSpinners = [
 	<Audio />,
 	<BallTriangle />,
 	<Bars />,

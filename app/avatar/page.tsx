@@ -6,6 +6,7 @@ import { Canvas } from "@react-three/fiber"
 import { Box, Grid } from "@mui/material"
 import { Experience } from "@/components/Chat/Experience"
 import Chat from "@/components/Chat/ChatPage"
+import LoadingPage from "@/components/LoadingPage"
 
 export default function AvatarAIPage() {
 	return (
@@ -24,7 +25,10 @@ export default function AvatarAIPage() {
 						margin: "-10px auto",
 					}}
 				>
-					<Grid item xs={12} sm={7}>
+					<Grid item xs={12} sm={7} sx={{ position: "relative" }}>
+						<Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
+							<LoadingPage />
+						</Box>
 						<CanvasContainer />
 					</Grid>
 					<Grid item xs={12} sm={5}>
