@@ -84,7 +84,7 @@ export default function Chat() {
 									borderWidth: "0.5px",
 									p: 1,
 									maxWidth: "90%",
-									backgroundColor: message.role === "user" ? "#f4d35e" : "#4361ee",
+									backgroundColor: message.role === "user" ? "#f4d35e" : brandColors.lightPurple,
 									minWidth: 150,
 									borderRadius: "8px",
 									boxShadow: "rgba(50, 50, 93, 0.05) 0px 2px 5px -1px, rgba(0, 0, 0, 0.2) 0px 1px 3px -1px",
