@@ -35,7 +35,10 @@ const CustomCard = React.memo(
 						},
 					}}
 				>
-					<Box sx={{ textAlign: "right", position: "relative" }}>
+					<Box
+						//@ts-ignore
+						sx={{ textAlign: "right", position: "relative" }}
+					>
 						{createdById === userInfo.uid && (
 							<Typography
 								sx={{
@@ -53,7 +56,9 @@ const CustomCard = React.memo(
 								Created by you
 							</Typography>
 						)}
-						<CardMedia component="img" src={image || "/mobile-book.svg"} alt={title} sx={{ borderRadius: "10px" }} />
+						<Box minHeight={140}>
+							<CardMedia component="img" src={image || "/mobile-book.svg"} alt={title} sx={{ borderRadius: "10px" }} />
+						</Box>
 					</Box>
 
 					<Box
