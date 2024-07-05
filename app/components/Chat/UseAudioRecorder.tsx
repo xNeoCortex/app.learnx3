@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react"
 import useSpeakAI from "./SpeakAI"
-import { Bars } from "react-loading-icons"
+import { Bars, TailSpin } from "react-loading-icons"
 import MicIcon from "@mui/icons-material/Mic"
 import { Box, Button } from "@mui/material"
 import { ref, uploadBytes } from "firebase/storage"
@@ -14,6 +14,7 @@ import { useReactMediaRecorder } from "react-media-recorder"
 const UseAudioRecorder = () => {
 	const { Speak } = useSpeakAI()
 	const [isRecording, setIsRecording] = useState(false)
+	const [avatarSpeaking, setAvatarSpeaking] = useState(false)
 	const [status, setStatus] = useState<"error" | "loading" | "success">("success")
 	const [speakingLoading, setSpeakingLoading] = useState(false)
 	const { userInfo } = useStoreUser()
@@ -28,12 +29,16 @@ const UseAudioRecorder = () => {
 				const audioRef = ref(storage, `audios/${userInfo.uid}/${uniqueFileName}`)
 				await uploadBytes(audioRef, blob)
 				const storageURL = await getDownloadURL(audioRef)
+				setAvatarSpeaking(true)
 				await Speak(storageURL)
 			}
 		}
 
 		if (!isRecording && mediaBlobUrl) {
 			uploadAudio()
+			setTimeout(() => {
+				setAvatarSpeaking(false)
+			}, 10000)
 		}
 	}, [mediaBlobUrl])
 
@@ -96,10 +101,12 @@ const UseAudioRecorder = () => {
 						color: "white",
 					},
 				}}
-				disabled={status === "loading"}
+				disabled={status === "loading" || avatarSpeaking}
 				onClick={recordFn}
 			>
-				{speakingLoading ? (
+				{avatarSpeaking ? (
+					<TailSpin />
+				) : speakingLoading ? (
 					<Bars
 						style={{
 							width: "25px",
