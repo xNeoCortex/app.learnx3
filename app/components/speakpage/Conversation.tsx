@@ -38,9 +38,13 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 	}
 
 	return (
-		<Box sx={{ height: "100%" }}>
+		<Box
+			//@ts-ignore
+			sx={{ height: "100%" }}
+		>
 			<CardWrapper background="#eff9ff">
 				<Box
+					//@ts-ignore
 					onClick={handleClickOpen}
 					sx={{
 						background: "#eff9ff",
@@ -119,6 +123,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 																display: "flex",
 																alignItems: { sm: "center" },
 																flexDirection: { xs: "column", sm: "row" },
+																gap: 2,
 															}}
 														>
 															<Box
@@ -136,7 +141,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 																		borderRadius: 2,
 																		width: "fit-content",
 																		color: "white",
-																		minWidth: "fit-content",
+																		minWidth: "max-content",
 																		height: "fit-content",
 																	}}
 																>
@@ -176,7 +181,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 																		borderRadius: 2,
 																		width: "fit-content",
 																		color: "white",
-																		minWidth: "fit-content",
+																		minWidth: "max-content",
 																	}}
 																>
 																	👨‍🏫 {item.speaker}
