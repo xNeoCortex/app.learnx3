@@ -38,7 +38,7 @@ const UseAudioRecorder = () => {
 			uploadAudio()
 			setTimeout(() => {
 				setAvatarSpeaking(false)
-			}, 10000)
+			}, 7000)
 		}
 	}, [mediaBlobUrl])
 

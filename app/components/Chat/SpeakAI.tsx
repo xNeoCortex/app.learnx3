@@ -18,8 +18,8 @@ function useSpeakAI() {
 			})
 
 			// Add the user message to the chat
-			messageFromGPT = [...messages, { role: "user", content: data.text }]
-			addMessage(messageFromGPT)
+			messageFromGPT = [...messages, { role: "user", content: data.text, voice: myFilePath }]
+			addMessage(messageFromGPT) // Add the user message to the chat
 			addSuggestion("")
 
 			// Get message from ChatGPT and generate audio from the text
@@ -44,6 +44,7 @@ function useSpeakAI() {
 					{
 						role: "assistant",
 						content: data.messageFromGPT,
+						voice: data.filePath,
 					},
 				])
 			} else {
