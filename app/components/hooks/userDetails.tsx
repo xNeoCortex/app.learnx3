@@ -31,10 +31,10 @@ function useUserDetails() {
 
 				const user = userCredentials.user
 				const docRef = doc(db, "teachers", user.uid)
-				const usersData = await getDoc(docRef)
+				const teacherData = await getDoc(docRef)
 
-				if (usersData.exists()) {
-					setUserInfo(usersData.data())
+				if (teacherData.exists()) {
+					setUserInfo(teacherData.data())
 					setIsLoading(false)
 				} else {
 					const docRefStudent = doc(db, "students", user.uid)

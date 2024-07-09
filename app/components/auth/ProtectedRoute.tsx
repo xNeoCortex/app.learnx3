@@ -6,7 +6,6 @@ import { useStoreUser } from "../zustand"
 import ApiServices from "@/api/ApiServices"
 import { useQuery } from "@tanstack/react-query"
 import { getAuth } from "firebase/auth"
-import LoadingPage from "../LoadingPage"
 
 type PermitType = "admin" | "teacher" | "student"
 
@@ -21,6 +20,7 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 
 	const { fetchStudentData, apiRequest } = ApiServices()
 
+	console.log("userInfo :>> ", userInfo)
 	const {
 		data: studentData,
 		isLoading: isStudentLoading,
@@ -30,7 +30,7 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 		queryFn: () => fetchStudentData(String(userAuth?.uid)),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
-		enabled: !!userAuth?.uid,
+		enabled: !!userAuth?.uid && !userInfo?.role,
 		onSuccess: (data) => setUserInfo({ ...userInfo, permit: data.data.permit }),
 		onError: (error) => console.error("Error fetching student data:", error),
 	})
@@ -44,7 +44,7 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 		queryFn: () => apiRequest("GET", null, { collectionName: "teachers", uid: userAuth?.uid }),
 		refetchOnWindowFocus: false,
 		refetchOnMount: false,
-		enabled: !!userAuth?.uid && isStudentError,
+		enabled: !!userAuth?.uid && isStudentError && !userInfo?.role,
 		onSuccess: (data) => setUserInfo({ ...userInfo, permit: data.data.permit }),
 		onError: (error) => console.error("Error fetching teacher data:", error),
 	})
