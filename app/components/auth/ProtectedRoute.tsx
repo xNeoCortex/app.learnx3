@@ -49,7 +49,6 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 		onError: (error) => console.error("Error fetching teacher data:", error),
 	})
 
-	if (isStudentLoading || isTeacherLoading) return <LoadingPage />
 	if (isStudentError && isTeacherError) return <ErrorPage />
 
 	if (!userInfo?.permit) return <WaitingPage />
