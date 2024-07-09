@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { useUser } from "@clerk/clerk-react"
 import { updateProfile } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import Button from "@mui/material/Button"
@@ -22,6 +23,7 @@ type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualif
 
 export default function UserForm() {
 	const { push: navigate } = useRouter()
+	const { user } = useUser()
 	const { setUserInfo } = useStoreUser()
 	const [error, setError] = React.useState("")
 	const [status, setStatus] = React.useState<{
@@ -59,11 +61,11 @@ export default function UserForm() {
 	}
 
 	// Add user data with specified ID, if you want with auto generated ID -> use addDoc()
-	async function addUser(id: string, name: string, email: string) {
+	async function addUser(id: string, name: string) {
 		const currentUserInfo = {
 			uid: id,
 			name: name,
-			email: email,
+			email: user?.primaryEmailAddress?.emailAddress || "",
 			age: age,
 			gender: gender,
 			phone: phone,
@@ -109,7 +111,7 @@ export default function UserForm() {
 		})
 			.then(() => {
 				if (auth.currentUser) {
-					addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
+					addUser(auth.currentUser.uid, auth.currentUser.displayName || "")
 					navigate("/")
 				}
 			})

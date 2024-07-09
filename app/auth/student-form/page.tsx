@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { useUser } from "@clerk/clerk-react"
 import { updateProfile } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import Button from "@mui/material/Button"
@@ -20,6 +21,7 @@ import { constants } from "@/components/constants/constants"
 
 export default function StudentForm() {
 	const { push: navigate } = useRouter()
+	const { user } = useUser()
 	const {
 		setUserInfo,
 	}: {
@@ -59,7 +61,7 @@ export default function StudentForm() {
 		const currentUserInfo: UserType = {
 			uid: id,
 			name: name,
-			email: email,
+			email: user?.primaryEmailAddress?.emailAddress || "",
 			age: age,
 			gender: gender,
 			phone: phone,
