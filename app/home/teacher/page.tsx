@@ -8,15 +8,19 @@ import DashboardLessonTimetable from "@/components/dashboard/DashboardLessonTime
 import DashboardLessonTimetableMobile from "@/components/dashboard/DashboardLessonTimetableMobile"
 import Statistics from "@/components/Statistics"
 import StudentCardList from "@/components/student/StudentCardList"
+import DashboardAvatar from "@/components/dashboard/DashboardAvatar"
 
 function TeacherDashboard() {
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher"]}>
 			<SidebarContainer>
 				<Grid container spacing={2}>
-					<Grid item xs={12}>
+					<Grid item xs={12} md={6}>
 						<DashboardLessonTimetable />
 						<DashboardLessonTimetableMobile />
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<DashboardAvatar />
 					</Grid>
 					<Grid item xs={12}>
 						<Statistics displayGraphs={false} />

@@ -115,6 +115,12 @@ const dataTeacher = () => {
 			link: `/student/results`,
 			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
 		},
+		{
+			name: "Fina AI",
+			href: "/avatar",
+			link: "/avatar",
+			icon: <FaceRetouchingNaturalIcon sx={{ width: 30, height: 30 }} />,
+		},
 		// {
 		// 	name: "Class Statistics",
 		// 	href: "/class-statistics",
