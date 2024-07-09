@@ -163,33 +163,15 @@ const dataAdmin = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/",
-			link: "/",
+			href: "/home/admin",
+			link: "/home/admin",
 			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Home Teacher",
-			href: "/",
-			link: "/",
-			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Home Student",
-			href: "/",
-			link: "/",
-			icon: <HomeIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "Lessons",
 			href: "/lessons",
 			link: "/lessons",
 			icon: <AppsIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Curriculum",
-			href: "/curriculum",
-			link: "/curriculum",
-			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
 			name: "All Students",
@@ -208,12 +190,6 @@ const dataAdmin = () => {
 			href: `/student/results`,
 			link: `/student/results`,
 			icon: <VerifiedIcon sx={{ width: 30, height: 30 }} />,
-		},
-		{
-			name: "Student Statistics",
-			href: "/class-statistics",
-			link: "/class-statistics",
-			icon: <QueryStatsIcon sx={{ width: 30, height: 30 }} />,
 		},
 
 		{

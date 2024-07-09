@@ -32,7 +32,10 @@ function AdminPage() {
 
 	if (isLoading || isLoadingTeacher)
 		return (
-			<Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
+			<Box
+				//@ts-ignore
+				sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}
+			>
 				<LoadingPage />
 			</Box>
 		)
