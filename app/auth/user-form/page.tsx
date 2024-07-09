@@ -103,6 +103,7 @@ export default function UserForm() {
 
 	// Handle register
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		updateProfile(auth.currentUser as any, {
 			displayName: name,
 		})
@@ -119,7 +120,10 @@ export default function UserForm() {
 	}
 
 	return (
-		<Box sx={BoxWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxWrapperStyle}
+		>
 			<CssBaseline />
 			<Box sx={BoxStyle}>
 				<Typography
