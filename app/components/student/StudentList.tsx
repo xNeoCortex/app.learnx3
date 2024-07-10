@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
-import { Avatar, Button, Typography } from "@mui/material"
+import { Button, Switch } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { Box } from "@mui/material"
 import Link from "next/link"
@@ -15,13 +15,19 @@ import { useStoreUser } from "../zustand"
 import { UserType } from "@/types/types"
 import { SnackbarX } from "../other/SnackbarX"
 import CustomAvatar from "../elements/CustomAvatar"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import ApiServices from "@/api/ApiServices"
+import ErrorPage from "@/error"
 
 const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 	const [open, setOpen] = React.useState(false)
 	const { userInfo } = useStoreUser()
 
 	return (
-		<Box sx={{ marginTop: "0px" }}>
+		<Box
+			//@ts-ignore
+			sx={{ marginTop: "0px" }}
+		>
 			<SnackbarX
 				open={open}
 				setOpen={setOpen}
@@ -41,7 +47,7 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 							}}
 						>
 							<TableCell sx={TableCellStyle}>Students ({data?.length})</TableCell>
-							<TableCell sx={TableCellStyle}>Performance</TableCell>
+							<TableCell sx={TableCellStyle}>Permission</TableCell>
 							<TableCell sx={TableCellStyle}>Profile</TableCell>
 							{userInfo.role == "admin" && <TableCell sx={TableCellStyle}>Delete</TableCell>}{" "}
 						</TableRow>
@@ -49,83 +55,9 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 					<TableBody>
 						{data?.length > 0 &&
 							data
-								?.sort((a, b) => {
-									if (a.name > b.name) return 1
-									if (a.name < b.name) return -1
-									return 0
-								})
-								?.map((student, index) => (
-									<TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-										<TableCell
-											component="th"
-											scope="student"
-											style={{
-												display: "flex",
-												alignItems: "center",
-											}}
-										>
-											<CustomAvatar
-												image={student?.image}
-												gender={student?.gender}
-												style={{ width: "35px", height: "35px", marginRight: 1.5 }}
-											/>
-
-											<p>{student.name}</p>
-										</TableCell>
-										<TableCell>
-											<Typography
-												style={{
-													fontWeight: "600",
-													padding: "3px 10px",
-													background: "white",
-													color:
-														student.performance == "Struggling"
-															? "rgb(226, 109, 128)"
-															: student.performance == "Doing Great"
-															? "#5fc497"
-															: "#41b6ff",
-													border:
-														student.performance == "Struggling"
-															? "2px solid rgb(226, 109, 128)"
-															: student.performance == "Doing Great"
-															? "2px solid #5fc497"
-															: "2px solid #41b6ff",
-													borderRadius: "12px",
-													fontSize: "13px",
-													width: "100%",
-													maxWidth: "130px",
-													textAlign: "center",
-												}}
-											>
-												{student?.performance}
-											</Typography>
-										</TableCell>
-										<TableCell>
-											<Link href={`/student/${student.uid}`}>
-												<Button
-													style={{
-														background: "#5f6ac4",
-														color: "white",
-														boxShadow: "none",
-														padding: "0px",
-														textTransform: "none",
-													}}
-												>
-													View
-												</Button>
-											</Link>
-										</TableCell>
-										{userInfo.role == "admin" && (
-											<TableCell>
-												<DeleteComponent
-													collectionName="students"
-													invalidateCache="students"
-													itemId={student?.uid}
-													setOpen={setOpen}
-												/>
-											</TableCell>
-										)}
-									</TableRow>
+								.sort((a, b) => a.name.localeCompare(b.name))
+								.map((student, index) => (
+									<StudentTableRow key={index} student={student} userInfo={userInfo} setOpen={setOpen} />
 								))}
 					</TableBody>
 				</Table>
@@ -143,4 +75,87 @@ const TableContainerStyle = {
 	width: "100%",
 	boxShadow: "none",
 	maxHeight: "600px",
+}
+
+function StudentTableRow({
+	student,
+	userInfo,
+	setOpen,
+}: {
+	student: UserType
+	userInfo: UserType
+	setOpen: (arg: boolean) => void
+}): JSX.Element {
+	const { apiRequest } = ApiServices()
+	const queryClient = useQueryClient()
+	const [checked, setChecked] = React.useState(true)
+
+	// update student permit
+	const { mutate, isLoading, isError } = useMutation(
+		(students) => apiRequest("PATCH", students, { collectionName: "students", uid: student.uid as string }),
+		{
+			onSuccess: () => queryClient.invalidateQueries([`students`]),
+		}
+	)
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		//@ts-ignore
+		mutate({ permit: event.target.checked })
+		setChecked(event.target.checked)
+	}
+
+	React.useEffect(() => {
+		setChecked(student?.permit)
+	}, [])
+
+	if (isError) return <ErrorPage />
+
+	return (
+		<TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+			<TableCell
+				component="th"
+				scope="student"
+				style={{
+					display: "flex",
+					alignItems: "center",
+				}}
+			>
+				<CustomAvatar
+					image={student?.image}
+					gender={student?.gender}
+					style={{ width: "35px", height: "35px", marginRight: 1.5 }}
+				/>
+
+				<p>{student.name}</p>
+			</TableCell>
+			<TableCell>
+				<Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} />
+			</TableCell>
+			<TableCell>
+				<Link href={`/student/${student.uid}`}>
+					<Button
+						style={{
+							background: "#5f6ac4",
+							color: "white",
+							boxShadow: "none",
+							padding: "0px",
+							textTransform: "none",
+						}}
+					>
+						View
+					</Button>
+				</Link>
+			</TableCell>
+			{userInfo.role == "admin" && (
+				<TableCell>
+					<DeleteComponent
+						collectionName="students"
+						invalidateCache="students"
+						itemId={student?.uid}
+						setOpen={setOpen}
+					/>
+				</TableCell>
+			)}
+		</TableRow>
+	)
 }
