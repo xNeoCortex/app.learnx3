@@ -1,5 +1,5 @@
 "use client"
-import { createRef, useEffect } from "react"
+import { createRef, useEffect, useState } from "react"
 import { useChatStore, useSuggestionsStore } from "../zustand"
 import axios from "axios"
 import { Box, Button, Stack, Typography } from "@mui/material"
@@ -7,18 +7,30 @@ import dynamic from "next/dynamic"
 import { brandColors } from "../utils/brandColors"
 import GradientText from "../elements/GradientText"
 import { ChatMessage } from "./ChatMessage"
+import AudioPlayer from "../elements/AudioReco"
 const UseAudioRecorder = dynamic(() => import("./UseAudioRecorder"), { ssr: false })
 
 export default function Chat() {
 	const { messages } = useChatStore()
 	const { suggestion, addSuggestion } = useSuggestionsStore()
+	const [audioURL, setAudioURL] = useState<string | null>(null)
+	const [error, setError] = useState<string | null>(null)
 
 	const handleSuggestion = async () => {
-		const { data } = await axios.post("/api/ai-suggestion", {
-			prompt: JSON.stringify(messages),
-		})
+		try {
+			const { data } = await axios.post("/api/ai-suggestion", {
+				prompt: JSON.stringify(messages),
+			})
+			addSuggestion(data.suggestionFromGPT)
 
-		addSuggestion(data.suggestionFromGPT)
+			const { data: audioUrl } = await axios.post("/api/text-to-speech", {
+				message: data.suggestionFromGPT,
+			})
+			setAudioURL(audioUrl.audioURL)
+		} catch (error) {
+			console.error("Error generating the audio file:", error)
+			setError("Sorry, something went wrong. Please try again later.")
+		}
 	}
 
 	//scroll to bottom
@@ -89,34 +101,44 @@ export default function Chat() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					height: 90,
+					height: 100,
 					justifyContent: "space-between",
 					flexDirection: "column",
 					gap: 1,
 				}}
 			>
-				<Box sx={{ display: "flex", alignItems: "center", gap: 1, justifyContent: "flex-start", width: "100%" }}>
-					<Button
-						size="small"
-						variant="outlined"
-						onClick={handleSuggestion}
-						sx={{
-							textDecoration: "none",
-							width: "90px",
-							textTransform: "none",
-							border: "2px solid #f4d35e",
-							color: "#cda000",
-							fontWeight: "semibold",
-							fontSize: "10px",
-							" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
-						}}
-					>
-						💡 Suggest
-					</Button>
-					{suggestion && (
-						<Typography fontSize={10} color={brandColors.black}>
-							{suggestion}
+				<Box sx={{ display: "flex", alignItems: "center", gap: "6px", justifyContent: "flex-start", width: "100%" }}>
+					{error ? (
+						<Typography fontSize={12} color={"#ef233c"} fontWeight={"semibold"}>
+							{error}
 						</Typography>
+					) : (
+						<>
+							<Button
+								size="small"
+								variant="outlined"
+								onClick={handleSuggestion}
+								sx={{
+									textDecoration: "none",
+									textTransform: "none",
+									border: "2px solid #f4d35e",
+									color: "#cda000",
+									fontWeight: "semibold",
+									maxWidth: "90px",
+									width: "inherit",
+									fontSize: "10px",
+									" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
+								}}
+							>
+								💡 Suggest
+							</Button>
+							{audioURL && suggestion && <AudioPlayer audioSrc={audioURL} />}
+							{suggestion && (
+								<Typography fontSize={10} color={brandColors.black}>
+									{suggestion}
+								</Typography>
+							)}
+						</>
 					)}
 				</Box>
 
