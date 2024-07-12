@@ -27,7 +27,6 @@ function useSpeakAI() {
 				"/api/ai-speech",
 				{
 					messages: messageFromGPT,
-					currentTime: new Date().getTime(),
 				},
 				{
 					headers: {
