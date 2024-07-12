@@ -20,7 +20,6 @@ const ProtectedRoute = ({ children, permitArray = [] }: ProtectedRouteProps) => 
 
 	const { fetchStudentData, apiRequest } = ApiServices()
 
-	console.log("userInfo :>> ", userInfo)
 	const {
 		data: studentData,
 		isLoading: isStudentLoading,

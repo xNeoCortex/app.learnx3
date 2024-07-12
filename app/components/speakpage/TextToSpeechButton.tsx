@@ -52,9 +52,6 @@ const TextToSpeechButton: React.FC<{
 							},
 						},
 					})
-					.then((data: any) => {
-						console.log("Success !", data)
-					})
 					.catch((e: any) => {
 						console.error("An error occurred :", e)
 					})

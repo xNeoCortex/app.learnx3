@@ -21,7 +21,10 @@ const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 	const [open, setOpen] = React.useState(false)
 
 	return (
-		<Box sx={{ marginTop: "0px" }}>
+		<Box
+			// @ts-ignore
+			sx={{ marginTop: "0px" }}
+		>
 			<SnackbarX
 				open={open}
 				setOpen={setOpen}
