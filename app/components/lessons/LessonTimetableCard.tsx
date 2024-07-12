@@ -33,7 +33,10 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 	})
 	return (
 		<Link href={`/lessons/${lesson.uid}`} style={{ textDecoration: "none" }}>
-			<Box sx={BoxStyle}>
+			<Box
+				//@ts-ignore
+				sx={BoxStyle}
+			>
 				<Box
 					sx={{
 						display: "flex",
@@ -139,7 +142,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
 							<AccessTimeIcon sx={{ mr: 1, height: 20 }} />
 							<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
-								{dayjs(localTime(lesson.lesson_date)).format(" HH:mm")} ({lesson.lesson_duration_minutes} min)
+								{lesson?.lesson_type === "speaking_club" ? "20:00" : "19:00"} (50 min)
 							</Typography>
 						</Box>
 					</Box>

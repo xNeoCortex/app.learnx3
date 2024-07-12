@@ -208,8 +208,7 @@ function Lesson({ params }: { params: { id: string } }) {
 										<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
 											<AccessTimeIcon sx={{ mr: 1 }} />
 											<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
-												{dayjs(localTime(lessonTimetableList?.data?.lesson_date)).format(" HH:mm")} (
-												{lessonTimetableList?.data?.lesson_duration_minutes} min)
+												{lessonTimetableList?.data?.lesson_type === "speaking_club" ? "20:00" : "19:00"} (50 min)
 											</Typography>
 										</Box>
 										<Box sx={{ display: "flex", alignItems: "center", mr: 1 }}>
