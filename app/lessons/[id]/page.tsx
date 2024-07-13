@@ -258,7 +258,7 @@ function Lesson({ params }: { params: { id: string } }) {
 											<ChipX text="Class is full" color="#ef476f" />
 										)}
 										{studentJoined && (
-											<a target="_blank" rel="noreferrer" href={lessonTimetableList?.data?.video_call_link}>
+											<a target="_blank" rel="noreferrer" href={"https://meet.google.com/fee-kuoc-brp?authuser=2"}>
 												<Button
 													sx={{
 														marginRight: "5px",
