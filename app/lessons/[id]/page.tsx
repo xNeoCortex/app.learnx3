@@ -357,5 +357,5 @@ const BoxWrapperStyle = {
 	overflow: "auto",
 	position: "relative",
 	border: "0.5px solid #ebfff6",
-	background: brandColors.lightGrey,
+	background: brandColors.lighterGrey,
 }

@@ -173,7 +173,7 @@ const BoxStyle = {
 	marginRight: { xs: "20px", sm: "0px" },
 	minWidth: "190px",
 	border: "0.5px solid #f3f3f3",
-	background: brandColors.lightGrey,
+	background: brandColors.lighterGrey,
 	boxShadow: "0 2px 6px #efeaea",
 	transition: "transform 0.3s ease-in-out",
 	"&:hover": {

@@ -8,6 +8,7 @@ import { brandColors } from "../utils/brandColors"
 import GradientText from "../elements/GradientText"
 import { ChatMessage } from "./ChatMessage"
 import AudioPlayer from "../elements/AudioReco"
+import Translator from "../elements/Translator"
 const UseAudioRecorder = dynamic(() => import("./UseAudioRecorder"), { ssr: false })
 
 export default function Chat() {
@@ -101,10 +102,12 @@ export default function Chat() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					height: 100,
+					height: 120,
 					justifyContent: "space-between",
 					flexDirection: "column",
 					gap: 1,
+					borderTop: "1px solid white",
+					paddingTop: "6px",
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", gap: "6px", justifyContent: "flex-start", width: "100%" }}>
@@ -114,30 +117,38 @@ export default function Chat() {
 						</Typography>
 					) : (
 						<>
-							<Button
-								size="small"
-								variant="outlined"
-								onClick={handleSuggestion}
-								sx={{
-									textDecoration: "none",
-									textTransform: "none",
-									border: "2px solid #f4d35e",
-									color: "#cda000",
-									fontWeight: "semibold",
-									maxWidth: "90px",
-									width: "inherit",
-									fontSize: "10px",
-									" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
-								}}
-							>
-								💡 Suggest
-							</Button>
-							{audioURL && suggestion && <AudioPlayer audioSrc={audioURL} />}
-							{suggestion && (
-								<Typography fontSize={10} color={brandColors.black}>
-									{suggestion}
-								</Typography>
+							{!suggestion && (
+								<Button
+									size="small"
+									variant="outlined"
+									onClick={handleSuggestion}
+									sx={{
+										textDecoration: "none",
+										textTransform: "none",
+										border: "2px solid #f4d35e",
+										color: "#cda000",
+										fontWeight: "semibold",
+										maxWidth: "90px",
+										width: "inherit",
+										fontSize: "10px",
+										" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
+									}}
+								>
+									💡 Suggest
+								</Button>
 							)}
+							<Box display={"flex"} width={"100%"}>
+								<Translator text={suggestion} fontSize={10} flexDirection={"row"} iconColor={brandColors.lightPurple}>
+									{audioURL && suggestion && <AudioPlayer audioSrc={audioURL} iconColor={brandColors.lightPurple} />}
+									<Box display={"flex"} alignItems={"center"} height={"100%"} minWidth={120}>
+										{suggestion && (
+											<Typography fontSize={10} color={brandColors.black}>
+												{suggestion}
+											</Typography>
+										)}
+									</Box>
+								</Translator>
+							</Box>
 						</>
 					)}
 				</Box>

@@ -79,7 +79,7 @@ function StudentRanking() {
 					<TableHead>
 						<TableRow
 							sx={{
-								background: brandColors.lightGrey,
+								background: brandColors.lighterGrey,
 							}}
 						>
 							<TableCell

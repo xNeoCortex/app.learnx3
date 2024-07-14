@@ -83,7 +83,7 @@ const contentStyle = {
 }
 
 const textStyle = {
-	color: brandColors.lightGrey,
+	color: brandColors.lighterGrey,
 	maxWidth: { xs: "100%", sm: "60%" },
 	textAlign: { xs: "center", sm: "start" },
 	p: "25px 35px",

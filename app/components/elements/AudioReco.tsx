@@ -4,7 +4,7 @@ import PlayCircleIcon from "@mui/icons-material/PlayCircle"
 import StopCircleIcon from "@mui/icons-material/StopCircle"
 import { IconButton } from "@mui/material"
 
-const AudioPlayer = memo(({ audioSrc }: { audioSrc: string | undefined }) => {
+const AudioPlayer = memo(({ audioSrc, iconColor }: { audioSrc: string | undefined; iconColor?: string }) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const audioRef = useRef(null)
 
@@ -22,7 +22,7 @@ const AudioPlayer = memo(({ audioSrc }: { audioSrc: string | undefined }) => {
 	return (
 		<>
 			<audio ref={audioRef} src={audioSrc} onEnded={() => setIsPlaying(false)} />
-			<IconButton onClick={togglePlay} sx={{ color: "#060634" }}>
+			<IconButton onClick={togglePlay} sx={{ color: iconColor ?? "#060634" }}>
 				{isPlaying ? <StopCircleIcon /> : <PlayCircleIcon />}
 			</IconButton>
 		</>
