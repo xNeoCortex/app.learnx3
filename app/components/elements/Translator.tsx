@@ -12,12 +12,14 @@ export default function Translator({
 	fontColor,
 	iconColor,
 	flexDirection,
+	translateIconWidth,
 	children,
 }: {
 	text: string
 	fontSize?: number | string
 	fontColor?: string
 	iconColor?: string
+	translateIconWidth?: string | number
 	flexDirection?: "row" | "column"
 	children: any
 }) {
@@ -52,7 +54,13 @@ export default function Translator({
 		>
 			<Box display={"flex"} alignItems={"center"} maxWidth={"100%"} flex={4}>
 				<IconButton onClick={handleTranslate}>
-					<GTranslateIcon sx={{ color: iconColor ?? "#060634", width: "22px" }} />
+					<GTranslateIcon
+						sx={{
+							color: iconColor ?? "#060634",
+							width: translateIconWidth ?? "22px",
+							height: translateIconWidth ?? "22px",
+						}}
+					/>
 				</IconButton>
 				{children}
 			</Box>
@@ -61,7 +69,7 @@ export default function Translator({
 				flexDirection={flexDirection ?? "row"}
 				gap={1}
 				maxWidth={"100%"}
-				flex={3}
+				flex={translatedText ? 3 : 0}
 				padding={"0px 2px"}
 			>
 				{loading ? (
@@ -72,6 +80,7 @@ export default function Translator({
 							display={propText !== text ? "none" : "flex"}
 							width={"100%"}
 							alignItems={"center"}
+							justifyContent={"center"}
 							border={"1px solid #E0E0E0"}
 							borderRadius={"8px"}
 							bgcolor={"#F9F9F9"}

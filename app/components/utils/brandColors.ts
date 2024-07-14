@@ -3,6 +3,7 @@ export const brandColors: {
 	darkerGrey: string
 	lightGrey: string
 	lighterGrey: string
+	iconGrey: string
 	black: string
 	lightPurple: string
 	lighterPurple: string
@@ -11,9 +12,10 @@ export const brandColors: {
 	lighterBlue: string
 	chatTextColor: string
 } = {
-	lighterGrey: "#f5f5f7",
-	lightGrey: "#bcbcbc63",
 	grey: "#6e6e73",
+	lighterGrey: "#f5f5f7",
+	lightGrey: "#bcbcbc33",
+	iconGrey: "#BAB9CC",
 	darkerGrey: "#515151",
 	black: "#1d1d1f",
 	lightPurple: "rgb(95, 106, 196)",

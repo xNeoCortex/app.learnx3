@@ -3,6 +3,8 @@ import { Box, capitalize, Typography } from "@mui/material"
 import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { VocabularyType } from "@/types/generatedLessonType"
 import sortByWordType from "../helpers/sortByWordType"
+import Translator from "../elements/Translator"
+import { brandColors } from "../utils/brandColors"
 
 export const SpeakCard = memo(
 	({ lesson, showDefinition, flashCardIndex }: { lesson: any; showDefinition: boolean; flashCardIndex: number }) => {
@@ -12,6 +14,7 @@ export const SpeakCard = memo(
 		)
 		return (
 			<Box
+				//@ts-ignore
 				sx={{
 					background: "#fff",
 					borderRadius: 2,
@@ -34,22 +37,30 @@ export const SpeakCard = memo(
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
+							textAlign: "center",
 							flexDirection: { xs: "column", sm: "row" },
 						}}
 					>
-						<TextToSpeechButton text={currentFlashCard?.word} />
-						<Typography
-							variant="h4"
-							sx={{
-								height: "fit-content",
-								color: "black",
-								fontWeight: "bold",
-								overflow: "hidden",
-								maxWidth: { xs: "250px", sm: "none" },
-							}}
+						<Translator
+							text={currentFlashCard?.word}
+							flexDirection={"column"}
+							iconColor={brandColors.iconGrey}
+							translateIconWidth={"30px"}
 						>
-							{currentFlashCard?.word}
-						</Typography>
+							<TextToSpeechButton text={currentFlashCard?.word} />
+							<Typography
+								variant="h4"
+								sx={{
+									height: "fit-content",
+									color: "black",
+									fontWeight: "bold",
+									overflow: "hidden",
+									maxWidth: { xs: "250px", sm: "none" },
+								}}
+							>
+								{currentFlashCard?.word}
+							</Typography>
+						</Translator>
 					</Box>
 				) : (
 					<>

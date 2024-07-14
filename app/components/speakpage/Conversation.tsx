@@ -11,6 +11,8 @@ import { Box, capitalize, Grid, useMediaQuery } from "@mui/material"
 import dayjs from "dayjs"
 import TextToSpeechButton from "./TextToSpeechButton"
 import { LessonType } from "@/types/lessonType"
+import Translator from "../elements/Translator"
+import { brandColors } from "../utils/brandColors"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 	width: "100%",
@@ -73,23 +75,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 									<CloseIcon sx={{ color: "white" }} />
 								</IconButton>
 							</Box>
-							<Box
-								sx={{
-									p: 2,
-									background: "#fff",
-									borderRadius: 2,
-									color: "black",
-									marginY: "15px",
-									width: "100%",
-									height: "100%",
-									minHeight: "50vh",
-									display: "flex",
-									justifyContent: "center",
-									alignItems: "center",
-									flexDirection: "column",
-									boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
-								}}
-							>
+							<Box sx={BoxStyled}>
 								<Grid spacing={2} container>
 									<Typography sx={{ width: "100%", textAlign: "center", m: "10px auto 0px", color: "grey" }}>
 										{now}
@@ -117,80 +103,7 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 														boxShadow: "rgb(50 50 93 / 5%) 0px 2px 5px -1px, rgb(0 0 0 / 20%) 0px 1px 3px -1px",
 													}}
 												>
-													{item.order % 2 ? (
-														<Box
-															sx={{
-																display: "flex",
-																alignItems: { sm: "center" },
-																flexDirection: { xs: "column", sm: "row" },
-																gap: 2,
-															}}
-														>
-															<Box
-																sx={{
-																	display: "flex",
-																	flexDirection: "row",
-																	alignItems: "center",
-																}}
-															>
-																<Typography
-																	sx={{
-																		fontSize: 14,
-																		padding: "5px 10px",
-																		background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
-																		borderRadius: 2,
-																		width: "fit-content",
-																		color: "white",
-																		minWidth: "max-content",
-																		height: "fit-content",
-																	}}
-																>
-																	👩‍🎓 {item.speaker}
-																</Typography>
-																<TextToSpeechButton
-																	text={item.content}
-																	buttonSize="25px"
-																	personType={capitalize(item.speaker) === "Child" ? "child" : "male"}
-																/>{" "}
-															</Box>
-															<Typography sx={{ fontSize: 16 }}> {item.content} </Typography>
-														</Box>
-													) : (
-														<Box
-															sx={{
-																display: "flex",
-																alignItems: { sm: "center" },
-																flexDirection: { xs: "column", sm: "row" },
-																width: "content-fit",
-															}}
-														>
-															<Box
-																sx={{
-																	display: "flex",
-																	flexDirection: "row",
-																	alignItems: "center",
-																	justifyContent: "flex-end",
-																	width: "content-fit",
-																}}
-															>
-																<Typography
-																	sx={{
-																		fontSize: 14,
-																		padding: "5px 10px",
-																		background: item.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
-																		borderRadius: 2,
-																		width: "fit-content",
-																		color: "white",
-																		minWidth: "max-content",
-																	}}
-																>
-																	👨‍🏫 {item.speaker}
-																</Typography>
-																<TextToSpeechButton text={item.content} buttonSize="25px" personType="female" />
-															</Box>
-															<Typography sx={{ fontSize: 16, textAlign: "end" }}> {item.content} </Typography>
-														</Box>
-													)}
+													<ConversationSegment message={item} />
 												</Box>
 											</Box>
 										</Grid>
@@ -221,3 +134,72 @@ const Conversation = React.memo(({ lesson }: { lesson: LessonType }) => {
 })
 
 export default Conversation
+
+function ConversationSegment({
+	message,
+}: {
+	message: {
+		order: number
+		speaker: string
+		content: string
+	}
+}) {
+	return (
+		<Box
+			//@ts-ignore
+			sx={{
+				display: "flex",
+				alignItems: { sm: "center" },
+				flexDirection: { xs: "column", sm: "row" },
+				gap: 2,
+			}}
+		>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "row",
+					alignItems: "center",
+				}}
+			>
+				<Typography
+					sx={{
+						fontSize: 14,
+						padding: "5px 10px",
+						background: message.order % 2 ? "#06d6a0" : "rgb(95, 97, 196)",
+						borderRadius: 2,
+						width: "fit-content",
+						color: "white",
+						minWidth: "max-content",
+						height: "fit-content",
+					}}
+				>
+					👩‍🎓 {message.speaker}
+				</Typography>
+			</Box>
+			<Translator text={message.content} flexDirection={"row"} iconColor={brandColors.iconGrey} fontSize={12}>
+				<TextToSpeechButton
+					text={message.content}
+					buttonSize="25px"
+					personType={capitalize(message.speaker) === "Child" ? "child" : "male"}
+				/>
+				<Typography sx={{ fontSize: 16, width: "100%" }}> {message.content} </Typography>
+			</Translator>
+		</Box>
+	)
+}
+
+const BoxStyled = {
+	p: 2,
+	background: "#fff",
+	borderRadius: 2,
+	color: "black",
+	marginY: "15px",
+	width: "100%",
+	height: "100%",
+	minHeight: "50vh",
+	display: "flex",
+	justifyContent: "center",
+	alignItems: "center",
+	flexDirection: "column",
+	boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+}

@@ -140,7 +140,7 @@ export default function Chat() {
 							<Box display={"flex"} width={"100%"}>
 								<Translator text={suggestion} fontSize={10} flexDirection={"row"} iconColor={brandColors.lightPurple}>
 									{audioURL && suggestion && <AudioPlayer audioSrc={audioURL} iconColor={brandColors.lightPurple} />}
-									<Box display={"flex"} alignItems={"center"} height={"100%"} minWidth={120}>
+									<Box display={"flex"} alignItems={"center"} height={"100%"} minWidth={150}>
 										{suggestion && (
 											<Typography fontSize={10} color={brandColors.black}>
 												{suggestion}

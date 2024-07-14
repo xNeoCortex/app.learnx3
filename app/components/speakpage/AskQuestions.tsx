@@ -36,7 +36,10 @@ const AskQuestions = React.memo(({ lesson }: { lesson: LessonType }) => {
 	}
 
 	return (
-		<Box sx={{ height: "100%" }}>
+		<Box
+			//@ts-ignore
+			sx={{ height: "100%" }}
+		>
 			<CardWrapper background="#271f4d">
 				<Box
 					onClick={handleClickOpen}

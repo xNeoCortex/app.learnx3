@@ -11,6 +11,7 @@ import TextToSpeechButton from "@/components/speakpage/TextToSpeechButton"
 import { useStoreTemporary, useStoreUser } from "@/components/zustand"
 import DeleteIcon from "@mui/icons-material/Delete"
 import OpenAiFina from "@/components/utils/OpenAiFina"
+import { brandColors } from "@/components/utils/brandColors"
 
 interface Message {
 	role: "assistant" | "user" | "system"
@@ -122,13 +123,13 @@ export default function Fina(props: any) {
 				}}
 			>
 				<IconButton
-					sx={{ color: "#BAB9CC" }}
+					sx={{ color: brandColors.iconGrey }}
 					onClick={() => (isSmallScreen ? props.setOpen(false) : setBotComponentWidth(0))}
 				>
 					<KeyboardDoubleArrowRightIcon />
 				</IconButton>
-				<Typography sx={{ width: "100%", textAlign: "center", color: "#BAB9CC" }}>{now}</Typography>
-				<IconButton sx={{ color: "#BAB9CC" }} onClick={handleDelete}>
+				<Typography sx={{ width: "100%", textAlign: "center", color: brandColors.iconGrey }}>{now}</Typography>
+				<IconButton sx={{ color: brandColors.iconGrey }} onClick={handleDelete}>
 					<DeleteIcon />
 				</IconButton>
 			</Box>
