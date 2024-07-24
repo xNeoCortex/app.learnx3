@@ -16,7 +16,7 @@ import { auth, db, storage } from "@/components/firebaseX"
 import { Alert, Divider, FormControl, Input, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { constants } from "@/components/constants/constants"
 
 export default function StudentForm() {
@@ -111,9 +111,9 @@ export default function StudentForm() {
 			updateProfile(auth.currentUser as any, {
 				displayName: name,
 			})
-				.then(() => {
+				.then(async () => {
 					if (auth.currentUser) {
-						addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
+						await addUser(auth.currentUser.uid, auth.currentUser.displayName || "", auth.currentUser.email as string)
 						navigate("/")
 					}
 				})

@@ -16,7 +16,7 @@ import { auth, db, storage } from "@/components/firebaseX"
 import { Alert, Divider, Input, Typography } from "@mui/material"
 import Link from "next/link"
 import { UserType } from "@/types/types"
-import { getDownloadURL, ref, uploadBytes } from "@firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { constants } from "@/components/constants/constants"
 
 type TeacherForm = Pick<UserType, "name" | "age" | "phone" | "country" | "qualification" | "gender" | "image">
@@ -109,9 +109,9 @@ export default function UserForm() {
 		updateProfile(auth.currentUser as any, {
 			displayName: name,
 		})
-			.then(() => {
+			.then(async () => {
 				if (auth.currentUser) {
-					addUser(auth.currentUser.uid, auth.currentUser.displayName || "")
+					await addUser(auth.currentUser.uid, auth.currentUser.displayName || "")
 					navigate("/")
 				}
 			})
