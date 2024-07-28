@@ -13,6 +13,7 @@ function DashboardAvatar() {
 			<Box
 				//@ts-ignore
 				sx={exploreTopicsStyle}
+				overflow={["hidden", "visible"]}
 			>
 				<Box
 					sx={{
@@ -25,6 +26,7 @@ function DashboardAvatar() {
 						borderRadius: "8px",
 						position: "relative",
 					}}
+					alignItems={["center", "start"]}
 				>
 					<Typography variant="h4" fontWeight="bolder" sx={textStyle}>
 						<GradientText text="Practice your English with our AI Avatar" />
@@ -33,13 +35,14 @@ function DashboardAvatar() {
 						src={"/images/avatar-no-background-2.png"}
 						alt="book"
 						style={{
-							position: "relative",
-							maxHeight: "350px",
+							position: isSmallScreen ? "unset" : "relative",
+							maxHeight: isSmallScreen ? "430px" : "350px",
 							top: isSmallScreen ? -15 : 0,
-							left: isSmallScreen ? 70 : -30,
+							left: isSmallScreen ? 0 : -30,
 							marginTop: isSmallScreen ? 0 : -32,
 							marginLeft: isSmallScreen ? 0 : 5,
 							zIndex: 999,
+							width: "max-content",
 						}}
 					/>
 				</Box>
