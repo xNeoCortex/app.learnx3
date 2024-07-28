@@ -219,6 +219,27 @@ function Lesson({ params }: { params: { id: string } }) {
 										</Box>
 									</Box>
 									<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+										<a target="_blank" rel="noreferrer" href={"https://meet.google.com/fee-kuoc-brp?authuser=2"}>
+											<Button
+												sx={{
+													marginRight: "5px",
+													textTransform: "none",
+													background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
+													color: "white",
+													fontWeight: "600",
+													padding: "3px 10px",
+													"&:hover": { background: "#424493" },
+												}}
+											>
+												<VideocamIcon
+													sx={{
+														color: "white",
+														marginRight: "6px",
+													}}
+												/>
+												<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
+											</Button>
+										</a>
 										{lessonTimetableList?.data?.students?.length < 100 ? (
 											<Button
 												onClick={handleJoinCLass}
@@ -257,29 +278,7 @@ function Lesson({ params }: { params: { id: string } }) {
 										) : (
 											<ChipX text="Class is full" color="#ef476f" />
 										)}
-										{studentJoined && (
-											<a target="_blank" rel="noreferrer" href={"https://meet.google.com/fee-kuoc-brp?authuser=2"}>
-												<Button
-													sx={{
-														marginRight: "5px",
-														textTransform: "none",
-														background: "linear-gradient(45deg, #8b58fe, #5fdee7)",
-														color: "white",
-														fontWeight: "600",
-														padding: "3px 10px",
-														"&:hover": { background: "#424493" },
-													}}
-												>
-													<VideocamIcon
-														sx={{
-															color: "white",
-															marginRight: "6px",
-														}}
-													/>
-													<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
-												</Button>
-											</a>
-										)}
+
 										{userInfo?.role == "admin" ||
 											(userInfo?.role == "teacher" && (
 												<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
