@@ -79,7 +79,7 @@ export interface UserType {
 	performance: string
 	eng_level_form: "A0" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
 	eng_level_test: "A0" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2" | ""
-	subscription_type: 1 | 2 | 3 | null
+	subscription_type: "pro" | "speaking" | "free" | null
 	paid: boolean
 	subscription_start_date: string
 	subscription_end_date: string
@@ -91,7 +91,7 @@ export interface UserType {
 	image?: null | string | File
 	imageRef?: string | StorageReference
 	qualification?: string
-	createdAt: Date
+	createdAt?: string
 }
 
 export type TeacherType = Pick<
