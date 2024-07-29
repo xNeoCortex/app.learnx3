@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import ApiServices from "@/api/ApiServices"
 import { Alert, Box, Skeleton, Typography } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
@@ -8,12 +8,15 @@ import LessonTimetableCard from "../lessons/LessonTimetableCard"
 import LoadingPage from "../LoadingPage"
 import { LessonTimetableType } from "@/types/types"
 import Grid from "react-loading-icons/dist/esm/components/grid"
+import { useStoreUser } from "../zustand"
+import { filterLessonsBySubscriptionType } from "../helpers/filterLessonsBySubscriptionType"
 
 function DashboardLessonTimetableMobile() {
 	const { apiRequest } = ApiServices()
+	const { userInfo } = useStoreUser()
 
 	const {
-		data: lessonTimetableList,
+		data: lessonTimetableData,
 		isLoading: cIsLoading,
 		isError: cIsError,
 	} = useQuery({
@@ -22,14 +25,35 @@ function DashboardLessonTimetableMobile() {
 		refetchOnWindowFocus: false,
 	})
 
-	const filteredLessonTimetable = lessonTimetableList?.data?.filter(
-		({ lesson_date }: { lesson_date: string }) => !isDateBeforeToday(lesson_date)
-	)
+	const upcomingLessons = filterLessonsBySubscriptionType(lessonTimetableData?.data || [], userInfo)
+
+	if (upcomingLessons?.length === 0) {
+		return (
+			<Alert
+				severity="warning"
+				sx={{
+					p: 1,
+					mt: 2,
+					paddingY: "0px",
+					fontSize: "15px",
+					fontWeight: "500",
+					width: "fit-content",
+					display: { xs: "flex", sm: "none" },
+				}}
+			>
+				No upcoming lessons
+			</Alert>
+		)
+	}
 
 	if (cIsError) return <ErrorPage />
 
 	return (
-		<Box sx={{ display: { xs: "flex", sm: "none" }, flexDirection: "column" }}>
+		<Box
+			//@ts-ignore
+			display={["flex", "none"]}
+			flexDirection="column"
+		>
 			<Box
 				sx={{
 					display: { xs: "flex", sm: "none" },
@@ -43,7 +67,7 @@ function DashboardLessonTimetableMobile() {
 					? [1, 2].map((x) => (
 							<Skeleton key={x} variant="rounded" sx={{ height: "315px", width: "230px", margin: "5px" }} />
 					  ))
-					: filteredLessonTimetable
+					: upcomingLessons
 							?.sort((a: LessonTimetableType, b: LessonTimetableType) => (a.lesson_date! > b.lesson_date! ? 1 : -1))
 							?.slice(0, 3)
 							?.map((lesson: LessonTimetableType, index: number) => (
@@ -55,10 +79,3 @@ function DashboardLessonTimetableMobile() {
 }
 
 export default DashboardLessonTimetableMobile
-
-const TextStyle = {
-	margin: "0px 10px 10px 0px",
-	fontWeight: "600",
-	fontSize: "19px",
-	color: "#5f616a",
-}
