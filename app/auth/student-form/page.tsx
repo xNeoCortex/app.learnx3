@@ -81,7 +81,7 @@ export default function StudentForm() {
 			num_of_messages_with_fina_ai: 0,
 			discount: "",
 			image: "",
-			createdAt: new Date(),
+			createdAt: new Date().toISOString(),
 		}
 		try {
 			if (image) {
