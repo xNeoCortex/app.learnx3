@@ -23,7 +23,7 @@ const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 	return (
 		<Box
 			// @ts-ignore
-			sx={{ marginTop: "0px" }}
+			sx={{ marginTop: "0px", width: "100%" }}
 		>
 			<SnackbarX
 				open={open}
@@ -34,10 +34,9 @@ const TeacherList = React.memo(({ data }: { data: TeacherType[] }) => {
 			<TableContainer
 				component={Paper}
 				style={{
-					margin: "10px",
-					width: "calc(100%)",
+					margin: "8px",
+					width: "100%",
 					boxShadow: "none",
-					maxHeight: "600px",
 				}}
 			>
 				<CssBaseline />
