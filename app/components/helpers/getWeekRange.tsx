@@ -10,10 +10,10 @@ function getWeekRange(date: string | Date) {
 	return { start: startOfWeek.format("YYYY-MM-DD"), end: endOfWeek.format("YYYY-MM-DD") }
 }
 
-export default function groupLessonsByWeek(input: LessonTimetableType[]): ConvertToWeeklyObjectType[] {
+export default function groupLessonsByWeek(lessons: LessonTimetableType[]): ConvertToWeeklyObjectType[] {
 	const weeklyData: any = {}
 
-	input?.forEach((lesson) => {
+	lessons?.forEach((lesson) => {
 		const lessonDate = new Date(lesson.lesson_date as string)
 		const weekRange: {
 			start: string

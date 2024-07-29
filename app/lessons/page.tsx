@@ -14,6 +14,7 @@ import isDateBeforeToday from "@/components/helpers/isDateBeforeToday"
 import LoadingPage from "@/components/LoadingPage"
 import { LessonTimetableType } from "@/types/types"
 import groupLessonsByWeek from "@/components/helpers/getWeekRange"
+import { filterLessonsBySubscriptionType } from "@/components/helpers/filterLessonsBySubscriptionType"
 
 function index() {
 	const { apiRequest } = ApiServices()
@@ -30,7 +31,9 @@ function index() {
 		refetchOnWindowFocus: false,
 	})
 
-	const lessonsList = groupLessonsByWeek(lessonTimetableList?.data)?.filter((item) => !isDateBeforeToday(item?.date_to))
+	const lessonsList = groupLessonsByWeek(filterLessonsBySubscriptionType(lessonTimetableList?.data, userInfo))?.filter(
+		(item) => !isDateBeforeToday(item?.date_to)
+	)
 
 	if (cIsError) return <ErrorPage />
 
