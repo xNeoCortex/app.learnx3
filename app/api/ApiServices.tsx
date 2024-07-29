@@ -55,13 +55,20 @@ function ApiServices() {
 		uid?: string | number
 	}
 
-	async function apiRequest(method: string = "GET", body: any = null, params: ApiRequestParams) {
-		const updatedBody = {
-			...body,
-			createdAt: `${new Date().toISOString()}`,
-			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
-		}
+	async function apiRequest(
+		method: "POST" | "GET" | "PATCH" | "DELETE" = "GET",
+		body: any = null,
+		params: ApiRequestParams
+	) {
+		const updatedBody =
+			method === "POST"
+				? {
+						...body,
+						createdAt: `${new Date().toISOString()}`,
+						createdById: `${userInfo.uid}`,
+						createdByName: `${userInfo.name}`,
+				  }
+				: body
 		return await axios({
 			method,
 			url: "/api/apirequest",

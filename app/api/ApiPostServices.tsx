@@ -28,9 +28,6 @@ function ApiPostServices() {
 	async function updateTeacherInfo(body: { permit: boolean }, id: string) {
 		const updatedBody = {
 			...body,
-			createdAt: `${new Date().toISOString()}`,
-			createdById: `${userInfo.uid}`,
-			createdByName: `${userInfo.name}`,
 		}
 		return await axios.patch("/api/updateteacher", updatedBody, {
 			params: {
