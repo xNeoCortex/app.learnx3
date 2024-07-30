@@ -31,7 +31,7 @@ export default function AvatarAIPage() {
 						</Box>
 						<CanvasContainer />
 					</Grid>
-					<Grid item xs={12} sm={5}>
+					<Grid item xs={12} sm={5} sx={{ height: "-webkit-fill-available" }}>
 						<ChatBox />
 					</Grid>
 				</Grid>

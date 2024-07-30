@@ -102,7 +102,7 @@ export default function Chat() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					height: 120,
+					height: 140,
 					justifyContent: "space-between",
 					flexDirection: "column",
 					gap: 1,
