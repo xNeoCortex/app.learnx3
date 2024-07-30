@@ -70,7 +70,11 @@ export default function StudentTableRow({
 				<p>{joinedDate}</p>
 			</TableCell>
 			<TableCell component="th" scope="student">
-				<Box display="flex" alignItems={"center"}>
+				<Box
+					//@ts-ignore
+					display="flex"
+					alignItems={"center"}
+				>
 					<CustomAvatar
 						image={student?.image}
 						gender={student?.gender}
