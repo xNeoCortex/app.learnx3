@@ -32,7 +32,9 @@ export default function StudentTableRow({
 	)
 
 	// convert seconds to date and show only day, month and year
-	const joinedDate = new Date(String(student?.createdAt)).toLocaleDateString("en-US", {
+	const studentJoinedDate = student?.createdAt?.seconds ? student.createdAt.seconds * 1000 : student?.createdAt
+
+	const joinedDate = new Date(studentJoinedDate as string).toLocaleDateString("en-US", {
 		day: "numeric",
 		month: "short",
 		year: "numeric",
