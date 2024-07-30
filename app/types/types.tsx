@@ -91,7 +91,10 @@ export interface UserType {
 	image?: null | string | File
 	imageRef?: string | StorageReference
 	qualification?: string
-	createdAt?: string
+	createdAt?: string & {
+		seconds: number
+		nanoseconds: number
+	}
 }
 
 export type TeacherType = Pick<
