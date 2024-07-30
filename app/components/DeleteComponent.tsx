@@ -30,7 +30,10 @@ const DeleteComponent: React.FC<{
 	if (isError) return <ErrorPage />
 
 	return (
-		<Box sx={{ display: "flex" }}>
+		<Box
+			//@ts-ignore
+			display="flex"
+		>
 			{!openConfirmDelete ? (
 				<IconButton>
 					<DeleteIcon
@@ -44,7 +47,7 @@ const DeleteComponent: React.FC<{
 				<>
 					<IconButton>
 						<CheckIcon
-							onClick={() => (toDelete(itemId), setOpen(true))}
+							onClick={() => (toDelete(itemId), setOpen(true), setOpenConfirmDelete(false))}
 							style={{
 								color: "black",
 							}}
