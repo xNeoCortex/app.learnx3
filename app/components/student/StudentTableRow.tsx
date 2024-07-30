@@ -1,7 +1,7 @@
 import ApiServices from "@/api/ApiServices"
 import ErrorPage from "@/error"
 import { UserType } from "@/types/types"
-import { Button, Switch, TableCell, TableRow } from "@mui/material"
+import { Box, Button, Switch, TableCell, TableRow } from "@mui/material"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import CustomAvatar from "../elements/CustomAvatar"
@@ -69,21 +69,18 @@ export default function StudentTableRow({
 			<TableCell>
 				<p>{joinedDate}</p>
 			</TableCell>
-			<TableCell
-				component="th"
-				scope="student"
-				style={{
-					display: "flex",
-					alignItems: "center",
-				}}
-			>
-				<CustomAvatar
-					image={student?.image}
-					gender={student?.gender}
-					style={{ width: "35px", height: "35px", marginRight: 1.5 }}
-				/>
-
-				<p>{student.name}</p>
+			<TableCell component="th" scope="student">
+				<Box display="flex" alignItems={"center"}>
+					<CustomAvatar
+						image={student?.image}
+						gender={student?.gender}
+						style={{ width: "35px", height: "35px", marginRight: 1.5 }}
+					/>
+					<p>{student?.name}</p>
+				</Box>
+			</TableCell>
+			<TableCell>
+				<p>{student?.email}</p>
 			</TableCell>
 			<TableCell>
 				<SubscriptionType

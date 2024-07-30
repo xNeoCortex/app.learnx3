@@ -53,6 +53,7 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 						>
 							<TableCell sx={TableCellStyle}>Date Joined </TableCell>
 							<TableCell sx={TableCellStyle}>Students ({data?.length})</TableCell>
+							<TableCell sx={TableCellStyle}>Email</TableCell>
 							<TableCell sx={TableCellStyle}>Subscription Type</TableCell>
 							<TableCell sx={TableCellStyle}>Permission</TableCell>
 							<TableCell sx={TableCellStyle}>Paid</TableCell>
