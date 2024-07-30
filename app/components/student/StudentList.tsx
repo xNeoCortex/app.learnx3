@@ -18,15 +18,14 @@ const StudentList = React.memo(({ data }: { data: UserType[] }) => {
 	const { userInfo } = useStoreUser()
 
 	const studentList = React.useMemo(() => {
-		return data?.length > 0
-			? data.sort((a, b) => {
-					if (a?.createdAt) {
-						return String(b?.createdAt).localeCompare(String(a?.createdAt))
-					} else {
-						return 0
-					}
-			  })
-			: []
+		if (!data || data.length === 0) return []
+
+		return data.sort((a, b) => {
+			const dateA = a?.createdAt?.seconds ? a.createdAt.seconds * 1000 : new Date(String(a?.createdAt)).getTime()
+			const dateB = b?.createdAt?.seconds ? b.createdAt.seconds * 1000 : new Date(String(b?.createdAt)).getTime()
+
+			return dateB - dateA
+		})
 	}, [data])
 
 	return (
