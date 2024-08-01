@@ -31,6 +31,8 @@ function Lesson({ params }: { params: { id: string } }) {
 	const { apiRequest } = ApiServices()
 	const { userInfo } = useStoreUser()
 
+	console.log("userInfo :>> ", userInfo)
+
 	const id = params.id
 	// Fetch lessons
 	const {
@@ -93,6 +95,8 @@ function Lesson({ params }: { params: { id: string } }) {
 	)
 
 	if (cIsError || isError) return <ErrorPage />
+
+	console.log("lessonTimetableList?.data.lesson_type :>> ", lessonTimetableList?.data)
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
@@ -219,7 +223,15 @@ function Lesson({ params }: { params: { id: string } }) {
 										</Box>
 									</Box>
 									<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-										<a target="_blank" rel="noreferrer" href={"https://meet.google.com/fee-kuoc-brp?authuser=2"}>
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={
+												lessonTimetableList?.data?.lesson_type === "general_english"
+													? lessonTimetableList?.data.video_call_link
+													: "https://meet.google.com/fee-kuoc-brp?authuser=2"
+											}
+										>
 											<Button
 												sx={{
 													marginRight: "5px",
@@ -240,6 +252,46 @@ function Lesson({ params }: { params: { id: string } }) {
 												<Typography sx={{ fontSize: 12, fontWeight: 600 }}>Video Call</Typography>
 											</Button>
 										</a>
+
+										{userInfo?.role == "admin" ||
+											(userInfo?.role == "teacher" && (
+												<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
+											))}
+									</Box>
+								</Box>
+							</Box>
+						</Grid>
+						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
+							<Typography fontSize="18px" fontWeight={500}>
+								{" "}
+								Lesson description
+							</Typography>
+							<Box
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									border: "1px solid rgb(50, 50, 93)",
+									background: "white",
+									mb: 1,
+									p: "10px 20px",
+									borderRadius: 2,
+									color: "rgb(50, 50, 93)",
+									mt: 1,
+								}}
+							>
+								<Typography sx={{ fontSize: "15px", fontWeight: "inherit" }}>
+									{lessonDescription[lessonTimetableList?.data?.lesson_type as keyof typeof lessonDescription]}
+								</Typography>
+							</Box>
+						</Grid>
+						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
+							<Box display={"flex"} gap={"10px"}>
+								<Typography fontSize="18px" fontWeight={500}>
+									{" "}
+									Students joining the class
+								</Typography>
+								{userInfo?.role == "student" && (
+									<>
 										{lessonTimetableList?.data?.students?.length < 100 ? (
 											<Button
 												onClick={handleJoinCLass}
@@ -278,43 +330,9 @@ function Lesson({ params }: { params: { id: string } }) {
 										) : (
 											<ChipX text="Class is full" color="#ef476f" />
 										)}
-
-										{userInfo?.role == "admin" ||
-											(userInfo?.role == "teacher" && (
-												<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
-											))}
-									</Box>
-								</Box>
+									</>
+								)}
 							</Box>
-						</Grid>
-						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
-							<Typography fontSize="18px" fontWeight={500}>
-								{" "}
-								Lesson description
-							</Typography>
-							<Box
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									border: "1px solid rgb(50, 50, 93)",
-									background: "white",
-									mb: 1,
-									p: "10px 20px",
-									borderRadius: 2,
-									color: "rgb(50, 50, 93)",
-									mt: 1,
-								}}
-							>
-								<Typography sx={{ fontSize: "15px", fontWeight: "inherit" }}>
-									{lessonDescription[lessonTimetableList?.data?.lesson_type as keyof typeof lessonDescription]}
-								</Typography>
-							</Box>
-						</Grid>
-						<Grid item xs={12} sx={{ color: "rgb(50, 50, 93)", mt: 2 }}>
-							<Typography fontSize="18px" fontWeight={500}>
-								{" "}
-								Students joining the class
-							</Typography>
 							<Box
 								sx={{
 									display: "flex",
