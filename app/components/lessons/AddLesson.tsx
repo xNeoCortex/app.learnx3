@@ -1,7 +1,6 @@
 //@ts-nocheck
 "use client"
 import * as React from "react"
-import { useRouter, useSearchParams } from "next/navigation"
 import { useStoreUser } from "../zustand"
 import ApiServices from "@/api/ApiServices"
 import ErrorPage from "@/errorpage"
@@ -9,12 +8,12 @@ import { useQueryClient, useMutation } from "@tanstack/react-query"
 import { Button, Box } from "@mui/material"
 import { LessonTimetableType } from "@/types/types"
 import AddLessonDialog from "./AddLessonDialog"
+import { useRouter } from "next/navigation"
 
-const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType; params?: { id: string } }>(
-	({ buttonName, _lesson = null, params }) => {
-		const id = params?.id || null
-
+const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableType; id?: string }>(
+	({ buttonName, _lesson = null, id }) => {
 		const queryClient = useQueryClient()
+		const router = useRouter()
 		const { userInfo } = useStoreUser()
 		const { apiRequest } = ApiServices()
 		const [open, setOpen] = React.useState(false)
@@ -58,6 +57,21 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 			}
 		)
 
+		// handle delete lesson
+		const handleDeleteLesson = React.useCallback(
+			(e) => {
+				e.preventDefault()
+				try {
+					deleteLesson()
+					router.push("/lessons")
+				} catch (error) {
+					console.error(error)
+					setMessage("Something went wrong")
+				}
+			},
+			[deleteLesson]
+		)
+
 		// Edit class
 		const {
 			mutate: mutatePut,
@@ -66,7 +80,7 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 		} = useMutation({
 			mutationFn: (mutatedLesson: LessonTimetableType) =>
 				apiRequest("PATCH", mutatedLesson, { collectionName: "lessonTimetable", uid: _lesson?.uid || (id as string) }),
-			onSuccess: () => queryClient.invalidateQueries(["lessonTimetable"]),
+			onSuccess: () => queryClient.invalidateQueries(),
 		})
 
 		const handleClickOpen = () => {
@@ -126,20 +140,19 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 				>
 					{buttonName ? buttonName : "Create lesson"}
 				</Button>
-				{
-					<AddLessonDialog
-						handleClose={handleClose}
-						open={open}
-						buttonName={buttonName}
-						lessonInfo={lessonInfo}
-						setLessonInfo={setLessonInfo}
-						message={message}
-						_lesson={_lesson}
-						userInfo={userInfo}
-						deleteLesson={deleteLesson}
-						handleSave={handleSave}
-					/>
-				}
+
+				<AddLessonDialog
+					handleClose={handleClose}
+					open={open}
+					buttonName={buttonName}
+					lessonInfo={lessonInfo}
+					setLessonInfo={setLessonInfo}
+					message={message}
+					_lesson={_lesson}
+					userInfo={userInfo}
+					deleteLesson={handleDeleteLesson}
+					handleSave={handleSave}
+				/>
 			</Box>
 		)
 	}

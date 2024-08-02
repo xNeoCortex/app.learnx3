@@ -16,7 +16,7 @@ import { styled } from "@mui/material/styles"
 import CloseIcon from "@mui/icons-material/Close"
 import { englishLevels } from "../utils/englishLevels"
 import DatePickerX from "../elements/DatePickerX"
-import { CreateLessonDialogProps, LessonTimetableType, UserType } from "@/types/types"
+import { CreateLessonDialogProps, LessonTimetableType } from "@/types/types"
 
 const AddLessonDialog = React.memo(
 	({
@@ -41,6 +41,7 @@ const AddLessonDialog = React.memo(
 			>
 				<DialogContent dividers>
 					<Box
+						//@ts-ignore
 						sx={{
 							display: "flex",
 							flexDirection: "column",
@@ -198,20 +199,19 @@ const AddLessonDialog = React.memo(
 								</Box>
 							)}
 						</Box>
-						{userInfo?.role == "admin" ||
-							(userInfo?.role == "teacher" && (
-								<Button
-									variant="contained"
-									color="error"
-									onClick={() => (deleteLesson(), handleClose())}
-									sx={{
-										m: "10px ",
-										background: "rgb(255 92 92)",
-									}}
-								>
-									Delete lesson
-								</Button>
-							))}
+						{(userInfo?.role == "admin" || userInfo?.role == "teacher") && (
+							<Button
+								variant="contained"
+								color="error"
+								onClick={(e) => (deleteLesson(e), handleClose())}
+								sx={{
+									m: "10px ",
+									background: "rgb(255 92 92)",
+								}}
+							>
+								Delete lesson
+							</Button>
+						)}
 						<Button
 							disabled={isButtonDisabled(lessonInfo)}
 							variant="contained"

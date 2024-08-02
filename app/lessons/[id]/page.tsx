@@ -1,5 +1,5 @@
 "use client"
-import { Avatar, Box, Button, capitalize, Chip, Grid, Typography } from "@mui/material"
+import { Box, Button, capitalize, Grid, Typography } from "@mui/material"
 import ApiServices from "@/api/ApiServices"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import ErrorPage from "@/errorpage"
@@ -30,10 +30,8 @@ function Lesson({ params }: { params: { id: string } }) {
 	const queryClient = useQueryClient()
 	const { apiRequest } = ApiServices()
 	const { userInfo } = useStoreUser()
-
-	console.log("userInfo :>> ", userInfo)
-
 	const id = params.id
+
 	// Fetch lessons
 	const {
 		data: lessonTimetableList,
@@ -95,8 +93,6 @@ function Lesson({ params }: { params: { id: string } }) {
 	)
 
 	if (cIsError || isError) return <ErrorPage />
-
-	console.log("lessonTimetableList?.data.lesson_type :>> ", lessonTimetableList?.data)
 
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
@@ -253,10 +249,9 @@ function Lesson({ params }: { params: { id: string } }) {
 											</Button>
 										</a>
 
-										{userInfo?.role == "admin" ||
-											(userInfo?.role == "teacher" && (
-												<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" />
-											))}
+										{(userInfo?.role == "admin" || userInfo?.role == "teacher") && (
+											<AddLesson _lesson={lessonTimetableList?.data} buttonName="Edit lesson" id={id} />
+										)}
 									</Box>
 								</Box>
 							</Box>

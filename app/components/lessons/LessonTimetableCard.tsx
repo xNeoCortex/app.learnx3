@@ -3,7 +3,6 @@ import dayjs from "dayjs"
 import ChipX from "../elements/ChipX"
 import { capitalizeFirstLetter } from "../helpers/capitalizeFirstLetter"
 import localTime from "../helpers/localTime"
-import AddLesson from "./AddLesson"
 import EventIcon from "@mui/icons-material/Event"
 import AccessTimeIcon from "@mui/icons-material/AccessTime"
 import { useStoreUser } from "../zustand"
@@ -146,10 +145,6 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 								{lesson?.lesson_type === "speaking_club" ? "20:00" : "19:00"} (50 min)
 							</Typography>
 						</Box>
-					</Box>
-					<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-						{userInfo.role == "admin" ||
-							(userInfo.role == "teacher" && <AddLesson _lesson={lesson} buttonName="Edit lesson" />)}
 					</Box>
 				</Box>
 			</Box>

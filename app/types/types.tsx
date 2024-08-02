@@ -111,6 +111,6 @@ export interface CreateLessonDialogProps {
 	message: string
 	_lesson: LessonTimetableType | null
 	userInfo: UserType
-	deleteLesson: UseMutateFunction<AxiosResponse<any, any>, unknown, void, unknown>
+	deleteLesson: (e: any) => void
 	handleSave: () => void
 }
