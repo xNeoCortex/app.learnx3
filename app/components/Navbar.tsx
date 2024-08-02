@@ -28,7 +28,10 @@ const Navbar = () => {
 	}, [testResults])
 
 	return (
-		<Box sx={BoxWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={BoxWrapperStyle}
+		>
 			<Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
 				<Box display="flex" alignItems="center">
 					<Typography
