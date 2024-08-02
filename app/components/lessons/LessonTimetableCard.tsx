@@ -113,12 +113,13 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 					}}
 				>
 					<Typography
+						noWrap
 						sx={{
 							fontWeight: 600,
 							fontSize: 16,
-							padding: 0,
+							padding: "0px 4px",
 							mb: 2,
-							ml: "4px",
+							maxWidth: 180,
 						}}
 					>
 						{capitalizeFirstLetter(lesson.topic)}

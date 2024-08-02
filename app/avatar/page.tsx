@@ -3,38 +3,63 @@ import React from "react"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Canvas } from "@react-three/fiber"
-import { Box, Grid } from "@mui/material"
+import { Alert, Box, Grid, useMediaQuery, useTheme } from "@mui/material"
 import { Experience } from "@/components/Chat/Experience"
 import Chat from "@/components/Chat/ChatPage"
 import LoadingPage from "@/components/LoadingPage"
 
 export default function AvatarAIPage() {
+	const theme = useTheme()
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"))
+
 	return (
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
-				<Grid
-					spacing={1}
-					container
-					sx={{
-						background: "rgb(224, 225, 241)",
-						height: "calc(100% - 80px)",
-						width: "100%",
-						overflow: "hidden",
-						borderRadius: 3,
-						padding: 1,
-						margin: "-10px auto",
-					}}
-				>
-					<Grid item xs={12} sm={7} sx={{ position: "relative" }}>
-						<Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
-							<LoadingPage />
+				{isSmallScreen ? (
+					<Grid item xs={12} sx={{ height: "100%" }}>
+						<Box display={"flex"} justifyContent={"space-around"} alignItems={"center"}>
+							<Alert
+								severity="warning"
+								sx={{
+									p: 1,
+									mt: 2,
+									paddingY: "0px",
+									fontSize: "15px",
+									fontWeight: "500",
+									width: "fit-content",
+									alignItems: "center",
+									maxWidth: "370px",
+								}}
+							>
+								Please use a larger screen such as computer to view this page
+							</Alert>
 						</Box>
-						<CanvasContainer />
 					</Grid>
-					<Grid item xs={12} sm={5} sx={{ height: "-webkit-fill-available" }}>
-						<ChatBox />
+				) : (
+					<Grid
+						spacing={1}
+						container
+						sx={{
+							background: "rgb(224, 225, 241)",
+							height: "calc(100% - 80px)",
+							width: "100%",
+							overflow: "hidden",
+							borderRadius: 3,
+							padding: 1,
+							margin: "-10px auto",
+						}}
+					>
+						<Grid item xs={12} sm={7} sx={{ position: "relative" }}>
+							<Box sx={{ position: "absolute", height: "100%", width: "100%" }}>
+								<LoadingPage />
+							</Box>
+							<CanvasContainer />
+						</Grid>
+						<Grid item xs={12} sm={5} sx={{ height: "-webkit-fill-available" }}>
+							<ChatBox />
+						</Grid>
 					</Grid>
-				</Grid>
+				)}
 			</SidebarContainer>
 		</ProtectedRoute>
 	)
