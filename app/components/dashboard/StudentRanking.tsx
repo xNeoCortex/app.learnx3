@@ -86,7 +86,7 @@ function StudentRanking() {
 								sx={{
 									color: brandColors.black,
 									fontWeight: "600",
-									fontSize: "16px",
+									fontSize: ["14px", "16px"],
 									borderBottom: "0.2px solid white",
 								}}
 							>
@@ -96,7 +96,7 @@ function StudentRanking() {
 								sx={{
 									color: brandColors.black,
 									fontWeight: "600",
-									fontSize: "16px",
+									fontSize: ["14px", "16px"],
 									borderBottom: "0.2px solid white",
 								}}
 							>
