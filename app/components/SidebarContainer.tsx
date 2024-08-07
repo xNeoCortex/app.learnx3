@@ -32,7 +32,7 @@ function SidebarContainer({ children }: { children: React.ReactNode }) {
 				<Box
 					sx={{
 						display: "flex",
-						height: "100vh",
+						height: "100dvh",
 						boxSizing: "border-box",
 					}}
 				>
