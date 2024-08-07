@@ -13,11 +13,16 @@ const FinaAvatar = ({ handleFinaClick }: { handleFinaClick: () => void }) => {
 	return (
 		<>
 			{botComponentWidth !== 900 && !pathname.includes("avatar") && (
-				<StyledBadge overlap="circular" anchorOrigin={{ vertical: "bottom", horizontal: "right" }} variant="dot">
+				<StyledBadge
+					overlap="circular"
+					anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+					variant="dot"
+					sx={{ bottom: ["80px", "20px", "20px"] }}
+				>
 					<Avatar
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}
 						alt="Fina"
-						src="/ai-avatar-headshot.png"
+						src="/teacher-johny.png"
 						onClick={handleFinaClick}
 					/>
 				</StyledBadge>
@@ -57,7 +62,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 	width: "60px",
 	height: "60px",
 	position: "absolute",
-	bottom: "20px",
 	right: "25px",
 	border: "3px solid #5f61c4",
 	borderRadius: "50%",

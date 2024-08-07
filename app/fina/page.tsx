@@ -28,7 +28,7 @@ export default function Fina(props: any) {
 	const [messages, setMessages] = useState<Message[]>([
 		{
 			role: "assistant",
-			content: ` Hi ${auth.currentUser?.displayName}! I am teacher Fina. How can I help you? 🙂`,
+			content: ` Hi ${auth.currentUser?.displayName}! I am your AI tutor. How can I help you? 🙂`,
 			order: 1,
 		},
 	])
@@ -51,7 +51,7 @@ export default function Fina(props: any) {
 		setMessages([
 			{
 				role: "assistant",
-				content: ` Hi ${auth.currentUser?.displayName || ""}! I am teacher Fina. How can I help you? 🙂`,
+				content: ` Hi ${auth.currentUser?.displayName || ""}! I am your AI tutor. How can I help you? 🙂`,
 				order: 1,
 			},
 		])
@@ -165,9 +165,10 @@ export default function Fina(props: any) {
 											<Avatar
 												sx={{ width: 35, height: 35, mr: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
-												src="/ai-avatar-headshot.png"
+												src="/teacher-johny.png"
 											/>
 											<p
+												style={{ fontSize: 14, color: "#323331" }}
 												dangerouslySetInnerHTML={{
 													__html: item.content.replace(/\n/g, "<br />"),
 												}}
@@ -177,7 +178,7 @@ export default function Fina(props: any) {
 									) : (
 										<Box sx={{ display: "flex", alignItems: "center" }}>
 											<TextToSpeechButton text={item.content} buttonSize="25px" personType="male" />
-											<Typography sx={{ fontSize: 15 }}> {item.content} </Typography>
+											<Typography sx={{ fontSize: 14, color: "#323331" }}> {item.content} </Typography>
 											<Avatar
 												sx={{ width: 30, height: 30, ml: 2, border: "2px solid #5f61c4" }}
 												alt="professor"
