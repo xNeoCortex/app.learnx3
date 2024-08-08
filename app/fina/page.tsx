@@ -221,7 +221,7 @@ const BotFinaAI = ({
 				flexDirection: "row",
 				paddingTop: "12px",
 				marginTop: 1,
-				marginBottom: { xs: "30px", sm: "10px" },
+				marginBottom: { xs: "130px", sm: "10px" },
 				paddingLeft: { xs: "15px", sm: 0 },
 				width: "100%",
 			}}
