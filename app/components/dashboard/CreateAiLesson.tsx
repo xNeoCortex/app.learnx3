@@ -125,7 +125,10 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 	}
 
 	return (
-		<Box sx={ComponentWrapperStyle}>
+		<Box
+			//@ts-ignore
+			sx={ComponentWrapperStyle}
+		>
 			<Box p={"10px"} width={"100%"}>
 				<Typography
 					fontWeight="bolder"
@@ -137,6 +140,7 @@ const CreateAiLesson = ({ topics }: { topics: TopicType[] }) => {
 					<Search>
 						<SearchIconWrapper>🤖</SearchIconWrapper>
 						<StyledInputBase
+							sx={{ width: "-webkit-fill-available" }}
 							placeholder="Write your topic…"
 							inputProps={{ "aria-label": "search" }}
 							value={topic}
@@ -233,7 +237,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		transition: theme.transitions.create("width"),
 		width: "100%",
 		[theme.breakpoints.up("md")]: {
-			width: "20ch",
+			width: "-webkit-fill-available",
 		},
 	},
 }))

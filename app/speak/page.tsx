@@ -49,13 +49,16 @@ function index() {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				{isLoading ? (
-					<Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+					<Box
+						//@ts-ignore
+						sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+					>
 						<LoadingPage />
 					</Box>
 				) : (
 					<Box sx={{ marginTop: "20px", width: "100%" }}>
 						<CreateAiLesson topics={topics?.data} />
-						<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll" }}>
+						<Box sx={{ width: "100%", display: "flex", mb: 2, overflow: "scroll", maxWidth: "1295px" }}>
 							{["All", ...topicCategories]?.map((categoryX) => (
 								<Typography
 									onClick={() => setCategory(categoryX)}
