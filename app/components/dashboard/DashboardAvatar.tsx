@@ -42,7 +42,6 @@ function DashboardAvatar() {
 							marginTop: isSmallScreen ? 0 : -32,
 							marginLeft: isSmallScreen ? 0 : 5,
 							zIndex: 999,
-							width: "max-content",
 						}}
 					/>
 				</Box>
