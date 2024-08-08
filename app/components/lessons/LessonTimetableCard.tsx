@@ -46,11 +46,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 					}}
 				>
 					<Box sx={{ display: "flex", alignItems: "center", flex: 1, mt: 1 }}>
-						<CustomAvatar
-							image={teacherData?.data?.image || "/teacher-johny.png"}
-							gender={userInfo?.gender}
-							style={AvatarStyle}
-						/>
+						<CustomAvatar image={teacherData?.data?.image} gender={userInfo?.gender} style={AvatarStyle} />
 						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
 							<Typography noWrap sx={{ maxWidth: 90, fontSize: "8px", color: brandColors.grey, marginBottom: "-4px" }}>
 								Teacher
