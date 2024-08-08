@@ -129,7 +129,7 @@ export default StudentProfile
 
 const BoxWrapperStyle = {
 	padding: "20px ",
-	borderRadius: "23px",
+	borderRadius: { xs: "12px", sm: "22px" },
 	color: "white",
 	height: "100%",
 	display: "flex",
