@@ -41,20 +41,26 @@ export default function StudentTableRow({
 	})
 
 	const handlePermitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		//@ts-ignore
-		mutate({ permit: event.target.checked })
-		setChecked(event.target.checked)
+		if (userInfo.role == "admin") {
+			//@ts-ignore
+			mutate({ permit: event.target.checked })
+			setChecked(event.target.checked)
+		}
 	}
 
 	const handlePaidChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		//@ts-ignore
-		mutate({ paid: event.target.checked })
-		setCheckedPaid(event.target.checked)
+		if (userInfo.role == "admin") {
+			//@ts-ignore
+			mutate({ paid: event.target.checked })
+			setCheckedPaid(event.target.checked)
+		}
 	}
 
 	const handleSubscriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		//@ts-ignore
-		mutate({ subscription_type: event.target.value })
+		if (userInfo.role == "admin") {
+			//@ts-ignore
+			mutate({ subscription_type: event.target.value })
+		}
 	}
 
 	React.useEffect(() => {
