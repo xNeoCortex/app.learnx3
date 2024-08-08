@@ -33,7 +33,6 @@ function sidebar() {
 				display: { xs: "none", sm: "flex" },
 				flexDirection: "column",
 				position: "relative",
-				overflow: "overlay",
 				overflowX: "hidden",
 			}}
 		>
