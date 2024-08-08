@@ -6,16 +6,23 @@ export const TestTableRow = memo(({ row, index }: { row: TestResultType; index: 
 	return (
 		<TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 			<TableCell component="th" scope="row" sx={TableCellStyle}>
-				<Typography sx={{ margin: "auto" }}>Test {index + 1}</Typography>
+				<Typography sx={{ margin: "auto", fontSize: ["13px", "15px"] }}>Test {index + 1}</Typography>
 			</TableCell>
-			<TableCell sx={{ padding: "10px", height: "63px", textAlign: "center" }}>{capitalize(row.topic)}</TableCell>
+			<TableCell sx={{ padding: "10px", height: "63px", textAlign: "center", fontSize: ["13px", "15px"] }}>
+				{capitalize(row.topic)}
+			</TableCell>
 			<TableCell
 				sx={{
 					padding: "10px",
 					height: "63px",
 				}}
 			>
-				<Typography sx={TextStyle(row.result)}>{row?.result !== null ? Math.round(row?.result) : "N/A"}</Typography>
+				<Typography
+					//@ts-ignore
+					sx={TextStyle(row.result)}
+				>
+					{row?.result !== null ? Math.round(row?.result) : "N/A"}
+				</Typography>
 			</TableCell>
 		</TableRow>
 	)
@@ -32,12 +39,12 @@ const TableCellStyle = {
 const TextStyle = (result: number) => {
 	return {
 		fontWeight: 600,
-		padding: "3px 10px",
+		padding: ["0px", "3px 10px"],
 		background: "white",
 		color: result <= 50 ? "rgb(226, 109, 128)" : result <= 70 ? "#5fc497" : "#41b6ff",
 		border: result <= 50 ? "2px solid rgb(226, 109, 128)" : result <= 70 ? "2px solid #5fc497" : "2px solid #41b6ff",
 		borderRadius: 12,
-		fontSize: "13px",
+		fontSize: ["13px", "15px"],
 		width: "100%",
 		maxWidth: "70px",
 		textAlign: "center",

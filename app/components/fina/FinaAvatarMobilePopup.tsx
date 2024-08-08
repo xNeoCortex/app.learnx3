@@ -21,7 +21,7 @@ export const FinaAvatarMobilePopup: React.FC<{
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }> = React.memo(({ open, setOpen }) => {
 	return (
-		<BootstrapDialog fullWidth fullScreen maxWidth="md" open={open}>
+		<BootstrapDialog fullWidth fullScreen maxWidth="md" open={open} sx={{ zIndex: 999 }}>
 			<DialogContent dividers sx={{ background: "#271f4d" }}>
 				<Fina setOpen={setOpen} />
 			</DialogContent>

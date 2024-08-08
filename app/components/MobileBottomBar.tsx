@@ -20,20 +20,16 @@ function MobileBottomBar() {
 
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
-				position: "fixed",
-				bottom: 0,
-				right: 0,
-				left: 0,
 				background: "white",
 				padding: "0 10px",
 				width: "100vw",
 				display: { xs: "flex", sm: "none" },
 				justifyContent: "space-between",
 				alignItems: "center",
-				height: "65px",
 				backgroundColor: "white",
-				zIndex: 9000,
+				height: "65px",
 			}}
 		>
 			{userInfo?.role === "teacher" ? (

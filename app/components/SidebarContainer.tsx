@@ -37,13 +37,15 @@ function SidebarContainer({ children }: { children: React.ReactNode }) {
 					}}
 				>
 					<Sidebar />
-					<Box sx={BoxStyle}>
-						<Navbar />
-						{children}
+					<Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} width={"100%"}>
+						<Box sx={BoxStyle}>
+							<Navbar />
+							{children}
+						</Box>
+						<MobileBottomBar />
 					</Box>
 					{!isSmallScreen && <Fina setOpen={setFinaPopupOpen} />}
 				</Box>
-				<MobileBottomBar />
 			</Box>
 		</ThemeProvider>
 	)
@@ -52,9 +54,9 @@ function SidebarContainer({ children }: { children: React.ReactNode }) {
 export default SidebarContainer
 
 const BoxStyle = {
-	padding: { xs: "10px 10px 0px", sm: "10px 20px 10px 5px" },
+	padding: { xs: "10px", sm: "10px 20px 10px 5px" },
 	maxWidth: "1400px",
-	minHeight: "calc(100vh - 0px)",
+	height: "100vh",
 	width: "100%",
 	marginX: " auto",
 	overflowY: "scroll",

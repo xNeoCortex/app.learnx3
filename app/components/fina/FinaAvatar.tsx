@@ -17,7 +17,7 @@ const FinaAvatar = ({ handleFinaClick }: { handleFinaClick: () => void }) => {
 					overlap="circular"
 					anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
 					variant="dot"
-					sx={{ bottom: ["80px", "20px", "20px"] }}
+					sx={{ bottom: ["80px", "20px", "20px"], zIndex: 998 }}
 				>
 					<Avatar
 						sx={{ objectFit: "contain", width: "55px", height: "55px" }}

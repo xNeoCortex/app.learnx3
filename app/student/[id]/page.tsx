@@ -26,7 +26,10 @@ function StudentProfile({ params }: { params: { id: string } }) {
 		<ProtectedRoute permitArray={["admin", "teacher", "student"]}>
 			<SidebarContainer>
 				{isLoading ? (
-					<Box sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+					<Box
+						//@ts-ignore
+						sx={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+					>
 						<LoadingPage />
 					</Box>
 				) : (
@@ -61,10 +64,10 @@ function StudentProfile({ params }: { params: { id: string } }) {
 										}}
 									>
 										<Typography
-											style={{
+											sx={{
 												color: "#323331",
 												fontWeight: "600",
-												fontSize: "18px",
+												fontSize: ["16px", "18px"],
 												padding: 0,
 												marginBottom: "15px",
 											}}
@@ -89,7 +92,7 @@ function StudentProfile({ params }: { params: { id: string } }) {
 												</Typography>
 											))}
 											<Typography
-												style={{
+												sx={{
 													...TypographyStyle,
 													color:
 														data?.data.performance == "Struggling"
@@ -141,8 +144,8 @@ const BoxWrapperStyle = {
 }
 
 const TypographyStyle = {
-	fontWeight: "500",
-	padding: "3px 10px",
+	fontWeight: ["500", "600"],
+	padding: ["0px 10px", "3px 10px"],
 	background: "white",
 	color: "rgb(50, 50, 93)",
 	border: "1px solid rgb(50, 50, 93)",

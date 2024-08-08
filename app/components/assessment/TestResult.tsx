@@ -71,7 +71,7 @@ const TestResult = memo(({ id }: { id: string }) => {
 										sx={{
 											color: "white",
 											fontWeight: "600",
-											fontSize: "15px",
+											fontSize: ["14px", "15px"],
 											margin: "auto",
 											textAlign: "center",
 										}}
