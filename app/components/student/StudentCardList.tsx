@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { Box, Button, Grid, Typography } from "@mui/material"
 import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
@@ -43,14 +43,12 @@ function StudentCardList() {
 
 	return (
 		<Box
+			//@ts-ignore
 			sx={{
-				overflowY: "scroll",
-				overflow: "hidden",
-				width: `100%`,
 				marginTop: "30px",
 			}}
 		>
-			<Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
+			<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 				<Typography
 					sx={{
 						margin: "10px 10px 10px 0px",
@@ -89,6 +87,7 @@ function StudentCardList() {
 						flexWrap: "nowrap",
 						overflowX: "scroll",
 						marginBottom: "45px",
+						maxWidth: ["100%", "400px", "1000px", "1300px", "1400px"],
 					}}
 				>
 					{students?.data?.map((item: UserType, index: number) => (
