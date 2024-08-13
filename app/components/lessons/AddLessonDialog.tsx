@@ -202,7 +202,7 @@ const AddLessonDialog = React.memo(
 							<Button
 								variant="contained"
 								color="error"
-								onClick={(e) => (deleteLesson(e), handleClose())}
+								onClick={(e) => deleteLesson(e)}
 								sx={{
 									m: "10px ",
 									background: "rgb(255 92 92)",
