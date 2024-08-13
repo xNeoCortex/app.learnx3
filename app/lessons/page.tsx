@@ -121,11 +121,6 @@ function index() {
 						) : (
 							lessonsList
 								?.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
-								?.filter(({ lessons }) =>
-									lessons.find((lesson) => {
-										return myLessons === "my" ? lesson?.teacher_id === userInfo?.uid : lesson
-									})
-								)
 								?.map(
 									(
 										{
@@ -160,6 +155,7 @@ function index() {
 												.sort((a: LessonTimetableType, b: LessonTimetableType) =>
 													a.lesson_date! > b.lesson_date! ? 1 : -1
 												)
+												?.filter(({ teacher_id }) => (myLessons === "my" ? teacher_id === userInfo?.uid : true))
 												.map((lesson: LessonTimetableType, index: number) => (
 													<Grid key={index} item xs={12} sm={3} md={2}>
 														{cIsLoading ? <LoadingPage /> : <LessonTimetableCard key={index} lesson={lesson} />}
