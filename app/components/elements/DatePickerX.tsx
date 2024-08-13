@@ -22,6 +22,7 @@ const DatePickerX = React.memo(
 				<DateTimePicker
 					sx={{ width: "100%" }}
 					label="Controlled picker"
+					ampm={false}
 					value={localTime(calendarValue) || null}
 					onChange={(newValue) => setCalendarValue((prev) => ({ ...prev, lesson_date: newValue }))}
 				/>
