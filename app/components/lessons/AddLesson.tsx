@@ -125,20 +125,21 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 		if (isError || isErrorPut) return <ErrorPage />
 
 		return (
-			<Box>
+			<Box width={"100%"}>
 				<Button
 					variant="outlined"
 					onClick={handleClickOpen}
 					sx={{
-						border: "1px solid rgb(95, 97, 196)",
-						color: "rgb(95, 97, 196)",
+						background: "linear-gradient(45deg, rgb(139, 88, 254), rgb(95, 222, 231))",
+						color: "white",
 						textTransform: "none",
-						fontSize: 13,
+						fontSize: 14,
 						fontWeight: 600,
 						padding: "2.2px 10px",
+						width: "100%",
 					}}
 				>
-					{buttonName ? buttonName : "Create lesson"}
+					{buttonName ? buttonName : "+ Create lesson"}
 				</Button>
 
 				<AddLessonDialog
