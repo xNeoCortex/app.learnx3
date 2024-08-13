@@ -7,6 +7,7 @@ export const brandColors: {
 	black: string
 	lightPurple: string
 	lighterPurple: string
+	tooLightPurple: string
 	darkBlue: string
 	darkerBlue: string
 	lighterBlue: string
@@ -20,6 +21,7 @@ export const brandColors: {
 	black: "#1d1d1f",
 	lightPurple: "rgb(95, 106, 196)",
 	lighterPurple: "#ceddfc",
+	tooLightPurple: "#eeeeff",
 	darkBlue: "#001663",
 	darkerBlue: "#060634",
 	lighterBlue: "#a2d2ff",
