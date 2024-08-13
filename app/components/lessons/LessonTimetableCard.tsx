@@ -34,7 +34,10 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 		<Link href={`/lessons/${lesson.uid}`} style={{ textDecoration: "none" }}>
 			<Box
 				//@ts-ignore
-				sx={BoxStyle}
+				sx={{
+					...BoxStyle,
+					background: lesson?.lesson_type === "speaking_club" ? brandColors.tooLightPurple : brandColors.lighterGrey,
+				}}
 			>
 				<Box
 					sx={{
@@ -45,7 +48,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						position: "relative",
 					}}
 				>
-					<Box sx={{ display: "flex", alignItems: "center", flex: 1, mt: 1 }}>
+					<Box sx={{ display: "flex", alignItems: "center", flex: 1, mt: 1.2 }}>
 						<CustomAvatar image={teacherData?.data?.image} gender={userInfo?.gender} style={AvatarStyle} />
 						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", flex: 1 }}>
 							<Typography noWrap sx={{ maxWidth: 90, fontSize: "8px", color: brandColors.grey, marginBottom: "-4px" }}>
@@ -60,13 +63,13 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						color={"black"}
 						text={capitalize(lesson?.lesson_type.split("_").join(" "))}
 						style={{
-							background: "white",
+							background: lesson?.lesson_type === "speaking_club" ? brandColors.lightPurple : "#0e9ade",
 							fontWeight: 600,
-							borderColor: brandColors.grey,
-							color: brandColors.grey,
+							borderColor: "white",
+							color: "white",
 							padding: "2px 4px",
 							borderRadius: "5px",
-							fontSize: "8px",
+							fontSize: "9px",
 							margin: "0px",
 							position: "absolute",
 							top: 2,
