@@ -13,9 +13,12 @@ import ErrorPage from "@/errorpage"
 import StudentCard from "@/components/student/StudentCard"
 import StudentList from "@/components/student/StudentList"
 import { UserType } from "@/types/types"
+import { useStoreTemporary, useStoreUser } from "../zustand"
 
 function StudentCardList() {
 	const { apiRequest } = ApiServices()
+	const { botComponentWidth } = useStoreTemporary()
+	const { userInfo } = useStoreUser()
 	const pathname = usePathname()
 	const [alignment, setAlignment] = React.useState("grid")
 
@@ -84,7 +87,7 @@ function StudentCardList() {
 				<Box
 					sx={{
 						display: "flex",
-						flexWrap: "nowrap",
+						flexWrap: userInfo?.role === "student" ? "nowrap" : botComponentWidth >= 900 ? "wrap" : "nowrap",
 						overflowX: "scroll",
 						marginBottom: "45px",
 						maxWidth: ["100%", "400px", "1000px", "1300px", "1400px"],
