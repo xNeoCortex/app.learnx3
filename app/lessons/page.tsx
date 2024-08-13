@@ -1,6 +1,8 @@
 "use client"
 import React from "react"
 import dayjs from "dayjs"
+import ToggleButton from "@mui/material/ToggleButton"
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import ProtectedRoute from "@/components/auth/ProtectedRoute"
 import SidebarContainer from "@/components/SidebarContainer"
 import { Alert, Box, Grid, Typography } from "@mui/material"
@@ -19,6 +21,9 @@ import { filterLessonsBySubscriptionType } from "@/components/helpers/filterLess
 function index() {
 	const { apiRequest } = ApiServices()
 	const { userInfo } = useStoreUser()
+	const [myLessons, setMyLessons] = React.useState<"my" | "all">("all")
+
+	const handleChange = (event: React.MouseEvent<HTMLElement>, filterLesson: "my" | "all") => setMyLessons(filterLesson)
 
 	// Fetch lessons
 	const {
@@ -64,7 +69,45 @@ function index() {
 							>
 								Lessons
 							</Typography>
-							{(userInfo?.role === "admin" || userInfo?.role === "teacher") && <AddLesson />}
+							{(userInfo?.role === "admin" || userInfo?.role === "teacher") && (
+								<Box display={["column", "column", "flex"]} alignItems="center" width={"100%"} gap={2}>
+									<ToggleButtonGroup
+										color="primary"
+										value={myLessons}
+										exclusive
+										onChange={handleChange}
+										aria-label="Platform"
+										size="small"
+										sx={{
+											mb: [1, 1, 0],
+										}}
+									>
+										<ToggleButton
+											value="my"
+											color="secondary"
+											sx={{
+												width: "max-content",
+												textTransform: "none",
+												padding: "3px 10px ",
+											}}
+										>
+											My lessons
+										</ToggleButton>
+										<ToggleButton
+											value="all"
+											color="secondary"
+											sx={{
+												width: "max-content",
+												textTransform: "none",
+												padding: "3px 10px ",
+											}}
+										>
+											All lessons
+										</ToggleButton>
+									</ToggleButtonGroup>
+									<AddLesson />
+								</Box>
+							)}
 						</Box>
 					</Grid>
 					<Grid container spacing={3}>
@@ -78,6 +121,11 @@ function index() {
 						) : (
 							lessonsList
 								?.sort((a, b) => (a?.date_to > b?.date_to ? 1 : -1))
+								?.filter(({ lessons }) =>
+									lessons.find((lesson) => {
+										return myLessons === "my" ? lesson?.teacher_id === userInfo?.uid : lesson
+									})
+								)
 								?.map(
 									(
 										{
