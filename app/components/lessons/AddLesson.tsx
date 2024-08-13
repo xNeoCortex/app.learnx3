@@ -58,24 +58,21 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 		)
 
 		// handle delete lesson
-		const handleDeleteLesson = React.useCallback(
-			(e) => {
-				e.preventDefault()
-				try {
-					if (userInfo?.role == "teacher" && _lesson?.teacher_id !== userInfo?.uid) {
-						setMessage("You are not allowed to delete this class")
-						return
-					}
+		const handleDeleteLesson = (e) => {
+			e.preventDefault()
+			try {
+				if (userInfo?.role === "admin" || _lesson?.teacher_id === userInfo?.uid) {
 					deleteLesson()
 					handleClose()
 					router.push("/lessons")
-				} catch (error) {
-					console.error(error)
-					setMessage("Something went wrong")
+					return
 				}
-			},
-			[deleteLesson]
-		)
+				setMessage("You are not allowed to delete this class")
+			} catch (error) {
+				console.error(error)
+				setMessage("Something went wrong")
+			}
+		}
 
 		// Edit class
 		const {
