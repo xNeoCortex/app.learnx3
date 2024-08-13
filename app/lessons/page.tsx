@@ -48,8 +48,9 @@ function index() {
 						<Box
 							sx={{
 								display: "flex",
-								alignItems: "center",
+								alignItems: "start",
 								justifyContent: "space-between",
+								flexDirection: "column",
 								width: "100%",
 							}}
 						>
