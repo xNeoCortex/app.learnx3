@@ -228,7 +228,7 @@ const AddLessonDialog = React.memo(
 const isButtonDisabled = (lessonInfo: LessonTimetableType) => {
 	try {
 		const { topic, level, lesson_type, lesson_date, video_call_link } = lessonInfo
-		return !topic?.length || !level?.length || !lesson_type?.length || !lesson_date || !video_call_link?.length
+		return !topic?.length || !level?.length || !lesson_type?.length || !lesson_date
 	} catch (error) {
 		return true
 	}
