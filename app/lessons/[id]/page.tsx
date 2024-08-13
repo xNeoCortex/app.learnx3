@@ -146,6 +146,15 @@ function Lesson({ params }: { params: { id: string } }) {
 											<ChipX
 												color={lessonTypeColors[lessonTimetableList?.data?.lesson_type]}
 												text={capitalize(lessonTimetableList?.data?.lesson_type?.split("_")?.join(" "))}
+												style={{
+													background:
+														lessonTimetableList?.data?.lesson_type === "speaking_club"
+															? brandColors.lightPurple
+															: "#0e9ade",
+													fontWeight: 600,
+													borderColor: "white",
+													color: "white",
+												}}
 											/>
 										)}
 									</Box>
@@ -236,6 +245,7 @@ function Lesson({ params }: { params: { id: string } }) {
 													color: "white",
 													fontWeight: "600",
 													padding: "3px 10px",
+													width: "max-content",
 													"&:hover": { background: "#424493" },
 												}}
 											>
