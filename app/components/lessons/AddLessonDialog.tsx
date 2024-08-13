@@ -116,10 +116,9 @@ const AddLessonDialog = React.memo(
 									<Grid item xs={12} sm={6}>
 										<TextField
 											name="videoLink"
-											required
 											fullWidth
 											id="videoLink"
-											label="Video Call Link"
+											label="Video call link"
 											value={lessonInfo.video_call_link}
 											onChange={(e) => setLessonInfo((prev) => ({ ...prev, video_call_link: e.target.value }))}
 										/>
