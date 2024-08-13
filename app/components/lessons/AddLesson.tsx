@@ -62,7 +62,7 @@ const AddLesson = React.memo<{ buttonName?: string; _lesson?: LessonTimetableTyp
 			(e) => {
 				e.preventDefault()
 				try {
-					if (userInfo?.role === "teacher" && _lesson?.teacher_id !== userInfo?.uid) {
+					if (userInfo?.role == "teacher" && _lesson?.teacher_id !== userInfo?.uid) {
 						setMessage("You are not allowed to delete this class")
 						return
 					}
