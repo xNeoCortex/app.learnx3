@@ -13,6 +13,8 @@ import CustomAvatar from "../elements/CustomAvatar"
 import { useQuery } from "@tanstack/react-query"
 import ApiServices from "@/api/ApiServices"
 import { brandColors } from "../utils/brandColors"
+import AssessmentIcon from "@mui/icons-material/Assessment"
+import { englishLevels } from "../utils/englishLevels"
 
 const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) => {
 	const { userInfo } = useStoreUser()
@@ -86,6 +88,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						alignItems: "center",
 						flexDirection: "column",
 						mb: 1,
+						mt: "-8px",
 						height: "100%",
 					}}
 				>
@@ -107,7 +110,6 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 						justifyContent: "space-between",
 						flexDirection: "column",
 						width: "100%",
-						mt: 1,
 					}}
 				>
 					<Typography
@@ -116,7 +118,7 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 							fontWeight: 600,
 							fontSize: 16,
 							padding: "0px 4px",
-							mb: 2,
+							mb: 1.5,
 							maxWidth: 180,
 						}}
 					>
@@ -132,16 +134,22 @@ const LessonTimetableCard = memo(({ lesson }: { lesson: LessonTimetableType }) =
 							fontWeight: 600,
 						}}
 					>
-						<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+						<Box sx={{ display: "flex", alignItems: "center", mb: "5px" }}>
 							<EventIcon sx={{ mr: 1, height: 20 }} />
 							<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
 								{dayjs(localTime(lesson.lesson_date)).format("dddd, MMM D")}
 							</Typography>
 						</Box>
-						<Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+						<Box sx={{ display: "flex", alignItems: "center", mb: "5px" }}>
 							<AccessTimeIcon sx={{ mr: 1, height: 20 }} />
 							<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
 								{lesson?.lesson_type === "speaking_club" ? "20:00" : "19:00"} (50 min)
+							</Typography>
+						</Box>
+						<Box sx={{ display: "flex", alignItems: "center", mb: "5px" }}>
+							<AssessmentIcon sx={{ mr: 1 }} />
+							<Typography sx={{ fontSize: "inherit", fontWeight: "inherit" }}>
+								{englishLevels[lesson?.level || ""]}
 							</Typography>
 						</Box>
 					</Box>
@@ -160,7 +168,7 @@ const BoxStyle = {
 	alignItems: "start",
 	minHeight: "110px",
 	borderRadius: "10px",
-	padding: "5px 15px 15px",
+	padding: "5px 15px 10px",
 	position: "relative",
 	height: "100%",
 	overflow: "hidden",
