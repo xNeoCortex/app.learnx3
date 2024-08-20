@@ -1,5 +1,5 @@
 import { auth } from "./firebaseX"
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material"
+import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material"
 import AccountMenu from "./auth/SignOut"
 import { useStoreUser } from "./zustand"
 import { useQuery } from "@tanstack/react-query"
@@ -7,6 +7,7 @@ import { TestResultType } from "@/types/types"
 import { useMemo } from "react"
 import ApiServices from "../api/ApiServices"
 import { brandColors } from "./utils/brandColors"
+import Link from "next/link"
 
 const Navbar = () => {
 	const theme = useTheme()
@@ -44,6 +45,22 @@ const Navbar = () => {
 				</Box>
 				<Box display="flex" alignItems="center">
 					<Box display="flex" alignItems="center" justifyContent="start" width="100%">
+						{userInfo.role === "admin" && (
+							<Link href="/home/admin" passHref>
+								<Button
+									sx={{
+										background: "#5f6ac4",
+										color: "white",
+										boxShadow: "none",
+										padding: "1px 20px 0px",
+										marginX: "10px",
+										"&:hover": { background: "#5f6ad9", transform: "scale(1.05)", transition: "all 0.3s" },
+									}}
+								>
+									Admin
+								</Button>
+							</Link>
+						)}
 						<Typography variant="body2" sx={TypographyStyle}>
 							Level {Math.floor(getStudentTotalScore / 400) + 1}
 						</Typography>
