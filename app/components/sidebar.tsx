@@ -162,8 +162,8 @@ const dataAdmin = () => {
 	return [
 		{
 			name: "Dashboard",
-			href: "/home/admin",
-			link: "/home/admin",
+			href: "/",
+			link: "/",
 			icon: <CastForEducationIcon sx={{ width: 30, height: 30 }} />,
 		},
 		{
