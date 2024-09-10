@@ -1,5 +1,6 @@
 "use client"
 import { createRef, useEffect, useState } from "react"
+import AgoraRTC from "agora-rtc-sdk-ng"
 import { useChatStore, useSuggestionsStore } from "../zustand"
 import axios from "axios"
 import { Box, Button, Stack, Typography } from "@mui/material"
@@ -11,11 +12,17 @@ import AudioPlayer from "../elements/AudioReco"
 import Translator from "../elements/Translator"
 const UseAudioRecorder = dynamic(() => import("./UseAudioRecorder"), { ssr: false })
 
+const rtc = {
+	localAudioTrack: null,
+	client: null,
+}
+
 export default function Chat() {
 	const { messages } = useChatStore()
 	const { suggestion, addSuggestion } = useSuggestionsStore()
 	const [audioURL, setAudioURL] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
+	const [isVideoCallActive, setIsVideoCallActive] = useState(false)
 
 	const handleSuggestion = async () => {
 		try {
@@ -32,6 +39,29 @@ export default function Chat() {
 			console.error("Error generating the audio file:", error)
 			setError("Sorry, something went wrong. Please try again later.")
 		}
+	}
+
+	const startVideoCall = async () => {
+		try {
+			rtc.client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" })
+			await rtc.client.join("YOUR_AGORA_APP_ID", "test-channel", null)
+			rtc.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack()
+			await rtc.client.publish([rtc.localAudioTrack])
+			setIsVideoCallActive(true)
+		} catch (error) {
+			console.error("Error starting the video call:", error)
+			setError("Sorry, something went wrong. Please try again later.")
+		}
+	}
+
+	const endVideoCall = async () => {
+		try {
+			rtc.localAudioTrack.close()
+			await rtc.client.leave()
+			setIsVideoCallActive(false)
+		} catch (error) {
+			console.error("Error ending the video call:", error)
+			setError("Sorry, something went wrong. Please try again later.")
 	}
 
 	//scroll to bottom
@@ -137,6 +167,7 @@ export default function Chat() {
 									💡 Suggest
 								</Button>
 							)}
+
 							<Box display={"flex"} width={"100%"}>
 								<Translator text={suggestion} fontSize={10} flexDirection={"row"} iconColor={brandColors.lightPurple}>
 									{audioURL && suggestion && <AudioPlayer audioSrc={audioURL} iconColor={brandColors.lightPurple} />}
@@ -148,6 +179,34 @@ export default function Chat() {
 										)}
 									</Box>
 								</Translator>
+
+				{/* Video Call Buttons */}
+				{!isVideoCallActive ? (
+					<Button
+						size="small"
+						variant="outlined"
+						onClick={startVideoCall}
+						sx={{
+							textDecoration: "none",
+							textTransform: "none",
+							border: "2px solid #f4d35e",
+							color: "#cda000",
+							fontWeight: "semibold",
+							maxWidth: "90px",
+							width: "inherit",
+							fontSize: "10px",
+							" &:hover": { border: "1px solid #f4d35e", backgroundColor: "#f4d35e", color: "black" },
+						}}
+					>
+						Start Video Call
+					</Button>
+				) : (
+					<Button
+						size="small"
+						variant="outlined"
+						onClick={endVideoCall}
+						sx={{
+							textDecoration: "none",
 							</Box>
 						</>
 					)}
